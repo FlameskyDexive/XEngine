@@ -1,3 +1,5 @@
+
+
 <div align="center">
 
 <img src="docs/readme/logo.png" width="128" alt="XEngine logo" />
@@ -479,7 +481,7 @@ Unity **ScriptableBuildPipeline** (Unity Companion License).
 | [Magick.NET](https://github.com/dlemstra/Magick.NET) | Image processing for texture import | NuGet |
 | [Slang](https://github.com/shader-slang/slang) | Shader compiler | MIT, native binaries vendored |
 | [K4os.Compression.LZ4](https://github.com/MiloszKrajewski/K4os.Compression.LZ4) | LZ4 block compression for AssetBundles | MIT, NuGet |
-| [DotRecast](https://github.com/ikpil/DotRecast) | Navmesh generation and pathfinding | Vendored source (`ThirdParty/DotRecast/`, MIT) |
+| [DotRecast](https://github.com/ikpil/DotRecast) | Navmesh generation and pathfinding | Vendored source (`ThirdParty/DotRecast/`, zlib) |
 | [spine-csharp](https://github.com/EsotericSoftware/spine-runtimes) | Spine skeletal animation runtime | Spine Runtimes License |
 
 Full third-party notices live in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
