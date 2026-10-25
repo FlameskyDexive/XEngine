@@ -1,0 +1,1536 @@
+﻿// This file is part of the XEngine Game Engine
+// Licensed under the MIT License. See the LICENSE file in the project root for details.
+
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+
+using XEngine.Echo;
+using XEngine.Runtime.Resources;
+using XEngine.Vector;
+
+namespace XEngine.Runtime;
+
+/// <summary>
+/// The Base Class for all Object/Entities in a Scene.
+/// Holds a collection of Components that contain the logic for this Object/Entity
+/// </summary>
+public class GameObject : EngineObject, ISerializable
+{
+    #region Private Fields/Properties
+
+    internal List<MonoBehaviour> _components = [];
+    private MultiValueDictionary<Type, MonoBehaviour> _componentCache = [];
+
+    private Guid _identifier = Guid.NewGuid();
+
+    private bool _static = false;
+
+    private bool _enabled = true;
+    private bool _enabledInHierarchy = true;
+
+    // We don't serialize parent, since if we want to serialize X object who is a child to Y object, we don't want to serialize Y object as well.
+    // The parent is reconstructed when the object is deserialized for all children.
+    private GameObject? _parent;
+
+    [SerializeField]
+    private Transform _transform = new();
+
+    [SerializeIgnore]
+    private WeakReference<Scene> _scene;
+
+    // Prefab instance data (inert when _prefabAssetId == Guid.Empty)
+    private Guid _prefabAssetId = Guid.Empty;
+    private List<PropertyOverride>? _prefabOverrides;
+    private int _prefabComponentCount = -1; // Number of components in prefab source (-1 = not prefab)
+    private int _prefabChildCount = -1;     // Number of children in prefab source (-1 = not prefab)
+
+    #endregion
+
+    #region Public Fields/Properties
+
+    /// <summary> The Tag Index of this GameObject </summary>
+    public int TagIndex;
+
+    /// <summary> The Layer Index of this GameObject </summary>
+    public int LayerIndex;
+
+    /// <summary>
+    /// Editor label icon (0 = none, 1..8 = preset label colors), shown in the hierarchy and
+    /// inspector instead of the component-derived icon.
+    /// </summary>
+    public int LabelIcon;
+
+    /// <summary>
+    /// Custom icon texture asset guid ("" = none). Takes precedence over <see cref="LabelIcon"/>.
+    /// </summary>
+    public string IconAssetGuid = "";
+
+    /// <summary> The Hide Flags of this GameObject, Used to hide the GameObject from a variety of places like Serializing, Inspector or Hierarchy </summary>
+    [HideInInspector] public HideFlags HideFlags = HideFlags.None;
+
+    /// <summary> Gets whether or not this gameobject is enabled explicitly </summary>
+    public bool Enabled
+    {
+        get => _enabled;
+        set { if (value != _enabled) { SetEnabled(value); } }
+    }
+
+    /// <summary> Gets whether this gameobject is enabled in the hierarchy, so if its parent is disabled this will return false </summary>
+    public bool EnabledInHierarchy => _enabledInHierarchy;
+
+    /// <summary> The Tag of this GameObject </summary>
+    public string Tag
+    {
+        get => TagLayerManager.GetTag(TagIndex);
+        set => TagIndex = TagLayerManager.GetTagIndex(value);
+    }
+
+    /// <summary> The Layer of this GameObject </summary>
+    public string Layer
+    {
+        get => TagLayerManager.GetLayer(LayerIndex);
+        set => LayerIndex = TagLayerManager.GetLayerIndex(value);
+    }
+
+    /// <summary> The Static flag of this GameObject, Changing this may not behave as expected! </summary>
+    public bool IsStatic
+    {
+        get => _static;
+        set => _static = value;
+    }
+
+    /// <summary> The Identifier of this GameObject </summary>
+    public Guid Identifier => _identifier;
+
+    /// <summary>Set the identifier. Used by Scene to restore stable identities after deserialization.</summary>
+    internal void SetIdentifier(Guid id) => _identifier = id;
+
+    /// <summary>
+    /// Which prefab-asset node this instance node came from (the identifier the serialized data
+    /// carried before instantiation handed out a fresh identity). The pairing key the editor
+    /// matches instances against rebuilt prefab sources with; empty for plain objects.
+    /// </summary>
+    public Guid SourceIdentifier => _sourceIdentifier;
+    private Guid _sourceIdentifier;
+
+    /// <summary>Set the prefab-source pairing recorded at instantiation. Editor-facing.</summary>
+    internal void SetSourceIdentifier(Guid id) => _sourceIdentifier = id;
+
+    /// <summary> The Parent of this GameObject, Can be null </summary>
+    public GameObject? Parent => _parent;
+
+    /// <summary> A List of all children of this GameObject </summary>
+    public List<GameObject> Children = [];
+
+    public int ChildCount => Children.Count;
+
+
+    /// <summary>
+    /// The GameObjects parent <see cref="XEngine.Runtime.Resources.Scene"/>. Each GameObject can belong to
+    /// exactly one Scene, or no Scene at all. To add or remove GameObjects to / from a Scene, use the <see cref="XEngine.Runtime.Resources.Scene.Add(GameObject)"/> and
+    /// <see cref="XEngine.Runtime.Resources.Scene.Remove(GameObject)"/> methods.
+    /// </summary>
+    public Scene? Scene
+    {
+        get => _scene != null && _scene.TryGetTarget(out Scene? scene) ? scene : null;
+        internal set => _scene = new(value);
+    }
+
+    /// <summary>Is this GameObject a prefab instance?</summary>
+    public bool IsPrefabInstance => _prefabAssetId != Guid.Empty;
+
+    /// <summary>The prefab asset GUID, or Guid.Empty if not a prefab instance.</summary>
+    public Guid PrefabAssetId
+    {
+        get => _prefabAssetId;
+        set => _prefabAssetId = value;
+    }
+
+    /// <summary>Per-instance property overrides for this prefab instance.</summary>
+    public List<PropertyOverride> PrefabOverrides
+    {
+        get => _prefabOverrides ??= new();
+        set => _prefabOverrides = value;
+    }
+
+    /// <summary>Number of components in the prefab source. Used for structure enforcement.</summary>
+    public int PrefabComponentCount
+    {
+        get => _prefabComponentCount;
+        set => _prefabComponentCount = value;
+    }
+
+    /// <summary>Number of children in the prefab source. Used for structure enforcement.</summary>
+    public int PrefabChildCount
+    {
+        get => _prefabChildCount;
+        set => _prefabChildCount = value;
+    }
+
+    /// <summary>Clear all prefab tracking data on this GameObject.</summary>
+    public void ClearPrefabData()
+    {
+        _prefabAssetId = Guid.Empty;
+        _prefabOverrides = null;
+        _prefabComponentCount = -1;
+        _prefabChildCount = -1;
+    }
+
+    /// <summary>Clear all prefab data on this GameObject and all descendants.</summary>
+    public void ClearPrefabDataRecursive()
+    {
+        ClearPrefabData();
+        foreach (var child in Children)
+            child.ClearPrefabDataRecursive();
+    }
+
+    #endregion
+
+    public Transform Transform
+    {
+        get
+        {
+            _transform.GameObject = this; // ensure game object is this
+            return _transform;
+        }
+    }
+
+    /// <summary>
+    /// The <see cref="RectTransform"/> component on this GameObject, or null if it has none.
+    /// </summary>
+    public RectTransform? RectTransform
+    {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        get
+        {
+            // Avoid the component-cache IReadOnlyCollection enumerator in layout/render hot paths.
+            for (int i = 0; i < _components.Count; i++)
+                if (_components[i] is RectTransform rectTransform) return rectTransform;
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// Ensures this GameObject has a <see cref="RectTransform"/> component, adding one if missing.
+    /// </summary>
+    public RectTransform EnsureRectTransform()
+        => GetComponent<RectTransform>() ?? AddComponent<RectTransform>();
+
+    /// <summary>
+    /// Checks if this GameObject is a child or the same as the given parent transform.
+    /// </summary>
+    /// <param name="transform">The GameObject to check.</param>
+    /// <param name="inParent">The potential parent GameObject.</param>
+    /// <returns>True if this GameObject is a child or the same as the given parent, false otherwise.</returns>
+    public static bool IsChildOrSameTransform(GameObject transform, GameObject inParent)
+    {
+        if (inParent.IsNotValid()) return false;
+        GameObject child = transform;
+        while (child.IsValid())
+        {
+            if (child == inParent)
+                return true;
+            child = child._parent;
+        }
+        return false;
+    }
+
+
+    /// <summary>
+    /// Checks if this GameObject is a child of the given parent.
+    /// </summary>
+    /// <param name="parent">The potential parent GameObject.</param>
+    /// <returns>True if this GameObject is a child of the given parent, false otherwise.</returns>
+    public bool IsChildOf(GameObject parent)
+    {
+        if (parent.IsNotValid()) return false;
+
+        GameObject child = _parent;
+        while (child.IsValid())
+        {
+            if (child == parent)
+                return true;
+            child = child._parent;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// Sets the parent of this GameObject.
+    /// </summary>
+    /// <param name="NewParent">The new parent GameObject.</param>
+    /// <param name="worldPositionStays">If true, the world position of the GameObject is maintained.</param>
+    /// <returns>True if the parent was successfully set, false otherwise.</returns>
+    public bool SetParent(GameObject NewParent, bool worldPositionStays = true)
+    {
+        if (NewParent == _parent)
+            return true;
+
+        // Make sure that the new father is not a child of this transform.
+        if (IsChildOrSameTransform(NewParent, this))
+            return false;
+
+        // A UI subtree moving between canvases must rebuild both: the old canvas (this element left
+        // it) and the new one (it joined). Capture the old canvas before the parent pointer changes.
+        GameCanvas? uiOldCanvas = GetComponentInParent<GameCanvas>();
+
+        Scene newScene = (NewParent.IsValid()) ? NewParent.Scene : Scene;
+
+        if (newScene != Scene)
+        {
+            Scene?.Remove(this);
+            newScene?.Add(this);
+        }
+
+        // Save world-space transform before reparenting
+        Float3 worldPosition = new();
+        Quaternion worldRotation = new();
+        Float3 worldLossyScale = new();
+
+        if (worldPositionStays)
+        {
+            worldPosition = Transform.Position;
+            worldRotation = Transform.Rotation;
+            worldLossyScale = Transform.LossyScale;
+        }
+
+        if (NewParent != _parent)
+        {
+            // If it already has an father, remove this from fathers children
+            if (_parent.IsValid())
+                _parent.Children.Remove(this);
+
+            if (NewParent.IsValid())
+                NewParent.Children.Add(this);
+
+            _parent = NewParent;
+        }
+
+        if (worldPositionStays)
+        {
+            if (_parent.IsValid())
+            {
+                Transform.LocalPosition = _parent.Transform.InverseTransformPoint(worldPosition);
+                Transform.LocalRotation = Quaternion.NormalizeSafe(Quaternion.Inverse(_parent.Transform.Rotation) * worldRotation);
+
+                // Preserve world scale: localScale = worldScale / parentWorldScale (component-wise)
+                Float3 parentScale = _parent.Transform.LossyScale;
+                Transform.LocalScale = new Float3(
+                    Maths.Abs(parentScale.X) > float.Epsilon ? worldLossyScale.X / parentScale.X : worldLossyScale.X,
+                    Maths.Abs(parentScale.Y) > float.Epsilon ? worldLossyScale.Y / parentScale.Y : worldLossyScale.Y,
+                    Maths.Abs(parentScale.Z) > float.Epsilon ? worldLossyScale.Z / parentScale.Z : worldLossyScale.Z);
+            }
+            else
+            {
+                Transform.LocalPosition = worldPosition;
+                Transform.LocalRotation = Quaternion.NormalizeSafe(worldRotation);
+                // No parent local scale = world scale
+                Transform.LocalScale = worldLossyScale;
+            }
+        }
+
+        // When worldPositionStays is true the local setters above already bumped the version; when
+        // false, the local values are unchanged but the new parent changes the world transform, so
+        // signal the change explicitly (world-space caches keyed on Version would otherwise go stale).
+        if (!worldPositionStays)
+            Transform.MarkChanged();
+
+        HierarchyStateChanged();
+
+        // A same-scene reparent changes topology without going through Scene.Add/Remove, so bump the
+        // structure version here (cross-scene moves already bumped both scenes via Remove/Add above).
+        Scene?.BumpStructureVersion();
+
+        // Draw order and layout are derived from the child tree at canvas build time, and a same-scene
+        // reparent fires no OnAdded/Removed - so mark the affected canvas(es) dirty explicitly.
+        GameCanvas? uiNewCanvas = GetComponentInParent<GameCanvas>();
+        uiOldCanvas?.MarkDirty(XEngine.Runtime.UI.UIDirtyFlags.Hierarchy);
+        if (!ReferenceEquals(uiNewCanvas, uiOldCanvas))
+            uiNewCanvas?.MarkDirty(XEngine.Runtime.UI.UIDirtyFlags.Hierarchy);
+
+        return true;
+    }
+
+    #region Constructors
+
+    /// <summary>Creates a new gameobject with the name 'New GameObject'.</summary>
+    public GameObject() : base("New GameObject") { }
+
+    /// <summary>Creates a new gameobject.</summary>
+    /// <param name="name">The name of the gameobject.</param>
+    public GameObject(string name = "New GameObject") : base(name) { }
+
+
+    #endregion
+
+    /// <summary> Recursive function to check if this GameObject is a parent of another GameObject </summary>
+    public bool IsParentOf(GameObject go)
+    {
+        if (go.IsNotValid()) return false;
+        if (go.Parent?.InstanceID == InstanceID)
+            return true;
+
+        foreach (GameObject child in Children)
+            if (child.IsParentOf(go))
+                return true;
+
+        return false;
+    }
+
+    /// <summary>
+    /// Checks if this GameObject's tag matches the given tag.
+    /// This is preferred over manually checking the Tag/Layer indices.
+    /// This takes into account if layers/tags are moved/changed
+    /// </summary>
+    /// <param name="otherTag">The tag to compare against.</param>
+    /// <returns>True if the tags match, false otherwise.</returns>
+    public bool CompareTag(string otherTag) => TagLayerManager.GetTag(TagIndex).Equals(otherTag, StringComparison.OrdinalIgnoreCase);
+
+    /// <summary>
+    /// Finds a GameObject by name in the same scene.
+    /// </summary>
+    /// <param name="otherName">The name of the GameObject to find.</param>
+    /// <param name="ignoreCase">If true, the search is case-insensitive.</param>
+    /// <returns>The first GameObject with the given name, or null if not found.</returns>
+    public GameObject Find(string otherName, bool ignoreCase = false)
+    {
+        if (Scene == null) return null!;
+        var comparison = ignoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
+        foreach (GameObject gameObject in Scene.AllObjects)
+            if (gameObject.Name.Equals(otherName, comparison))
+                return gameObject;
+        return null!;
+    }
+
+    /// <summary>
+    /// Finds a GameObject with the specified tag in the same scene.
+    /// </summary>
+    /// <param name="otherTag">The tag to search for.</param>
+    /// <returns>The first GameObject with the given tag, or null if not found.</returns>
+    public GameObject FindGameObjectWithTag(string otherTag)
+    {
+        if (Scene == null) return null!;
+        foreach (GameObject gameObject in Scene.AllObjects)
+            if (gameObject.CompareTag(otherTag))
+                return gameObject;
+        return null!;
+    }
+
+    /// <summary>
+    /// Finds all GameObjects with the specified tag in the same scene.
+    /// </summary>
+    /// <param name="otherTag">The tag to search for.</param>
+    /// <returns>An array of GameObjects with the given tag.</returns>
+    public GameObject[] FindGameObjectsWithTag(string otherTag)
+    {
+        if (Scene == null) return [];
+        List<GameObject> result = new();
+        foreach (GameObject gameObject in Scene.AllObjects)
+            if (gameObject.CompareTag(otherTag))
+                result.Add(gameObject);
+        return result.ToArray();
+    }
+
+
+    /// <summary>
+    /// Enumerates all GameObjects that are directly or indirectly parented to this object, i.e. its
+    /// children, grandchildren, etc.
+    /// </summary>
+    public IEnumerable<GameObject> GetChildrenDeep()
+    {
+        if (Children == null) return [];
+
+        int startCapacity = Maths.Max(Children.Count * 2, 8);
+        List<GameObject> result = new(startCapacity);
+        GetChildrenDeep(result);
+        return result;
+    }
+
+    /// <summary>
+    /// Gathers all GameObjects that are directly or indirectly parented to this object, i.e. its
+    /// children, grandchildren, etc.
+    /// </summary>
+    public void GetChildrenDeep(List<GameObject> resultList)
+    {
+        if (Children == null) return;
+        resultList.AddRange(Children);
+        for (int i = 0; i < Children.Count; i++)
+            Children[i].GetChildrenDeep(resultList);
+    }
+
+    public GameObject GetChildAtIndexPath(IEnumerable<int> indexPath)
+    {
+        GameObject curObj = this;
+        foreach (int i in indexPath)
+        {
+            if (i < 0) return null;
+            if (curObj.Children == null) return null;
+            if (i >= curObj.Children.Count) return null;
+            curObj = curObj.Children[i];
+        }
+        return curObj;
+    }
+
+    /// <summary>
+    /// Determines the index path from this GameObject to the specified child (or grandchild, etc.) of it.
+    /// </summary>
+    /// <param name="child">The child GameObject to lead to.</param>
+    /// <returns>A <see cref="List{T}"/> of indices that lead from this GameObject to the specified child GameObject.</returns>
+    /// <seealso cref="GetChildAtIndexPath"/>
+    public List<int> GetIndexPathOfChild(GameObject child)
+    {
+        List<int> path = [];
+        while (child.Parent.IsValid() && child != this)
+        {
+            path.Add(child.Parent.Children.IndexOf(child));
+            child = child.Parent;
+        }
+        path.Reverse();
+        return path;
+    }
+
+    /// <summary>
+    /// Finds child a GameObject by its identifier.
+    /// </summary>
+    /// <param name="identifier"></param>
+    /// <param name="deep"></param>
+    public GameObject FindChildByIdentifier(Guid identifier, bool deep = true)
+    {
+        if (_identifier == identifier)
+            return this;
+
+        foreach (GameObject child in Children)
+        {
+            if (child.Identifier == identifier)
+                return child;
+            if (deep)
+            {
+                GameObject found = child.FindChildByIdentifier(identifier);
+                if (found.IsValid())
+                    return found;
+            }
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// Gets the index of this GameObject in its parent's children list.
+    /// </summary>
+    /// <returns>The index of this GameObject in its parent's children list, or null if it has no parent.</returns>
+    /// <exception cref="Exception">Thrown if the GameObject is not found in its parent's children list.</exception>
+    public int? GetSiblingIndex()
+    {
+        if (Parent.IsNotValid()) return null;
+
+        for (int i = 0; i < Parent.Children.Count; i++)
+            if (Parent.Children[i] == this)
+                return i;
+
+        throw new Exception($"This gameobject appears to be in Limbo, This should never happen!, The gameobject believes its a child of {Parent.Name} but parent doesn't have it as a child!");
+    }
+
+    /// <summary>
+    /// Sets the index of this GameObject in its parent's children list.
+    /// </summary>
+    /// <param name="index">The new index of this GameObject.</param>
+    public void SetSiblingIndex(int index)
+    {
+        if (Parent.IsNotValid()) return;
+
+        // Remove this object from current position
+        Parent.Children.Remove(this);
+
+        // Ensure index is within bounds
+        index = Maths.Max(0, Maths.Min(index, Parent.Children.Count));
+
+        // Insert at new position
+        Parent.Children.Insert(index, this);
+
+        // Sibling order is scene topology - hierarchy views cache on the structure version.
+        Scene?.BumpStructureVersion();
+
+        // Sibling order feeds the canvas draw-order (depth-first index); force a rebuild so the
+        // reorder is reflected instead of drawing in the stale order.
+        GetComponentInParent<GameCanvas>()?.MarkDirty(XEngine.Runtime.UI.UIDirtyFlags.Hierarchy);
+    }
+
+    /// <summary>
+    /// Adds a component of type T to the GameObject.
+    /// </summary>
+    /// <typeparam name="T">The type of component to add.</typeparam>
+    /// <returns>The newly added component of type T.</returns>
+    public T AddComponent<T>() where T : MonoBehaviour, new() => AddComponent(typeof(T)) as T;
+
+    /// <summary>
+    /// Adds a component of the specified type to the GameObject.
+    /// </summary>
+    /// <param name="type">The type of component to add.</param>
+    /// <returns>The newly added MonoBehaviour component.</returns>
+    public MonoBehaviour AddComponent([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] Type type)
+    {
+        if (!typeof(MonoBehaviour).IsAssignableFrom(type)) return null;
+
+        RequireComponentAttribute? requireComponentAttribute = type.GetCustomAttribute<RequireComponentAttribute>();
+        if (requireComponentAttribute != null)
+        {
+            foreach (Type requiredComponentType in requireComponentAttribute.types)
+            {
+                if (!typeof(MonoBehaviour).IsAssignableFrom(requiredComponentType))
+                    continue;
+
+                // If there is already a component on the object
+                if (GetComponent(requiredComponentType).IsValid())
+                    continue;
+
+                // Types referenced by [RequireComponent(typeof(...))] are preserved by the typeof() expression.
+#pragma warning disable IL2072
+                AddComponent(requiredComponentType);
+#pragma warning restore IL2072
+            }
+        }
+
+        var newComponent = Activator.CreateInstance(type) as MonoBehaviour;
+        if (newComponent.IsNotValid()) return null;
+
+        newComponent.AttachToGameObject(this);
+        _components.Add(newComponent);
+        _componentCache.Add(type, newComponent);
+
+        NotifyComponentAddedToScene(newComponent);
+
+        return newComponent;
+    }
+
+    /// <summary>
+    /// Adds an existing MonoBehaviour component to the GameObject.
+    /// </summary>
+    /// <param name="comp">The MonoBehaviour component to add.</param>
+    public void AddComponent(MonoBehaviour comp)
+    {
+        ArgumentNullException.ThrowIfNull(comp, nameof(comp));
+
+        Type type = comp.GetType();
+        RequireComponentAttribute? requireComponentAttribute = type.GetCustomAttribute<RequireComponentAttribute>();
+        if (requireComponentAttribute != null)
+        {
+            foreach (Type requiredComponentType in requireComponentAttribute.types)
+            {
+                if (!typeof(MonoBehaviour).IsAssignableFrom(requiredComponentType))
+                    continue;
+
+                // If there is already a component on the object
+                if (GetComponent(requiredComponentType).IsValid())
+                    continue;
+
+                // Types referenced by [RequireComponent(typeof(...))] are preserved by the typeof() expression.
+#pragma warning disable IL2072
+                AddComponent(requiredComponentType);
+#pragma warning restore IL2072
+            }
+        }
+
+        comp.AttachToGameObject(this);
+        _components.Add(comp);
+        _componentCache.Add(comp.GetType(), comp);
+
+        NotifyComponentAddedToScene(comp);
+    }
+
+    /// <summary>
+    /// When a component is added to a GameObject that already lives in a scene, it is entering that
+    /// scene now: fire OnAddedToScene (mirroring Scene.AddObject), then OnEnable if the scene is
+    /// active and the component is enabled.
+    /// </summary>
+    private void NotifyComponentAddedToScene(MonoBehaviour comp)
+    {
+        Scene? scene = Scene;
+        if (!scene.IsValid()) return;
+
+        try { comp.OnAddedToScene(); }
+        catch (Exception ex) { Debug.LogError($"[{Name}/{comp.GetType().Name}] OnAddedToScene() threw: {ex.Message}\n{ex.StackTrace}"); }
+
+        if (scene.IsActive && comp.EnabledInHierarchy)
+            comp.InternalOnEnable();
+    }
+
+    /// <summary>
+    /// Removes all components of type T from the GameObject.
+    /// </summary>
+    /// <typeparam name="T">The type of components to remove.</typeparam>
+    public void RemoveAll<T>() where T : MonoBehaviour
+    {
+        if (_componentCache.TryGetValue(typeof(T), out IReadOnlyCollection<MonoBehaviour>? components))
+        {
+            // Create a copy to avoid potential collection modification issues (no LINQ — PR0001).
+            var componentList = new List<MonoBehaviour>(components.Count);
+            foreach (MonoBehaviour c in components)
+                componentList.Add(c);
+
+            // OnDisable is only called if OnEnable was previously called
+            foreach (MonoBehaviour c in componentList)
+                if (c.HasBeenEnabled && c.EnabledInHierarchy)
+                    c.InternalOnDisable();
+
+            foreach (MonoBehaviour c in componentList)
+            {
+                if (c.HasBeenEnabled) // OnDispose is only called if OnEnable was previously called
+                    c.Dispose();
+
+                _components.Remove(c);
+            }
+            _componentCache.Remove(typeof(T));
+        }
+    }
+
+    /// <summary>
+    /// Removes a specific component from the GameObject.
+    /// </summary>
+    /// <typeparam name="T">The type of component to remove.</typeparam>
+    /// <param name="component">The component instance to remove.</param>
+    public void RemoveComponent<T>(T component) where T : MonoBehaviour
+    {
+        ArgumentNullException.ThrowIfNull(component, nameof(component));
+        if (component.CanDestroy() == false) return;
+
+        _components.Remove(component);
+        _componentCache.Remove(component.GetType(), component);
+
+        // OnDisable and OnDispose are only called if OnEnable was previously called
+        if (component.HasBeenEnabled)
+        {
+            if (component.EnabledInHierarchy) component.InternalOnDisable();
+            component.Dispose();
+        }
+    }
+
+    /// <summary>
+    /// Removes a specific component from the GameObject.
+    /// </summary>
+    /// <param name="component">The component instance to remove.</param>
+    public void RemoveComponent(MonoBehaviour component)
+    {
+        if (component.CanDestroy() == false) return;
+
+        if (_components.Remove(component))
+        {
+            _componentCache.Remove(component.GetType(), component);
+
+            // OnDisable and OnDispose are only called if OnEnable was previously called
+            if (component.HasBeenEnabled)
+            {
+                if (component.EnabledInHierarchy) component.InternalOnDisable();
+                component.Dispose();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Removes a specific component from the GameObject By its Identifier.
+    /// </summary>
+    /// <param name="component">The component identifier to remove.</param>
+    public void RemoveComponent(Guid component)
+    {
+        MonoBehaviour? comp = GetComponentByIdentifier(component);
+        if (comp.IsValid())
+            RemoveComponent(comp);
+    }
+
+    /// <summary>
+    /// Gets the first component of type T attached to the GameObject.
+    /// </summary>
+    /// <typeparam name="T">The type of component to get.</typeparam>
+    /// <returns>The component of type T, or null if not found.</returns>
+    public T? GetComponent<T>() where T : MonoBehaviour => (T?)GetComponent(typeof(T));
+
+    /// <summary>
+    /// Gets the first component of the specified type attached to the GameObject.
+    /// </summary>
+    /// <param name="type">The type of component to get.</param>
+    /// <returns>The MonoBehaviour component of the specified type, or null if not found.</returns>
+    public MonoBehaviour? GetComponent(Type type)
+    {
+        if (type == null) return null;
+        if (_componentCache.TryGetValue(type, out IReadOnlyCollection<MonoBehaviour>? components))
+        {
+            foreach (MonoBehaviour component in components)
+                return component;
+        }
+        else
+            foreach (MonoBehaviour comp in _components)
+                if (comp.GetType().IsAssignableTo(type))
+                    return comp;
+        return null;
+    }
+
+    /// <summary>
+    /// Gets the component with the specified identifier attached to the GameObject.
+    /// </summary>
+    /// <param name="identifier">The identifier of the component to get.</param>
+    /// <returns>The MonoBehaviour component with the specified identifier, or null if not found.</returns>
+    public MonoBehaviour? GetComponentByIdentifier(Guid identifier)
+    {
+        if (identifier == Guid.Empty) return null;
+        foreach (MonoBehaviour component in _components)
+            if (component.Identifier == identifier)
+                return component;
+        return null;
+    }
+
+    /// <summary>
+    /// Gets all components attached to the GameObject.
+    /// </summary>
+    /// <returns>An IEnumerable of all MonoBehaviour components.</returns>
+    public IEnumerable<MonoBehaviour> GetComponents() => _components;
+
+    /// <summary>
+    /// Tries to get the first component of type T attached to the GameObject.
+    /// </summary>
+    /// <typeparam name="T">The type of component to get.</typeparam>
+    /// <param name="component">The output parameter to store the found component.</param>
+    /// <returns>True if a component of type T was found, false otherwise.</returns>
+    public bool TryGetComponent<T>(out T? component) where T : MonoBehaviour => (component = GetComponent<T>()).IsValid();
+
+    /// <summary>
+    /// Gets all components of type T attached to the GameObject.
+    /// </summary>
+    /// <typeparam name="T">The type of components to get.</typeparam>
+    /// <returns>An IEnumerable of components of type T.</returns>
+    public IEnumerable<T> GetComponents<T>() where T : MonoBehaviour
+    {
+        foreach (MonoBehaviour component in GetComponents(typeof(T)))
+            yield return (T)component;
+    }
+
+    /// <summary>
+    /// Copies every component assignable to <typeparamref name="T"/> into a caller-owned buffer.
+    /// This is the allocation-free counterpart to <see cref="GetComponents{T}()"/> for per-frame
+    /// systems such as retained UI layout.
+    /// </summary>
+    public void GetComponents<T>(List<T> results) where T : MonoBehaviour
+    {
+        ArgumentNullException.ThrowIfNull(results);
+        results.Clear();
+        for (int i = 0; i < _components.Count; i++)
+        {
+            if (_components[i] is T component)
+                results.Add(component);
+        }
+    }
+
+    /// <summary>
+    /// Gets all components of the specified type attached to the GameObject.
+    /// </summary>
+    /// <param name="type">The type of components to get.</param>
+    /// <returns>An IEnumerable of MonoBehaviour components of the specified type.</returns>
+    public IEnumerable<MonoBehaviour> GetComponents(Type type)
+    {
+        if (type == typeof(MonoBehaviour))
+        {
+            // Special case for Component
+            foreach (MonoBehaviour comp in _components)
+                yield return comp;
+        }
+        else
+        {
+            if (_componentCache.TryGetValue(type, out IReadOnlyCollection<MonoBehaviour>? components))
+                foreach (MonoBehaviour comp in components)
+                    yield return comp;
+            else
+                foreach (MonoBehaviour comp in _components)
+                    if (comp.GetType().IsAssignableTo(type))
+                        yield return comp;
+        }
+    }
+
+    /// <summary>
+    /// Gets the first component of type T in the GameObject or its parents.
+    /// </summary>
+    /// <typeparam name="T">The type of component to get.</typeparam>
+    /// <param name="includeSelf">If true, includes the current GameObject in the search.</param>
+    /// <param name="includeInactive">If true, includes inactive GameObjects in the search.</param>
+    /// <returns>The component of type T, or null if not found.</returns>
+    public T? GetComponentInParent<T>(bool includeSelf = true, bool includeInactive = false) where T : MonoBehaviour => (T)GetComponentInParent(typeof(T), includeSelf, includeInactive);
+
+    /// <summary>
+    /// Gets the first component of the specified type in the GameObject or its parents.
+    /// </summary>
+    /// <param name="componentType">The type of component to get.</param>
+    /// <param name="includeSelf">If true, includes the current GameObject in the search.</param>
+    /// <param name="includeInactive">If true, includes inactive GameObjects in the search.</param>
+    /// <returns>The MonoBehaviour component of the specified type, or null if not found.</returns>
+    public MonoBehaviour? GetComponentInParent(Type componentType, bool includeSelf = true, bool includeInactive = false)
+    {
+        if (componentType == null) return null;
+        // First check the current Object
+        MonoBehaviour component;
+        if (includeSelf && (EnabledInHierarchy || includeInactive))
+        {
+            component = GetComponent(componentType);
+            if (component.IsValid())
+                return component;
+        }
+        // Now check all parents
+        GameObject parent = this;
+        while ((parent = parent.Parent).IsValid())
+        {
+            if (parent.EnabledInHierarchy || includeInactive)
+            {
+                component = parent.GetComponent(componentType);
+                if (component.IsValid())
+                    return component;
+            }
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// Gets all components of type T in the GameObject and its parents.
+    /// </summary>
+    /// <typeparam name="T">The type of components to get.</typeparam>
+    /// <param name="includeSelf">If true, includes the current GameObject in the search.</param>
+    /// <param name="includeInactive">If true, includes inactive GameObjects in the search.</param>
+    /// <returns>An IEnumerable of components of type T.</returns>
+    public IEnumerable<T> GetComponentsInParent<T>(bool includeSelf = true, bool includeInactive = false) where T : MonoBehaviour
+    {
+        foreach (MonoBehaviour component in GetComponentsInParent(typeof(T), includeSelf, includeInactive))
+            yield return (T)component;
+    }
+
+    /// <summary>
+    /// Gets all components of the specified type in the GameObject and its parents.
+    /// </summary>
+    /// <param name="type">The type of components to get.</param>
+    /// <param name="includeSelf">If true, includes the current GameObject in the search.</param>
+    /// <param name="includeInactive">If true, includes inactive GameObjects in the search.</param>
+    /// <returns>An IEnumerable of MonoBehaviour components of the specified type.</returns>
+    public IEnumerable<MonoBehaviour> GetComponentsInParent(Type type, bool includeSelf = true, bool includeInactive = false)
+    {
+        // First check the current Object
+        if (includeSelf && (EnabledInHierarchy || includeInactive))
+            foreach (MonoBehaviour component in GetComponents(type))
+                yield return component;
+        // Now check all parents
+        GameObject parent = this;
+        while ((parent = parent.Parent).IsValid())
+        {
+            if (parent.EnabledInHierarchy || includeInactive)
+                foreach (MonoBehaviour component in parent.GetComponents(type))
+                    yield return component;
+        }
+    }
+
+    /// <summary>
+    /// Gets the first component of type T in the GameObject or its children.
+    /// </summary>
+    /// <typeparam name="T">The type of component to get.</typeparam>
+    /// <param name="includeSelf">If true, includes the current GameObject in the search.</param>
+    /// <param name="includeInactive">If true, includes inactive GameObjects in the search.</param>
+    /// <returns>The component of type T, or null if not found.</returns>
+    public T? GetComponentInChildren<T>(bool includeSelf = true, bool includeInactive = false) where T : MonoBehaviour => (T)GetComponentInChildren(typeof(T), includeSelf, includeInactive);
+
+    /// <summary>
+    /// Gets the first component of the specified type in the GameObject or its children.
+    /// </summary>
+    /// <param name="componentType">The type of component to get.</param>
+    /// <param name="includeSelf">If true, includes the current GameObject in the search.</param>
+    /// <param name="includeInactive">If true, includes inactive GameObjects in the search.</param>
+    /// <returns>The MonoBehaviour component of the specified type, or null if not found.</returns>
+    public MonoBehaviour GetComponentInChildren(Type componentType, bool includeSelf = true, bool includeInactive = false)
+    {
+        if (componentType == null) return null;
+        // First check the current Object
+        MonoBehaviour component;
+        if (includeSelf && (EnabledInHierarchy || includeInactive))
+        {
+            component = GetComponent(componentType);
+            if (component.IsValid())
+                return component;
+        }
+        // Now check all children
+        foreach (GameObject child in Children)
+        {
+            // Skip inactive children unless includeInactive is true
+            if (!child.EnabledInHierarchy && !includeInactive)
+                continue;
+
+            component = child.GetComponentInChildren(componentType, true, includeInactive);
+            if (component.IsValid())
+                return component;
+        }
+        return null;
+    }
+
+    public MonoBehaviour GetComponentInChildrenByIdentifier(Guid identifier, bool includeSelf = true, bool includeInactive = false)
+    {
+        if (includeSelf && (EnabledInHierarchy || includeInactive))
+        {
+            MonoBehaviour component = GetComponentByIdentifier(identifier);
+            if (component.IsValid())
+                return component;
+        }
+
+        foreach (GameObject child in Children)
+        {
+            // Skip inactive children unless includeInactive is true
+            if (!child.EnabledInHierarchy && !includeInactive)
+                continue;
+
+            MonoBehaviour component = child.GetComponentInChildrenByIdentifier(identifier, true, includeInactive);
+            if (component.IsValid())
+                return component;
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// Gets all components of type T in the GameObject and its children.
+    /// </summary>
+    /// <typeparam name="T">The type of components to get.</typeparam>
+    /// <param name="includeSelf">If true, includes the current GameObject in the search.</param>
+    /// <param name="includeInactive">If true, includes inactive GameObjects in the search.</param>
+    /// <returns>An IEnumerable of components of type T.</returns>
+    public IEnumerable<T> GetComponentsInChildren<T>(bool includeSelf = true, bool includeInactive = false) where T : MonoBehaviour
+    {
+        foreach (MonoBehaviour component in GetComponentsInChildren(typeof(T), includeSelf, includeInactive))
+            yield return (T)component;
+    }
+
+    /// <summary>
+    /// Gets all components of the specified type in the GameObject and its children.
+    /// </summary>
+    /// <param name="type">The type of components to get.</param>
+    /// <param name="includeSelf">If true, includes the current GameObject in the search.</param>
+    /// <param name="includeInactive">If true, includes inactive GameObjects in the search.</param>
+    /// <returns>An IEnumerable of MonoBehaviour components of the specified type.</returns>
+    public IEnumerable<MonoBehaviour> GetComponentsInChildren(Type type, bool includeSelf = true, bool includeInactive = false)
+    {
+        // First check the current Object
+        if (includeSelf && (EnabledInHierarchy || includeInactive))
+            foreach (MonoBehaviour component in GetComponents(type))
+                yield return component;
+        // Now check all children
+        foreach (GameObject child in Children)
+        {
+            // Skip inactive children unless includeInactive is true
+            if (!child.EnabledInHierarchy && !includeInactive)
+                continue;
+
+            foreach (MonoBehaviour component in child.GetComponentsInChildren(type, true, includeInactive))
+                yield return component;
+        }
+    }
+
+    /// <summary>
+    /// Checks if a component is required by other components on the GameObject.
+    /// </summary>
+    /// <param name="requiredComponent">The component to check.</param>
+    /// <param name="dependentType">The output parameter to store the type of the dependent component.</param>
+    /// <returns>True if the component is required, false otherwise.</returns>
+    internal bool IsComponentRequired(MonoBehaviour requiredComponent, out Type dependentType)
+    {
+        Type componentType = requiredComponent.GetType();
+
+        // Check if there is multiple of the same type before checking if required.
+        int numType = 0;
+        foreach (MonoBehaviour component in _components)
+            if (component.GetType() == componentType)
+                numType++;
+        if (numType > 1)
+        {
+            dependentType = null;
+            return false;
+        }
+
+        // If it is the last type on a GameObject, check if it is required by another component.
+        foreach (MonoBehaviour component in _components)
+        {
+            RequireComponentAttribute? requireComponentAttribute = component.GetType().GetCustomAttribute<RequireComponentAttribute>();
+            if (requireComponentAttribute == null)
+                continue;
+
+            bool requiresType = false;
+            foreach (Type type in requireComponentAttribute.types)
+            {
+                if (type == componentType)
+                {
+                    requiresType = true;
+                    break;
+                }
+            }
+            if (!requiresType)
+                continue;
+
+            dependentType = component.GetType();
+            return true;
+        }
+        dependentType = null;
+        return false;
+    }
+
+    /// <summary>
+    /// Disposes of the GameObject and its components.
+    /// </summary>
+    public override void OnDispose()
+    {
+        for (int i = Children.Count - 1; i >= 0; i--)
+            Children[i].Dispose();
+
+        for (int i = _components.Count - 1; i >= 0; i--)
+        {
+            MonoBehaviour component = _components[i];
+            if (component.IsDisposed) continue;
+
+            // Only call OnDisable/OnDispose if OnEnable was previously called
+            if (component.HasBeenEnabled)
+            {
+                // Only call OnDisable if the component is enabled in hierarchy AND the scene is active
+                // This prevents calling OnDisable twice when disposing after scene deactivation
+                Scene? scene = Scene;
+                if (component.EnabledInHierarchy && scene.IsValid() && scene.IsActive)
+                    component.InternalOnDisable();
+
+                component.Dispose();
+            }
+        }
+        _components.Clear();
+
+        // Sever every graph link so a disposed GameObject is a dead-end. Without this, anything
+        // still holding a reference to this GameObject (an editor panel, a render cache, a stray
+        // delegate) transitively keeps its components - and therefore their user-script types and
+        // the collectible AssemblyLoadContext - alive, which blocks script hot-reload.
+        _componentCache.Clear();
+        Children.Clear();
+
+        if (_parent.IsValid() && !_parent.IsDisposed)
+            SetParent(null);
+    }
+
+    /// <summary>
+    /// Sets the enabled state of the GameObject.
+    /// </summary>
+    /// <param name="state">The new enabled state.</param>
+    private void SetEnabled(bool state)
+    {
+        _enabled = state;
+        HierarchyStateChanged();
+    }
+
+    /// <summary>
+    /// Updates the hierarchy state of the GameObject and its children.
+    /// </summary>
+    private void HierarchyStateChanged()
+    {
+        bool newState = _enabled && IsParentEnabled();
+        if (_enabledInHierarchy != newState)
+        {
+            _enabledInHierarchy = newState;
+            foreach (MonoBehaviour component in GetComponents<MonoBehaviour>())
+                component.HierarchyStateChanged();
+        }
+
+        foreach (GameObject child in Children)
+            child.HierarchyStateChanged();
+    }
+
+    /// <summary>
+    /// Checks if the parent of this GameObject is enabled.
+    /// </summary>
+    /// <returns>True if the parent is enabled or if there is no parent, false otherwise.</returns>
+    private bool IsParentEnabled() => Parent.IsNotValid() || Parent.EnabledInHierarchy;
+
+    /// <summary>
+    /// Prints the GameObject hierarchy including all components and children to Debug.Log.
+    /// Useful for debugging scene structure.
+    /// </summary>
+    public void Print()
+    {
+        System.Text.StringBuilder sb = new();
+        sb.AppendLine("========================================");
+        sb.AppendLine($"GameObject Hierarchy: {Name}");
+        sb.AppendLine("========================================");
+        PrintRecursive(this, sb, "", true);
+        sb.AppendLine("========================================");
+        Debug.Log(sb.ToString());
+    }
+
+    private void PrintRecursive(GameObject obj, System.Text.StringBuilder sb, string indent, bool isRoot)
+    {
+        // Print GameObject info
+        string enabledIndicator = obj.Enabled ? "" : " [DISABLED]";
+        string staticIndicator = obj.IsStatic ? " [STATIC]" : "";
+        sb.AppendLine($"{indent}{obj.Name}{enabledIndicator}{staticIndicator}");
+
+        // Print additional info
+        string detailIndent = indent + "  ";
+        if (!string.IsNullOrEmpty(obj.Tag) && obj.Tag != "Untagged")
+            sb.AppendLine($"{detailIndent}Tag: {obj.Tag}");
+        if (!string.IsNullOrEmpty(obj.Layer) && obj.Layer != "Default")
+            sb.AppendLine($"{detailIndent}Layer: {obj.Layer}");
+
+        // Print Transform info
+        Transform t = obj.Transform;
+        sb.AppendLine($"{detailIndent}Position: {FormatVector(t.LocalPosition)} (World: {FormatVector(t.Position)})");
+        sb.AppendLine($"{detailIndent}Rotation: {FormatVector(t.LocalEulerAngles)} (World: {FormatVector(t.EulerAngles)})");
+        sb.AppendLine($"{detailIndent}Scale: {FormatVector(t.LocalScale)} (Lossy: {FormatVector(t.LossyScale)})");
+
+        // Print Components
+        IReadOnlyList<MonoBehaviour> components = obj._components;
+        if (components.Count > 0)
+        {
+            sb.AppendLine($"{detailIndent}Components ({components.Count}):");
+            foreach (MonoBehaviour? comp in components)
+            {
+                string compEnabled = comp.Enabled ? "" : " [DISABLED]";
+                sb.AppendLine($"{detailIndent}  - {comp.GetType().Name}{compEnabled}");
+            }
+        }
+
+        // Print Children
+        if (obj.Children.Count > 0)
+        {
+            sb.AppendLine($"{detailIndent}Children ({obj.Children.Count}):");
+            for (int i = 0; i < obj.Children.Count; i++)
+            {
+                bool isLast = i == obj.Children.Count - 1;
+                string childIndent = indent + (isRoot ? "  " : "  ");
+                string connector = isLast ? "└─ " : "├─ ";
+                string nextIndent = indent + (isRoot ? "  " : "  ") + (isLast ? "   " : "│  ");
+
+                sb.Append($"{childIndent}{connector}");
+                PrintRecursive(obj.Children[i], sb, nextIndent, false);
+            }
+        }
+    }
+
+
+    public override void OnValidate()
+    {
+        base.OnValidate();
+        var targets = GetComponentsInChildren<MonoBehaviour>();
+        foreach (var target in targets)
+        {
+            target.OnValidate();
+        }
+    }
+
+    private string FormatVector(Float3 v)
+    {
+        return $"({v.X:F2}, {v.Y:F2}, {v.Z:F2})";
+    }
+
+    /// <summary>
+    /// Serializes the GameObject to a SerializedProperty.
+    /// </summary>
+    /// <param name="compoundTag"></param>
+    /// <param name="ctx">The serialization context.</param>
+    /// <returns>A SerializedProperty containing the GameObject's data.</returns>
+    public void Serialize(ref EchoObject compoundTag, SerializationContext ctx)
+    {
+        SerializeHeader(compoundTag);
+
+        compoundTag.Add("Identifier", new EchoObject(_identifier.ToString()));
+        // Prefab-source pairing (see SourceIdentifier). Omitted when unset so plain objects and
+        // non-prefab scene diffs stay clean.
+        if (_sourceIdentifier != Guid.Empty)
+            compoundTag.Add("SourceIdentifier", new EchoObject(_sourceIdentifier.ToString()));
+        List<Guid> compSources = CollectComponentSourceIdentifiers();
+        if (compSources.Count > 0)
+        {
+            EchoObject compSourceTags = EchoObject.NewList();
+            foreach (Guid src in compSources)
+                compSourceTags.ListAdd(new EchoObject(src.ToString()));
+            compoundTag.Add("CompSourceIdentifiers", compSourceTags);
+        }
+        compoundTag.Add("Static", new EchoObject((byte)(_static ? 1 : 0)));
+
+        compoundTag.Add("Enabled", new EchoObject((byte)(_enabled ? 1 : 0)));
+        compoundTag.Add("EnabledInHierarchy", new EchoObject((byte)(_enabledInHierarchy ? 1 : 0)));
+
+        compoundTag.Add("TagIndex", new EchoObject(TagIndex));
+        compoundTag.Add("LayerIndex", new EchoObject(LayerIndex));
+
+        // Editor icon state (label color / custom texture). Omitted when unset to keep
+        // existing scene diffs clean.
+        if (LabelIcon != 0)
+            compoundTag.Add("LabelIcon", new EchoObject(LabelIcon));
+        if (!string.IsNullOrEmpty(IconAssetGuid))
+            compoundTag.Add("IconAssetGuid", new EchoObject(IconAssetGuid));
+
+        compoundTag.Add("HideFlags", new EchoObject((int)HideFlags));
+
+        compoundTag.Add("Transform", Serializer.Serialize(typeof(object), _transform, ctx));
+
+        EchoObject components = EchoObject.NewList();
+        foreach (MonoBehaviour comp in _components)
+            components.ListAdd(Serializer.Serialize(typeof(MonoBehaviour), comp, ctx));
+        compoundTag.Add("Components", components);
+
+        EchoObject children = EchoObject.NewList();
+        foreach (GameObject child in Children)
+            children.ListAdd(Serializer.Serialize(typeof(GameObject), child, ctx));
+        compoundTag.Add("Children", children);
+
+        // Prefab data (only written for prefab instances)
+        if (_prefabAssetId != Guid.Empty)
+        {
+            compoundTag.Add("PrefabAssetId", new EchoObject(_prefabAssetId.ToString()));
+            if (_prefabOverrides is { Count: > 0 })
+                compoundTag.Add("PrefabOverrides", Serializer.Serialize(typeof(object), _prefabOverrides, ctx));
+            if (_prefabComponentCount >= 0)
+                compoundTag.Add("PrefabComponentCount", new EchoObject(_prefabComponentCount));
+            if (_prefabChildCount >= 0)
+                compoundTag.Add("PrefabChildCount", new EchoObject(_prefabChildCount));
+        }
+    }
+
+    /// <summary>Component prefab-source pairings parallel to the Components list; omitted entirely
+    /// when no component carries one, keeping plain-object serializations clean.</summary>
+    private List<Guid> CollectComponentSourceIdentifiers()
+    {
+        bool any = false;
+        foreach (MonoBehaviour comp in _components)
+            if (comp.SourceIdentifier != Guid.Empty) { any = true; break; }
+        if (!any) return [];
+
+        var sources = new List<Guid>(_components.Count);
+        foreach (MonoBehaviour comp in _components)
+            sources.Add(comp.SourceIdentifier);
+        return sources;
+    }
+
+    /// <summary>
+    /// Scoped switch that makes <see cref="Deserialize"/> keep the identifiers the data carries
+    /// instead of handing out fresh ones. Only for callers that take responsibility for those
+    /// identities afterwards (prefab instantiation trades them for fresh ones while recording the
+    /// pairing; the editor's asset round-trips need the file's ids to survive a load-modify-save).
+    /// </summary>
+    internal static bool PreservingIdentifiers { get; private set; }
+
+    /// <summary>
+    /// Deserialize a GameObject tree with the identifiers the data carries, rather than the fresh
+    /// ones a load normally hands out. For callers that need to know which serialized object each
+    /// live one came from, and that take responsibility for the identities afterwards.
+    /// </summary>
+    internal static GameObject? DeserializePreservingIdentifiers(EchoObject data, SerializationContext? context = null)
+    {
+        PreservingIdentifiers = true;
+        try { return Serializer.Deserialize(data, typeof(GameObject), context ?? new SerializationContext()) as GameObject; }
+        finally { PreservingIdentifiers = false; }
+    }
+
+    /// <summary>
+    /// Deserializes the GameObject from a SerializedProperty.
+    /// </summary>
+    /// <param name="value">The SerializedProperty containing the GameObject's data.</param>
+    /// <param name="ctx">The serialization context.</param>
+    [UnconditionalSuppressMessage("Trimming", "IL2026:RequiresUnreferencedCode",
+        Justification = "Deserialization needs to map a serialized $type string back to a concrete component type. User game types must be preserved by the consuming application's trim configuration.")]
+    public void Deserialize(EchoObject value, SerializationContext ctx)
+    {
+        DeserializeHeader(value);
+
+        // Always a fresh identity — a copy of an object must not come back wearing the original's
+        // identifier: two live objects sharing one identity collide in everything that keys on it
+        // (hierarchy rows, undo lookups, identifier search). Callers that need the stored ones opt
+        // in through DeserializePreservingIdentifiers — prefab instantiation, which trades them
+        // for fresh identities while recording the pairing in SourceIdentifier — and scene load
+        // re-restores the stored identifiers itself once the whole graph is in.
+        _identifier = PreservingIdentifiers && Guid.TryParse(value["Identifier"]?.StringValue, out Guid restoredId)
+            ? restoredId
+            : Guid.NewGuid();
+        _static = value["Static"]?.ByteValue == 1;
+        _enabled = value["Enabled"]?.ByteValue == 1;
+        _enabledInHierarchy = value["EnabledInHierarchy"]?.ByteValue == 1;
+        TagIndex = value["TagIndex"]?.IntValue ?? 0;
+        LayerIndex = value["LayerIndex"]?.IntValue ?? 0;
+        LabelIcon = value["LabelIcon"]?.IntValue ?? 0;
+        IconAssetGuid = value["IconAssetGuid"]?.StringValue ?? "";
+        HideFlags = (HideFlags)(value["HideFlags"]?.IntValue ?? 0);
+
+        // Prefab data
+        if (Guid.TryParse(value.Get("PrefabAssetId")?.StringValue, out Guid prefabId))
+            _prefabAssetId = prefabId;
+        if (Guid.TryParse(value.Get("SourceIdentifier")?.StringValue, out Guid sourceId))
+            _sourceIdentifier = sourceId;
+        if (value.TryGet("PrefabOverrides", out var overridesTag))
+            _prefabOverrides = Serializer.Deserialize<List<PropertyOverride>>(overridesTag, ctx);
+        if (value.TryGet("PrefabComponentCount", out var compCount))
+            _prefabComponentCount = compCount.IntValue;
+        if (value.TryGet("PrefabChildCount", out var childCount))
+            _prefabChildCount = childCount.IntValue;
+
+        // A GameObject always needs a Transform. If the serialized one can't be restored (e.g. an
+        // unresolved forward $id reference from a scene's flat-array + nested-children encoding), fall
+        // back to a fresh Transform rather than NRE - a single bad object would otherwise throw out of
+        // the serializeObj array and drop every object in the scene.
+        _transform = Serializer.Deserialize<Transform>(value["Transform"], ctx) ?? new Transform();
+        _transform.GameObject = this;
+
+        EchoObject comps = value["Components"];
+        _components = [];
+        // comps is null when this echo is a bare $id reference stub (an unresolved forward reference);
+        // guard so such an object degrades to an empty GameObject instead of NREing out of the whole scene.
+        foreach (EchoObject compTag in comps?.List ?? [])
+        {
+            // Fallback for Missing Type
+            EchoObject? typeProperty = compTag.Get("$type");
+            // If the type is missing or string null/whitespace something is wrong, so just let the Deserializer handle it, maybe it knows what to do
+            if (typeProperty != null && !string.IsNullOrWhiteSpace(typeProperty.StringValue))
+            {
+                // Look for Monobehaviour Type
+                Type oType = RuntimeUtils.FindType(typeProperty.StringValue);
+                if (oType == null)
+                {
+                    Debug.LogWarning("Missing Monobehaviour Type: " + typeProperty.StringValue + " On " + Name);
+                    MissingMonobehaviour missing = new()
+                    {
+                        ComponentData = compTag
+                    };
+                    _components.Add(missing);
+
+                    // Echo emits an object's full definition at its FIRST encounter during traversal, so the
+                    // definition of an unrelated object (an engine component, a child GameObject, an AssetRef
+                    // holder) can live INLINE inside this missing component's field data. If we ignore it, the
+                    // rest of the scene's references to that object stay as empty "New GameObject"/blank-component
+                    // placeholders. We can't populate them now (the placeholders don't all exist yet, and a
+                    // GameObject reference carries no $type here), so DEFER: once the whole graph is loaded and
+                    // every placeholder exists with its correct type, back-patch them from this trapped data.
+                    EchoObject trapped = compTag;
+                    ctx.Defer(() => BackPatchTrappedDefinitions(trapped, ctx));
+                    continue;
+                }
+                else if (oType == typeof(MissingMonobehaviour))
+                {
+                    HandleMissingComponent(compTag, ctx);
+                    continue;
+                }
+            }
+
+            MonoBehaviour? component = Serializer.Deserialize<MonoBehaviour>(compTag, ctx);
+            if (component.IsNotValid()) continue;
+            _components.Add(component);
+            _componentCache.Add(component.GetType(), component);
+        }
+        // Attach all components
+        foreach (MonoBehaviour comp in _components)
+            comp.AttachToGameObject(this);
+
+        // Distribute the recorded prefab-source pairing to the components (parallel to the
+        // Components list order). Written only when at least one pairing exists, so its absence
+        // must not clear anything.
+        EchoObject compSourceTags = value.Get("CompSourceIdentifiers");
+        if (compSourceTags?.List != null)
+        {
+            for (int i = 0; i < _components.Count && i < compSourceTags.List.Count; i++)
+                if (Guid.TryParse(compSourceTags.List[i].StringValue, out Guid compSrc))
+                    _components[i].SetSourceIdentifier(compSrc);
+        }
+
+        // Children are deserialized AFTER components so the visit order matches serialization
+        // (Serialize writes Components then Children). Echo's reference encoding is single-pass and
+        // definition-first, so visiting out of order would turn intra-object references (e.g. a
+        // component referencing another component, including across the parent/child boundary, or a
+        // cyclic reference) into broken forward refs.
+        EchoObject children = value["Children"];
+        Children = [];
+        foreach (EchoObject childTag in children?.List ?? [])
+        {
+            GameObject? child = Serializer.Deserialize<GameObject>(childTag, ctx);
+            if (child.IsNotValid()) continue;
+            child._parent = this;
+            Children.Add(child);
+        }
+    }
+
+    /// <summary>
+    /// Phase-2 recovery for objects whose definition was serialized inline inside a missing component. Runs
+    /// after the whole graph is deserialized (via <see cref="SerializationContext.Defer"/>), so every
+    /// reference placeholder already exists with its correct type. Walks the trapped data and, for any node
+    /// that carries a body, populates the matching placeholder in place (so a $type-less object such as a
+    /// GameObject - whose type came from the now-missing declared field - is still recovered), or materializes
+    /// a self-describing definition that nothing else referenced. Best-effort; failures are swallowed.
+    /// </summary>
+    [UnconditionalSuppressMessage("Trimming", "IL2026:RequiresUnreferencedCode",
+        Justification = "Recovery path: back-patches previously-serialized objects nested in a missing component's data. User game types must be preserved by the consuming application's trim configuration.")]
+    private void BackPatchTrappedDefinitions(EchoObject? node, SerializationContext ctx)
+    {
+        if (node == null) return;
+
+        if (node.TagType == EchoType.List)
+        {
+            foreach (EchoObject child in node.List)
+                BackPatchTrappedDefinitions(child, ctx);
+            return;
+        }
+
+        if (node.TagType != EchoType.Compound) return;
+
+        bool hasId = node.TryGet("$id", out EchoObject? idTag);
+        bool hasBody = false;
+        foreach (string n in node.GetNames())
+            if (n != "$id" && n != "$type") { hasBody = true; break; }
+
+        if (hasId && hasBody)
+        {
+            int refId = idTag!.IntValue;
+            // A placeholder for this id already exists (created by a typed reference elsewhere - the flat
+            // scene array, a Children list, a typed field). Populate it in place; this is the only way to
+            // recover a $type-less object whose body was trapped here. fullyDefinedIds guards double work.
+            if (ctx.idToObject.TryGetValue(refId, out object? placeholder) && ctx.fullyDefinedIds.Add(refId))
+            {
+                try { Serializer.DeserializeInto(node, placeholder, ctx); }
+                catch (Exception ex) { Debug.LogWarning($"Failed to recover a reference trapped in a missing component on '{Name}': {ex.Message}"); }
+                return; // DeserializeInto walked the body
+            }
+
+            // No placeholder anywhere, but self-describing (resolvable $type): materialize it standalone.
+            EchoObject? typeTag = node.Get("$type");
+            if (!ctx.idToObject.ContainsKey(refId) && typeTag != null
+                && !string.IsNullOrWhiteSpace(typeTag.StringValue) && RuntimeUtils.FindType(typeTag.StringValue) != null)
+            {
+                try { Serializer.Deserialize(node, typeof(object), ctx); return; }
+                catch (Exception ex) { Debug.LogWarning($"Failed to recover a reference trapped in a missing component on '{Name}': {ex.Message}"); }
+            }
+        }
+
+        foreach (string n in node.GetNames())
+        {
+            if (n == "$id" || n == "$type") continue;
+            BackPatchTrappedDefinitions(node[n], ctx);
+        }
+    }
+
+    /// <summary>
+    /// Handles a missing component by attempting to recover it.
+    /// </summary>
+    /// <param name="compTag">The SerializedProperty containing the component data.</param>
+    /// <param name="ctx">The serialization context.</param>
+    [UnconditionalSuppressMessage("Trimming", "IL2026:RequiresUnreferencedCode",
+        Justification = "Recovery path: looks up a previously-missing component type by its serialized name. User game types must be preserved by the consuming application's trim configuration.")]
+    private void HandleMissingComponent(EchoObject compTag, SerializationContext ctx)
+    {
+        // Were missing! see if we can recover
+        MissingMonobehaviour missing = Serializer.Deserialize<MissingMonobehaviour>(compTag, ctx);
+        if (missing == null || missing.ComponentData == null) return;
+
+        EchoObject oldData = missing.ComponentData;
+        // Try to recover the component
+        if (oldData.TryGet("$type", out EchoObject? typeProp)
+            && !string.IsNullOrWhiteSpace(typeProp?.StringValue))
+        {
+            Type? oType = RuntimeUtils.FindType(typeProp!.StringValue);
+            if (oType != null)
+            {
+                // We have the type! Deserialize it and add it to the components
+                MonoBehaviour? component = Serializer.Deserialize<MonoBehaviour>(oldData);
+                if (component.IsValid())
+                {
+                    _components.Add(component);
+                }
+            }
+        }
+    }
+}

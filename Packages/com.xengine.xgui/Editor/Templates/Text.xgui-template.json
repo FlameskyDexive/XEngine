@@ -1,0 +1,8 @@
+{
+  "root": {
+    "id": "text",
+    "name": "Text",
+    "rect": { "size": [240, 48] },
+    "components": [ { "type": "Text", "properties": { "TextValue": "New Text", "Size": 20 } } ]
+  }
+}

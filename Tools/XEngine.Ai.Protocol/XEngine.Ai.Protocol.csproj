@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    XEngine.Ai.Protocol — engine-agnostic stable DTO contracts shared between the
+    xengine-cli Host and the in-process MCP server. No engine dependencies: pure POCOs.
+    Ported from XMcp.Protocol (de-Unity-ified: Unity/ET/XUI/Luban models dropped).
+    See docs/superpowers/specs/2026-07-29-ai-friendly-engine-roadmap.md.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Description>XEngine AI tooling stable protocol contracts (engine-agnostic).</Description>
+
+    <!-- Developer/agent-facing DTOs, not per-frame engine code: exempt from PR0001-PR0007. -->
+    <XEngineEnableAnalyzers>false</XEngineEnableAnalyzers>
+  </PropertyGroup>
+
+</Project>

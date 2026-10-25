@@ -1,0 +1,51 @@
+{
+  "manifestVersion": 1,
+  "platform": "android",
+  "hostRequirement": "windows-x64",
+  "notes": "Vendor sources only in this revision; pinned mirror entries (kind=mirror, sha256 required) are appended per component once calibrated by the install pipeline. sdkmanager components install into the managed SDK root via cmdline-tools.",
+  "components": [
+    {
+      "id": "jdk",
+      "kind": "archive",
+      "version": "temurin-17.0.13+11",
+      "optional": false,
+      "sources": [
+        { "kind": "vendor", "url": "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.13%2B11/OpenJDK17U-jdk_x64_windows_hotspot_17.0.13_11.zip" , "sha256": "6b64255e1bd690b09a135d44ac6b0d6bd4490728a8bad81904941d2789d394c0" }
+      ],
+      "layout": "jdk/temurin-17.0.13+11",
+      "stripRootSegments": 1,
+      "verify": "bin/java.exe",
+      "env": { "JAVA_HOME": "{componentRoot}" }
+    },
+    {
+      "id": "cmdline-tools",
+      "kind": "archive",
+      "version": "11076708",
+      "optional": false,
+      "sources": [
+        { "kind": "vendor", "url": "https://dl.google.com/android/repository/commandlinetools-win-11076708_latest.zip" , "sha256": "4d6931209eebb1bfb7c7e8b240a6a3cb3ab24479ea294f3539429574b1eec862" }
+      ],
+      "layout": "sdk/cmdline-tools/latest",
+      "stripRootSegments": 1,
+      "verify": "bin/sdkmanager.bat"
+    },
+    {
+      "id": "sdk",
+      "kind": "sdkmanager",
+      "optional": false,
+      "packages": ["platform-tools", "build-tools;35.0.0", "platforms;android-36", "ndk;30.0.16248370"],
+      "layout": "sdk",
+      "verify": "platform-tools/adb.exe"
+    },
+    {
+      "id": "bundletool",
+      "kind": "file",
+      "version": "1.17.0",
+      "optional": true,
+      "sources": [
+        { "kind": "vendor", "url": "https://github.com/google/bundletool/releases/download/1.17.0/bundletool-all-1.17.0.jar" , "sha256": "54ebee1f1de8367d9ad26b4672bfb2976b0b12142e15d683fc7b8e254fc6cc1b" }
+      ],
+      "layout": "bundletool/bundletool.jar"
+    }
+  ]
+}

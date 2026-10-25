@@ -1,0 +1,15 @@
+{
+  "name": "com.xengine.websurface",
+  "version": "0.1.0",
+  "displayName": "WebSurface",
+  "description": "Hosted web-content surfaces (WebSurface sessions, frame pipeline, XGUI presentation). Official optional package: runtime-only; authoring stays in the three.js host tooling.",
+  "installByDefault": false,
+  "xengine": "0.1.0",
+  "type": "package",
+  "category": "Official",
+  "documentationUrl": "Documentation~/index.md",
+  "licensesUrl": "LICENSE.md",
+  "supportedPlatforms": ["Windows", "Web", "Android", "HarmonyOS"],
+  "license": "MIT",
+  "keywords": ["xengine", "websurface", "webview", "html", "ui", "texture"]
+}

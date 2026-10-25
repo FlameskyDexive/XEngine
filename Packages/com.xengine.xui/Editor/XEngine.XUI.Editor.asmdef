@@ -1,0 +1,12 @@
+{
+  "name": "XEngine.XUI.Editor",
+  "references": ["XEngine.XUI.Runtime", "XEngine.XGUI.Runtime", "XEngine.Editor"],
+  "includePlatforms": ["Editor"],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "autoReferenced": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "defineConstraints": [],
+  "noEngineReferences": false
+}

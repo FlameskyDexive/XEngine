@@ -1,0 +1,12 @@
+{
+  "root": {
+    "id": "button",
+    "name": "Button",
+    "rect": { "size": [160, 44] },
+    "components": [ { "type": "Image", "properties": { "Color": [0.20, 0.20, 0.24, 1] } }, { "type": "Button" } ],
+    "children": [
+      { "id": "label", "name": "Label", "rect": { "stretch": true, "size": [-16, -8] }, "components": [ { "type": "Text", "properties": { "TextValue": "Button", "Size": 18 } } ] }
+    ]
+  },
+  "bindings": [ { "node": "button", "component": "Button", "property": "TargetGraphicComponent", "targetNode": "button", "targetComponent": "Image" } ]
+}

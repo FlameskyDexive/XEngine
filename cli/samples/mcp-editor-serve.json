@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "xengine-live": {
+      "_comment": "Connects to a LIVE editor instance. Launch the editor with: XEngine.Editor --serve. The editor's in-process MCP server speaks stdio; this sample assumes the client spawns the editor itself. runtime_state/runtime_logs/runtime_playmode/runtime_live_scene are only available on this connection.",
+      "command": "XEngine.Editor",
+      "args": ["--serve"]
+    }
+  }
+}

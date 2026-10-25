@@ -1,0 +1,79 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:XHub.Resources;assembly=XHub"
+             xmlns:vm="clr-namespace:XHub.ViewModels"
+             x:Class="XHub.Views.DownloadsPage"
+             x:DataType="vm:DownloadsViewModel">
+  <Grid RowDefinitions="Auto,*">
+    <TextBlock Classes="pageTitle" Text="{ReflectionBinding [downloads.title], Source={x:Static loc:Loc.Instance}}" />
+
+    <ListBox Grid.Row="1" Margin="0,16,0,0" Background="Transparent" BorderThickness="0"
+             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+             ItemsSource="{Binding VisibleItems}">
+      <ListBox.ItemContainerTheme>
+        <ControlTheme TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+          <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+          <Setter Property="Padding" Value="0" />
+          <Setter Property="Background" Value="Transparent" />
+        </ControlTheme>
+      </ListBox.ItemContainerTheme>
+      <ListBox.ItemTemplate>
+        <DataTemplate x:DataType="vm:DownloadItemViewModel">
+          <Border Classes="hubCard" Margin="12,3" Padding="14,10">
+            <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,Auto,Auto,Auto,Auto,Auto">
+              <!-- Row 1: title + state -->
+              <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                <TextBlock Text="{Binding Title}" FontWeight="Medium"
+                           Foreground="{DynamicResource HubTextPrimaryBrush}" />
+                <TextBlock Text="{Binding StateText}" FontSize="12"
+                           Foreground="{DynamicResource HubTextSecondaryBrush}" />
+                <TextBlock Text="{Binding DetailText}" FontSize="12" TextTrimming="CharacterEllipsis"
+                           Foreground="#FF8A80" IsVisible="{Binding IsFailed}" />
+              </StackPanel>
+              <TextBlock Grid.Column="1" Text="{Binding ProgressText}" FontSize="12" VerticalAlignment="Center"
+                         Foreground="{DynamicResource HubTextSecondaryBrush}" Margin="0,0,12,0" />
+              <TextBlock Grid.Column="2" Text="{Binding RateText}" FontSize="12" VerticalAlignment="Center"
+                         Foreground="{DynamicResource HubTextSecondaryBrush}" Margin="0,0,12,0" />
+              <Button Grid.Column="3" Padding="8,3" Margin="4,0" VerticalAlignment="Center"
+                      IsVisible="{Binding CanPause}" Command="{Binding $parent[UserControl].DataContext.PauseCommand}"
+                      CommandParameter="{Binding}"
+                      Content="{ReflectionBinding [downloads.pause], Source={x:Static loc:Loc.Instance}}" />
+              <Button Grid.Column="3" Padding="8,3" Margin="4,0" VerticalAlignment="Center"
+                      IsVisible="{Binding CanResume}" Command="{Binding $parent[UserControl].DataContext.ResumeCommand}"
+                      CommandParameter="{Binding}"
+                      Content="{ReflectionBinding [downloads.resume], Source={x:Static loc:Loc.Instance}}" />
+              <Button Grid.Column="3" Padding="8,3" Margin="4,0" VerticalAlignment="Center"
+                      IsVisible="{Binding CanRetry}" Command="{Binding $parent[UserControl].DataContext.RetryCommand}"
+                      CommandParameter="{Binding}"
+                      Content="{ReflectionBinding [downloads.retry], Source={x:Static loc:Loc.Instance}}" />
+              <Button Grid.Column="4" Padding="8,3" Margin="4,0" VerticalAlignment="Center"
+                      IsVisible="{Binding CanCancel}" Command="{Binding $parent[UserControl].DataContext.CancelCommand}"
+                      CommandParameter="{Binding}"
+                      Content="{ReflectionBinding [downloads.cancel], Source={x:Static loc:Loc.Instance}}" />
+              <Button Grid.Column="5" Padding="8,3" VerticalAlignment="Center"
+                      Command="{Binding $parent[UserControl].DataContext.ShowLogCommand}"
+                      CommandParameter="{Binding}"
+                      Content="{ReflectionBinding [downloads.log], Source={x:Static loc:Loc.Instance}}" />
+              <ProgressBar Grid.Row="1" Grid.ColumnSpan="6" Margin="0,8,0,0" Height="4"
+                           Minimum="0" Maximum="1"
+                           Value="{Binding ProgressRatio}"
+                           IsIndeterminate="{Binding IsIndeterminate}" />
+            </Grid>
+          </Border>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+
+    <!-- Empty state -->
+    <Panel Grid.Row="1" IsVisible="{Binding HasNoTasks}">
+      <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="10">
+        <PathIcon Width="44" Height="44" Foreground="{DynamicResource HubTextSecondaryBrush}"
+                  Data="M11,3 L13,3 L13,11 L16,8 L17.5,9.5 L12,15 L6.5,9.5 L8,8 L11,11 Z M4,17 L20,17 L20,19 L4,19 Z" />
+        <TextBlock Classes="emptyTitle" Margin="0,6,0,0"
+                   Text="{ReflectionBinding [downloads.empty.title], Source={x:Static loc:Loc.Instance}}" />
+        <TextBlock Classes="emptyHint"
+                   Text="{ReflectionBinding [downloads.empty.hint], Source={x:Static loc:Loc.Instance}}" />
+      </StackPanel>
+    </Panel>
+  </Grid>
+</UserControl>

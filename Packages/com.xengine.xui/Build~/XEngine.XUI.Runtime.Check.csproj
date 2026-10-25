@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Compiles this package's Runtime with the exact reference set its asmdef declares
+    (XEngine.Runtime + XEngine.XGUI.Runtime). Warnings are NOT suppressed: this is XUI's own code.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>XEngine.XUI.Runtime</AssemblyName>
+    <RootNamespace>XEngine.XUI</RootNamespace>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <IsPackable>false</IsPackable>
+    <XEngineEnableAnalyzers>false</XEngineEnableAnalyzers>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Runtime\**\*.cs" />
+    <ProjectReference Include="XEngine.XGUI.Runtime.Check.csproj" />
+    <ProjectReference Include="..\..\..\XEngine.Runtime\XEngine.Runtime.csproj" />
+  </ItemGroup>
+
+</Project>

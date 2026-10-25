@@ -1,0 +1,3836 @@
+{
+  "$id": 38985,
+  "$type": "XEngine.Runtime.GameObject, XEngine.Runtime",
+  "Name": "Flash 27",
+  "AssetPath": "",
+  "Identifier": "45658f5a-4509-417f-9916-7f748d8f89d8",
+  "Static": 0B,
+  "Enabled": 1B,
+  "EnabledInHierarchy": 1B,
+  "TagIndex": 0,
+  "LayerIndex": 0,
+  "HideFlags": 0,
+  "Transform": {
+    "$id": 38986,
+    "$type": "XEngine.Vector.Transform, XEngine.Runtime",
+    "_localPosition": {
+      "X": 0F,
+      "Y": 1F,
+      "Z": 0F
+    },
+    "_localScale": {
+      "X": 1F,
+      "Y": 1F,
+      "Z": 1F
+    },
+    "_localRotation": {
+      "X": 0F,
+      "Y": 0F,
+      "Z": 0F,
+      "W": 1F
+    }
+  },
+  "Components": [
+    {
+      "$id": 38987,
+      "$type": "XEngine.Runtime.ParticleSystem.ParticleSystemComponent, XEngine.Runtime",
+      "Material": {
+        "AssetID": "98593ee0-4459-33da-fa8d-332b4380a7a9"
+      },
+      "MaxParticles": 1000,
+      "Duration": 1F,
+      "Looping": false,
+      "PlayOnEnable": true,
+      "Prewarm": false,
+      "RandomSeed": 0U,
+      "SimulationSpace": 1L,
+      "StartDelay": 0F,
+      "RenderMode": 0L,
+      "RenderAlignment": 0L,
+      "SortingFudge": 0F,
+      "VelocityScale": 0.06F,
+      "LengthScale": 3F,
+      "RenderMesh": {
+        "AssetID": "00000000-0000-0000-0000-000000000000"
+      },
+      "Initial": {
+        "$id": 38988,
+        "StartLifetime": {
+          "$id": 38989,
+          "Mode": 2L,
+          "ConstantValue": 1F,
+          "MinValue": 0.3F,
+          "MaxValue": 0.4F,
+          "Curve": {
+            "$id": 38990,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 38991,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAJqZmT4AAAAAAAAAAKuqqj6rqqo+AACAP5qZmT4AAAAAAAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 38992,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAM3MzD4AAAAAAAAAAKuqqj6rqqo+AACAP83MzD4AAAAAAAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "StartSpeed": {
+          "$id": 38993,
+          "Mode": 2L,
+          "ConstantValue": 1F,
+          "MinValue": 3F,
+          "MaxValue": 9F,
+          "Curve": {
+            "$id": 38994,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 38995,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAQEAAAAAAAAAAAKuqqj6rqqo+AACAPwAAQEAAAAAAAAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 38996,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAEEEAAAAAAAAAAKuqqj6rqqo+AACAPwAAEEEAAAAAAAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "StartSize": {
+          "$id": 38997,
+          "Mode": 2L,
+          "ConstantValue": 1F,
+          "MinValue": 0.07F,
+          "MaxValue": 0.2F,
+          "Curve": {
+            "$id": 38998,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 38999,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAClcjz0AAAAAAAAAAKuqqj6rqqo+AACAPylcjz0AAAAAAAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39000,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAM3MTD4AAAAAAAAAAKuqqj6rqqo+AACAP83MTD4AAAAAAAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "SeparateSizeAxes": false,
+        "StartSizeY": {
+          "$id": 39001,
+          "Mode": 2L,
+          "ConstantValue": 1F,
+          "MinValue": 1F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39002,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39003,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAgD8AAAAAAAAAAKuqqj6rqqo+AACAPwAAgD8AAAAAAAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39004,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAgD8AAAAAAAAAAKuqqj6rqqo+AACAPwAAgD8AAAAAAAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "StartSizeZ": {
+          "$id": 39005,
+          "Mode": 2L,
+          "ConstantValue": 1F,
+          "MinValue": 1F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39006,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39007,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAgD8AAAAAAAAAAKuqqj6rqqo+AACAPwAAgD8AAAAAAAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39008,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAgD8AAAAAAAAAAKuqqj6rqqo+AACAPwAAgD8AAAAAAAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "StartRotation": {
+          "$id": 39009,
+          "Mode": 0L,
+          "ConstantValue": 0F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39010,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39011,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39012,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "SeparateRotationAxes": false,
+        "StartRotationX": {
+          "$id": 39013,
+          "Mode": 0L,
+          "ConstantValue": 0F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39014,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39015,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39016,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "StartRotationY": {
+          "$id": 39017,
+          "Mode": 0L,
+          "ConstantValue": 0F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39018,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39019,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39020,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "StartColor": {
+          "$id": 39021,
+          "Mode": 0L,
+          "ConstantColor": {
+            "R": 1F,
+            "G": 0.4F,
+            "B": 0.87058824F,
+            "A": 1F
+          },
+          "MinColor": {
+            "R": 1F,
+            "G": 1F,
+            "B": 1F,
+            "A": 1F
+          },
+          "MaxColor": {
+            "R": 1F,
+            "G": 1F,
+            "B": 1F,
+            "A": 1F
+          },
+          "Gradient": {
+            "$id": 39022,
+            "ColorKeys": {
+              "$id": 39023,
+              "$values": [
+                {
+                  "Color": {
+                    "R": 1F,
+                    "G": 1F,
+                    "B": 1F,
+                    "A": 1F
+                  },
+                  "Time": 0F
+                },
+                {
+                  "Color": {
+                    "R": 1F,
+                    "G": 1F,
+                    "B": 1F,
+                    "A": 1F
+                  },
+                  "Time": 1F
+                }
+              ]
+            },
+            "AlphaKeys": {
+              "$id": 39024,
+              "$values": [
+                {
+                  "Alpha": 1F,
+                  "Time": 0F
+                },
+                {
+                  "Alpha": 1F,
+                  "Time": 1F
+                }
+              ]
+            }
+          },
+          "MinGradient": {
+            "$id": 39025,
+            "ColorKeys": {
+              "$id": 39026,
+              "$values": [
+                {
+                  "Color": {
+                    "R": 1F,
+                    "G": 1F,
+                    "B": 1F,
+                    "A": 1F
+                  },
+                  "Time": 0F
+                },
+                {
+                  "Color": {
+                    "R": 1F,
+                    "G": 1F,
+                    "B": 1F,
+                    "A": 1F
+                  },
+                  "Time": 1F
+                }
+              ]
+            },
+            "AlphaKeys": {
+              "$id": 39027,
+              "$values": [
+                {
+                  "Alpha": 1F,
+                  "Time": 0F
+                },
+                {
+                  "Alpha": 1F,
+                  "Time": 1F
+                }
+              ]
+            }
+          },
+          "MaxGradient": {
+            "$id": 39028,
+            "ColorKeys": {
+              "$id": 39029,
+              "$values": [
+                {
+                  "Color": {
+                    "R": 1F,
+                    "G": 1F,
+                    "B": 1F,
+                    "A": 1F
+                  },
+                  "Time": 0F
+                },
+                {
+                  "Color": {
+                    "R": 1F,
+                    "G": 1F,
+                    "B": 1F,
+                    "A": 1F
+                  },
+                  "Time": 1F
+                }
+              ]
+            },
+            "AlphaKeys": {
+              "$id": 39030,
+              "$values": [
+                {
+                  "Alpha": 1F,
+                  "Time": 0F
+                },
+                {
+                  "Alpha": 1F,
+                  "Time": 1F
+                }
+              ]
+            }
+          }
+        },
+        "GravityModifier": 0F,
+        "Enabled": true
+      },
+      "Emission": {
+        "$id": 39031,
+        "RateOverTime": {
+          "$id": 39032,
+          "Mode": 0L,
+          "ConstantValue": 0F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39033,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39034,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39035,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "RateOverDistance": {
+          "$id": 39036,
+          "Mode": 0L,
+          "ConstantValue": 0F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39037,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39038,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39039,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "Bursts": {
+          "$id": 39040,
+          "$values": [
+            {
+              "Time": 0F,
+              "MinCount": 7,
+              "MaxCount": 7,
+              "CycleCount": 1,
+              "RepeatInterval": 0.01F
+            }
+          ]
+        },
+        "UseUnityBurstScheduling": true,
+        "Shape": 3L,
+        "ShapeEnabled": true,
+        "ShapeForward": {
+          "X": 0F,
+          "Y": 0F,
+          "Z": 1F
+        },
+        "ShapeUsesZAxis": true,
+        "ShapePosition": {
+          "X": 0F,
+          "Y": 0F,
+          "Z": 0F
+        },
+        "ShapeRotation": {
+          "X": 0F,
+          "Y": 0F,
+          "Z": 0F
+        },
+        "ShapeScale": {
+          "X": 1F,
+          "Y": 1F,
+          "Z": 1F
+        },
+        "LineLength": 1F,
+        "Radius": 0.01F,
+        "RadiusThickness": 1F,
+        "Arc": 360F,
+        "ConeAngle": 35F,
+        "EmitFromShell": false,
+        "BoxSize": {
+          "X": 1F,
+          "Y": 1F,
+          "Z": 1F
+        },
+        "Enabled": true
+      },
+      "SizeOverLifetime": {
+        "$id": 39041,
+        "SizeCurve": {
+          "$id": 39042,
+          "PreLoop": 0,
+          "PostLoop": 0,
+          "KeysBinary": [B;AAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAACAPwAAgD8AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+        },
+        "SeparateAxes": false,
+        "SizeYCurve": {
+          "$id": 39043,
+          "PreLoop": 0,
+          "PostLoop": 0,
+          "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+        },
+        "SizeZCurve": {
+          "$id": 39044,
+          "PreLoop": 0,
+          "PostLoop": 0,
+          "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+        },
+        "Enabled": true
+      },
+      "ColorOverLifetime": {
+        "$id": 39045,
+        "ColorGradient": {
+          "$id": 39046,
+          "ColorKeys": {
+            "$id": 39047,
+            "$values": [
+              {
+                "Color": {
+                  "R": 1F,
+                  "G": 1F,
+                  "B": 1F,
+                  "A": 0F
+                },
+                "Time": 0F
+              },
+              {
+                "Color": {
+                  "R": 1F,
+                  "G": 1F,
+                  "B": 1F,
+                  "A": 1F
+                },
+                "Time": 1F
+              }
+            ]
+          },
+          "AlphaKeys": {
+            "$id": 39048,
+            "$values": [
+              {
+                "Alpha": 0F,
+                "Time": 0F
+              },
+              {
+                "Alpha": 1F,
+                "Time": 0.30000764F
+              },
+              {
+                "Alpha": 0F,
+                "Time": 1F
+              }
+            ]
+          }
+        },
+        "Enabled": true
+      },
+      "RotationOverLifetime": {
+        "$id": 39049,
+        "AngularVelocity": {
+          "$id": 39050,
+          "Mode": 0L,
+          "ConstantValue": 0F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39051,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39052,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39053,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "SeparateAxes": false,
+        "AngularVelocityX": {
+          "$id": 39054,
+          "Mode": 0L,
+          "ConstantValue": 0F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39055,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39056,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39057,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "AngularVelocityY": {
+          "$id": 39058,
+          "Mode": 0L,
+          "ConstantValue": 0F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39059,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39060,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39061,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "Enabled": false
+      },
+      "VelocityOverLifetime": {
+        "$id": 39062,
+        "VelocityX": {
+          "$id": 39063,
+          "PreLoop": 0,
+          "PostLoop": 0,
+          "KeysBinary": [B;AAAAAAAAAAAAAAAAAAAAAKuqqj6rqqo+AACAPwAAAAAAAAAAAAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+        },
+        "VelocityY": {
+          "$id": 39064,
+          "PreLoop": 0,
+          "PostLoop": 0,
+          "KeysBinary": [B;AAAAAAAAAAAAAAAAAAAAAKuqqj6rqqo+AACAPwAAAAAAAAAAAAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+        },
+        "VelocityZ": {
+          "$id": 39065,
+          "PreLoop": 0,
+          "PostLoop": 0,
+          "KeysBinary": [B;AAAAAAAAAAAAAAAAAAAAAKuqqj6rqqo+AACAPwAAAAAAAAAAAAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+        },
+        "UseMinMaxCurves": false,
+        "LinearX": {
+          "$id": 39066,
+          "Mode": 0L,
+          "ConstantValue": 0F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39067,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39068,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39069,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "LinearY": {
+          "$id": 39070,
+          "Mode": 0L,
+          "ConstantValue": 0F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39071,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39072,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39073,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "LinearZ": {
+          "$id": 39074,
+          "Mode": 0L,
+          "ConstantValue": 0F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39075,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39076,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39077,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "OrbitalX": {
+          "$id": 39078,
+          "Mode": 0L,
+          "ConstantValue": 0F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39079,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39080,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39081,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "OrbitalY": {
+          "$id": 39082,
+          "Mode": 0L,
+          "ConstantValue": 0F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39083,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39084,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39085,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "OrbitalZ": {
+          "$id": 39086,
+          "Mode": 0L,
+          "ConstantValue": 0F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39087,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39088,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39089,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "OrbitalOffsetX": {
+          "$id": 39090,
+          "Mode": 0L,
+          "ConstantValue": 0F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39091,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39092,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39093,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "OrbitalOffsetY": {
+          "$id": 39094,
+          "Mode": 0L,
+          "ConstantValue": 0F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39095,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39096,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39097,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "OrbitalOffsetZ": {
+          "$id": 39098,
+          "Mode": 0L,
+          "ConstantValue": 0F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39099,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39100,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39101,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "Radial": {
+          "$id": 39102,
+          "Mode": 0L,
+          "ConstantValue": 0F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39103,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39104,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39105,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "SpeedModifier": {
+          "$id": 39106,
+          "Mode": 0L,
+          "ConstantValue": 1F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39107,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39108,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39109,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "Space": 0L,
+        "Enabled": false
+      },
+      "ForceOverLifetime": {
+        "$id": 39110,
+        "ForceX": {
+          "$id": 39111,
+          "Mode": 0L,
+          "ConstantValue": 0F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39112,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39113,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39114,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "ForceY": {
+          "$id": 39115,
+          "Mode": 0L,
+          "ConstantValue": 0F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39116,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39117,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39118,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "ForceZ": {
+          "$id": 39119,
+          "Mode": 0L,
+          "ConstantValue": 0F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39120,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39121,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39122,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "Space": 0L,
+        "RandomizeEachFrame": false,
+        "Enabled": false
+      },
+      "Collision": {
+        "$id": 39123,
+        "Mode": 0L,
+        "Quality": 1L,
+        "Dampen": 0.5F,
+        "Bounce": 0.3F,
+        "LifetimeLoss": 0F,
+        "MinKillSpeed": 0F,
+        "ParticleRadius": 0.05F,
+        "MaxCollisionDistance": 1F,
+        "CollidesWith": {
+          "mask": 4294967295U
+        },
+        "VoxelSize": 1F,
+        "Planes": {
+          "$id": 39124,
+          "$values": [
+
+          ]
+        },
+        "Enabled": false
+      },
+      "UV": {
+        "$id": 39125,
+        "Mode": 0L,
+        "TilesX": 1,
+        "TilesY": 1,
+        "CycleCount": 1,
+        "FrameOverTime": 1F,
+        "RandomStartFrame": false,
+        "UseMinMaxCurves": false,
+        "FrameOverTimeCurve": {
+          "$id": 39126,
+          "Mode": 0L,
+          "ConstantValue": 1F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39127,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39128,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39129,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "StartFrameCurve": {
+          "$id": 39130,
+          "Mode": 0L,
+          "ConstantValue": 0F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39131,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39132,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39133,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "SingleRow": false,
+        "RowIndex": 0,
+        "RandomRow": true,
+        "TopRowFirst": false,
+        "UOffsetCurve": {
+          "$id": 39134,
+          "PreLoop": 0,
+          "PostLoop": 0,
+          "KeysBinary": [B;AAAAAAAAAAAAAAAAAAAAAKuqqj6rqqo+AACAPwAAAAAAAAAAAAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+        },
+        "VOffsetCurve": {
+          "$id": 39135,
+          "PreLoop": 0,
+          "PostLoop": 0,
+          "KeysBinary": [B;AAAAAAAAAAAAAAAAAAAAAKuqqj6rqqo+AACAPwAAAAAAAAAAAAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+        },
+        "ScrollSpeed": {
+          "X": 0F,
+          "Y": 0F
+        },
+        "FlipU": false,
+        "FlipV": false,
+        "Enabled": false
+      },
+      "Light": {
+        "$id": 39136,
+        "Color": {
+          "R": 1F,
+          "G": 1F,
+          "B": 1F,
+          "A": 1F
+        },
+        "UseParticleColor": true,
+        "Intensity": 1F,
+        "Range": 2F,
+        "ScaleRangeByParticleSize": false,
+        "FadeWithLifetime": true,
+        "Enabled": false
+      },
+      "SizeBySpeed": {
+        "$id": 39137,
+        "Size": {
+          "$id": 39138,
+          "Mode": 0L,
+          "ConstantValue": 1F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39139,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39140,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39141,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "SpeedRange": {
+          "X": 0F,
+          "Y": 1F
+        },
+        "MinSize": 1F,
+        "MaxSize": 1F,
+        "Enabled": false
+      },
+      "Noise": {
+        "$id": 39142,
+        "Strength": 0F,
+        "Frequency": 0.5F,
+        "Damping": true,
+        "UseSpatialNoise": false,
+        "SeparateAxes": false,
+        "StrengthCurve": {
+          "$id": 39143,
+          "Mode": 0L,
+          "ConstantValue": 1F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39144,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39145,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39146,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "StrengthYCurve": {
+          "$id": 39147,
+          "Mode": 0L,
+          "ConstantValue": 1F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39148,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39149,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39150,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "StrengthZCurve": {
+          "$id": 39151,
+          "Mode": 0L,
+          "ConstantValue": 1F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39152,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39153,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39154,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "ScrollSpeed": {
+          "$id": 39155,
+          "Mode": 0L,
+          "ConstantValue": 0F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39156,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39157,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39158,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "Octaves": 1,
+        "OctaveMultiplier": 0.5F,
+        "OctaveScale": 2F,
+        "Quality": 2L,
+        "RemapEnabled": false,
+        "Remap": {
+          "$id": 39159,
+          "Mode": 1L,
+          "ConstantValue": 1F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39160,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39161,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39162,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "RemapY": {
+          "$id": 39163,
+          "Mode": 1L,
+          "ConstantValue": 1F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39164,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39165,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39166,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "RemapZ": {
+          "$id": 39167,
+          "Mode": 1L,
+          "ConstantValue": 1F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39168,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39169,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39170,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "PositionAmount": {
+          "$id": 39171,
+          "Mode": 0L,
+          "ConstantValue": 1F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39172,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39173,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39174,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "RotationAmount": {
+          "$id": 39175,
+          "Mode": 0L,
+          "ConstantValue": 0F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39176,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39177,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39178,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "SizeAmount": {
+          "$id": 39179,
+          "Mode": 0L,
+          "ConstantValue": 0F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39180,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39181,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39182,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "Enabled": false
+      },
+      "LimitVelocity": {
+        "$id": 39183,
+        "SeparateAxes": false,
+        "LimitMagnitude": {
+          "$id": 39184,
+          "Mode": 0L,
+          "ConstantValue": 0F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39185,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39186,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39187,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "LimitX": {
+          "$id": 39188,
+          "Mode": 0L,
+          "ConstantValue": 1F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39189,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39190,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39191,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "LimitY": {
+          "$id": 39192,
+          "Mode": 0L,
+          "ConstantValue": 1F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39193,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39194,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39195,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "LimitZ": {
+          "$id": 39196,
+          "Mode": 0L,
+          "ConstantValue": 1F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39197,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39198,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39199,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "Dampen": 0.1F,
+        "Drag": 0F,
+        "Enabled": true
+      },
+      "InheritVelocity": {
+        "$id": 39200,
+        "Curve": {
+          "$id": 39201,
+          "Mode": 0L,
+          "ConstantValue": 0F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39202,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39203,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39204,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "EmitterVelocity": {
+          "X": 0F,
+          "Y": 0F,
+          "Z": 0F
+        },
+        "Enabled": false
+      },
+      "Trails": {
+        "$id": 39205,
+        "Mode": 0L,
+        "Ratio": 0.5F,
+        "Lifetime": {
+          "$id": 39206,
+          "Mode": 0L,
+          "ConstantValue": 1F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39207,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39208,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39209,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "DieWithParticles": true,
+        "InheritParticleColor": true,
+        "ColorOverLifetime": {
+          "$id": 39210,
+          "Mode": 0L,
+          "ConstantColor": {
+            "R": 1F,
+            "G": 1F,
+            "B": 1F,
+            "A": 1F
+          },
+          "MinColor": {
+            "R": 1F,
+            "G": 1F,
+            "B": 1F,
+            "A": 1F
+          },
+          "MaxColor": {
+            "R": 1F,
+            "G": 1F,
+            "B": 1F,
+            "A": 1F
+          },
+          "Gradient": {
+            "$id": 39211,
+            "ColorKeys": {
+              "$id": 39212,
+              "$values": [
+                {
+                  "Color": {
+                    "R": 1F,
+                    "G": 1F,
+                    "B": 1F,
+                    "A": 1F
+                  },
+                  "Time": 0F
+                },
+                {
+                  "Color": {
+                    "R": 1F,
+                    "G": 1F,
+                    "B": 1F,
+                    "A": 1F
+                  },
+                  "Time": 1F
+                }
+              ]
+            },
+            "AlphaKeys": {
+              "$id": 39213,
+              "$values": [
+                {
+                  "Alpha": 1F,
+                  "Time": 0F
+                },
+                {
+                  "Alpha": 1F,
+                  "Time": 1F
+                }
+              ]
+            }
+          },
+          "MinGradient": {
+            "$id": 39214,
+            "ColorKeys": {
+              "$id": 39215,
+              "$values": [
+                {
+                  "Color": {
+                    "R": 1F,
+                    "G": 1F,
+                    "B": 1F,
+                    "A": 1F
+                  },
+                  "Time": 0F
+                },
+                {
+                  "Color": {
+                    "R": 1F,
+                    "G": 1F,
+                    "B": 1F,
+                    "A": 1F
+                  },
+                  "Time": 1F
+                }
+              ]
+            },
+            "AlphaKeys": {
+              "$id": 39216,
+              "$values": [
+                {
+                  "Alpha": 1F,
+                  "Time": 0F
+                },
+                {
+                  "Alpha": 1F,
+                  "Time": 1F
+                }
+              ]
+            }
+          },
+          "MaxGradient": {
+            "$id": 39217,
+            "ColorKeys": {
+              "$id": 39218,
+              "$values": [
+                {
+                  "Color": {
+                    "R": 1F,
+                    "G": 1F,
+                    "B": 1F,
+                    "A": 1F
+                  },
+                  "Time": 0F
+                },
+                {
+                  "Color": {
+                    "R": 1F,
+                    "G": 1F,
+                    "B": 1F,
+                    "A": 1F
+                  },
+                  "Time": 1F
+                }
+              ]
+            },
+            "AlphaKeys": {
+              "$id": 39219,
+              "$values": [
+                {
+                  "Alpha": 1F,
+                  "Time": 0F
+                },
+                {
+                  "Alpha": 1F,
+                  "Time": 1F
+                }
+              ]
+            }
+          }
+        },
+        "WidthOverTrail": {
+          "$id": 39220,
+          "Mode": 0L,
+          "ConstantValue": 1F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39221,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39222,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39223,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "SizeAffectsWidth": true,
+        "TextureTiles": false,
+        "TrailMaterial": NULL,
+        "Enabled": false
+      },
+      "SubEmitters": {
+        "$id": 39224,
+        "Emitters": {
+          "$id": 39225,
+          "$values": [
+
+          ]
+        },
+        "Enabled": false
+      },
+      "CustomData": {
+        "$id": 39226,
+        "Custom1ComponentCount": 4,
+        "Custom1X": {
+          "$id": 39227,
+          "Mode": 0L,
+          "ConstantValue": 0F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39228,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39229,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39230,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "Custom1Y": {
+          "$id": 39231,
+          "Mode": 0L,
+          "ConstantValue": 0F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39232,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39233,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39234,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "Custom1Z": {
+          "$id": 39235,
+          "Mode": 0L,
+          "ConstantValue": 0F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39236,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39237,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39238,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "Custom1W": {
+          "$id": 39239,
+          "Mode": 0L,
+          "ConstantValue": 0F,
+          "MinValue": 0F,
+          "MaxValue": 1F,
+          "Curve": {
+            "$id": 39240,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MinCurve": {
+            "$id": 39241,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          },
+          "MaxCurve": {
+            "$id": 39242,
+            "PreLoop": 0,
+            "PostLoop": 0,
+            "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+          }
+        },
+        "Custom1ToUV0ZW": false,
+        "Enabled": false
+      },
+      "_identifier": "3c94223c-371e-4fb0-b3e7-0e172ab850d3",
+      "_enabled": true,
+      "_enabledInHierarchy": true,
+      "HideFlags": 0L,
+      "AssetPath": "",
+      "AssetID": "00000000-0000-0000-0000-000000000000",
+      "Name": "NewParticleSystemComponent"
+    }
+  ],
+  "Children": [
+    {
+      "$id": 39243,
+      "Name": "Shockwave",
+      "AssetPath": "",
+      "Identifier": "185f38d3-c89c-4e9d-935b-416e6feed65f",
+      "Static": 0B,
+      "Enabled": 1B,
+      "EnabledInHierarchy": 1B,
+      "TagIndex": 0,
+      "LayerIndex": 0,
+      "HideFlags": 0,
+      "Transform": {
+        "$id": 39244,
+        "$type": "XEngine.Vector.Transform, XEngine.Runtime",
+        "_localPosition": {
+          "X": 0F,
+          "Y": 0F,
+          "Z": 0F
+        },
+        "_localScale": {
+          "X": 1F,
+          "Y": 1F,
+          "Z": 1F
+        },
+        "_localRotation": {
+          "X": 0F,
+          "Y": 0F,
+          "Z": 0F,
+          "W": 1F
+        }
+      },
+      "Components": [
+        {
+          "$id": 39245,
+          "$type": "XEngine.Runtime.ParticleSystem.ParticleSystemComponent, XEngine.Runtime",
+          "Material": {
+            "AssetID": "9923273f-23de-cbad-317f-ca7424279f70"
+          },
+          "MaxParticles": 1000,
+          "Duration": 1F,
+          "Looping": false,
+          "PlayOnEnable": true,
+          "Prewarm": false,
+          "RandomSeed": 0U,
+          "SimulationSpace": 1L,
+          "StartDelay": 0F,
+          "RenderMode": 0L,
+          "RenderAlignment": 0L,
+          "SortingFudge": 0F,
+          "VelocityScale": 0F,
+          "LengthScale": 2F,
+          "RenderMesh": {
+            "AssetID": "00000000-0000-0000-0000-000000000000"
+          },
+          "Initial": {
+            "$id": 39246,
+            "StartLifetime": {
+              "$id": 39247,
+              "Mode": 0L,
+              "ConstantValue": 0.14F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39248,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39249,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39250,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "StartSpeed": {
+              "$id": 39251,
+              "Mode": 0L,
+              "ConstantValue": 0F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39252,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39253,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39254,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "StartSize": {
+              "$id": 39255,
+              "Mode": 0L,
+              "ConstantValue": 1F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39256,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39257,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39258,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "SeparateSizeAxes": false,
+            "StartSizeY": {
+              "$id": 39259,
+              "Mode": 0L,
+              "ConstantValue": 1F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39260,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39261,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39262,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "StartSizeZ": {
+              "$id": 39263,
+              "Mode": 0L,
+              "ConstantValue": 1F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39264,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39265,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39266,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "StartRotation": {
+              "$id": 39267,
+              "Mode": 0L,
+              "ConstantValue": 0F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39268,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39269,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39270,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "SeparateRotationAxes": false,
+            "StartRotationX": {
+              "$id": 39271,
+              "Mode": 0L,
+              "ConstantValue": 0F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39272,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39273,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39274,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "StartRotationY": {
+              "$id": 39275,
+              "Mode": 0L,
+              "ConstantValue": 0F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39276,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39277,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39278,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "StartColor": {
+              "$id": 39279,
+              "Mode": 0L,
+              "ConstantColor": {
+                "R": 1F,
+                "G": 0.33490568F,
+                "B": 0.66462487F,
+                "A": 1F
+              },
+              "MinColor": {
+                "R": 1F,
+                "G": 1F,
+                "B": 1F,
+                "A": 1F
+              },
+              "MaxColor": {
+                "R": 1F,
+                "G": 1F,
+                "B": 1F,
+                "A": 1F
+              },
+              "Gradient": {
+                "$id": 39280,
+                "ColorKeys": {
+                  "$id": 39281,
+                  "$values": [
+                    {
+                      "Color": {
+                        "R": 1F,
+                        "G": 1F,
+                        "B": 1F,
+                        "A": 1F
+                      },
+                      "Time": 0F
+                    },
+                    {
+                      "Color": {
+                        "R": 1F,
+                        "G": 1F,
+                        "B": 1F,
+                        "A": 1F
+                      },
+                      "Time": 1F
+                    }
+                  ]
+                },
+                "AlphaKeys": {
+                  "$id": 39282,
+                  "$values": [
+                    {
+                      "Alpha": 1F,
+                      "Time": 0F
+                    },
+                    {
+                      "Alpha": 1F,
+                      "Time": 1F
+                    }
+                  ]
+                }
+              },
+              "MinGradient": {
+                "$id": 39283,
+                "ColorKeys": {
+                  "$id": 39284,
+                  "$values": [
+                    {
+                      "Color": {
+                        "R": 1F,
+                        "G": 1F,
+                        "B": 1F,
+                        "A": 1F
+                      },
+                      "Time": 0F
+                    },
+                    {
+                      "Color": {
+                        "R": 1F,
+                        "G": 1F,
+                        "B": 1F,
+                        "A": 1F
+                      },
+                      "Time": 1F
+                    }
+                  ]
+                },
+                "AlphaKeys": {
+                  "$id": 39285,
+                  "$values": [
+                    {
+                      "Alpha": 1F,
+                      "Time": 0F
+                    },
+                    {
+                      "Alpha": 1F,
+                      "Time": 1F
+                    }
+                  ]
+                }
+              },
+              "MaxGradient": {
+                "$id": 39286,
+                "ColorKeys": {
+                  "$id": 39287,
+                  "$values": [
+                    {
+                      "Color": {
+                        "R": 1F,
+                        "G": 1F,
+                        "B": 1F,
+                        "A": 1F
+                      },
+                      "Time": 0F
+                    },
+                    {
+                      "Color": {
+                        "R": 1F,
+                        "G": 1F,
+                        "B": 1F,
+                        "A": 1F
+                      },
+                      "Time": 1F
+                    }
+                  ]
+                },
+                "AlphaKeys": {
+                  "$id": 39288,
+                  "$values": [
+                    {
+                      "Alpha": 1F,
+                      "Time": 0F
+                    },
+                    {
+                      "Alpha": 1F,
+                      "Time": 1F
+                    }
+                  ]
+                }
+              }
+            },
+            "GravityModifier": 0F,
+            "Enabled": true
+          },
+          "Emission": {
+            "$id": 39289,
+            "RateOverTime": {
+              "$id": 39290,
+              "Mode": 0L,
+              "ConstantValue": 0F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39291,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39292,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39293,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "RateOverDistance": {
+              "$id": 39294,
+              "Mode": 0L,
+              "ConstantValue": 0F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39295,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39296,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39297,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "Bursts": {
+              "$id": 39298,
+              "$values": [
+                {
+                  "Time": 0F,
+                  "MinCount": 1,
+                  "MaxCount": 1,
+                  "CycleCount": 1,
+                  "RepeatInterval": 0.01F
+                }
+              ]
+            },
+            "UseUnityBurstScheduling": true,
+            "Shape": 0L,
+            "ShapeEnabled": false,
+            "ShapeForward": {
+              "X": 0F,
+              "Y": 0F,
+              "Z": 1F
+            },
+            "ShapeUsesZAxis": true,
+            "ShapePosition": {
+              "X": 0F,
+              "Y": 0F,
+              "Z": 0F
+            },
+            "ShapeRotation": {
+              "X": 0F,
+              "Y": 0F,
+              "Z": 0F
+            },
+            "ShapeScale": {
+              "X": 1F,
+              "Y": 1F,
+              "Z": 1F
+            },
+            "LineLength": 1F,
+            "Radius": 1F,
+            "RadiusThickness": 1F,
+            "Arc": 360F,
+            "ConeAngle": 25F,
+            "EmitFromShell": false,
+            "BoxSize": {
+              "X": 1F,
+              "Y": 1F,
+              "Z": 1F
+            },
+            "Enabled": true
+          },
+          "SizeOverLifetime": {
+            "$id": 39299,
+            "SizeCurve": {
+              "$id": 39300,
+              "PreLoop": 0,
+              "PostLoop": 0,
+              "KeysBinary": [B;AAAAAAAAgD8AAACAAACAv6uqqj6rqqo+AACAPwAAAAAAAIC/AAAAgKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+            },
+            "SeparateAxes": false,
+            "SizeYCurve": {
+              "$id": 39301,
+              "PreLoop": 0,
+              "PostLoop": 0,
+              "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+            },
+            "SizeZCurve": {
+              "$id": 39302,
+              "PreLoop": 0,
+              "PostLoop": 0,
+              "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+            },
+            "Enabled": true
+          },
+          "ColorOverLifetime": {
+            "$id": 39303,
+            "ColorGradient": {
+              "$id": 39304,
+              "ColorKeys": {
+                "$id": 39305,
+                "$values": [
+                  {
+                    "Color": {
+                      "R": 1F,
+                      "G": 1F,
+                      "B": 1F,
+                      "A": 0F
+                    },
+                    "Time": 0F
+                  },
+                  {
+                    "Color": {
+                      "R": 1F,
+                      "G": 1F,
+                      "B": 1F,
+                      "A": 1F
+                    },
+                    "Time": 1F
+                  }
+                ]
+              },
+              "AlphaKeys": {
+                "$id": 39306,
+                "$values": [
+                  {
+                    "Alpha": 0F,
+                    "Time": 0F
+                  },
+                  {
+                    "Alpha": 1F,
+                    "Time": 0.34999618F
+                  }
+                ]
+              }
+            },
+            "Enabled": true
+          },
+          "RotationOverLifetime": {
+            "$id": 39307,
+            "AngularVelocity": {
+              "$id": 39308,
+              "Mode": 0L,
+              "ConstantValue": 0F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39309,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39310,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39311,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "SeparateAxes": false,
+            "AngularVelocityX": {
+              "$id": 39312,
+              "Mode": 0L,
+              "ConstantValue": 0F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39313,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39314,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39315,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "AngularVelocityY": {
+              "$id": 39316,
+              "Mode": 0L,
+              "ConstantValue": 0F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39317,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39318,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39319,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "Enabled": false
+          },
+          "VelocityOverLifetime": {
+            "$id": 39320,
+            "VelocityX": {
+              "$id": 39321,
+              "PreLoop": 0,
+              "PostLoop": 0,
+              "KeysBinary": [B;AAAAAAAAAAAAAAAAAAAAAKuqqj6rqqo+AACAPwAAAAAAAAAAAAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+            },
+            "VelocityY": {
+              "$id": 39322,
+              "PreLoop": 0,
+              "PostLoop": 0,
+              "KeysBinary": [B;AAAAAAAAAAAAAAAAAAAAAKuqqj6rqqo+AACAPwAAAAAAAAAAAAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+            },
+            "VelocityZ": {
+              "$id": 39323,
+              "PreLoop": 0,
+              "PostLoop": 0,
+              "KeysBinary": [B;AAAAAAAAAAAAAAAAAAAAAKuqqj6rqqo+AACAPwAAAAAAAAAAAAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+            },
+            "UseMinMaxCurves": false,
+            "LinearX": {
+              "$id": 39324,
+              "Mode": 0L,
+              "ConstantValue": 0F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39325,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39326,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39327,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "LinearY": {
+              "$id": 39328,
+              "Mode": 0L,
+              "ConstantValue": 0F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39329,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39330,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39331,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "LinearZ": {
+              "$id": 39332,
+              "Mode": 0L,
+              "ConstantValue": 0F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39333,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39334,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39335,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "OrbitalX": {
+              "$id": 39336,
+              "Mode": 0L,
+              "ConstantValue": 0F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39337,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39338,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39339,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "OrbitalY": {
+              "$id": 39340,
+              "Mode": 0L,
+              "ConstantValue": 0F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39341,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39342,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39343,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "OrbitalZ": {
+              "$id": 39344,
+              "Mode": 0L,
+              "ConstantValue": 0F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39345,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39346,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39347,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "OrbitalOffsetX": {
+              "$id": 39348,
+              "Mode": 0L,
+              "ConstantValue": 0F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39349,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39350,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39351,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "OrbitalOffsetY": {
+              "$id": 39352,
+              "Mode": 0L,
+              "ConstantValue": 0F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39353,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39354,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39355,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "OrbitalOffsetZ": {
+              "$id": 39356,
+              "Mode": 0L,
+              "ConstantValue": 0F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39357,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39358,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39359,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "Radial": {
+              "$id": 39360,
+              "Mode": 0L,
+              "ConstantValue": 0F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39361,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39362,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39363,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "SpeedModifier": {
+              "$id": 39364,
+              "Mode": 0L,
+              "ConstantValue": 1F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39365,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39366,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39367,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "Space": 0L,
+            "Enabled": false
+          },
+          "ForceOverLifetime": {
+            "$id": 39368,
+            "ForceX": {
+              "$id": 39369,
+              "Mode": 0L,
+              "ConstantValue": 0F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39370,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39371,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39372,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "ForceY": {
+              "$id": 39373,
+              "Mode": 0L,
+              "ConstantValue": 0F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39374,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39375,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39376,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "ForceZ": {
+              "$id": 39377,
+              "Mode": 0L,
+              "ConstantValue": 0F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39378,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39379,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39380,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "Space": 0L,
+            "RandomizeEachFrame": false,
+            "Enabled": false
+          },
+          "Collision": {
+            "$id": 39381,
+            "Mode": 0L,
+            "Quality": 1L,
+            "Dampen": 0.5F,
+            "Bounce": 0.3F,
+            "LifetimeLoss": 0F,
+            "MinKillSpeed": 0F,
+            "ParticleRadius": 0.05F,
+            "MaxCollisionDistance": 1F,
+            "CollidesWith": {
+              "mask": 4294967295U
+            },
+            "VoxelSize": 1F,
+            "Planes": {
+              "$id": 39382,
+              "$values": [
+
+              ]
+            },
+            "Enabled": false
+          },
+          "UV": {
+            "$id": 39383,
+            "Mode": 0L,
+            "TilesX": 1,
+            "TilesY": 1,
+            "CycleCount": 1,
+            "FrameOverTime": 1F,
+            "RandomStartFrame": false,
+            "UseMinMaxCurves": false,
+            "FrameOverTimeCurve": {
+              "$id": 39384,
+              "Mode": 0L,
+              "ConstantValue": 1F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39385,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39386,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39387,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "StartFrameCurve": {
+              "$id": 39388,
+              "Mode": 0L,
+              "ConstantValue": 0F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39389,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39390,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39391,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "SingleRow": false,
+            "RowIndex": 0,
+            "RandomRow": true,
+            "TopRowFirst": false,
+            "UOffsetCurve": {
+              "$id": 39392,
+              "PreLoop": 0,
+              "PostLoop": 0,
+              "KeysBinary": [B;AAAAAAAAAAAAAAAAAAAAAKuqqj6rqqo+AACAPwAAAAAAAAAAAAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+            },
+            "VOffsetCurve": {
+              "$id": 39393,
+              "PreLoop": 0,
+              "PostLoop": 0,
+              "KeysBinary": [B;AAAAAAAAAAAAAAAAAAAAAKuqqj6rqqo+AACAPwAAAAAAAAAAAAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+            },
+            "ScrollSpeed": {
+              "X": 0F,
+              "Y": 0F
+            },
+            "FlipU": false,
+            "FlipV": false,
+            "Enabled": false
+          },
+          "Light": {
+            "$id": 39394,
+            "Color": {
+              "R": 1F,
+              "G": 1F,
+              "B": 1F,
+              "A": 1F
+            },
+            "UseParticleColor": true,
+            "Intensity": 1F,
+            "Range": 2F,
+            "ScaleRangeByParticleSize": false,
+            "FadeWithLifetime": true,
+            "Enabled": false
+          },
+          "SizeBySpeed": {
+            "$id": 39395,
+            "Size": {
+              "$id": 39396,
+              "Mode": 0L,
+              "ConstantValue": 1F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39397,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39398,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39399,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "SpeedRange": {
+              "X": 0F,
+              "Y": 1F
+            },
+            "MinSize": 1F,
+            "MaxSize": 1F,
+            "Enabled": false
+          },
+          "Noise": {
+            "$id": 39400,
+            "Strength": 0F,
+            "Frequency": 0.5F,
+            "Damping": true,
+            "UseSpatialNoise": false,
+            "SeparateAxes": false,
+            "StrengthCurve": {
+              "$id": 39401,
+              "Mode": 0L,
+              "ConstantValue": 1F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39402,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39403,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39404,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "StrengthYCurve": {
+              "$id": 39405,
+              "Mode": 0L,
+              "ConstantValue": 1F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39406,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39407,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39408,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "StrengthZCurve": {
+              "$id": 39409,
+              "Mode": 0L,
+              "ConstantValue": 1F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39410,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39411,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39412,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "ScrollSpeed": {
+              "$id": 39413,
+              "Mode": 0L,
+              "ConstantValue": 0F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39414,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39415,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39416,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "Octaves": 1,
+            "OctaveMultiplier": 0.5F,
+            "OctaveScale": 2F,
+            "Quality": 2L,
+            "RemapEnabled": false,
+            "Remap": {
+              "$id": 39417,
+              "Mode": 1L,
+              "ConstantValue": 1F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39418,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39419,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39420,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "RemapY": {
+              "$id": 39421,
+              "Mode": 1L,
+              "ConstantValue": 1F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39422,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39423,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39424,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "RemapZ": {
+              "$id": 39425,
+              "Mode": 1L,
+              "ConstantValue": 1F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39426,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39427,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39428,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "PositionAmount": {
+              "$id": 39429,
+              "Mode": 0L,
+              "ConstantValue": 1F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39430,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39431,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39432,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "RotationAmount": {
+              "$id": 39433,
+              "Mode": 0L,
+              "ConstantValue": 0F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39434,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39435,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39436,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "SizeAmount": {
+              "$id": 39437,
+              "Mode": 0L,
+              "ConstantValue": 0F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39438,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39439,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39440,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "Enabled": false
+          },
+          "LimitVelocity": {
+            "$id": 39441,
+            "SeparateAxes": false,
+            "LimitMagnitude": {
+              "$id": 39442,
+              "Mode": 0L,
+              "ConstantValue": 1F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39443,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39444,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39445,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "LimitX": {
+              "$id": 39446,
+              "Mode": 0L,
+              "ConstantValue": 1F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39447,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39448,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39449,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "LimitY": {
+              "$id": 39450,
+              "Mode": 0L,
+              "ConstantValue": 1F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39451,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39452,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39453,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "LimitZ": {
+              "$id": 39454,
+              "Mode": 0L,
+              "ConstantValue": 1F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39455,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39456,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39457,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "Dampen": 1F,
+            "Drag": 0F,
+            "Enabled": false
+          },
+          "InheritVelocity": {
+            "$id": 39458,
+            "Curve": {
+              "$id": 39459,
+              "Mode": 0L,
+              "ConstantValue": 0F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39460,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39461,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39462,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "EmitterVelocity": {
+              "X": 0F,
+              "Y": 0F,
+              "Z": 0F
+            },
+            "Enabled": false
+          },
+          "Trails": {
+            "$id": 39463,
+            "Mode": 0L,
+            "Ratio": 0.5F,
+            "Lifetime": {
+              "$id": 39464,
+              "Mode": 0L,
+              "ConstantValue": 1F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39465,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39466,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39467,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "DieWithParticles": true,
+            "InheritParticleColor": true,
+            "ColorOverLifetime": {
+              "$id": 39468,
+              "Mode": 0L,
+              "ConstantColor": {
+                "R": 1F,
+                "G": 1F,
+                "B": 1F,
+                "A": 1F
+              },
+              "MinColor": {
+                "R": 1F,
+                "G": 1F,
+                "B": 1F,
+                "A": 1F
+              },
+              "MaxColor": {
+                "R": 1F,
+                "G": 1F,
+                "B": 1F,
+                "A": 1F
+              },
+              "Gradient": {
+                "$id": 39469,
+                "ColorKeys": {
+                  "$id": 39470,
+                  "$values": [
+                    {
+                      "Color": {
+                        "R": 1F,
+                        "G": 1F,
+                        "B": 1F,
+                        "A": 1F
+                      },
+                      "Time": 0F
+                    },
+                    {
+                      "Color": {
+                        "R": 1F,
+                        "G": 1F,
+                        "B": 1F,
+                        "A": 1F
+                      },
+                      "Time": 1F
+                    }
+                  ]
+                },
+                "AlphaKeys": {
+                  "$id": 39471,
+                  "$values": [
+                    {
+                      "Alpha": 1F,
+                      "Time": 0F
+                    },
+                    {
+                      "Alpha": 1F,
+                      "Time": 1F
+                    }
+                  ]
+                }
+              },
+              "MinGradient": {
+                "$id": 39472,
+                "ColorKeys": {
+                  "$id": 39473,
+                  "$values": [
+                    {
+                      "Color": {
+                        "R": 1F,
+                        "G": 1F,
+                        "B": 1F,
+                        "A": 1F
+                      },
+                      "Time": 0F
+                    },
+                    {
+                      "Color": {
+                        "R": 1F,
+                        "G": 1F,
+                        "B": 1F,
+                        "A": 1F
+                      },
+                      "Time": 1F
+                    }
+                  ]
+                },
+                "AlphaKeys": {
+                  "$id": 39474,
+                  "$values": [
+                    {
+                      "Alpha": 1F,
+                      "Time": 0F
+                    },
+                    {
+                      "Alpha": 1F,
+                      "Time": 1F
+                    }
+                  ]
+                }
+              },
+              "MaxGradient": {
+                "$id": 39475,
+                "ColorKeys": {
+                  "$id": 39476,
+                  "$values": [
+                    {
+                      "Color": {
+                        "R": 1F,
+                        "G": 1F,
+                        "B": 1F,
+                        "A": 1F
+                      },
+                      "Time": 0F
+                    },
+                    {
+                      "Color": {
+                        "R": 1F,
+                        "G": 1F,
+                        "B": 1F,
+                        "A": 1F
+                      },
+                      "Time": 1F
+                    }
+                  ]
+                },
+                "AlphaKeys": {
+                  "$id": 39477,
+                  "$values": [
+                    {
+                      "Alpha": 1F,
+                      "Time": 0F
+                    },
+                    {
+                      "Alpha": 1F,
+                      "Time": 1F
+                    }
+                  ]
+                }
+              }
+            },
+            "WidthOverTrail": {
+              "$id": 39478,
+              "Mode": 0L,
+              "ConstantValue": 1F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39479,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39480,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39481,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "SizeAffectsWidth": true,
+            "TextureTiles": false,
+            "TrailMaterial": NULL,
+            "Enabled": false
+          },
+          "SubEmitters": {
+            "$id": 39482,
+            "Emitters": {
+              "$id": 39483,
+              "$values": [
+
+              ]
+            },
+            "Enabled": false
+          },
+          "CustomData": {
+            "$id": 39484,
+            "Custom1ComponentCount": 4,
+            "Custom1X": {
+              "$id": 39485,
+              "Mode": 0L,
+              "ConstantValue": 0F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39486,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39487,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39488,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "Custom1Y": {
+              "$id": 39489,
+              "Mode": 0L,
+              "ConstantValue": 0F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39490,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39491,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39492,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "Custom1Z": {
+              "$id": 39493,
+              "Mode": 0L,
+              "ConstantValue": 0F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39494,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39495,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39496,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "Custom1W": {
+              "$id": 39497,
+              "Mode": 0L,
+              "ConstantValue": 0F,
+              "MinValue": 0F,
+              "MaxValue": 1F,
+              "Curve": {
+                "$id": 39498,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MinCurve": {
+                "$id": 39499,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              },
+              "MaxCurve": {
+                "$id": 39500,
+                "PreLoop": 0,
+                "PostLoop": 0,
+                "KeysBinary": [B;AAAAAAAAAAAAAAAAAACAP6uqqj6rqqo+AACAPwAAgD8AAIA/AAAAAKuqqj6rqqo+AAAAAAIAAAACAAAAAAAAAAAAAAACAAAAAgAAAAAAAAA=]
+              }
+            },
+            "Custom1ToUV0ZW": false,
+            "Enabled": false
+          },
+          "_identifier": "157f5559-f2ce-46cf-8b44-6325a8b0d77f",
+          "_enabled": true,
+          "_enabledInHierarchy": true,
+          "HideFlags": 0L,
+          "AssetPath": "",
+          "AssetID": "00000000-0000-0000-0000-000000000000",
+          "Name": "NewParticleSystemComponent"
+        }
+      ],
+      "Children": [
+
+      ]
+    }
+  ]
+}

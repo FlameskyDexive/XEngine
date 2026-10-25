@@ -1,0 +1,10 @@
+{
+    "name": "XEngine.InputSystem.Runtime",
+    "rootNamespace": "XEngine.InputSystem",
+    "references": [ "XEngine.Runtime" ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "noEngineReferences": false
+}

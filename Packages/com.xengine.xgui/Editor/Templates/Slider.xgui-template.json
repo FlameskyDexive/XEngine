@@ -1,0 +1,17 @@
+{
+  "root": {
+    "id": "slider",
+    "name": "Slider",
+    "rect": { "size": [200, 24] },
+    "components": [ { "type": "Image", "properties": { "Color": [0.20, 0.20, 0.24, 1] } }, { "type": "Slider", "properties": { "Value": 0.5 } } ],
+    "children": [
+      { "id": "fill", "name": "Fill", "rect": { "stretch": true }, "components": [ { "type": "Image", "properties": { "Color": [0.38, 0.55, 0.95, 1], "RaycastTarget": false } } ] },
+      { "id": "handle", "name": "Handle", "rect": { "size": [20, 0] }, "components": [ { "type": "Image", "properties": { "Color": [0.90, 0.90, 0.94, 1], "RaycastTarget": false } } ] }
+    ]
+  },
+  "bindings": [
+    { "node": "slider", "component": "Slider", "property": "TargetGraphicComponent", "targetNode": "slider", "targetComponent": "Image" },
+    { "node": "slider", "component": "Slider", "property": "FillRect", "targetNode": "fill", "targetComponent": "RectTransform" },
+    { "node": "slider", "component": "Slider", "property": "HandleRect", "targetNode": "handle", "targetComponent": "RectTransform" }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "com.xengine.platform.harmonyos",
+  "version": "0.1.0",
+  "displayName": "HarmonyOS Build Support",
+  "description": "Platform module for HarmonyOS builds: toolchain manifest driving download of the public OpenHarmony SDK (native + toolchains incl. hdc) from the Huawei Cloud open mirror and the XEngine OpenHarmony SDK Bundle (self-built, GitHub Releases) into the managed SDK root, then reusing the existing bundle-import / SDK-resolve chain. Metadata only — no binaries are redistributed.",
+  "installByDefault": false,
+  "xengine": "0.1.0",
+  "type": "package",
+  "category": "Platforms",
+  "documentationUrl": "Documentation~/index.md",
+  "changelogUrl": "CHANGELOG.md",
+  "supportedPlatforms": ["Windows"],
+  "license": "MIT",
+  "keywords": ["xengine", "harmonyos", "openharmony", "build", "toolchain"],
+  "dependencies": {}
+}

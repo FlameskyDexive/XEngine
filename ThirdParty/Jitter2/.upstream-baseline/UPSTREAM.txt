@@ -1,0 +1,10 @@
+Pristine upstream snapshot of Jitter Physics 2, used to three-way diff XEngine
+kernel patches (../PATCHES.md) against upstream when syncing a new version.
+
+Do not edit anything under this folder, and do not reference it from a project.
+
+Upstream:  https://github.com/notgiven688/jitterphysics2
+Commit:    8bf70b327ccfcc93863c2ab77dfae5128fb40d07
+Describe:  2.8.9-1-g8bf70b32
+Committed: 2026-07-24T09:06:00+02:00
+Synced:    2026-08-15

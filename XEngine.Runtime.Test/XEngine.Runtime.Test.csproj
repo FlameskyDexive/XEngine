@@ -1,0 +1,56 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.0" />
+    <PackageReference Include="NSubstitute" Version="5.1.0" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0" />
+    <PackageReference Include="Serilog.Sinks.InMemory" Version="0.11.0" />
+    <PackageReference Include="Xunit" Version="2.9.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\XEngine.Runtime\XEngine.Runtime.csproj" />
+    <!-- Zonezero battle-demo sources live in a sibling game repository that is not part of
+         this engine repo; compile them (and their tests) only when that checkout exists. -->
+    <Compile Include="..\ZonezeroTestProject\Packages\com.xengine.zonezero\Runtime\UI\BattleTouchInputBridge.cs" Link="Zonezero\BattleTouchInputBridge.cs" Condition="Exists('..\ZonezeroTestProject\Packages\com.xengine.zonezero\Runtime\UI\BattleTouchInputBridge.cs')" />
+    <Compile Remove="BattleTouchInputTests.cs" Condition="!Exists('..\ZonezeroTestProject\Packages\com.xengine.zonezero\Runtime\UI\BattleTouchInputBridge.cs')" />
+    <ProjectReference Include="..\ThirdParty\DotRecast\DotRecast.Core\DotRecast.Core.csproj" />
+    <ProjectReference Include="..\ThirdParty\DotRecast\DotRecast.Recast\DotRecast.Recast.csproj" />
+    <ProjectReference Include="..\ThirdParty\DotRecast\DotRecast.Detour\DotRecast.Detour.csproj" />
+    <ProjectReference Include="..\ThirdParty\DotRecast\DotRecast.Detour.TileCache\DotRecast.Detour.TileCache.csproj" />
+    <ProjectReference Include="..\ThirdParty\DotRecast\DotRecast.Detour.Crowd\DotRecast.Detour.Crowd.csproj" />
+    <ProjectReference Include="..\ThirdParty\DotRecast\DotRecast.Detour.Dynamic\DotRecast.Detour.Dynamic.csproj" />
+    <Compile Include="..\Packages\com.xengine.vfx\Runtime\**\*.cs" Link="VfxPackage\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\Packages\com.xengine.terrain\Runtime\**\*.cs" Link="TerrainPackage\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\Packages\com.xengine.voxelworld\Runtime\**\*.cs" Link="VoxelWorldPackage\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\Packages\com.xengine.ai.navigation\Runtime\**\*.cs" Link="NavigationPackage\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\Packages\com.xengine.spine\Runtime\**\*.cs" Link="SpinePackage\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\Packages\com.xengine.postprocessing\Runtime\**\*.cs" Link="PostProcessingPackage\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\Packages\com.xengine.spine\Samples~\GettingStarted\Scripts\**\*.cs" Link="SpineSamples\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\Packages\com.xengine.spine\Samples~\OtherExamples\Scripts\**\*.cs" Link="SpineOtherExamples\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\Packages\com.xengine.xgui\Runtime\Core\Graphic.cs" Link="XguiPackage\Graphic.cs" />
+    <Compile Include="..\Packages\com.xengine.xgui\Runtime\Core\MaskableGraphic.cs" Link="XguiPackage\MaskableGraphic.cs" />
+    <Compile Include="..\Packages\com.xengine.xgui\Runtime\Core\VertexHelper.cs" Link="XguiPackage\VertexHelper.cs" />
+    <Compile Include="..\Packages\com.xengine.xgui\Runtime\Core\UIInterfaces.cs" Link="XguiPackage\UIInterfaces.cs" />
+    <Compile Include="..\Packages\com.xengine.xgui\Runtime\Core\GraphicRegistry.cs" Link="XguiPackage\GraphicRegistry.cs" />
+    <Compile Include="..\Packages\com.xengine.xgui\Runtime\Core\CanvasUpdateRegistry.cs" Link="XguiPackage\CanvasUpdateRegistry.cs" />
+    <!-- CanvasUpdateRegistry resolves ILayoutElement against the package declaration, not the
+         Runtime compatibility contract, so the declaring file has to compile alongside it. -->
+    <Compile Include="..\Packages\com.xengine.xgui\Runtime\Layout\LayoutElement.cs" Link="XguiPackage\LayoutElement.cs" />
+    <!-- B1 - WebSurface runtime core (frame pool / session / fake producer / graphic). -->
+    <Compile Include="..\Packages\com.xengine.websurface\Runtime\**\*.cs" Link="WebSurfacePackage\%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+
+</Project>

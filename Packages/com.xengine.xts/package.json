@@ -1,0 +1,17 @@
+{
+  "name": "com.xengine.xts",
+  "version": "0.1.3",
+  "displayName": "XTS TypeScript Scripting",
+  "description": "Official optional TypeScript game scripting and hot-update for XEngine: authors gameplay as TypeScript, packs it with the editor toolchain, and runs it on QuickJS behind a versioned native ABI on Windows and HarmonyOS players. Installs the script runtime, bindings generator, content update pipeline and behaviour components. Not mounted until the project installs it.",
+  "installByDefault": false,
+  "xengine": "0.1.0",
+  "type": "package",
+  "category": "Official",
+  "documentationUrl": "Documentation~/index.md",
+  "changelogUrl": "CHANGELOG.md",
+  "licensesUrl": "LICENSE.md",
+  "supportedPlatforms": ["Windows", "HarmonyOS"],
+  "license": "MIT",
+  "keywords": ["xengine", "typescript", "quickjs", "hot-update", "scripting"],
+  "dependencies": {}
+}

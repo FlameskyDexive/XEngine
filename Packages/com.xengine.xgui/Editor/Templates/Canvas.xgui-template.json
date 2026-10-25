@@ -1,0 +1,11 @@
+{
+  "root": {
+    "id": "canvas",
+    "name": "Canvas",
+    "rect": { "size": [800, 450] },
+    "components": [
+      { "type": "GameCanvas" },
+      { "type": "CanvasScaler", "properties": { "UIScaleMode": "ScaleWithScreenSize", "ReferenceResolution": [1280, 720] } }
+    ]
+  }
+}

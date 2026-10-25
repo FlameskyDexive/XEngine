@@ -1,0 +1,16 @@
+{
+  "name": "com.xengine.platform.ios",
+  "version": "0.1.0",
+  "displayName": "iOS Build Support",
+  "description": "Platform module for iOS builds: Xcode locator manifest (xcode-select / DEVELOPER_DIR / PATH) with version validation and actionable guidance. Apple licensing forbids redistributing Xcode, so this module downloads nothing — it locates, validates, and guides, and drives the Windows-side preflight checklist.",
+  "installByDefault": false,
+  "xengine": "0.1.0",
+  "type": "package",
+  "category": "Platforms",
+  "documentationUrl": "Documentation~/index.md",
+  "changelogUrl": "CHANGELOG.md",
+  "supportedPlatforms": ["Windows", "MacOS"],
+  "license": "MIT",
+  "keywords": ["xengine", "ios", "build", "toolchain", "xcode"],
+  "dependencies": {}
+}

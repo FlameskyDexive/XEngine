@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<XUI version="1">
+
+  <Theme name="dark">
+    <Color name="scrim"  value="#000000AA"/>
+    <Color name="panel"  value="#1E2433"/>
+    <Color name="row"    value="#12141B"/>
+    <Color name="accent" value="#4C8DFF"/>
+    <Color name="text"   value="#E8EAF0"/>
+    <Color name="muted"  value="#8892A6"/>
+  </Theme>
+
+  <Screen name="Settings" reference="1920x1080" layer="Normal">
+    <Image id="XImgScrim" anchor="stretch" color="scrim">
+      <Anim on="show" fade="0:1" duration="0.15"/>
+      <Anim on="hide" fade=":0" duration="0.12"/>
+    </Image>
+
+    <VStack id="XVsPanel" anchor="center" size="720x_" color="panel" spacing="16" padding="28">
+      <!-- Entrance: rise into place while fading in. Both channels on one transition. -->
+      <Anim on="show" move="0,-32:0,0" fade="0:1" duration="0.22" ease="out-quad"/>
+      <Anim on="hide" move=":0,-24" fade=":0" duration="0.14" ease="in-quad"/>
+
+      <Text id="XTxtTitle" size="_x44" font-size="30" color="text">Settings</Text>
+
+      <TabBar id="XTabsMain" size="_x44" spacing="8" selected="0">
+        <Tab id="XTabAudio"   size="_x44" bind="XShowAudio"   color="accent">Audio</Tab>
+        <Tab id="XTabVideo"   size="_x44" bind="XShowVideo"   color="accent">Video</Tab>
+        <Tab id="XTabAccount" size="_x44" bind="XShowAccount" color="accent">Account</Tab>
+      </TabBar>
+
+      <Show id="XShowAudio" size="_x140">
+        <VStack id="XVsAudio" anchor="stretch" spacing="10">
+          <Text id="XTxtVolume" size="_x24" color="muted">Master volume</Text>
+          <Slider id="XSliderVolume" size="_x28" min="0" max="100" value="70" fill-color="accent"/>
+          <Toggle id="XTogMute" size="_x32" color="row" text-color="text" on="false">Mute in background</Toggle>
+        </VStack>
+      </Show>
+
+      <Show id="XShowVideo" size="_x140">
+        <VStack id="XVsVideo" anchor="stretch" spacing="10">
+          <Text id="XTxtQuality" size="_x24" color="muted">Quality</Text>
+          <Progress id="XProgVram" size="_x16" value="0.42" fill-color="accent"/>
+          <!-- A number, not prose: it must never reach a translator. -->
+          <Text id="XTxtVramValue" size="_x24" color="text" translate="false">3.4 / 8.0 GB</Text>
+        </VStack>
+      </Show>
+
+      <Show id="XShowAccount" size="_x140">
+        <VStack id="XVsAccount" anchor="stretch" spacing="10">
+          <InputField id="XInputName" size="_x44" color="row" placeholder="Display name"/>
+          <Text id="XTxtStatus" size="_x24" align="center" color="muted"/>
+        </VStack>
+      </Show>
+
+      <HStack id="XHsActions" size="_x44" spacing="12" expand="true">
+        <Btn id="XBtnCancel" size="_x44" color="row" text-color="text">Cancel</Btn>
+        <Btn id="XBtnSave"   size="_x44" color="accent">Save</Btn>
+      </HStack>
+    </VStack>
+  </Screen>
+
+</XUI>

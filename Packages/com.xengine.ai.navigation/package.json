@@ -1,0 +1,23 @@
+{
+  "name": "com.xengine.ai.navigation",
+  "version": "0.1.0",
+  "displayName": "AI Navigation",
+  "description": "Recast/Detour navmesh bake, query, agents, and the Navigation window. Official optional package: listed in Package Manager, not mounted until installed.",
+  "installByDefault": false,
+  "xengine": "0.1.0",
+  "type": "package",
+  "category": "Official",
+  "documentationUrl": "Documentation~/index.md",
+  "changelogUrl": "CHANGELOG.md",
+  "licensesUrl": "LICENSE.md",
+  "supportedPlatforms": ["Windows", "Linux", "MacOS", "Android", "HarmonyOS"],
+  "license": "MIT",
+  "keywords": ["xengine", "ai", "navmesh", "recast", "detour", "pathfinding"],
+  "samples": [
+    {
+      "displayName": "Getting Started",
+      "description": "Notes for baking a walkable plane after installing AI Navigation from Package Manager.",
+      "path": "Samples~"
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:XHub.Resources;assembly=XHub"
+             xmlns:vm="clr-namespace:XHub.ViewModels"
+             x:Class="XHub.Views.ProjectsPage"
+             x:DataType="vm:ProjectsViewModel">
+  <Grid RowDefinitions="Auto,Auto,*">
+
+    <!-- Toolbar: search + status filter + new/import actions -->
+    <Grid ColumnDefinitions="*,Auto,Auto,Auto,Auto" Margin="0,0,0,12">
+      <TextBox Watermark="{ReflectionBinding [common.search], Source={x:Static loc:Loc.Instance}}"
+               Text="{Binding SearchText}" MinWidth="220" MaxWidth="360"
+               HorizontalAlignment="Left" VerticalAlignment="Center" />
+      <ComboBox Grid.Column="1" Margin="10,0,0,0" MinWidth="130" VerticalAlignment="Center"
+                SelectedIndex="{Binding StatusFilterIndex}">
+        <ComboBoxItem Content="{ReflectionBinding [projects.filter.all], Source={x:Static loc:Loc.Instance}}" />
+        <ComboBoxItem Content="{ReflectionBinding [projects.filter.usable], Source={x:Static loc:Loc.Instance}}" />
+        <ComboBoxItem Content="{ReflectionBinding [projects.filter.missing], Source={x:Static loc:Loc.Instance}}" />
+      </ComboBox>
+      <Button Grid.Column="2" Classes="accent" Margin="10,0,0,0"
+              Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).NewProjectCommand}"
+              Content="{ReflectionBinding [projects.new], Source={x:Static loc:Loc.Instance}}" />
+      <Button Grid.Column="3" Classes="accent" Margin="10,0,0,0"
+              Command="{Binding AddProjectCommand}"
+              Content="{ReflectionBinding [projects.add], Source={x:Static loc:Loc.Instance}}" />
+      <Button Grid.Column="4" Margin="10,0,0,0"
+              Command="{Binding AddProjectFileCommand}"
+              Content="{ReflectionBinding [projects.addFile], Source={x:Static loc:Loc.Instance}}" />
+    </Grid>
+
+    <!-- Column headers -->
+    <Grid Grid.Row="1" ColumnDefinitions="32,3*,220,140,120,36" Margin="12,0,12,6">
+      <TextBlock Grid.Column="1" Classes="settingHint"
+                 Text="{ReflectionBinding [projects.col.name], Source={x:Static loc:Loc.Instance}}" />
+      <TextBlock Grid.Column="2" Classes="settingHint"
+                 Text="{ReflectionBinding [projects.col.version], Source={x:Static loc:Loc.Instance}}" />
+      <TextBlock Grid.Column="3" Classes="settingHint"
+                 Text="{ReflectionBinding [projects.col.opened], Source={x:Static loc:Loc.Instance}}" />
+      <TextBlock Grid.Column="4" Classes="settingHint"
+                 Text="{ReflectionBinding [projects.col.status], Source={x:Static loc:Loc.Instance}}" />
+    </Grid>
+
+    <!-- Project list (virtualized) -->
+    <ListBox Grid.Row="2" x:Name="ProjectList" Background="Transparent" BorderThickness="0"
+             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+             ItemsSource="{Binding VisibleItems}">
+      <ListBox.ItemContainerTheme>
+        <ControlTheme TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+          <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+          <Setter Property="Padding" Value="0" />
+          <Setter Property="MinHeight" Value="52" />
+          <Setter Property="Background" Value="Transparent" />
+        </ControlTheme>
+      </ListBox.ItemContainerTheme>
+      <ListBox.ItemTemplate>
+        <DataTemplate x:DataType="vm:ProjectItemViewModel">
+          <Border Classes="hubCard" Margin="12,3" Padding="12,8">
+            <Grid ColumnDefinitions="32,3*,220,140,120,36" VerticalAlignment="Center">
+              <!-- Favorite pin -->
+              <Button Classes="starButton" Classes.favorited="{Binding Favorite}"
+                      Command="{Binding $parent[UserControl].DataContext.ToggleFavoriteCommand}"
+                      CommandParameter="{Binding}" VerticalAlignment="Center"
+                      Background="Transparent" BorderThickness="0" Padding="4">
+                <PathIcon Width="16" Height="16"
+                          Data="M12,2 L15,8.5 L22,9.3 L17,14 L18.3,21 L12,17.5 L5.7,21 L7,14 L2,9.3 L9,8.5 Z" />
+              </Button>
+
+              <!-- Name + path -->
+              <StackPanel Grid.Column="1" Spacing="2" VerticalAlignment="Center" Margin="6,0,12,0">
+                <TextBlock Text="{Binding Name}" FontWeight="Medium" TextTrimming="CharacterEllipsis"
+                           Foreground="{DynamicResource HubTextPrimaryBrush}" />
+                <TextBlock Text="{Binding Path}" FontSize="11" TextTrimming="CharacterEllipsis"
+                           Foreground="{DynamicResource HubTextSecondaryBrush}" />
+              </StackPanel>
+
+              <!-- Engine version (+ match hint) -->
+              <TextBlock Grid.Column="2" Text="{Binding EngineVersionText}" FontSize="12"
+                         VerticalAlignment="Center" TextTrimming="CharacterEllipsis"
+                         Foreground="{DynamicResource HubTextSecondaryBrush}" Margin="0,0,10,0" />
+
+              <!-- Last opened -->
+              <TextBlock Grid.Column="3" Text="{Binding LastOpenedText}" FontSize="12"
+                         VerticalAlignment="Center"
+                         Foreground="{DynamicResource HubTextSecondaryBrush}" />
+
+              <!-- Status chip -->
+              <Border Grid.Column="4" Classes="chip" CornerRadius="4" Padding="8,3"
+                      HorizontalAlignment="Left" VerticalAlignment="Center"
+                      Classes.chipAvailable="{Binding IsAvailable}"
+                      Classes.chipMissing="{Binding IsMissing}"
+                      Classes.chipIncomplete="{Binding IsIncomplete}">
+                <TextBlock Text="{Binding StatusText}" FontSize="11" />
+              </Border>
+
+              <!-- More actions -->
+              <Button Grid.Column="5" Content="⋯" FontSize="14" Padding="6,2"
+                      VerticalAlignment="Center" HorizontalAlignment="Right"
+                      Background="Transparent" BorderThickness="0">
+                <Button.Flyout>
+                  <MenuFlyout Placement="BottomEdgeAlignedRight">
+                    <MenuItem Header="{ReflectionBinding [projects.action.open], Source={x:Static loc:Loc.Instance}}"
+                              Command="{Binding $parent[UserControl].DataContext.OpenCommand}"
+                              CommandParameter="{Binding}" />
+                    <MenuItem Header="{ReflectionBinding [projects.action.retry], Source={x:Static loc:Loc.Instance}}"
+                              IsVisible="{Binding IsFailed}"
+                              Command="{Binding $parent[UserControl].DataContext.OpenCommand}"
+                              CommandParameter="{Binding}" />
+                    <MenuItem Header="{ReflectionBinding [projects.action.openFolder], Source={x:Static loc:Loc.Instance}}"
+                              Command="{Binding $parent[UserControl].DataContext.OpenContainingFolderCommand}"
+                              CommandParameter="{Binding}" />
+                    <MenuItem Header="{ReflectionBinding [projects.action.repair], Source={x:Static loc:Loc.Instance}}"
+                              Command="{Binding $parent[UserControl].DataContext.RepairPathCommand}"
+                              CommandParameter="{Binding}" />
+                    <Separator />
+                    <MenuItem Header="{ReflectionBinding [projects.action.remove], Source={x:Static loc:Loc.Instance}}"
+                              Command="{Binding $parent[UserControl].DataContext.RemoveCommand}"
+                              CommandParameter="{Binding}" />
+                  </MenuFlyout>
+                </Button.Flyout>
+              </Button>
+            </Grid>
+          </Border>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+
+    <!-- Empty states -->
+    <Panel Grid.Row="2" IsVisible="{Binding HasNoProjectsAtAll}">
+      <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="10">
+        <PathIcon Width="44" Height="44" Foreground="{DynamicResource HubTextSecondaryBrush}"
+                  Data="M3,5 C3,3.9 3.9,3 5,3 L9.6,3 C10.1,3 10.6,3.2 11,3.6 L12.4,5 L19,5 C20.1,5 21,5.9 21,7 L21,17 C21,18.1 20.1,19 19,19 L5,19 C3.9,19 3,18.1 3,17 Z" />
+        <TextBlock Classes="emptyTitle" Margin="0,6,0,0"
+                   Text="{ReflectionBinding [projects.empty.title], Source={x:Static loc:Loc.Instance}}" />
+        <TextBlock Classes="emptyHint"
+                   Text="{ReflectionBinding [projects.empty.hint], Source={x:Static loc:Loc.Instance}}" />
+      </StackPanel>
+    </Panel>
+    <Panel Grid.Row="2" IsVisible="{Binding HasNoSearchResults}">
+      <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="10">
+        <TextBlock Classes="emptyTitle"
+                   Text="{ReflectionBinding [projects.noMatch.title], Source={x:Static loc:Loc.Instance}}" />
+        <TextBlock Classes="emptyHint"
+                   Text="{ReflectionBinding [projects.noMatch.hint], Source={x:Static loc:Loc.Instance}}" />
+      </StackPanel>
+    </Panel>
+  </Grid>
+</UserControl>

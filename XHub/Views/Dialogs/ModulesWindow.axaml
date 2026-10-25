@@ -1,0 +1,91 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:loc="clr-namespace:XHub.Resources;assembly=XHub"
+        xmlns:vm="clr-namespace:XHub.ViewModels"
+        x:Class="XHub.Views.Dialogs.ModulesWindow"
+        x:DataType="vm:ModulesViewModel"
+        Title="{Binding Title}"
+        Width="760" Height="560"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False"
+        Background="{DynamicResource HubBackgroundBrush}"
+        Foreground="{DynamicResource HubTextPrimaryBrush}">
+  <Grid Margin="16" RowDefinitions="*,Auto">
+
+    <Grid RowDefinitions="Auto,*" ColumnDefinitions="*,1.2*">
+      <!-- Platform list -->
+      <ScrollViewer>
+        <ItemsControl ItemsSource="{Binding Platforms}" Margin="0,0,10,0">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate x:DataType="vm:PlatformModuleViewModel">
+              <Border Classes="hubCard" Margin="0,0,0,10" Padding="12">
+                <StackPanel Spacing="8">
+                  <Grid ColumnDefinitions="*,Auto">
+                    <TextBlock Text="{Binding Name}" FontWeight="Medium" VerticalAlignment="Center" />
+                    <Button Grid.Column="1" Classes="accent" Padding="10,4"
+                            IsVisible="{Binding !IsIosBlocked}"
+                            IsEnabled="{Binding !IsBusy}"
+                            Command="{Binding $parent[Window].((vm:ModulesViewModel)DataContext).InstallCommand}"
+                            CommandParameter="{Binding}"
+                            Content="{ReflectionBinding [modules.install], Source={x:Static loc:Loc.Instance}}" />
+                  </Grid>
+                  <TextBlock Text="{Binding StatusText}" FontSize="12"
+                             Foreground="{DynamicResource HubTextSecondaryBrush}" />
+                  <TextBlock Text="{Binding IosBlockHint}" FontSize="12" TextWrapping="Wrap"
+                             IsVisible="{Binding IsIosBlocked}"
+                             Foreground="#FFCC7F" />
+
+                  <!-- Android: explicit SDK license consent (§3.4) -->
+                  <StackPanel Orientation="Horizontal" Spacing="8" IsVisible="{Binding IsAndroid}">
+                    <CheckBox IsChecked="{Binding LicenseAccepted}" IsEnabled="{Binding !IsBusy}" />
+                    <TextBlock FontSize="12" VerticalAlignment="Center" TextWrapping="Wrap"
+                               Text="{ReflectionBinding [modules.android.license], Source={x:Static loc:Loc.Instance}}" />
+                  </StackPanel>
+
+                  <!-- HarmonyOS: local bundle import (§3.4) -->
+                  <StackPanel Orientation="Horizontal" Spacing="8" IsVisible="{Binding IsHarmonyOS}">
+                    <Button Padding="10,4" IsEnabled="{Binding !IsBusy}"
+                            Command="{Binding $parent[Window].((vm:ModulesViewModel)DataContext).ImportBundleCommand}"
+                            CommandParameter="{Binding}"
+                            Content="{ReflectionBinding [modules.harmonyos.importBundle], Source={x:Static loc:Loc.Instance}}" />
+                    <TextBlock FontSize="11" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"
+                               MaxWidth="220" Text="{Binding HarmonyBundlePath}"
+                               Foreground="{DynamicResource HubTextSecondaryBrush}" />
+                  </StackPanel>
+
+                  <StackPanel Orientation="Horizontal" Spacing="8">
+                    <Button Padding="8,3" FontSize="11" IsVisible="{Binding IsBusy}"
+                            Command="{Binding $parent[Window].((vm:ModulesViewModel)DataContext).CancelCommand}"
+                            CommandParameter="{Binding}"
+                            Content="{ReflectionBinding [downloads.cancel], Source={x:Static loc:Loc.Instance}}" />
+                    <TextBlock FontSize="11" VerticalAlignment="Center" TextWrapping="Wrap"
+                               Foreground="{DynamicResource HubTextSecondaryBrush}"
+                               Text="{ReflectionBinding [modules.android.licenseHint], Source={x:Static loc:Loc.Instance}}"
+                               IsVisible="{Binding IsAndroid}" />
+                  </StackPanel>
+                </StackPanel>
+              </Border>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+      </ScrollViewer>
+
+      <!-- Diagnostics log -->
+      <Border Grid.Column="1" Classes="hubCard">
+        <Grid RowDefinitions="Auto,*">
+          <StackPanel Orientation="Horizontal" Spacing="8">
+            <TextBlock Classes="sectionHeader" Text="{ReflectionBinding [modules.diagnostics], Source={x:Static loc:Loc.Instance}}" />
+            <Button Padding="6,2" FontSize="11" Command="{Binding RefreshDiagnosticsCommand}"
+                    Content="{ReflectionBinding [modules.diagnostics.refresh], Source={x:Static loc:Loc.Instance}}" />
+          </StackPanel>
+          <TextBox Grid.Row="1" Margin="0,8,0,0" Text="{Binding DiagnosticsText}"
+                   IsReadOnly="True" TextWrapping="NoWrap"
+                   FontFamily="Consolas, Courier New, monospace" FontSize="11"
+                   AcceptsReturn="True" />
+        </Grid>
+      </Border>
+    </Grid>
+
+    <Button Grid.Row="1" IsCancel="True" HorizontalAlignment="Right" MinWidth="90" Margin="0,12,0,0"
+            Content="{ReflectionBinding [common.close], Source={x:Static loc:Loc.Instance}}" />
+  </Grid>
+</Window>

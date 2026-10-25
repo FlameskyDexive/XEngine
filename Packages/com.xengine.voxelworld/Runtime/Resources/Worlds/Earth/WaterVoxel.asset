@@ -1,0 +1,16 @@
+{
+  "$id": 1,
+  "$type": "XEngine.VoxelWorld.VoxelDefinition, XEngine.VoxelWorld.Runtime",
+  "Title": "Water",
+  "RenderType": 2,
+  "TextureTop": { "AssetID": "4d9e2b30-8c5e-4f02-ad3b-1a7c9d0e5f23" },
+  "TextureSide": { "AssetID": "4d9e2b30-8c5e-4f02-ad3b-1a7c9d0e5f23" },
+  "TextureBottom": { "AssetID": "4d9e2b30-8c5e-4f02-ad3b-1a7c9d0e5f23" },
+  "TintColor": { "R": 0.15686275, "G": 0.47058824, "B": 0.74509805, "A": 1 },
+  "Alpha": 1,
+  "LightIntensity": 0,
+  "Hidden": false,
+  "CanBeCollected": true,
+  "Name": "WaterVoxel",
+  "AssetID": "00000000-0000-0000-0000-000000000000"
+}

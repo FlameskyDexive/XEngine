@@ -1,0 +1,140 @@
+{
+  "$id": 1,
+  "$type": "XEngine.Runtime.Resources.Material, XEngine.Runtime",
+  "_shader": {
+    "AssetID": "e74b8fbd-074d-0de5-2cdd-b50c0752b0a4"
+  },
+  "_properties": {
+    "$id": 2,
+    "_colors": {
+      "_Color": {
+        "R": 1F,
+        "G": 1F,
+        "B": 1F,
+        "A": 1F
+      },
+      "_DistortionSpeedXYPowerZ": {
+        "R": -1F,
+        "G": 0F,
+        "B": -0.9F,
+        "A": 0F
+      },
+      "_EmissionColor": {
+        "R": 0F,
+        "G": 0F,
+        "B": 0F,
+        "A": 1F
+      },
+      "_NoisespeedUV": {
+        "R": -1F,
+        "G": 0F,
+        "B": 0F,
+        "A": 0F
+      },
+      "_SpeedMainTexUVNoiseUV": {
+        "R": 0F,
+        "G": 0F,
+        "B": 0F,
+        "A": 0F
+      },
+      "_SpeedMainTexUVNoiseZW": {
+        "R": 0F,
+        "G": 0F,
+        "B": 0F,
+        "A": 0F
+      },
+      "_TintColor": {
+        "R": 1F,
+        "G": 1F,
+        "B": 1F,
+        "A": 1F
+      }
+    },
+    "_vectors2": {},
+    "_vectors3": {},
+    "_vectors4": {},
+    "_floats": {
+      "_Blend2": 1F,
+      "_BumpScale": 1F,
+      "_CullMode": 0F,
+      "_Cutoff": 0.5F,
+      "_Depthpower": 0.5F,
+      "_DetailNormalMapScale": 1F,
+      "_Distortionpower": 0.5F,
+      "_DstBlend": 1F,
+      "_Emission": 3F,
+      "_GlossMapScale": 1F,
+      "_Glossiness": 0.5F,
+      "_GlossyReflections": 1F,
+      "_InvFade": 3F,
+      "_Metallic": 0F,
+      "_Mode": 0F,
+      "_OcclusionStrength": 1F,
+      "_Opacity": 1F,
+      "_Parallax": 0.02F,
+      "_SmoothnessTextureChannel": 0F,
+      "_SpecularHighlights": 1F,
+      "_SrcBlend": 1F,
+      "_UVSec": 0F,
+      "_Usecenterglow": 0F,
+      "_Usedepth": 1F
+    },
+    "_ints": {},
+    "_matrices": {},
+    "_matrixArr": {},
+    "_textures": {
+      "_Flow": {
+        "AssetID": "140ca478-5c7c-f2e8-6372-cdc1fb76e076"
+      },
+      "_MainTex": {
+        "AssetID": "3d3b0691-3a84-d45f-0b65-567d3e5b2151"
+      },
+      "_Mask": {
+        "AssetID": "641b822e-d7ba-ae78-3b64-ed1f4d81f378"
+      }
+    },
+    "_textures3D": {},
+    "_texturesCube": {},
+    "_buffers": {},
+    "_bufferBindings": {}
+  },
+  "_overrides": [
+    "_Color",
+    "_DistortionSpeedXYPowerZ",
+    "_EmissionColor",
+    "_NoisespeedUV",
+    "_SpeedMainTexUVNoiseUV",
+    "_SpeedMainTexUVNoiseZW",
+    "_TintColor",
+    "_Blend2",
+    "_BumpScale",
+    "_CullMode",
+    "_Cutoff",
+    "_Depthpower",
+    "_DetailNormalMapScale",
+    "_Distortionpower",
+    "_DstBlend",
+    "_Emission",
+    "_GlossMapScale",
+    "_Glossiness",
+    "_GlossyReflections",
+    "_InvFade",
+    "_Metallic",
+    "_Mode",
+    "_OcclusionStrength",
+    "_Opacity",
+    "_Parallax",
+    "_SmoothnessTextureChannel",
+    "_SpecularHighlights",
+    "_SrcBlend",
+    "_UVSec",
+    "_Usecenterglow",
+    "_Usedepth",
+    "_Flow",
+    "_MainTex",
+    "_Mask"
+  ],
+  "AssetPath": "",
+  "AssetID": "00000000-0000-0000-0000-000000000000",
+  "Name": "Trail21cg2"
+}

@@ -1,0 +1,16 @@
+{
+  "name": "com.xengine.xgui",
+  "version": "0.1.1",
+  "displayName": "XGUI",
+  "description": "Retained-mode GameObject UI for XEngine",
+  "keywords": ["xengine"],
+  "supportedPlatforms": [
+    "Windows",
+    "Linux",
+    "MacOS",
+    "Android",
+    "iOS",
+    "HarmonyOS"
+  ],
+  "license": "MIT"
+}

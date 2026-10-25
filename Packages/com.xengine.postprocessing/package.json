@@ -1,0 +1,23 @@
+{
+  "name": "com.xengine.postprocessing",
+  "version": "0.1.0",
+  "displayName": "Post Processing",
+  "description": "Unity Post-processing Stack v2 style layer, volume, and profile. Official optional package: listed in Package Manager, not mounted until installed. Drives the engine ImageEffects (Bloom, tonemap, DoF, GTAO, SSR, cinematic).",
+  "installByDefault": false,
+  "xengine": "0.1.0",
+  "type": "package",
+  "category": "Official",
+  "documentationUrl": "Documentation~/index.md",
+  "changelogUrl": "CHANGELOG.md",
+  "licensesUrl": "LICENSE.md",
+  "supportedPlatforms": ["Windows", "Linux", "MacOS", "Android", "HarmonyOS"],
+  "license": "MIT",
+  "keywords": ["xengine", "postprocessing", "bloom", "color-grading", "volume", "hdr"],
+  "samples": [
+    {
+      "displayName": "Quick Start",
+      "description": "How to add a Post-process Layer and a global volume with Bloom + Color Grading.",
+      "path": "Samples~/QuickStart"
+    }
+  ]
+}

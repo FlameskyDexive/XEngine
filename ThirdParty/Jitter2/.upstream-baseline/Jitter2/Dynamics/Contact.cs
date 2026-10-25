@@ -1,0 +1,1210 @@
+/*
+ * Jitter2 Physics Library
+ * (c) Thorben Linneweber and contributors
+ * SPDX-License-Identifier: MIT
+ */
+
+
+using System;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Runtime.Intrinsics;
+using Jitter2.LinearMath;
+using Jitter2.Unmanaged;
+
+namespace Jitter2.Dynamics;
+
+/// <summary>
+/// Holds up to four <see cref="Contact"/> structs for a single shape-to-shape collision.
+/// </summary>
+/// <remarks>
+/// <para>
+/// This structure is stored in unmanaged memory and accessed via <see cref="Arbiter.Handle"/>.
+/// The <see cref="UsageMask"/> bitfield indicates which of the four contact slots are active.
+/// </para>
+/// <para>
+/// The returned data is valid only while the associated arbiter exists and must not be accessed
+/// concurrently with <see cref="World.Step(Real, bool)"/>. Do not cache references to this structure.
+/// </para>
+/// </remarks>
+[StructLayout(LayoutKind.Sequential)]
+public struct ContactData
+{
+    /// <summary>
+    /// Specifies which velocity components the solver should update for each body.
+    /// </summary>
+    [Flags]
+    public enum SolveMode
+    {
+        /// <summary>No velocity updates.</summary>
+        None = 0,
+        /// <summary>Update linear velocity of body 1.</summary>
+        LinearBody1 = 1 << 0,
+        /// <summary>Update angular velocity of body 1.</summary>
+        AngularBody1 = 1 << 1,
+        /// <summary>Update linear velocity of body 2.</summary>
+        LinearBody2 = 1 << 2,
+        /// <summary>Update angular velocity of body 2.</summary>
+        AngularBody2 = 1 << 3,
+        /// <summary>Update both linear and angular velocity of body 1.</summary>
+        FullBody1 = LinearBody1 | AngularBody1,
+        /// <summary>Update both linear and angular velocity of body 2.</summary>
+        FullBody2 = LinearBody2 | AngularBody2,
+        /// <summary>Update linear velocities of both bodies.</summary>
+        Linear = LinearBody1 | LinearBody2,
+        /// <summary>Update angular velocities of both bodies.</summary>
+        Angular = AngularBody1 | AngularBody2,
+        /// <summary>Update all velocity components of both bodies.</summary>
+        Full = Linear | Angular,
+    }
+
+    /// <summary>Bit mask for contact slot 0.</summary>
+    public const uint MaskContact0 = 0b0001;
+    /// <summary>Bit mask for contact slot 1.</summary>
+    public const uint MaskContact1 = 0b0010;
+    /// <summary>Bit mask for contact slot 2.</summary>
+    public const uint MaskContact2 = 0b0100;
+    /// <summary>Bit mask for contact slot 3.</summary>
+    public const uint MaskContact3 = 0b1000;
+
+    /// <summary>Bit mask indicating all four contact slots are in use.</summary>
+    public const uint MaskContactAll = MaskContact0 | MaskContact1 | MaskContact2 | MaskContact3;
+
+    // Accessed in unsafe code.
+#pragma warning disable CS0649
+    internal int _internal;
+#pragma warning restore CS0649
+
+    /// <summary>
+    /// The least four significant bits indicate which contacts are considered intact (bit set), broken (bit unset).
+    /// Bits 5-8 indicate which contacts were intact/broken during the solving-phase.
+    /// </summary>
+    /// <example>
+    /// A sphere may slide down a ramp. Within one timestep Jitter may detect the collision, create the contact,
+    /// solve the contact, integrate velocities and positions and then consider the contact as broken, since the
+    /// movement orthogonal to the contact normal exceeds a threshold. This results in no intact contact before calling
+    /// <see cref="World.Step(Real, bool)"/> and no intact contact after the call. However, the corresponding bit for the
+    /// solver-phase will be set in this scenario.
+    /// </example>
+    public uint UsageMask;
+
+    /// <summary>Handle to the first body's simulation data.</summary>
+    public JHandle<RigidBodyData> Body1;
+    /// <summary>Handle to the second body's simulation data.</summary>
+    public JHandle<RigidBodyData> Body2;
+
+    /// <summary>Unique key identifying this arbiter's shape pair.</summary>
+    public ArbiterKey Key;
+
+    /// <summary>Combined restitution coefficient for this contact pair.</summary>
+    public Real Restitution;
+    /// <summary>Combined friction coefficient for this contact pair.</summary>
+    public Real Friction;
+    /// <summary>Relaxation factor for speculative contacts.</summary>
+    public Real SpeculativeRelaxationFactor;
+
+    /// <summary>Determines which velocity components are updated by the solver.</summary>
+    public SolveMode Mode;
+
+    /// <summary>First contact point.</summary>
+    public Contact Contact0;
+    /// <summary>Second contact point.</summary>
+    public Contact Contact1;
+    /// <summary>Third contact point.</summary>
+    public Contact Contact2;
+    /// <summary>Fourth contact point.</summary>
+    public Contact Contact3;
+
+    /// <summary>
+    /// Prepares all active contacts for solver iterations by computing effective masses and warm-starting impulses.
+    /// </summary>
+    /// <param name="idt">Inverse of the timestep (1/dt).</param>
+    public unsafe void PrepareForIteration(Real idt)
+    {
+        var ptr = (ContactData*)Unsafe.AsPointer(ref this);
+
+        if (Vector.IsHardwareAccelerated)
+        {
+            if ((UsageMask & MaskContact0) != 0) Contact0.PrepareForIterationAccelerated(ptr, idt);
+            if ((UsageMask & MaskContact1) != 0) Contact1.PrepareForIterationAccelerated(ptr, idt);
+            if ((UsageMask & MaskContact2) != 0) Contact2.PrepareForIterationAccelerated(ptr, idt);
+            if ((UsageMask & MaskContact3) != 0) Contact3.PrepareForIterationAccelerated(ptr, idt);
+        }
+        else
+        {
+            if ((UsageMask & MaskContact0) != 0) Contact0.PrepareForIteration(ptr, idt);
+            if ((UsageMask & MaskContact1) != 0) Contact1.PrepareForIteration(ptr, idt);
+            if ((UsageMask & MaskContact2) != 0) Contact2.PrepareForIteration(ptr, idt);
+            if ((UsageMask & MaskContact3) != 0) Contact3.PrepareForIteration(ptr, idt);
+        }
+    }
+
+    /// <summary>
+    /// Performs one solver iteration over all active contacts, applying corrective impulses.
+    /// </summary>
+    /// <param name="applyBias">If <see langword="true"/>, applies position-correction bias.</param>
+    public unsafe void Iterate(bool applyBias)
+    {
+        var ptr = (ContactData*)Unsafe.AsPointer(ref this);
+
+        if (Vector.IsHardwareAccelerated)
+        {
+            if ((UsageMask & MaskContact0) != 0) Contact0.IterateAccelerated(ptr, applyBias);
+            if ((UsageMask & MaskContact1) != 0) Contact1.IterateAccelerated(ptr, applyBias);
+            if ((UsageMask & MaskContact2) != 0) Contact2.IterateAccelerated(ptr, applyBias);
+            if ((UsageMask & MaskContact3) != 0) Contact3.IterateAccelerated(ptr, applyBias);
+        }
+        else
+        {
+            if ((UsageMask & MaskContact0) != 0) Contact0.Iterate(ptr, applyBias);
+            if ((UsageMask & MaskContact1) != 0) Contact1.Iterate(ptr, applyBias);
+            if ((UsageMask & MaskContact2) != 0) Contact2.Iterate(ptr, applyBias);
+            if ((UsageMask & MaskContact3) != 0) Contact3.Iterate(ptr, applyBias);
+        }
+    }
+
+    internal unsafe void PrepareForIterationAccelerated(Real idt)
+    {
+        var ptr = (ContactData*)Unsafe.AsPointer(ref this);
+
+        if ((UsageMask & MaskContact0) != 0) Contact0.PrepareForIterationAccelerated(ptr, idt);
+        if ((UsageMask & MaskContact1) != 0) Contact1.PrepareForIterationAccelerated(ptr, idt);
+        if ((UsageMask & MaskContact2) != 0) Contact2.PrepareForIterationAccelerated(ptr, idt);
+        if ((UsageMask & MaskContact3) != 0) Contact3.PrepareForIterationAccelerated(ptr, idt);
+    }
+
+    internal unsafe void PrepareForIterationScalar(Real idt)
+    {
+        var ptr = (ContactData*)Unsafe.AsPointer(ref this);
+
+        if ((UsageMask & MaskContact0) != 0) Contact0.PrepareForIteration(ptr, idt);
+        if ((UsageMask & MaskContact1) != 0) Contact1.PrepareForIteration(ptr, idt);
+        if ((UsageMask & MaskContact2) != 0) Contact2.PrepareForIteration(ptr, idt);
+        if ((UsageMask & MaskContact3) != 0) Contact3.PrepareForIteration(ptr, idt);
+    }
+
+    internal unsafe void IterateAccelerated(bool applyBias)
+    {
+        var ptr = (ContactData*)Unsafe.AsPointer(ref this);
+
+        if ((UsageMask & MaskContact0) != 0) Contact0.IterateAccelerated(ptr, applyBias);
+        if ((UsageMask & MaskContact1) != 0) Contact1.IterateAccelerated(ptr, applyBias);
+        if ((UsageMask & MaskContact2) != 0) Contact2.IterateAccelerated(ptr, applyBias);
+        if ((UsageMask & MaskContact3) != 0) Contact3.IterateAccelerated(ptr, applyBias);
+    }
+
+    internal unsafe void IterateScalar(bool applyBias)
+    {
+        var ptr = (ContactData*)Unsafe.AsPointer(ref this);
+
+        if ((UsageMask & MaskContact0) != 0) Contact0.Iterate(ptr, applyBias);
+        if ((UsageMask & MaskContact1) != 0) Contact1.Iterate(ptr, applyBias);
+        if ((UsageMask & MaskContact2) != 0) Contact2.Iterate(ptr, applyBias);
+        if ((UsageMask & MaskContact3) != 0) Contact3.Iterate(ptr, applyBias);
+    }
+
+    /// <summary>
+    /// Gets a value indicating whether the current system supports hardware acceleration
+    /// for SIMD (Single Instruction, Multiple Data) operations.
+    /// </summary>
+    public static bool IsHardwareAccelerated => Vector.IsHardwareAccelerated;
+
+    /// <summary>
+    /// Updates contact positions after integration and removes contacts that have separated beyond the break threshold.
+    /// </summary>
+    public unsafe void UpdatePosition()
+    {
+        UsageMask &= MaskContactAll;
+        UsageMask |= UsageMask << 4;
+
+        var ptr = (ContactData*)Unsafe.AsPointer(ref this);
+
+        if ((UsageMask & MaskContact0) != 0)
+        {
+            if (!Contact0.UpdatePosition(ptr)) UsageMask &= ~MaskContact0;
+        }
+
+        if ((UsageMask & MaskContact1) != 0)
+        {
+            if (!Contact1.UpdatePosition(ptr)) UsageMask &= ~MaskContact1;
+        }
+
+        if ((UsageMask & MaskContact2) != 0)
+        {
+            if (!Contact2.UpdatePosition(ptr)) UsageMask &= ~MaskContact2;
+        }
+
+        if ((UsageMask & MaskContact3) != 0)
+        {
+            if (!Contact3.UpdatePosition(ptr)) UsageMask &= ~MaskContact3;
+        }
+    }
+
+    /// <summary>
+    /// Initializes this contact data for a pair of rigid bodies.
+    /// </summary>
+    /// <param name="body1">The first rigid body.</param>
+    /// <param name="body2">The second rigid body.</param>
+    public void Init(RigidBody body1, RigidBody body2)
+    {
+        Body1 = body1.Handle;
+        Body2 = body2.Handle;
+
+        Friction = MathR.Max(body1.Friction, body2.Friction);
+        Restitution = MathR.Max(body1.Restitution, body2.Restitution);
+        SpeculativeRelaxationFactor = body1.World.SpeculativeRelaxationFactor;
+
+        Debug.Assert(body1.World == body2.World);
+
+        Mode = SolveMode.None;
+        UsageMask = 0;
+    }
+
+    /// <summary>
+    /// Resets the solve mode based on the current motion types of the bodies, then removes the specified flags.
+    /// </summary>
+    /// <param name="removeFlags">Flags to remove from the full solve mode.</param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void ResetMode(SolveMode removeFlags = SolveMode.None)
+    {
+        Mode = (Body1.Data.MotionType == MotionType.Dynamic) ? SolveMode.FullBody1 : 0;
+        Mode |= (Body2.Data.MotionType == MotionType.Dynamic) ? SolveMode.FullBody2 : 0;
+        Mode &= ~removeFlags;
+    }
+
+    // ---------------------------------------------------------------------------------------------------------
+    //
+    // The following contact caching code is heavily influenced / a direct copy of the great
+    // Bullet Physics Engine:
+
+    //
+    // Bullet Continuous Collision Detection and Physics Library Copyright (c) 2003-2006 Erwin
+    // Coumans  https://bulletphysics.org
+
+    // This software is provided 'as-is', without any express or implied warranty. In no event will
+    // the authors be held liable for any damages arising from the use of this software. Permission
+    // is granted to anyone to use this software for any purpose, including commercial applications,
+    // and to alter it and redistribute it freely, subject to the following restrictions:
+
+    // 1. The origin of this software must not be misrepresented; you must not claim that you wrote
+    //    the original software. If you use this software in a product, an acknowledgment in the
+    //    product documentation would be appreciated but is not required.
+    // 2. Altered source versions must be plainly marked as such, and must not be misrepresented as
+    //    being the original software.
+    // 3. This notice may not be removed or altered from any source distribution.
+    //
+    // https://github.com/bulletphysics/bullet3/blob/39b8de74df93721add193e5b3d9ebee579faebf8/
+    // src/Bullet3OpenCL/NarrowphaseCollision/b3ContactCache.cpp
+
+    /// <summary>
+    /// Adds a new collision result to the contact manifold. Keeps at most four points.
+    /// </summary>
+    /// <param name="point1">Contact point on the first body in world space.</param>
+    /// <param name="point2">Contact point on the second body in world space.</param>
+    /// <param name="normal">Contact normal pointing from body 2 to body 1.</param>
+    public unsafe void AddContact(in JVector point1, in JVector point2, in JVector normal)
+    {
+        if ((UsageMask & MaskContactAll) == MaskContactAll)
+        {
+            // All four contacts are in use. Find one candidate to be replaced by the new one.
+            SortCachedPoints(point1, point2, normal);
+            return;
+        }
+
+        // Not all contacts are in use, but the new contact point is close enough
+        // to an already existing point. Replace this point by the new one.
+
+        Contact* closest = (Contact*)IntPtr.Zero;
+        Real distanceSq = Real.MaxValue;
+
+        JVector relP1 = point1 - Body1.Data.Position;
+
+        if ((UsageMask & MaskContact0) != 0)
+        {
+            Real distSq = (Contact0.RelativePosition1 - relP1).LengthSquared();
+            if (distSq < distanceSq)
+            {
+                distanceSq = distSq;
+                closest = (Contact*)Unsafe.AsPointer(ref Contact0);
+            }
+        }
+
+        if ((UsageMask & MaskContact1) != 0)
+        {
+            Real distSq = (Contact1.RelativePosition1 - relP1).LengthSquared();
+            if (distSq < distanceSq)
+            {
+                distanceSq = distSq;
+                closest = (Contact*)Unsafe.AsPointer(ref Contact1);
+            }
+        }
+
+        if ((UsageMask & MaskContact2) != 0)
+        {
+            Real distSq = (Contact2.RelativePosition1 - relP1).LengthSquared();
+            if (distSq < distanceSq)
+            {
+                distanceSq = distSq;
+                closest = (Contact*)Unsafe.AsPointer(ref Contact2);
+            }
+        }
+
+        if ((UsageMask & MaskContact3) != 0)
+        {
+            Real distSq = (Contact3.RelativePosition1 - relP1).LengthSquared();
+            if (distSq < distanceSq)
+            {
+                distanceSq = distSq;
+                closest = (Contact*)Unsafe.AsPointer(ref Contact3);
+            }
+        }
+
+        if (distanceSq < Contact.BreakThreshold * Contact.BreakThreshold)
+        {
+            closest->Initialize(ref Body1.Data, ref Body2.Data, point1, point2, normal, false, Restitution);
+            return;
+        }
+
+        // It is a completely new contact.
+
+        if ((UsageMask & MaskContact0) == 0)
+        {
+            Contact0.Initialize(ref Body1.Data, ref Body2.Data, point1, point2, normal, true, Restitution);
+            UsageMask |= MaskContact0;
+        }
+        else if ((UsageMask & MaskContact1) == 0)
+        {
+            Contact1.Initialize(ref Body1.Data, ref Body2.Data, point1, point2, normal, true, Restitution);
+            UsageMask |= MaskContact1;
+        }
+        else if ((UsageMask & MaskContact2) == 0)
+        {
+            Contact2.Initialize(ref Body1.Data, ref Body2.Data, point1, point2, normal, true, Restitution);
+            UsageMask |= MaskContact2;
+        }
+        else if ((UsageMask & MaskContact3) == 0)
+        {
+            Contact3.Initialize(ref Body1.Data, ref Body2.Data, point1, point2, normal, true, Restitution);
+            UsageMask |= MaskContact3;
+        }
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static Real CalcArea4Points(in JVector p0, in JVector p1, in JVector p2, in JVector p3)
+    {
+        JVector a0 = p0 - p1;
+        JVector a1 = p0 - p2;
+        JVector a2 = p0 - p3;
+        JVector b0 = p2 - p3;
+        JVector b1 = p1 - p3;
+        JVector b2 = p1 - p2;
+
+        JVector tmp0 = a0 % b0;
+        JVector tmp1 = a1 % b1;
+        JVector tmp2 = a2 % b2;
+
+        return MathR.Max(MathR.Max(tmp0.LengthSquared(), tmp1.LengthSquared()), tmp2.LengthSquared());
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static uint SelectCachedPointReplacementMask(
+        Real area0, Real area1, Real area2, Real area3)
+    {
+        // always prefer the new point
+        const Real epsilon = -(Real)0.0001;
+
+        Real biggestArea = 0;
+        uint mask = 0;
+
+        if (area0 > biggestArea + epsilon)
+        {
+            biggestArea = area0;
+            mask = MaskContact0;
+        }
+
+        if (area1 > biggestArea + epsilon)
+        {
+            biggestArea = area1;
+            mask = MaskContact1;
+        }
+
+        if (area2 > biggestArea + epsilon)
+        {
+            biggestArea = area2;
+            mask = MaskContact2;
+        }
+
+        if (area3 > biggestArea + epsilon)
+        {
+            mask = MaskContact3;
+        }
+
+        return mask;
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static uint SelectCachedPointReplacementMaskScalar(
+        in JVector newPoint, in JVector contact0, in JVector contact1, in JVector contact2, in JVector contact3)
+    {
+        Real area0 = CalcArea4Points(newPoint, contact1, contact2, contact3);
+        Real area1 = CalcArea4Points(newPoint, contact0, contact2, contact3);
+        Real area2 = CalcArea4Points(newPoint, contact0, contact1, contact3);
+        Real area3 = CalcArea4Points(newPoint, contact0, contact1, contact2);
+
+        return SelectCachedPointReplacementMask(area0, area1, area2, area3);
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static VectorReal CrossLengthSquared(
+        VectorReal ax, VectorReal ay, VectorReal az,
+        VectorReal bx, VectorReal by, VectorReal bz)
+    {
+        VectorReal cx = Vector.Subtract(Vector.Multiply(ay, bz), Vector.Multiply(az, by));
+        VectorReal cy = Vector.Subtract(Vector.Multiply(az, bx), Vector.Multiply(ax, bz));
+        VectorReal cz = Vector.Subtract(Vector.Multiply(ax, by), Vector.Multiply(ay, bx));
+
+        return Vector.Add(Vector.Add(Vector.Multiply(cx, cx), Vector.Multiply(cy, cy)), Vector.Multiply(cz, cz));
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static uint SelectCachedPointReplacementMaskVectorized(
+        in JVector newPoint, in JVector contact0, in JVector contact1, in JVector contact2, in JVector contact3)
+    {
+        VectorReal p0X = Vector.Create(newPoint.X);
+        VectorReal p0Y = Vector.Create(newPoint.Y);
+        VectorReal p0Z = Vector.Create(newPoint.Z);
+
+        VectorReal p1X = Vector.Create(contact1.X, contact0.X, contact0.X, contact0.X);
+        VectorReal p1Y = Vector.Create(contact1.Y, contact0.Y, contact0.Y, contact0.Y);
+        VectorReal p1Z = Vector.Create(contact1.Z, contact0.Z, contact0.Z, contact0.Z);
+
+        VectorReal p2X = Vector.Create(contact2.X, contact2.X, contact1.X, contact1.X);
+        VectorReal p2Y = Vector.Create(contact2.Y, contact2.Y, contact1.Y, contact1.Y);
+        VectorReal p2Z = Vector.Create(contact2.Z, contact2.Z, contact1.Z, contact1.Z);
+
+        VectorReal p3X = Vector.Create(contact3.X, contact3.X, contact3.X, contact2.X);
+        VectorReal p3Y = Vector.Create(contact3.Y, contact3.Y, contact3.Y, contact2.Y);
+        VectorReal p3Z = Vector.Create(contact3.Z, contact3.Z, contact3.Z, contact2.Z);
+
+        VectorReal a0X = Vector.Subtract(p0X, p1X);
+        VectorReal a0Y = Vector.Subtract(p0Y, p1Y);
+        VectorReal a0Z = Vector.Subtract(p0Z, p1Z);
+
+        VectorReal a1X = Vector.Subtract(p0X, p2X);
+        VectorReal a1Y = Vector.Subtract(p0Y, p2Y);
+        VectorReal a1Z = Vector.Subtract(p0Z, p2Z);
+
+        VectorReal a2X = Vector.Subtract(p0X, p3X);
+        VectorReal a2Y = Vector.Subtract(p0Y, p3Y);
+        VectorReal a2Z = Vector.Subtract(p0Z, p3Z);
+
+        VectorReal b0X = Vector.Subtract(p2X, p3X);
+        VectorReal b0Y = Vector.Subtract(p2Y, p3Y);
+        VectorReal b0Z = Vector.Subtract(p2Z, p3Z);
+
+        VectorReal b1X = Vector.Subtract(p1X, p3X);
+        VectorReal b1Y = Vector.Subtract(p1Y, p3Y);
+        VectorReal b1Z = Vector.Subtract(p1Z, p3Z);
+
+        VectorReal b2X = Vector.Subtract(p1X, p2X);
+        VectorReal b2Y = Vector.Subtract(p1Y, p2Y);
+        VectorReal b2Z = Vector.Subtract(p1Z, p2Z);
+
+        VectorReal area0 = CrossLengthSquared(a0X, a0Y, a0Z, b0X, b0Y, b0Z);
+        VectorReal area1 = CrossLengthSquared(a1X, a1Y, a1Z, b1X, b1Y, b1Z);
+        VectorReal area2 = CrossLengthSquared(a2X, a2Y, a2Z, b2X, b2Y, b2Z);
+        VectorReal areas = Vector.Max(Vector.Max(area0, area1), area2);
+
+        return SelectCachedPointReplacementMask(
+            areas.GetElement(0), areas.GetElement(1), areas.GetElement(2), areas.GetElement(3));
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static uint SelectCachedPointReplacementMask(
+        in JVector newPoint, in JVector contact0, in JVector contact1, in JVector contact2, in JVector contact3)
+    {
+        return SelectCachedPointReplacementMaskVectorized(newPoint, contact0, contact1, contact2, contact3);
+    }
+
+    private void SortCachedPoints(in JVector point1, in JVector point2, in JVector normal)
+    {
+        JVector.Subtract(point1, Body1.Data.Position, out JVector rp1);
+
+        uint mask = SelectCachedPointReplacementMask(
+            rp1, Contact0.RelativePosition1, Contact1.RelativePosition1, Contact2.RelativePosition1, Contact3.RelativePosition1);
+
+        ref Contact cref = ref Contact0;
+
+        if (mask == MaskContact1)
+        {
+            cref = ref Contact1;
+        }
+        else if (mask == MaskContact2)
+        {
+            cref = ref Contact2;
+        }
+        else if (mask == MaskContact3)
+        {
+            cref = ref Contact3;
+        }
+
+        cref.Initialize(ref Body1.Data, ref Body2.Data, point1, point2, normal, false, Restitution);
+        UsageMask |= mask;
+    }
+
+    // ---------------------------------------------------------------------------------------------------------
+
+    /// <summary>
+    /// Represents a single contact point between two rigid bodies.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// This structure is layout-sensitive and stored in unmanaged memory as part of a <see cref="ContactData"/>.
+    /// It contains geometric information (normal, tangents, positions) and solver state (accumulated impulses, bias).
+    /// </para>
+    /// <para>
+    /// Do not cache or store references to this structure across simulation steps.
+    /// </para>
+    /// </remarks>
+    [StructLayout(LayoutKind.Explicit)]
+    public struct Contact
+    {
+        /// <summary>Maximum position-correction bias applied per iteration.</summary>
+        public const Real MaximumBias = (Real)100.0;
+        /// <summary>Fraction of penetration corrected per step (Baumgarte stabilization).</summary>
+        public const Real BiasFactor = (Real)0.2;
+        /// <summary>Penetration depth below which no position correction is applied.</summary>
+        public const Real AllowedPenetration = (Real)0.01;
+        /// <summary>Separation distance beyond which a contact is considered broken.</summary>
+        public const Real BreakThreshold = (Real)0.02;
+
+        /// <summary>
+        /// Flags indicating contact state.
+        /// </summary>
+        [Flags]
+        public enum Flags
+        {
+            /// <summary>Indicates this contact was created in the current step.</summary>
+            NewContact = 1 << 1,
+        }
+
+        /// <summary>Current contact state flags.</summary>
+        [FieldOffset(0)] public Flags Flag;
+
+        /// <summary>Velocity bias for restitution (bounce).</summary>
+        [FieldOffset(4)] public Real Bias;
+
+        /// <summary>Position-correction bias computed from penetration depth.</summary>
+        [FieldOffset(4 + 1 * sizeof(Real))] public Real PenaltyBias;
+
+        // ―――――― The following 4-component vectors overlap ――――――――――――――――――――――――――――――
+
+        [FieldOffset(4 + 2 * sizeof(Real))] internal VectorReal NormalTangentX;
+
+        [FieldOffset(4 + 5 * sizeof(Real))] internal VectorReal NormalTangentY;
+
+        [FieldOffset(4 + 8 * sizeof(Real))] internal VectorReal NormalTangentZ;
+
+        [FieldOffset(4 + 11 * sizeof(Real))] internal VectorReal MassNormalTangent;
+
+        [FieldOffset(4 + 14 * sizeof(Real))] internal VectorReal Accumulated;
+
+        [FieldOffset(4 + 18 * sizeof(Real))] [ReferenceFrame(ReferenceFrame.Local)]
+        internal JVector Position1;
+
+        [FieldOffset(4 + 21 * sizeof(Real))] [ReferenceFrame(ReferenceFrame.Local)]
+        internal JVector Position2;
+
+        /// <summary>
+        /// Position of the contact relative to the center of mass on the first body.
+        /// </summary>
+        [FieldOffset(4+25*sizeof(Real))]
+        [ReferenceFrame(ReferenceFrame.World)] public JVector RelativePosition1;
+
+        /// <summary>
+        /// Position of the contact relative to the center of mass on the second body.
+        /// </summary>
+        [FieldOffset(4+28*sizeof(Real))]
+        [ReferenceFrame(ReferenceFrame.World)] public JVector RelativePosition2;
+
+        /// <summary>
+        /// Normal direction (normalized) of the contact.
+        /// Pointing from the collision point on the surface of <see cref="ContactData.Body2"/> to the collision point
+        /// on the surface of <see cref="ContactData.Body1"/>.
+        /// </summary>
+        [ReferenceFrame(ReferenceFrame.World)] public readonly JVector Normal => new (NormalTangentX.GetElement(0),
+            NormalTangentY.GetElement(0), NormalTangentZ.GetElement(0));
+
+        /// <summary>
+        /// Tangent (normalized) to the contact <see cref="Normal"/> in the direction of the relative movement of
+        /// both bodies, at the time when the contact is created.
+        /// </summary>
+        [ReferenceFrame(ReferenceFrame.World)] public readonly JVector Tangent1 => new (NormalTangentX.GetElement(1),
+            NormalTangentY.GetElement(1), NormalTangentZ.GetElement(1));
+
+        /// <summary>
+        /// A second tangent forming an orthonormal basis with <see cref="Normal"/> and <see cref="Tangent1"/>.
+        /// </summary>
+        [ReferenceFrame(ReferenceFrame.World)] public readonly JVector Tangent2 => new JVector(NormalTangentX.GetElement(2),
+            NormalTangentY.GetElement(2), NormalTangentZ.GetElement(2));
+
+        /// <summary>
+        /// The impulse applied in the normal direction which has been used to solve the contact.
+        /// </summary>
+        public readonly Real Impulse => Accumulated.GetElement(0);
+
+        /// <summary>
+        /// The impulse applied in the first tangent direction which has been used to solve the contact.
+        /// </summary>
+        public readonly Real TangentImpulse1 => Accumulated.GetElement(1);
+
+        /// <summary>
+        /// The impulse applied in the second tangent direction which has been used to solve the contact.
+        /// </summary>
+        public readonly Real TangentImpulse2 => Accumulated.GetElement(2);
+
+        [MethodImpl(MethodImplOptions.AggressiveOptimization)]
+        public void Initialize(ref RigidBodyData b1, ref RigidBodyData b2, in JVector point1, in JVector point2,
+            in JVector n, bool newContact, Real restitution)
+        {
+            Debug.Assert(Math.Abs(n.LengthSquared() - (Real)1.0) < 1e-3);
+
+            JVector.Subtract(point1, b1.Position, out RelativePosition1);
+            JVector.Subtract(point2, b2.Position, out RelativePosition2);
+            JVector.ConjugatedTransform(RelativePosition1, b1.Orientation, out Position1);
+            JVector.ConjugatedTransform(RelativePosition2, b2.Orientation, out Position2);
+
+            // Material Properties
+            if (!newContact) return;
+
+            Flag = Flags.NewContact;
+            Accumulated = Vector.Create((Real)0.0);
+
+            JVector dv = b2.Velocity + b2.AngularVelocity % RelativePosition2;
+            dv -= b1.Velocity + b1.AngularVelocity % RelativePosition1;
+
+            Real relNormalVel = JVector.Dot(dv, n);
+
+            Bias = 0;
+
+            // Fake restitution
+            if (relNormalVel < (Real)(-1.0))
+            {
+                Bias = -restitution * relNormalVel;
+            }
+
+            var tangent1 = dv - n * relNormalVel;
+
+            Real num = tangent1.LengthSquared();
+
+            if (num > (Real)1e-12)
+            {
+                num = (Real)1.0 / MathR.Sqrt(num);
+                tangent1 *= num;
+            }
+            else
+            {
+                tangent1 = MathHelper.CreateOrthonormal(n);
+            }
+
+            var tangent2 = tangent1 % n;
+
+            NormalTangentX = Vector.Create(n.X, tangent1.X, tangent2.X, 0);
+            NormalTangentY = Vector.Create(n.Y, tangent1.Y, tangent2.Y, 0);
+            NormalTangentZ = Vector.Create(n.Z, tangent1.Z, tangent2.Z, 0);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveOptimization)]
+        public readonly unsafe bool UpdatePosition(ContactData* cd)
+        {
+            ref var b1 = ref cd->Body1.Data;
+            ref var b2 = ref cd->Body2.Data;
+
+            JVector.Transform(Position1, b1.Orientation, out var relativePos1);
+            JVector.Add(relativePos1, b1.Position, out JVector p1);
+
+            JVector.Transform(Position2, b2.Orientation, out var relativePos2);
+            JVector.Add(relativePos2, b2.Position, out JVector p2);
+
+            JVector.Subtract(p1, p2, out JVector dist);
+
+            JVector n = new JVector(NormalTangentX.GetElement(0),
+                NormalTangentY.GetElement(0),
+                NormalTangentZ.GetElement(0));
+
+            Real penetration = JVector.Dot(dist, n);
+
+            // use a tenth of the actual threshold value here.
+            if (penetration < -BreakThreshold * (Real)0.1)
+            {
+                return false;
+            }
+
+            dist -= penetration * n;
+            Real tangentialOffsetSq = dist.LengthSquared();
+
+            if (tangentialOffsetSq > BreakThreshold * BreakThreshold)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        // Fallback for missing hardware acceleration
+        #region public unsafe void PrepareForIteration(ContactData* cd, Real idt)
+
+        public unsafe void PrepareForIteration(ContactData* cd, Real idt)
+        {
+            // Begin read from VectorReal
+            Real accumulatedNormalImpulse = Accumulated.GetElement(0);
+            Real accumulatedTangentImpulse1 = Accumulated.GetElement(1);
+            Real accumulatedTangentImpulse2 = Accumulated.GetElement(2);
+
+            ref var b1 = ref cd->Body1.Data;
+            ref var b2 = ref cd->Body2.Data;
+            JVector normal = Normal;
+            JVector tangent1 = Tangent1;
+            JVector tangent2 = Tangent2;
+
+            JVector.Transform(Position1, b1.Orientation, out RelativePosition1);
+            JVector.Transform(Position2, b2.Orientation, out RelativePosition2);
+
+            Real inverseMass = b1.InverseMass + b2.InverseMass;
+
+            if ((Flag & Flags.NewContact) == 0)
+            {
+                Bias = 0;
+            }
+
+            JVector.Add(RelativePosition1, b1.Position, out JVector p1);
+            JVector.Add(RelativePosition2, b2.Position, out JVector p2);
+            JVector.Subtract(p1, p2, out JVector dist);
+            Real penetration = JVector.Dot(dist, normal);
+
+            if (penetration < -BreakThreshold)
+            {
+                // Speculative contact
+                Bias = penetration * idt * cd->SpeculativeRelaxationFactor;
+            }
+
+            Flag &= ~Flags.NewContact;
+
+            Real kTangent1 = inverseMass;
+            Real kTangent2 = inverseMass;
+            Real kNormal = inverseMass;
+            JVector angularNormalContribution = JVector.Zero;
+            JVector angularTangent1Contribution = JVector.Zero;
+            JVector angularTangent2Contribution = JVector.Zero;
+
+            JVector impulse = accumulatedNormalImpulse * normal;
+            impulse += accumulatedTangentImpulse1 * tangent1;
+            impulse += accumulatedTangentImpulse2 * tangent2;
+
+            if ((cd->Mode & SolveMode.LinearBody1) != 0)
+            {
+                b1.Velocity -= impulse * b1.InverseMass;
+            }
+
+            if ((cd->Mode & SolveMode.AngularBody1) != 0)
+            {
+                JVector angularNormal = TransformSymmetricInertia(RelativePosition1 % normal, b1.InverseInertiaWorld);
+                JVector angularTangent1 = TransformSymmetricInertia(RelativePosition1 % tangent1, b1.InverseInertiaWorld);
+                JVector angularTangent2 = TransformSymmetricInertia(RelativePosition1 % tangent2, b1.InverseInertiaWorld);
+
+                angularNormalContribution += angularNormal % RelativePosition1;
+                angularTangent1Contribution += angularTangent1 % RelativePosition1;
+                angularTangent2Contribution += angularTangent2 % RelativePosition1;
+
+                JVector angularImpulse = accumulatedNormalImpulse * angularNormal;
+                angularImpulse += accumulatedTangentImpulse1 * angularTangent1;
+                angularImpulse += accumulatedTangentImpulse2 * angularTangent2;
+                b1.AngularVelocity -= angularImpulse;
+            }
+
+
+            if ((cd->Mode & SolveMode.LinearBody2) != 0)
+            {
+                b2.Velocity += impulse * b2.InverseMass;
+            }
+
+            if ((cd->Mode & SolveMode.AngularBody2) != 0)
+            {
+                JVector angularNormal = TransformSymmetricInertia(RelativePosition2 % normal, b2.InverseInertiaWorld);
+                JVector angularTangent1 = TransformSymmetricInertia(RelativePosition2 % tangent1, b2.InverseInertiaWorld);
+                JVector angularTangent2 = TransformSymmetricInertia(RelativePosition2 % tangent2, b2.InverseInertiaWorld);
+
+                angularNormalContribution += angularNormal % RelativePosition2;
+                angularTangent1Contribution += angularTangent1 % RelativePosition2;
+                angularTangent2Contribution += angularTangent2 % RelativePosition2;
+
+                JVector angularImpulse = accumulatedNormalImpulse * angularNormal;
+                angularImpulse += accumulatedTangentImpulse1 * angularTangent1;
+                angularImpulse += accumulatedTangentImpulse2 * angularTangent2;
+                b2.AngularVelocity += angularImpulse;
+            }
+
+            kNormal += JVector.Dot(normal, angularNormalContribution);
+            kTangent1 += JVector.Dot(tangent1, angularTangent1Contribution);
+            kTangent2 += JVector.Dot(tangent2, angularTangent2Contribution);
+
+            Real massTangent1 = (Real)1.0 / kTangent1;
+            Real massTangent2 = (Real)1.0 / kTangent2;
+            Real massNormal = (Real)1.0 / kNormal;
+
+            JVector mass = new (massNormal, massTangent1, massTangent2);
+            Unsafe.CopyBlock(Unsafe.AsPointer(ref MassNormalTangent), Unsafe.AsPointer(ref mass), 3 * sizeof(Real));
+
+            PenaltyBias = BiasFactor * idt * Math.Max((Real)0.0, penetration - AllowedPenetration);
+            PenaltyBias = Math.Min(PenaltyBias, MaximumBias);
+        }
+
+        #endregion
+
+        // Fallback for missing hardware acceleration
+        #region public unsafe void Iterate(ContactData* cd, bool applyBias)
+
+        public unsafe void Iterate(ContactData* cd, bool applyBias)
+        {
+            // Begin read from VectorReal
+            Real massNormal = MassNormalTangent.GetElement(0);
+            Real massTangent1 = MassNormalTangent.GetElement(1);
+            Real massTangent2 = MassNormalTangent.GetElement(2);
+            Real accumulatedNormalImpulse = Accumulated.GetElement(0);
+            Real accumulatedTangentImpulse1 = Accumulated.GetElement(1);
+            Real accumulatedTangentImpulse2 = Accumulated.GetElement(2);
+
+            ref var b1 = ref cd->Body1.Data;
+            ref var b2 = ref cd->Body2.Data;
+            JVector normal = Normal;
+            JVector tangent1 = Tangent1;
+            JVector tangent2 = Tangent2;
+
+            JVector dv = b2.Velocity + b2.AngularVelocity % RelativePosition2;
+            dv -= b1.Velocity + b1.AngularVelocity % RelativePosition1;
+
+            Real bias = (applyBias) ? MathR.Max(PenaltyBias, Bias) : Bias;
+
+            Real vn = JVector.Dot(normal, dv);
+            Real vt1 = JVector.Dot(tangent1, dv);
+            Real vt2 = JVector.Dot(tangent2, dv);
+
+            Real normalImpulse = -vn + bias;
+
+            normalImpulse *= massNormal;
+
+            Real oldNormalImpulse = accumulatedNormalImpulse;
+            accumulatedNormalImpulse = MathR.Max(oldNormalImpulse + normalImpulse, (Real)0.0);
+            normalImpulse = accumulatedNormalImpulse - oldNormalImpulse;
+
+            // Use the pre-update normal impulse for the friction cone to stay consistent
+            // with the SIMD path, where this avoids breaking the vectorized clamp.
+            Real maxTangentImpulse = cd->Friction * oldNormalImpulse;
+            Real tangentImpulse1 = massTangent1 * -vt1;
+            Real tangentImpulse2 = massTangent2 * -vt2;
+
+            Real oldTangentImpulse1 = accumulatedTangentImpulse1;
+            accumulatedTangentImpulse1 = oldTangentImpulse1 + tangentImpulse1;
+            accumulatedTangentImpulse1 = Math.Clamp(accumulatedTangentImpulse1, -maxTangentImpulse, maxTangentImpulse);
+            tangentImpulse1 = accumulatedTangentImpulse1 - oldTangentImpulse1;
+
+            Real oldTangentImpulse2 = accumulatedTangentImpulse2;
+            accumulatedTangentImpulse2 = oldTangentImpulse2 + tangentImpulse2;
+            accumulatedTangentImpulse2 = Math.Clamp(accumulatedTangentImpulse2, -maxTangentImpulse, maxTangentImpulse);
+            tangentImpulse2 = accumulatedTangentImpulse2 - oldTangentImpulse2;
+
+            Accumulated = Vector.Create(accumulatedNormalImpulse, accumulatedTangentImpulse1, accumulatedTangentImpulse2, 0);
+
+            JVector impulse = normalImpulse * normal;
+            impulse += tangentImpulse1 * tangent1;
+            impulse += tangentImpulse2 * tangent2;
+
+            if ((cd->Mode & SolveMode.LinearBody1) != 0)
+            {
+                b1.Velocity -= b1.InverseMass * impulse;
+            }
+
+            if ((cd->Mode & SolveMode.AngularBody1) != 0)
+            {
+                JVector angularImpulse = normalImpulse *
+                    TransformSymmetricInertia(RelativePosition1 % normal, b1.InverseInertiaWorld);
+                angularImpulse += tangentImpulse1 *
+                    TransformSymmetricInertia(RelativePosition1 % tangent1, b1.InverseInertiaWorld);
+                angularImpulse += tangentImpulse2 *
+                    TransformSymmetricInertia(RelativePosition1 % tangent2, b1.InverseInertiaWorld);
+
+                b1.AngularVelocity -= angularImpulse;
+            }
+
+            if ((cd->Mode & SolveMode.LinearBody2) != 0)
+            {
+                b2.Velocity += b2.InverseMass * impulse;
+            }
+
+            if ((cd->Mode & SolveMode.AngularBody2) != 0)
+            {
+                JVector angularImpulse = normalImpulse *
+                    TransformSymmetricInertia(RelativePosition2 % normal, b2.InverseInertiaWorld);
+                angularImpulse += tangentImpulse1 *
+                    TransformSymmetricInertia(RelativePosition2 % tangent1, b2.InverseInertiaWorld);
+                angularImpulse += tangentImpulse2 *
+                    TransformSymmetricInertia(RelativePosition2 % tangent2, b2.InverseInertiaWorld);
+
+                b2.AngularVelocity += angularImpulse;
+            }
+
+        }
+
+        #endregion
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static Real GetSum3(VectorReal vector)
+        {
+            return vector.GetElement(0) + vector.GetElement(1) + vector.GetElement(2);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static JVector TransformSymmetricInertia(in JVector vector, in JMatrix matrix)
+        {
+            Unsafe.SkipInit(out JVector result);
+            result.X = vector.X * matrix.M11 + vector.Y * matrix.M21 + vector.Z * matrix.M31;
+            result.Y = vector.X * matrix.M21 + vector.Y * matrix.M22 + vector.Z * matrix.M23;
+            result.Z = vector.X * matrix.M31 + vector.Y * matrix.M23 + vector.Z * matrix.M33;
+            return result;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveOptimization)]
+        public unsafe void PrepareForIterationAccelerated(ContactData* cd, Real idt)
+        {
+            ref var b1 = ref cd->Body1.Data;
+            ref var b2 = ref cd->Body2.Data;
+
+            JVector.Transform(Position1, b1.Orientation, out RelativePosition1);
+            JVector.Transform(Position2, b2.Orientation, out RelativePosition2);
+
+            VectorReal kNormalTangent = Vector.Create(b1.InverseMass + b2.InverseMass);
+
+            if ((Flag & Flags.NewContact) == 0)
+            {
+                Bias = 0;
+            }
+
+            JVector.Add(RelativePosition1, b1.Position, out JVector r1);
+            JVector.Add(RelativePosition2, b2.Position, out JVector r2);
+            JVector.Subtract(r1, r2, out JVector dist);
+
+            JVector n = new JVector(NormalTangentX.GetElement(0), NormalTangentY.GetElement(0), NormalTangentZ.GetElement(0));
+            Real penetration = JVector.Dot(dist, n);
+
+            if (penetration < -BreakThreshold)
+            {
+                // Speculative contact
+                Bias = penetration * idt * cd->SpeculativeRelaxationFactor;
+            }
+
+            Flag &= ~Flags.NewContact;
+
+            var ktnx = Vector.Create((Real)0.0);
+            var ktny = Vector.Create((Real)0.0);
+            var ktnz = Vector.Create((Real)0.0);
+
+            // warm-starting, linear
+            Unsafe.SkipInit(out JVector linearImpulse);
+            linearImpulse.X = GetSum3(Vector.Multiply(Accumulated, NormalTangentX));
+            linearImpulse.Y = GetSum3(Vector.Multiply(Accumulated, NormalTangentY));
+            linearImpulse.Z = GetSum3(Vector.Multiply(Accumulated, NormalTangentZ));
+
+            if ((cd->Mode & SolveMode.LinearBody1) != 0)
+            {
+                b1.Velocity -= b1.InverseMass * linearImpulse;
+            }
+
+            if ((cd->Mode & SolveMode.AngularBody1) != 0)
+            {
+                var rp1X = Vector.Create(RelativePosition1.X);
+                var rp1Y = Vector.Create(RelativePosition1.Y);
+                var rp1Z = Vector.Create(RelativePosition1.Z);
+
+                var rrx = Vector.Subtract(Vector.Multiply(rp1Y, NormalTangentZ), Vector.Multiply(rp1Z, NormalTangentY));
+                var rry = Vector.Subtract(Vector.Multiply(rp1Z, NormalTangentX), Vector.Multiply(rp1X, NormalTangentZ));
+                var rrz = Vector.Subtract(Vector.Multiply(rp1X, NormalTangentY), Vector.Multiply(rp1Y, NormalTangentX));
+
+                var ixx = Vector.Create(b1.InverseInertiaWorld.M11);
+                var ixy = Vector.Create(b1.InverseInertiaWorld.M21);
+                var ixz = Vector.Create(b1.InverseInertiaWorld.M31);
+                var iyy = Vector.Create(b1.InverseInertiaWorld.M22);
+                var iyz = Vector.Create(b1.InverseInertiaWorld.M23);
+                var izz = Vector.Create(b1.InverseInertiaWorld.M33);
+
+                var e1 = Vector.Add(Vector.Add(Vector.Multiply(ixx, rrx), Vector.Multiply(ixy, rry)), Vector.Multiply(ixz, rrz));
+                var e2 = Vector.Add(Vector.Add(Vector.Multiply(ixy, rrx), Vector.Multiply(iyy, rry)), Vector.Multiply(iyz, rrz));
+                var e3 = Vector.Add(Vector.Add(Vector.Multiply(ixz, rrx), Vector.Multiply(iyz, rry)), Vector.Multiply(izz, rrz));
+
+                Unsafe.SkipInit(out JVector angularImpulse1);
+                angularImpulse1.X = GetSum3(Vector.Multiply(Accumulated, e1));
+                angularImpulse1.Y = GetSum3(Vector.Multiply(Accumulated, e2));
+                angularImpulse1.Z = GetSum3(Vector.Multiply(Accumulated, e3));
+
+                b1.AngularVelocity -= angularImpulse1;
+
+                ktnx = Vector.Subtract(Vector.Multiply(e2, rp1Z), Vector.Multiply(e3, rp1Y));
+                ktny = Vector.Subtract(Vector.Multiply(e3, rp1X), Vector.Multiply(e1, rp1Z));
+                ktnz = Vector.Subtract(Vector.Multiply(e1, rp1Y), Vector.Multiply(e2, rp1X));
+            }
+
+            if ((cd->Mode & SolveMode.LinearBody2) != 0)
+            {
+                b2.Velocity += b2.InverseMass * linearImpulse;
+            }
+
+            if ((cd->Mode & SolveMode.AngularBody2) != 0)
+            {
+                var rp2X = Vector.Create(RelativePosition2.X);
+                var rp2Y = Vector.Create(RelativePosition2.Y);
+                var rp2Z = Vector.Create(RelativePosition2.Z);
+
+                var rrx = Vector.Subtract(Vector.Multiply(rp2Y, NormalTangentZ), Vector.Multiply(rp2Z, NormalTangentY));
+                var rry = Vector.Subtract(Vector.Multiply(rp2Z, NormalTangentX), Vector.Multiply(rp2X, NormalTangentZ));
+                var rrz = Vector.Subtract(Vector.Multiply(rp2X, NormalTangentY), Vector.Multiply(rp2Y, NormalTangentX));
+
+                var ixx = Vector.Create(b2.InverseInertiaWorld.M11);
+                var ixy = Vector.Create(b2.InverseInertiaWorld.M21);
+                var ixz = Vector.Create(b2.InverseInertiaWorld.M31);
+                var iyy = Vector.Create(b2.InverseInertiaWorld.M22);
+                var iyz = Vector.Create(b2.InverseInertiaWorld.M23);
+                var izz = Vector.Create(b2.InverseInertiaWorld.M33);
+
+                var f1 = Vector.Add(Vector.Add(Vector.Multiply(ixx, rrx), Vector.Multiply(ixy, rry)), Vector.Multiply(ixz, rrz));
+                var f2 = Vector.Add(Vector.Add(Vector.Multiply(ixy, rrx), Vector.Multiply(iyy, rry)), Vector.Multiply(iyz, rrz));
+                var f3 = Vector.Add(Vector.Add(Vector.Multiply(ixz, rrx), Vector.Multiply(iyz, rry)), Vector.Multiply(izz, rrz));
+
+                Unsafe.SkipInit(out JVector angularImpulse2);
+                angularImpulse2.X = GetSum3(Vector.Multiply(Accumulated, f1));
+                angularImpulse2.Y = GetSum3(Vector.Multiply(Accumulated, f2));
+                angularImpulse2.Z = GetSum3(Vector.Multiply(Accumulated, f3));
+
+                b2.AngularVelocity += angularImpulse2;
+
+                ktnx = Vector.Add(ktnx, Vector.Subtract(Vector.Multiply(f2, rp2Z), Vector.Multiply(f3, rp2Y)));
+                ktny = Vector.Add(ktny, Vector.Subtract(Vector.Multiply(f3, rp2X), Vector.Multiply(f1, rp2Z)));
+                ktnz = Vector.Add(ktnz, Vector.Subtract(Vector.Multiply(f1, rp2Y), Vector.Multiply(f2, rp2X)));
+            }
+
+            var kres = Vector.Add(Vector.Add(Vector.Multiply(NormalTangentX, ktnx),
+                Vector.Multiply(NormalTangentY, ktny)), Vector.Multiply(NormalTangentZ, ktnz));
+
+            kNormalTangent = Vector.Add(kNormalTangent, kres);
+
+            var mnt = Vector.Divide(Vector.Create((Real)1.0), kNormalTangent);
+            Unsafe.CopyBlock(Unsafe.AsPointer(ref MassNormalTangent), Unsafe.AsPointer(ref mnt), 3 * sizeof(Real));
+
+            PenaltyBias = BiasFactor * idt * Math.Max((Real)0.0, penetration - AllowedPenetration);
+            PenaltyBias = Math.Min(PenaltyBias, MaximumBias);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveOptimization)]
+        public unsafe void IterateAccelerated(ContactData* cd, bool applyBias)
+        {
+            ref var b1 = ref cd->Body1.Data;
+            ref var b2 = ref cd->Body2.Data;
+
+            JVector dv = b2.Velocity + b2.AngularVelocity % RelativePosition2;
+            dv -= b1.Velocity + b1.AngularVelocity % RelativePosition1;
+
+            Real bias = applyBias ? MathR.Max(PenaltyBias, Bias) : Bias;
+
+            var vdots = Vector.Add(Vector.Add(Vector.Multiply(NormalTangentX, Vector.Create(dv.X)),
+                Vector.Multiply(NormalTangentY, Vector.Create(dv.Y))), Vector.Multiply(NormalTangentZ, Vector.Create(dv.Z)));
+
+            var impulse = Vector.Multiply(MassNormalTangent, (Vector.Subtract(Vector.Create(bias, 0, 0, 0), vdots)));
+            var oldImpulse = Accumulated;
+
+            // Use the pre-update normal impulse for the friction cone; this keeps the
+            // vectorized clamp simple and matches the scalar path.
+            Real maxTangentImpulse = cd->Friction * Accumulated.GetElement(0);
+
+            Accumulated = Vector.Add(oldImpulse, impulse);
+
+            var minImpulse = Vector.Create(0, -maxTangentImpulse, -maxTangentImpulse, 0);
+            var maxImpulse = Vector.Create(Real.MaxValue, maxTangentImpulse, maxTangentImpulse, 0);
+
+            Accumulated = Vector.Min(Vector.Max(Accumulated, minImpulse), maxImpulse);
+            impulse = Vector.Subtract(Accumulated, oldImpulse);
+
+            Unsafe.SkipInit(out JVector linearImpulse);
+            linearImpulse.X = GetSum3(Vector.Multiply(impulse, NormalTangentX));
+            linearImpulse.Y = GetSum3(Vector.Multiply(impulse, NormalTangentY));
+            linearImpulse.Z = GetSum3(Vector.Multiply(impulse, NormalTangentZ));
+
+            if ((cd->Mode & SolveMode.LinearBody1) != 0)
+            {
+                b1.Velocity -= b1.InverseMass * linearImpulse;
+            }
+
+            if ((cd->Mode & SolveMode.AngularBody1) != 0)
+            {
+                var rp1X = Vector.Create(RelativePosition1.X);
+                var rp1Y = Vector.Create(RelativePosition1.Y);
+                var rp1Z = Vector.Create(RelativePosition1.Z);
+
+                var rrx = Vector.Subtract(Vector.Multiply(rp1Y, NormalTangentZ), Vector.Multiply(rp1Z, NormalTangentY));
+                var rry = Vector.Subtract(Vector.Multiply(rp1Z, NormalTangentX), Vector.Multiply(rp1X, NormalTangentZ));
+                var rrz = Vector.Subtract(Vector.Multiply(rp1X, NormalTangentY), Vector.Multiply(rp1Y, NormalTangentX));
+
+                var ixx = Vector.Create(b1.InverseInertiaWorld.M11);
+                var ixy = Vector.Create(b1.InverseInertiaWorld.M21);
+                var ixz = Vector.Create(b1.InverseInertiaWorld.M31);
+                var iyy = Vector.Create(b1.InverseInertiaWorld.M22);
+                var iyz = Vector.Create(b1.InverseInertiaWorld.M23);
+                var izz = Vector.Create(b1.InverseInertiaWorld.M33);
+
+                var e1 = Vector.Add(Vector.Add(Vector.Multiply(ixx, rrx), Vector.Multiply(ixy, rry)), Vector.Multiply(ixz, rrz));
+                var e2 = Vector.Add(Vector.Add(Vector.Multiply(ixy, rrx), Vector.Multiply(iyy, rry)), Vector.Multiply(iyz, rrz));
+                var e3 = Vector.Add(Vector.Add(Vector.Multiply(ixz, rrx), Vector.Multiply(iyz, rry)), Vector.Multiply(izz, rrz));
+
+                Unsafe.SkipInit(out JVector angularImpulse1);
+                angularImpulse1.X = GetSum3(Vector.Multiply(impulse, e1));
+                angularImpulse1.Y = GetSum3(Vector.Multiply(impulse, e2));
+                angularImpulse1.Z = GetSum3(Vector.Multiply(impulse, e3));
+
+                b1.AngularVelocity -= angularImpulse1;
+            }
+
+            if ((cd->Mode & SolveMode.LinearBody2) != 0)
+            {
+                b2.Velocity += b2.InverseMass * linearImpulse;
+            }
+
+            if ((cd->Mode & SolveMode.AngularBody2) != 0)
+            {
+                var rp2X = Vector.Create(RelativePosition2.X);
+                var rp2Y = Vector.Create(RelativePosition2.Y);
+                var rp2Z = Vector.Create(RelativePosition2.Z);
+
+                var rrx = Vector.Subtract(Vector.Multiply(rp2Y, NormalTangentZ), Vector.Multiply(rp2Z, NormalTangentY));
+                var rry = Vector.Subtract(Vector.Multiply(rp2Z, NormalTangentX), Vector.Multiply(rp2X, NormalTangentZ));
+                var rrz = Vector.Subtract(Vector.Multiply(rp2X, NormalTangentY), Vector.Multiply(rp2Y, NormalTangentX));
+
+                var ixx = Vector.Create(b2.InverseInertiaWorld.M11);
+                var ixy = Vector.Create(b2.InverseInertiaWorld.M21);
+                var ixz = Vector.Create(b2.InverseInertiaWorld.M31);
+                var iyy = Vector.Create(b2.InverseInertiaWorld.M22);
+                var iyz = Vector.Create(b2.InverseInertiaWorld.M23);
+                var izz = Vector.Create(b2.InverseInertiaWorld.M33);
+
+                var f1 = Vector.Add(Vector.Add(Vector.Multiply(ixx, rrx), Vector.Multiply(ixy, rry)), Vector.Multiply(ixz, rrz));
+                var f2 = Vector.Add(Vector.Add(Vector.Multiply(ixy, rrx), Vector.Multiply(iyy, rry)), Vector.Multiply(iyz, rrz));
+                var f3 = Vector.Add(Vector.Add(Vector.Multiply(ixz, rrx), Vector.Multiply(iyz, rry)), Vector.Multiply(izz, rrz));
+
+                Unsafe.SkipInit(out JVector angularImpulse2);
+                angularImpulse2.X = GetSum3(Vector.Multiply(impulse, f1));
+                angularImpulse2.Y = GetSum3(Vector.Multiply(impulse, f2));
+                angularImpulse2.Z = GetSum3(Vector.Multiply(impulse, f3));
+
+                b2.AngularVelocity += angularImpulse2;
+            }
+
+        }
+    }
+}

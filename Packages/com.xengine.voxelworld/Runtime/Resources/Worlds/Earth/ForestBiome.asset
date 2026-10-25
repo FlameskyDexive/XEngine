@@ -1,0 +1,12 @@
+{
+  "$id": 1,
+  "$type": "XEngine.VoxelWorld.BiomeDefinition, XEngine.VoxelWorld.Runtime",
+  "VoxelTop": { "AssetID": "3c8e1a20-7b4d-4e91-9c2a-0f6d8b1e4b21" },
+  "VoxelDirt": { "AssetID": "3c8e1a20-7b4d-4e91-9c2a-0f6d8b1e4b22" },
+  "AltitudeMin": 0,
+  "AltitudeMax": 0.72,
+  "MoistureMin": 0.34,
+  "MoistureMax": 1,
+  "Name": "ForestBiome",
+  "AssetID": "00000000-0000-0000-0000-000000000000"
+}

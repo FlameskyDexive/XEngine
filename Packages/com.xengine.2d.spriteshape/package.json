@@ -1,0 +1,26 @@
+{
+  "name": "com.xengine.2d.spriteshape",
+  "version": "0.1.0",
+  "displayName": "2D SpriteShape",
+  "description": "Spline profiles, fill/edge/corner sprites, and collider generation for 2D shapes. Official optional package: listed in Package Manager, not mounted until installed.",
+  "keywords": ["xengine"],
+  "installByDefault": false,
+  "xengine": "0.1.0",
+  "type": "package",
+  "category": "2D/SpriteShape",
+  "documentationUrl": "Documentation~/index.md",
+  "changelogUrl": "CHANGELOG.md",
+  "licensesUrl": "LICENSE.md",
+  "license": "MIT",
+  "dependencies": {
+    "com.xengine.2d.common": "0.1.0",
+    "com.xengine.2d.sprite": "0.1.0"
+  },
+  "samples": [
+    {
+      "displayName": "SpriteShape Starter",
+      "description": "Closed fill and open edge bake using SpriteShapeController without a GPU.",
+      "path": "Samples~/Starter"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "$id": 1,
+  "$type": "XEngine.VoxelWorld.VoxelDefinition, XEngine.VoxelWorld.Runtime",
+  "Title": "Default Voxel",
+  "RenderType": 0,
+  "TextureTop": {
+    "AssetID": "fdc9f888-96fc-048b-f860-0563a62b9e7e"
+  },
+  "TextureSide": {
+    "AssetID": "fdc9f888-96fc-048b-f860-0563a62b9e7e"
+  },
+  "TextureBottom": {
+    "AssetID": "fdc9f888-96fc-048b-f860-0563a62b9e7e"
+  },
+  "TintColor": {
+    "R": 1F,
+    "G": 1F,
+    "B": 1F,
+    "A": 1F
+  },
+  "Alpha": 1F,
+  "LightIntensity": 0,
+  "Hidden": false,
+  "CanBeCollected": true,
+  "Name": "DefaultVoxel",
+  "AssetID": "00000000-0000-0000-0000-000000000000"
+}

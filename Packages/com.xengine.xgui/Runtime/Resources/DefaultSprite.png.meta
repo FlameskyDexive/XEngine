@@ -1,0 +1,73 @@
+{
+  "guid": "8c4e9e61-e1be-42b6-a9bb-0017f9d86432",
+  "importer": "TextureImporter",
+  "importerVersion": 3,
+  "settings": {
+    "generateMipmaps": false,
+    "sRGB": true,
+    "minFilter": 1,
+    "magFilter": 1,
+    "wrapMode": 2,
+    "sprite": {
+      "$id": 1,
+      "Mode": 1L,
+      "PixelsPerUnit": 100F,
+      "GenerateTightMesh": false,
+      "TightMeshDetail": 1.5F,
+      "TightMeshAlphaThreshold": 1B,
+      "SecondaryTextures": {
+        "$id": 2,
+        "entries": [
+
+        ]
+      },
+      "SlicingTool": 1L,
+      "GeneratedPivot": 0L,
+      "GridCellSize": {
+        "X": 16,
+        "Y": 16
+      },
+      "GridCellCount": {
+        "X": 4,
+        "Y": 4
+      },
+      "GridOffset": {
+        "X": 0,
+        "Y": 0
+      },
+      "GridPadding": {
+        "X": 0,
+        "Y": 0
+      },
+      "KeepEmptyRects": false,
+      "IsoIsAlternate": false,
+      "Slices": {
+        "$id": 3,
+        "$values": [
+          {
+            "$id": 4,
+            "Name": "DefaultSprite",
+            "Rect": [
+              0,
+              0,
+              256,
+              256
+            ],
+            "Alignment": 0L,
+            "CustomPivot": {
+              "X": 0.5F,
+              "Y": 0.5F
+            },
+            "PivotUnit": 0L,
+            "Border": {
+              "X": 32F,
+              "Y": 32F,
+              "Z": 32F,
+              "W": 32F
+            }
+          }
+        ]
+      }
+    }
+  }
+}

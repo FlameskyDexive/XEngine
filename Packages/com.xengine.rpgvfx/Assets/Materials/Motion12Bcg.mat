@@ -1,0 +1,163 @@
+{
+  "$id": 1,
+  "$type": "XEngine.Runtime.Resources.Material, XEngine.Runtime",
+  "_shader": {
+    "AssetID": "e74b8fbd-074d-0de5-2cdd-b50c0752b0a4"
+  },
+  "_properties": {
+    "$id": 2,
+    "_colors": {
+      "_Color": {
+        "R": 1F,
+        "G": 1F,
+        "B": 1F,
+        "A": 1F
+      },
+      "_DistortionSpeedXYPowerZ": {
+        "R": 0F,
+        "G": -1F,
+        "B": 0.4F,
+        "A": 0F
+      },
+      "_EmissionColor": {
+        "R": 0F,
+        "G": 0F,
+        "B": 0F,
+        "A": 1F
+      },
+      "_NoisespeedUV": {
+        "R": 0F,
+        "G": 1F,
+        "B": 0F,
+        "A": 0F
+      },
+      "_SpeedMainTexUVNoiseUV": {
+        "R": 0.1F,
+        "G": 1F,
+        "B": 0F,
+        "A": 0F
+      },
+      "_SpeedMainTexUVNoiseZW": {
+        "R": 0F,
+        "G": 0F,
+        "B": 0F,
+        "A": -1.5F
+      },
+      "_TintColor": {
+        "R": 1F,
+        "G": 1F,
+        "B": 1F,
+        "A": 1F
+      }
+    },
+    "_vectors2": {},
+    "_vectors3": {},
+    "_vectors4": {
+      "_MainTex_ST": {
+        "X": 1F,
+        "Y": 1F,
+        "Z": 0F,
+        "W": 0.02F
+      },
+      "_Noise_ST": {
+        "X": 2F,
+        "Y": 1F,
+        "Z": 0F,
+        "W": 0F
+      }
+    },
+    "_floats": {
+      "_Blend2": 1F,
+      "_BlendMode": 1F,
+      "_BumpScale": 1F,
+      "_CullMode": 0F,
+      "_Cutoff": 0.5F,
+      "_Depthpower": 0.2F,
+      "_DetailNormalMapScale": 1F,
+      "_Distortionpower": 0.05F,
+      "_DstBlend": 1F,
+      "_DstMode": 10F,
+      "_Emission": 12F,
+      "_GlossMapScale": 1F,
+      "_Glossiness": 0.5F,
+      "_GlossyReflections": 1F,
+      "_Metallic": 0F,
+      "_Mode": 0F,
+      "_OcclusionStrength": 1F,
+      "_Opacity": 3F,
+      "_Parallax": 0.02F,
+      "_SmoothnessTextureChannel": 0F,
+      "_SpecularHighlights": 1F,
+      "_SrcBlend": 1F,
+      "_SrcMode": 5F,
+      "_UVSec": 0F,
+      "_Usecenterglow": 0F,
+      "_Usecustomrandom": 0F,
+      "_Usedepth": 0F,
+      "__dirty": 1F
+    },
+    "_ints": {},
+    "_matrices": {},
+    "_matrixArr": {},
+    "_textures": {
+      "_Flow": {
+        "AssetID": "72cef3be-4f7d-1e91-e523-cbe61b210c0f"
+      },
+      "_MainTex": {
+        "AssetID": "e1b440fd-26f4-2743-8b7b-ffa8f788aee6"
+      },
+      "_Noise": {
+        "AssetID": "d970d3af-e760-a53d-50f8-17335c770681"
+      }
+    },
+    "_textures3D": {},
+    "_texturesCube": {},
+    "_buffers": {},
+    "_bufferBindings": {}
+  },
+  "_overrides": [
+    "_Color",
+    "_DistortionSpeedXYPowerZ",
+    "_EmissionColor",
+    "_NoisespeedUV",
+    "_SpeedMainTexUVNoiseUV",
+    "_SpeedMainTexUVNoiseZW",
+    "_TintColor",
+    "_Blend2",
+    "_BlendMode",
+    "_BumpScale",
+    "_CullMode",
+    "_Cutoff",
+    "_Depthpower",
+    "_DetailNormalMapScale",
+    "_Distortionpower",
+    "_DstBlend",
+    "_DstMode",
+    "_Emission",
+    "_GlossMapScale",
+    "_Glossiness",
+    "_GlossyReflections",
+    "_Metallic",
+    "_Mode",
+    "_OcclusionStrength",
+    "_Opacity",
+    "_Parallax",
+    "_SmoothnessTextureChannel",
+    "_SpecularHighlights",
+    "_SrcBlend",
+    "_SrcMode",
+    "_UVSec",
+    "_Usecenterglow",
+    "_Usecustomrandom",
+    "_Usedepth",
+    "__dirty",
+    "_Flow",
+    "_MainTex",
+    "_MainTex_ST",
+    "_Noise",
+    "_Noise_ST"
+  ],
+  "AssetPath": "",
+  "AssetID": "00000000-0000-0000-0000-000000000000",
+  "Name": "Motion12Bcg"
+}

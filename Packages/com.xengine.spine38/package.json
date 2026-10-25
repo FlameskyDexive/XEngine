@@ -1,0 +1,27 @@
+{
+  "name": "com.xengine.spine38",
+  "version": "0.1.4",
+  "displayName": "Spine 3.8",
+  "description": "Esoteric Spine 3.8 skeletal 2D animation runtime. Mutually exclusive with com.xengine.spine (4.x). Official optional package: listed in Package Manager, not mounted until installed. Users of this package must hold their own Spine Editor license.",
+  "installByDefault": false,
+  "xengine": "0.1.1",
+  "type": "package",
+  "category": "Official",
+  "documentationUrl": "Documentation~/index.md",
+  "changelogUrl": "CHANGELOG.md",
+  "licensesUrl": "LICENSE.md",
+  "supportedPlatforms": ["Windows", "Linux", "MacOS", "Android", "HarmonyOS"],
+  "license": "MIT",
+  "keywords": ["xengine", "spine", "spine38", "2d", "skeletal", "animation"],
+  "conflicts": ["com.xengine.spine"],
+  "dependencies": {
+    "com.xengine.xgui": "0.1.0"
+  },
+  "samples": [
+    {
+      "displayName": "Getting Started",
+      "description": "Spineboy 3.8 walk / control / SkeletonGraphic scenes ported to XEngine.",
+      "path": "Samples~/GettingStarted"
+    }
+  ]
+}

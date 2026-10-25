@@ -1,0 +1,24 @@
+{
+  "name": "com.xengine.genshin",
+  "version": "0.1.0",
+  "displayName": "Genshin Toon Combat Demo",
+  "description": "Genshin-style anime (NPR) character rendering (ramp shading, SDF face shadow, rim light, inverted-hull outline) plus a basic third-person combat demo with a 5-hit combo. Official optional package: listed in Package Manager, not mounted until installed. Sample character assets are converted from a private reference project for internal testing only and must not be redistributed.",
+  "installByDefault": false,
+  "xengine": "0.1.0",
+  "type": "package",
+  "category": "Official",
+  "documentationUrl": "Documentation~/index.md",
+  "changelogUrl": "CHANGELOG.md",
+  "licensesUrl": "LICENSE.md",
+  "supportedPlatforms": ["Windows", "Linux", "MacOS", "Android", "HarmonyOS"],
+  "license": "MIT",
+  "keywords": ["genshin", "toon", "npr", "cel", "anime", "ramp", "outline", "combat", "demo"],
+  "dependencies": {"com.xengine.unityimporter": "0.1.0"},
+  "samples": [
+    {
+      "displayName": "Combat Demo",
+      "description": "KeQing toon character (ramp body/hair, SDF face shadow, outline) with WASD movement, sprint, jump, and a 5-hit sword combo against training dummies with hit-stop and camera shake.",
+      "path": "Samples~/CombatDemo"
+    }
+  ]
+}

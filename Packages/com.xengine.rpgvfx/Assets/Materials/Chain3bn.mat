@@ -1,0 +1,124 @@
+{
+  "$id": 1,
+  "$type": "XEngine.Runtime.Resources.Material, XEngine.Runtime",
+  "_shader": {
+    "AssetID": "24becfa7-4efc-0012-8764-db072e4c9dc1"
+  },
+  "_properties": {
+    "$id": 2,
+    "_colors": {
+      "_BackFacesColor": {
+        "R": 0F,
+        "G": 0.352423F,
+        "B": 1F,
+        "A": 1F
+      },
+      "_Color": {
+        "R": 1F,
+        "G": 1F,
+        "B": 1F,
+        "A": 1F
+      },
+      "_FresnelColor": {
+        "R": 1F,
+        "G": 1F,
+        "B": 1F,
+        "A": 1F
+      },
+      "_FrontFacesColor": {
+        "R": 0.306604F,
+        "G": 0.671699F,
+        "B": 1F,
+        "A": 1F
+      },
+      "_SpecColor": {
+        "R": 1F,
+        "G": 1F,
+        "B": 1F,
+        "A": 1F
+      },
+      "_SpeedMainTexUVNoiseZW": {
+        "R": -3F,
+        "G": 0F,
+        "B": 0F,
+        "A": 0F
+      }
+    },
+    "_vectors2": {},
+    "_vectors3": {},
+    "_vectors4": {
+      "_MainTex_ST": {
+        "X": 7F,
+        "Y": 1F,
+        "Z": 0F,
+        "W": 0F
+      },
+      "_NormalMap_ST": {
+        "X": 7F,
+        "Y": 1F,
+        "Z": 0F,
+        "W": 0F
+      }
+    },
+    "_floats": {
+      "_Cutoff": 0.5F,
+      "_Depthpower": 0.1F,
+      "_Emission": 3F,
+      "_Fresnel": 1F,
+      "_FresnelEmission": 1F,
+      "_NormalScale": 1F,
+      "_Opacity": 1F,
+      "_UseCustomData": 0F,
+      "_UseFresnel": 0F,
+      "_Usecenterglow": 0F,
+      "_Usedepth": 1F,
+      "__dirty": 1F
+    },
+    "_ints": {},
+    "_matrices": {},
+    "_matrixArr": {},
+    "_textures": {
+      "_MainTex": {
+        "AssetID": "096b2b9c-b910-8562-0b3f-0c98a431d5dd"
+      },
+      "_Noise": {
+        "AssetID": "41ce16b6-bf26-513f-e48d-51ca70c2d230"
+      },
+      "_NormalMap": {
+        "AssetID": "2b33b526-1079-eb44-775b-4cdf6bfa8ce0"
+      }
+    },
+    "_textures3D": {},
+    "_texturesCube": {},
+    "_buffers": {},
+    "_bufferBindings": {}
+  },
+  "_overrides": [
+    "_BackFacesColor",
+    "_Color",
+    "_FresnelColor",
+    "_FrontFacesColor",
+    "_SpecColor",
+    "_SpeedMainTexUVNoiseZW",
+    "_Cutoff",
+    "_Depthpower",
+    "_Emission",
+    "_Fresnel",
+    "_FresnelEmission",
+    "_NormalScale",
+    "_Opacity",
+    "_UseCustomData",
+    "_UseFresnel",
+    "_Usecenterglow",
+    "_Usedepth",
+    "__dirty",
+    "_MainTex",
+    "_MainTex_ST",
+    "_Noise",
+    "_NormalMap",
+    "_NormalMap_ST"
+  ],
+  "AssetPath": "",
+  "AssetID": "00000000-0000-0000-0000-000000000000",
+  "Name": "Chain3bn"
+}

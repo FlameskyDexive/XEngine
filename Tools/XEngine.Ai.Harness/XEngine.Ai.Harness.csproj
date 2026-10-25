@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    XEngine.Ai.Harness — the shippable agent-harness layer (三件套 + 技能包). Carries the user-edition
+    scaffolding templates (AGENTS.md, skills manifest) as embedded resources and installs them into
+    game projects: .mcp.json wiring (offline CLI + live editor), the project AGENTS.md agent guide,
+    and the curated skills copied into {project}/.xengine/harness/skills/.
+
+    Referenced by BOTH the editor (seeds new projects at creation) and xengine-cli (harness
+    install/status/upgrade verbs). Engine-agnostic: file/layout logic only, no engine types.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Description>XEngine agent harness templates + installer (seeds .mcp.json / AGENTS.md / skills into game projects).</Description>
+    <XEngineEnableAnalyzers>false</XEngineEnableAnalyzers>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\XEngine.Ai.Protocol\XEngine.Ai.Protocol.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Templates\**" />
+  </ItemGroup>
+
+</Project>

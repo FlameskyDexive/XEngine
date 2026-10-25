@@ -1,0 +1,232 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+	  <TargetType>library</TargetType>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <NoWarn>8600;8601;8618;8602;8603;8604;8625;1591</NoWarn>
+    <IsAotCompatible>true</IsAotCompatible>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <!-- Mobile target detection. Android and OpenHarmony builds use a Vulkan/offline-shader dependency
+       closure; iOS uses native Metal and the same offline-shader closure. Desktop windowing, extra
+       graphics backends, and runtime shader compilers are excluded on those players. -->
+  <PropertyGroup>
+    <IsAndroidTarget Condition="'$(IsAndroidTarget)' == '' AND $(RuntimeIdentifier.StartsWith('android-'))">true</IsAndroidTarget>
+    <IsAndroidTarget Condition="'$(IsAndroidTarget)' == ''">false</IsAndroidTarget>
+    <DefineConstants Condition="'$(IsAndroidTarget)' == 'true'">$(DefineConstants);XENGINE_ANDROID;XENGINE_MOBILE</DefineConstants>
+    <IsHarmonyOSTarget Condition="'$(IsHarmonyOSTarget)' == '' AND '$(OpenHarmonyTarget)' == 'true'">true</IsHarmonyOSTarget>
+    <IsHarmonyOSTarget Condition="'$(IsHarmonyOSTarget)' == ''">false</IsHarmonyOSTarget>
+    <DefineConstants Condition="'$(IsHarmonyOSTarget)' == 'true'">$(DefineConstants);XENGINE_HARMONYOS;XENGINE_MOBILE</DefineConstants>
+    <IsIosTarget Condition="'$(IsIosTarget)' == '' AND $(RuntimeIdentifier.StartsWith('ios'))">true</IsIosTarget>
+    <IsIosTarget Condition="'$(IsIosTarget)' == ''">false</IsIosTarget>
+    <DefineConstants Condition="'$(IsIosTarget)' == 'true'">$(DefineConstants);XENGINE_IOS;XENGINE_MOBILE</DefineConstants>
+    <IsBrowserTarget Condition="'$(IsBrowserTarget)' == '' AND '$(RuntimeIdentifier)' == 'browser-wasm'">true</IsBrowserTarget>
+    <IsBrowserTarget Condition="'$(IsBrowserTarget)' == ''">false</IsBrowserTarget>
+    <DefineConstants Condition="'$(IsBrowserTarget)' == 'true'">$(DefineConstants);XENGINE_WEB;XENGINE_MOBILE</DefineConstants>
+    <EmccExtraLDFlags Condition="'$(IsBrowserTarget)' == 'true'">$(EmccExtraLDFlags) -sMIN_WEBGL_VERSION=2 -sMAX_WEBGL_VERSION=2 -sFULL_ES3=1</EmccExtraLDFlags>
+  </PropertyGroup>
+
+  <!-- Allow test project to access internal members -->
+  <ItemGroup>
+    <InternalsVisibleTo Include="XEngine.Runtime.Test" />
+    <InternalsVisibleTo Include="XEngine.Runtime.Benchmarks" />
+    <InternalsVisibleTo Include="XEngine.Editor" />
+    <InternalsVisibleTo Include="XEngine.Editor.Test" />
+    <InternalsVisibleTo Include="XEngine.Terrain.Runtime" />
+    <InternalsVisibleTo Include="XEngine.Terrain.Editor" />
+    <InternalsVisibleTo Include="XEngine.AI.Navigation.Runtime" />
+    <InternalsVisibleTo Include="XEngine.AI.Navigation.Editor" />
+    <!-- com.xengine.spine / com.xengine.spine38 package assemblies (compiled per-project). -->
+    <InternalsVisibleTo Include="XEngine.Spine.Runtime" />
+    <InternalsVisibleTo Include="XEngine.Spine.Editor" />
+    <InternalsVisibleTo Include="XEngine.Spine38.Runtime" />
+    <InternalsVisibleTo Include="XEngine.Spine38.Editor" />
+    <InternalsVisibleTo Include="XEngine.Spine38.Tests" />
+    <InternalsVisibleTo Include="IceyXEngine.Game" />
+    <InternalsVisibleTo Include="IceyXEngine.Editor" />
+    <!-- com.xengine.websurface: the world click probe draws the panel's canvas-baked mesh. -->
+    <InternalsVisibleTo Include="XEngine.WebSurface.Runtime" />
+    <InternalsVisibleTo Include="XEngine.VoxelWorld.Runtime" />
+    <InternalsVisibleTo Include="XEngine.VoxelWorld.Editor" />
+    <!-- com.xengine.hudmesh: world-space HUD combine captures SDF glyph quads via UIFontSystem. -->
+    <InternalsVisibleTo Include="XEngine.Hudmesh.Runtime" />
+    <InternalsVisibleTo Include="XEngine.Hudmesh.Editor" />
+    <InternalsVisibleTo Include="XEngine.Hudmesh.Tests" />
+    <!-- com.xengine.gpu-animation: crowd render acceptance drives the render pipeline headlessly. -->
+    <InternalsVisibleTo Include="XEngine.GpuAnimation.Runtime" />
+    <InternalsVisibleTo Include="XEngine.GpuAnimation.Editor" />
+    <InternalsVisibleTo Include="XEngine.GpuAnimation.Tests" />
+  </ItemGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' AND '$(IsAndroidTarget)' != 'true' AND '$(IsHarmonyOSTarget)' != 'true' AND '$(IsIosTarget)' != 'true' AND '$(IsBrowserTarget)' != 'true' ">
+    <OutputPath>../Build/Runtime/Debug/</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' AND '$(IsAndroidTarget)' != 'true' AND '$(IsHarmonyOSTarget)' != 'true' AND '$(IsIosTarget)' != 'true' AND '$(IsBrowserTarget)' != 'true' ">
+    <OutputPath>../Build/Runtime/Release/</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Magick.NET-Q8-AnyCPU" Version="14.13.0" Condition="'$(IsAndroidTarget)' != 'true' AND '$(IsHarmonyOSTarget)' != 'true' AND '$(IsIosTarget)' != 'true' AND '$(IsBrowserTarget)' != 'true' AND '$(RuntimeIdentifier)' != 'browser-wasm'" />
+    <PackageReference Include="StbImageSharp" Version="2.30.15" Condition="'$(IsAndroidTarget)' == 'true' OR '$(IsHarmonyOSTarget)' == 'true' OR '$(IsIosTarget)' == 'true' OR '$(IsBrowserTarget)' == 'true' OR '$(RuntimeIdentifier)' == 'browser-wasm'" />
+
+    <!-- LZ4 block compression for the AssetBundle container format (see
+         XEngine.Runtime/AssetBundles/Compression/BundleCompression.cs). Used by the
+         new AssetBundle pipeline alongside the existing ZipArchive-based .xenginepak mode. -->
+    <PackageReference Include="K4os.Compression.LZ4" Version="1.3.8" />
+    <PackageReference Include="RectpackSharp" Version="1.2.0" />
+    <PackageReference Include="Box2D.NET" Version="3.1.654" />
+
+    <!-- Video playback: FFmpeg C# bindings (P/Invoke only, no native payload). Native
+         FFmpeg shared libraries are vendored per-RID under Libraries/{rid}/native/
+         (n8.1 ABI; per-RID build provenance and license paths are documented in
+         Libraries/FFmpeg-README.md). Loaded lazily by XEngine.Runtime.Video.FFmpegNativeLoader. -->
+    <PackageReference Include="FFmpeg.AutoGen" Version="8.1.0" />
+
+    <!-- Vendored Anthology libraries (formerly external XEngine.* NuGet packages).
+         Consumed as source via ProjectReference to ThirdParty/ for a self-contained build. -->
+    <ProjectReference Include="..\ThirdParty\Clay\Clay\Clay.csproj" />
+    <ProjectReference Include="..\ThirdParty\Echo\Echo\Echo.csproj" />
+    <!-- Echo serializer source generator: compiles [GenerateSerializer] types' ISerializable
+         implementations (Transform + high-frequency built-in components), replacing per-field
+         reflection on the scene-load / play-mode / undo snapshot hot paths. -->
+    <ProjectReference Include="..\ThirdParty\Echo\Echo.SourceGenerator\Echo.SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\ThirdParty\Paper\Paper\Paper.csproj" />
+    <ProjectReference Include="..\ThirdParty\Quill\Quill\Quill.csproj" />
+    <ProjectReference Include="..\ThirdParty\Slang\Slang\XEngine.Slang.csproj" Condition="'$(IsAndroidTarget)' != 'true' AND '$(IsHarmonyOSTarget)' != 'true' AND '$(IsIosTarget)' != 'true' AND '$(IsBrowserTarget)' != 'true' AND '$(RuntimeIdentifier)' != 'browser-wasm'" />
+    <ProjectReference Include="..\ThirdParty\Unwrapper\Unwrapper\Unwrapper.csproj" />
+    <!-- XEngine.Vector is pulled in transitively via Clay/Unwrapper ProjectReferences. -->
+
+    <!-- 3D physics kernel. Vendored as source (with XEngine modifications) rather than
+         consumed as the Jitter2 NuGet package; see ThirdParty/Jitter2/README.md. -->
+    <ProjectReference Include="..\ThirdParty\Jitter2\Jitter2\Jitter2.csproj" />
+
+    <PackageReference Include="Silk.NET" Version="2.23.0" Condition="'$(IsAndroidTarget)' != 'true' AND '$(IsHarmonyOSTarget)' != 'true' AND '$(IsIosTarget)' != 'true' AND '$(IsBrowserTarget)' != 'true' AND '$(RuntimeIdentifier)' != 'browser-wasm'" />
+    <PackageReference Include="Silk.NET.OpenAL.Soft.Native" Version="1.23.1" Condition="'$(IsAndroidTarget)' != 'true' AND '$(IsHarmonyOSTarget)' != 'true' AND '$(IsIosTarget)' != 'true' AND '$(IsBrowserTarget)' != 'true' AND '$(RuntimeIdentifier)' != 'browser-wasm'" />
+    <PackageReference Include="Silk.NET.OpenGL" Version="2.23.0" Condition="'$(IsBrowserTarget)' == 'true' OR '$(RuntimeIdentifier)' == 'browser-wasm'" />
+    <PackageReference Include="Silk.NET.Core" Version="2.23.0" Condition="'$(IsBrowserTarget)' == 'true' OR '$(RuntimeIdentifier)' == 'browser-wasm'" />
+
+    <!-- CROSS-PLATFORM: kept on Android. Vulkan backend + Silk's KhrAndroidSurface extension binding. -->
+    <PackageReference Include="Silk.NET.Vulkan" Version="2.23.0" Condition="'$(IsIosTarget)' != 'true' AND '$(IsBrowserTarget)' != 'true' AND '$(RuntimeIdentifier)' != 'browser-wasm'" />
+    <PackageReference Include="Silk.NET.Vulkan.Extensions.KHR" Version="2.23.0" Condition="'$(IsIosTarget)' != 'true' AND '$(IsBrowserTarget)' != 'true' AND '$(RuntimeIdentifier)' != 'browser-wasm'" />
+    <PackageReference Include="Silk.NET.Vulkan.Extensions.EXT" Version="2.23.0" Condition="'$(IsIosTarget)' != 'true' AND '$(IsBrowserTarget)' != 'true' AND '$(RuntimeIdentifier)' != 'browser-wasm'" />
+    <PackageReference Include="Silk.NET.Maths" Version="2.23.0" Condition="'$(IsAndroidTarget)' == 'true' OR '$(IsHarmonyOSTarget)' == 'true' OR '$(IsIosTarget)' == 'true' OR '$(IsBrowserTarget)' == 'true' OR '$(RuntimeIdentifier)' == 'browser-wasm'" />
+    <!-- (3) D3D12 backend (Windows only). Desktop-only; trim for Android in M1. -->
+    <PackageReference Include="Vortice.Direct3D12" Version="3.6.2" Condition="'$(IsAndroidTarget)' != 'true' AND '$(IsHarmonyOSTarget)' != 'true' AND '$(IsIosTarget)' != 'true' AND '$(IsBrowserTarget)' != 'true' AND '$(RuntimeIdentifier)' != 'browser-wasm'" />
+    <PackageReference Include="Vortice.DXGI" Version="3.6.2" Condition="'$(IsAndroidTarget)' != 'true' AND '$(IsHarmonyOSTarget)' != 'true' AND '$(IsIosTarget)' != 'true' AND '$(IsBrowserTarget)' != 'true' AND '$(RuntimeIdentifier)' != 'browser-wasm'" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(IsAndroidTarget)' == 'true' OR '$(IsHarmonyOSTarget)' == 'true'">
+    <Compile Remove="Window.cs" />
+    <Compile Remove="InputManagement\DefaultInputHandler.cs" />
+    <Compile Remove="Graphics\Backends\OpenGL\**\*.cs" />
+    <Compile Remove="Graphics\Backends\D3D12\**\*.cs" />
+    <Compile Remove="Graphics\Backends\WebGPU\**\*.cs" />
+    <Compile Remove="Graphics\Backends\WebGL2\**\*.cs" />
+    <Compile Remove="Graphics\Backends\Metal\**\*.cs" />
+    <Compile Remove="Graphics\RHI\Shaders\DxcShaderCompiler.cs" />
+    <Compile Remove="Graphics\RHI\Shaders\GlslShaderCompiler.cs" />
+    <Compile Remove="Graphics\RHI\Shaders\RuntimeSlangReflection.cs" />
+    <Compile Remove="Graphics\RHI\Shaders\RuntimeSlangShaderCompiler.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(IsIosTarget)' == 'true'">
+    <Compile Remove="Window.cs" />
+    <Compile Remove="InputManagement\DefaultInputHandler.cs" />
+    <Compile Remove="Graphics\Backends\OpenGL\**\*.cs" />
+    <Compile Remove="Graphics\Backends\D3D12\**\*.cs" />
+    <Compile Remove="Graphics\Backends\WebGPU\**\*.cs" />
+    <Compile Remove="Graphics\Backends\WebGL2\**\*.cs" />
+    <Compile Remove="Graphics\Backends\Vulkan\**\*.cs" />
+    <Compile Remove="Platforms\HarmonyOS\**\*.cs" />
+    <Compile Remove="Graphics\RHI\Shaders\DxcShaderCompiler.cs" />
+    <Compile Remove="Graphics\RHI\Shaders\GlslShaderCompiler.cs" />
+    <Compile Remove="Graphics\RHI\Shaders\RuntimeSlangReflection.cs" />
+    <Compile Remove="Graphics\RHI\Shaders\RuntimeSlangShaderCompiler.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(IsBrowserTarget)' == 'true'">
+    <Compile Remove="Window.cs" />
+    <Compile Remove="InputManagement\DefaultInputHandler.cs" />
+    <Compile Remove="Graphics\Backends\OpenGL\OpenGLGraphicsDevice.cs" />
+    <Compile Remove="Graphics\Backends\OpenGL\SilkWindowSurface.cs" />
+    <Compile Remove="Graphics\Backends\D3D12\**\*.cs" />
+    <Compile Remove="Graphics\Backends\Metal\**\*.cs" />
+    <Compile Remove="Graphics\Backends\Vulkan\**\*.cs" />
+    <Compile Remove="Platforms\Android\**\*.cs" />
+    <Compile Remove="Platforms\HarmonyOS\**\*.cs" />
+    <Compile Remove="Graphics\RHI\Shaders\DxcShaderCompiler.cs" />
+    <Compile Remove="Graphics\RHI\Shaders\RuntimeSlangReflection.cs" />
+    <Compile Remove="Graphics\RHI\Shaders\RuntimeSlangShaderCompiler.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Defaults\**" />
+    <EmbeddedResource Include="Assets\brdf_lut.brdf" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(IsAndroidTarget)' != 'true' AND '$(IsHarmonyOSTarget)' != 'true' AND '$(IsIosTarget)' != 'true' AND '$(IsBrowserTarget)' != 'true'">
+    <LibraryFiles Include="..\Libraries\**\*.*" />
+  </ItemGroup>
+
+  <!-- Stamp each PackageReference as AssemblyMetadata so the build pipeline
+       can read dependencies from the compiled DLL without needing the .csproj file. -->
+  <Target Name="EmbedPackageReferences" BeforeTargets="GetAssemblyAttributes">
+    <ItemGroup>
+      <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
+        <_Parameter1>PackageReference:%(PackageReference.Identity)</_Parameter1>
+        <_Parameter2>%(PackageReference.Version)</_Parameter2>
+      </AssemblyAttribute>
+    </ItemGroup>
+  </Target>
+
+  <!-- Copy native libraries to output -->
+  <Target Name="CopyLibraries" AfterTargets="Build">
+    <Copy SourceFiles="@(LibraryFiles)" DestinationFiles="@(LibraryFiles->'$(OutputPath)runtimes\%(RecursiveDir)%(Filename)%(Extension)')" />
+  </Target>
+
+  <!-- Collect runtime files for referencing projects -->
+  <ItemGroup Condition="'$(IsAndroidTarget)' != 'true' AND '$(IsHarmonyOSTarget)' != 'true' AND '$(IsIosTarget)' != 'true' AND '$(IsBrowserTarget)' != 'true'">
+    <None Include="..\Libraries\**\*.*">
+      <Link>runtimes\%(RecursiveDir)%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Visible>false</Visible>
+    </None>
+  </ItemGroup>
+
+  <!-- Windows-only native tools (DXC, wgpu): copy when publishing FOR win-x64 (cross-publish from
+       any build OS), or when building natively on Windows x64 without an explicit RID. -->
+  <ItemGroup Condition="'$(IsAndroidTarget)' != 'true' AND '$(IsHarmonyOSTarget)' != 'true' AND '$(IsBrowserTarget)' != 'true' AND ('$(RuntimeIdentifier)' == 'win-x64' OR ('$(RuntimeIdentifier)' == '' AND $([MSBuild]::IsOsPlatform('Windows')) AND '$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)' == 'X64'))">
+    <None Include="..\ThirdParty\DXC\windows-x64\bin\x64\dxcompiler.dll"
+          Link="dxcompiler.dll"
+          CopyToOutputDirectory="PreserveNewest"
+          CopyToPublishDirectory="PreserveNewest"
+          Visible="false" />
+    <None Include="..\ThirdParty\DXC\windows-x64\bin\x64\dxil.dll"
+          Link="dxil.dll"
+          CopyToOutputDirectory="PreserveNewest"
+          CopyToPublishDirectory="PreserveNewest"
+          Visible="false" />
+    <None Include="..\ThirdParty\wgpu-native\runtimes\win-x64\native\wgpu_native.dll"
+          Link="wgpu_native.dll"
+          CopyToOutputDirectory="PreserveNewest"
+          CopyToPublishDirectory="PreserveNewest"
+          Visible="false" />
+    <None Include="..\ThirdParty\wgpu-native\runtimes\win-x64\native\wgpu_native.dll"
+          Link="runtimes\win-x64\native\wgpu_native.dll"
+          CopyToOutputDirectory="PreserveNewest"
+          CopyToPublishDirectory="PreserveNewest"
+          Visible="false" />
+  </ItemGroup>
+
+  <!-- ThirdParty net8/net10 class libraries must not inherit browser-wasm (that demands wasm-tools-net8). -->
+  <ItemGroup Condition="'$(IsBrowserTarget)' == 'true' OR '$(RuntimeIdentifier)' == 'browser-wasm'">
+    <ProjectReference Update="@(ProjectReference)">
+      <GlobalPropertiesToRemove>RuntimeIdentifier</GlobalPropertiesToRemove>
+    </ProjectReference>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,125 @@
+{
+  "name": "text-to-playable-prop",
+  "description": "Prompt → generated 3D model → triangle-budget remesh → GameObject with MeshRenderer + BoxCollider → standalone .prefab. Run budget BEFORE wiring mesh GUIDs (remesh can rename sub-assets). Mock: extra.polycount=high yields a 12-tri cube so the budget step is observable; omit it for the 1-tri placeholder.",
+  "inputs": {
+    "type": "object",
+    "properties": {
+      "provider": { "type": "string", "description": "Generation provider: mock | meshy" },
+      "prompt": { "type": "string", "description": "What to generate" },
+      "scenePath": { "type": "string", "description": "Project-relative .scene to wire the prop into" },
+      "objectName": { "type": "string", "description": "Name for the new GameObject / prefab / asset base name" },
+      "idempotencyKey": { "type": "string", "description": "Stable key prefix for journaled writes" },
+      "maxTriangles": { "type": "integer", "description": "Triangle budget; remesh when exceeded (default 10000)" }
+    },
+    "required": ["provider", "prompt", "scenePath", "objectName", "idempotencyKey"],
+    "additionalProperties": false
+  },
+  "steps": [
+    {
+      "name": "submit",
+      "tool": "gen_submit",
+      "arguments": {
+        "provider": "${inputs.provider}",
+        "kind": "model3d",
+        "prompt": "${inputs.prompt}"
+      },
+      "dependsOn": [],
+      "failurePolicy": "Stop"
+    },
+    {
+      "name": "status",
+      "tool": "gen_status",
+      "arguments": { "taskId": "${steps.submit.taskId}" },
+      "dependsOn": ["submit"],
+      "failurePolicy": "Stop"
+    },
+    {
+      "name": "fetch",
+      "tool": "gen_fetch",
+      "arguments": {
+        "taskId": "${steps.submit.taskId}",
+        "baseName": "${inputs.objectName}",
+        "idempotencyKey": "${inputs.idempotencyKey}-fetch",
+        "intent": "playable-prop: ${inputs.prompt}"
+      },
+      "dependsOn": ["status"],
+      "failurePolicy": "Stop"
+    },
+    {
+      "name": "budget",
+      "tool": "gen_ensure_budget",
+      "arguments": {
+        "assetPath": "${steps.fetch.assets.0.assetPath}",
+        "maxTriangles": "${inputs.maxTriangles}",
+        "taskId": "${steps.submit.taskId}",
+        "idempotencyKey": "${inputs.idempotencyKey}-budget",
+        "intent": "playable-prop budget gate"
+      },
+      "dependsOn": ["fetch"],
+      "failurePolicy": "Stop"
+    },
+    {
+      "name": "stats",
+      "tool": "asset_mesh_stats",
+      "arguments": { "assetPath": "${steps.fetch.assets.0.assetPath}" },
+      "dependsOn": ["budget"],
+      "failurePolicy": "Stop"
+    },
+    {
+      "name": "create-go",
+      "tool": "scene_object_create",
+      "arguments": {
+        "scenePath": "${inputs.scenePath}",
+        "name": "${inputs.objectName}",
+        "idempotencyKey": "${inputs.idempotencyKey}-go",
+        "intent": "playable-prop host object"
+      },
+      "dependsOn": ["stats"],
+      "failurePolicy": "Stop"
+    },
+    {
+      "name": "add-renderer",
+      "tool": "scene_component_add",
+      "arguments": {
+        "scenePath": "${inputs.scenePath}",
+        "objectIdentifier": "${steps.create-go.createdIdentifier}",
+        "componentType": "MeshRenderer",
+        "initialFields": [
+          { "path": "Mesh/AssetID", "value": "${steps.stats.meshes.0.guid}" },
+          { "path": "Materials/$values/0/AssetID", "value": "00000000-0000-0000-0000-000000000000" }
+        ],
+        "idempotencyKey": "${inputs.idempotencyKey}-mr",
+        "intent": "playable-prop: wire mesh after budget"
+      },
+      "dependsOn": ["create-go"],
+      "failurePolicy": "Stop"
+    },
+    {
+      "name": "add-collider",
+      "tool": "scene_collider_add",
+      "arguments": {
+        "scenePath": "${inputs.scenePath}",
+        "objectIdentifier": "${steps.create-go.createdIdentifier}",
+        "modelAssetPath": "${steps.fetch.assets.0.assetPath}",
+        "shape": "box",
+        "idempotencyKey": "${inputs.idempotencyKey}-col",
+        "intent": "playable-prop: AABB box collider"
+      },
+      "dependsOn": ["add-renderer"],
+      "failurePolicy": "Stop"
+    },
+    {
+      "name": "make-prefab",
+      "tool": "prefab_create",
+      "arguments": {
+        "scenePath": "${inputs.scenePath}",
+        "objectIdentifier": "${steps.create-go.createdIdentifier}",
+        "destinationPath": "Assets/Prefabs/${inputs.objectName}.prefab",
+        "idempotencyKey": "${inputs.idempotencyKey}-prefab",
+        "intent": "playable-prop: extract prefab"
+      },
+      "dependsOn": ["add-collider"],
+      "failurePolicy": "Stop"
+    }
+  ]
+}

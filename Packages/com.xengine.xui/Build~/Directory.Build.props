@@ -1,0 +1,18 @@
+<Project>
+
+  <!--
+    Imported before the SDK, so obj/ and bin/ land outside the package. The Editor build copies
+    Packages/com.xengine.*/**/* into its output verbatim; build artefacts left inside the package would
+    ride along into the Editor distribution and into every project that installs XUI.
+    /Build/ is already gitignored.
+  -->
+  <Import Project="..\..\..\Directory.Build.props" />
+
+  <PropertyGroup>
+    <PackageCheckRoot>$(RepoRoot)Build\PackageCheck\$(MSBuildProjectName)\</PackageCheckRoot>
+    <BaseIntermediateOutputPath>$(PackageCheckRoot)obj\</BaseIntermediateOutputPath>
+    <MSBuildProjectExtensionsPath>$(BaseIntermediateOutputPath)</MSBuildProjectExtensionsPath>
+    <BaseOutputPath>$(PackageCheckRoot)bin\</BaseOutputPath>
+  </PropertyGroup>
+
+</Project>

@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "xengine": {
+      "command": "dotnet",
+      "args": [
+        "Tools/XEngine.Ai.Host/bin/Debug/net10.0/xengine-cli.dll",
+        "serve",
+        "--project",
+        "."
+      ]
+    }
+  }
+}

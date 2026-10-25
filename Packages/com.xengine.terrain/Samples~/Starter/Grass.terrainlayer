@@ -1,0 +1,16 @@
+{
+  "$id": 1,
+  "$type": "XEngine.Terrain.TerrainLayer, XEngine.Terrain.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+  "Name": "Grass",
+  "Albedo": {
+    "$type": "XEngine.Runtime.AssetRef`1[[XEngine.Runtime.Resources.Texture2D, XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+    "AssetID": "00000000-0000-0000-0000-000000000000"
+  },
+  "NormalMap": {
+    "$type": "XEngine.Runtime.AssetRef`1[[XEngine.Runtime.Resources.Texture2D, XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+    "AssetID": "00000000-0000-0000-0000-000000000000"
+  },
+  "Tiling": 8F,
+  "Roughness": 0.85F,
+  "Metallic": 0F
+}

@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Compiles this package's Editor assembly. Building this one project pulls in the other two, so it is
+    the single command that verifies the whole package.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>XEngine.XUI.Editor</AssemblyName>
+    <RootNamespace>XEngine.XUI.Editor</RootNamespace>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <IsPackable>false</IsPackable>
+    <XEngineEnableAnalyzers>false</XEngineEnableAnalyzers>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Editor\**\*.cs" />
+    <ProjectReference Include="XEngine.XUI.Runtime.Check.csproj" />
+    <ProjectReference Include="XEngine.XGUI.Runtime.Check.csproj" />
+    <ProjectReference Include="..\..\..\XEngine.Editor\XEngine.Editor.csproj" />
+    <ProjectReference Include="..\..\..\XEngine.Runtime\XEngine.Runtime.csproj" />
+  </ItemGroup>
+
+</Project>

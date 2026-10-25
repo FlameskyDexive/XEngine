@@ -1,0 +1,20 @@
+DotRecast — Recast & Detour for .NET
+====================================
+
+Vendored from https://github.com/ikpil/DotRecast (local snapshot: D:\Engine\DotRecast).
+This tree is an unaltered copy of the six core libraries (Core, Recast, Detour,
+Detour.TileCache, Detour.Crowd, Detour.Dynamic). The Recast Demo, Recast.Toolset,
+and Detour.Extras projects are intentionally not vendored.
+
+Original Recast Navigation: https://github.com/recastnavigation/recastnavigation
+recast4j: https://github.com/ppiastucki/recast4j
+
+License: zlib (see LICENSE.txt in this folder).
+
+Copyright (c) 2009-2010 Mikko Mononen
+Copyright (c) 2015-2021 Piotr Piastucki
+Copyright (c) 2023-2024 Choi Ikpil
+
+To refresh from a local DotRecast checkout:
+
+    powershell -File ThirdParty/DotRecast/UpdateSources.ps1 D:\Engine\DotRecast

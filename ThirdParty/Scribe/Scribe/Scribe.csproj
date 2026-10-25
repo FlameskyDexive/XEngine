@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>$(XEngineTargetFrameworksCompat)</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PackageId>XEngine.$(AssemblyName)</PackageId>
+    <RootNamespace>XEngine.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+
+    <Title>XEngine.Scribe</Title>
+    <Description>TrueType font parser, glyph layout engine, dynamic atlas packing, and Markdown renderer.</Description>
+    <PackageTags>xengine;font;truetype;rasterizer;markdown;layout;rendering</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Scribe.Tests" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Vector\Vector\Vector.csproj" />
+  </ItemGroup>
+
+</Project>

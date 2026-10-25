@@ -1,0 +1,17 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="XHub.App"
+             RequestedThemeVariant="Dark">
+  <!-- Dark by default (planning doc §2.2); Fluent supplies the control set, Hub* the skin. -->
+  <Application.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceInclude Source="avares://XHub/Resources/Themes/Hub.axaml" />
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </Application.Resources>
+  <Application.Styles>
+    <FluentTheme />
+    <StyleInclude Source="avares://XHub/Resources/Themes/HubStyles.axaml" />
+  </Application.Styles>
+</Application>

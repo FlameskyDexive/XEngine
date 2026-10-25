@@ -1,0 +1,15 @@
+{
+  "name": "XEngine.2D.Sprite.Editor",
+  "references": [
+    "XEngine.2D.Sprite.Runtime",
+    "XEngine.Editor"
+  ],
+  "includePlatforms": ["Editor"],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "autoReferenced": true,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "defineConstraints": [],
+  "noEngineReferences": false
+}

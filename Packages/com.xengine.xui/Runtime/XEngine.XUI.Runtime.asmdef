@@ -1,0 +1,12 @@
+{
+  "name": "XEngine.XUI.Runtime",
+  "references": ["XEngine.Runtime", "XEngine.XGUI.Runtime"],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "autoReferenced": true,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "defineConstraints": [],
+  "noEngineReferences": false
+}

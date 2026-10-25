@@ -1,0 +1,451 @@
+{
+  "$id": 1,
+  "$type": "XEngine.Runtime.Resources.Scene, XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+  "serializeObj": {
+    "$id": 2,
+    "array": [
+      {
+        "$id": 3,
+        "Name": "Main Camera",
+        "AssetPath": "",
+        "Identifier": "b429318e-2105-43c4-9fdb-759713284b07",
+        "Static": 0B,
+        "Enabled": 1B,
+        "EnabledInHierarchy": 1B,
+        "TagIndex": 0,
+        "LayerIndex": 0,
+        "HideFlags": 0,
+        "Transform": {
+          "$id": 4,
+          "$type": "XEngine.Vector.Transform, XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "_localPosition": {
+            "X": 12F,
+            "Y": 22F,
+            "Z": -8F
+          },
+          "_localScale": {
+            "X": 1F,
+            "Y": 1F,
+            "Z": 1F
+          },
+          "_localRotation": {
+            "X": 0.16637367F,
+            "Y": 0.22637103F,
+            "Z": -0.039275497F,
+            "W": 0.95892304F
+          }
+        },
+        "Components": [
+          {
+            "$id": 5,
+            "$type": "XEngine.Runtime.Camera, XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+            "Effects": {
+              "$id": 6,
+              "$values": [
+
+              ]
+            },
+            "ClearFlags": 3L,
+            "ClearColor": {
+              "R": 0.42F,
+              "G": 0.62F,
+              "B": 0.85F,
+              "A": 1F
+            },
+            "CullingMask": {
+              "mask": 4294967295U
+            },
+            "ProjectionMode": 0L,
+            "FieldOfView": 60F,
+            "OrthographicSize": 0.5F,
+            "NearClipPlane": 0.1F,
+            "FarClipPlane": 100F,
+            "Viewrect": {
+              "Min": {
+                "X": 0F,
+                "Y": 0F
+              },
+              "Max": {
+                "X": 1F,
+                "Y": 1F
+              }
+            },
+            "Depth": -1,
+            "TargetDisplay": 0,
+            "RenderType": 0L,
+            "CameraStack": {
+              "$id": 7,
+              "$values": [
+
+              ]
+            },
+            "Pipeline": NULL,
+            "Target": NULL,
+            "HDR": false,
+            "RenderScale": 1F,
+            "_identifier": "6d286acb-7510-4919-b2b0-f4f09fdfe690",
+            "_enabled": true,
+            "_enabledInHierarchy": true,
+            "HideFlags": 0L,
+            "AssetPath": "",
+            "AssetID": "00000000-0000-0000-0000-000000000000",
+            "Name": "NewCamera"
+          }
+        ],
+        "Children": [
+
+        ]
+      },
+      {
+        "$id": 8,
+        "Name": "Directional Light",
+        "AssetPath": "",
+        "Identifier": "b46f3849-364d-4eee-b58d-e20fb0c7df24",
+        "Static": 0B,
+        "Enabled": 1B,
+        "EnabledInHierarchy": 1B,
+        "TagIndex": 0,
+        "LayerIndex": 0,
+        "HideFlags": 0,
+        "Transform": {
+          "$id": 9,
+          "$type": "XEngine.Vector.Transform, XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "_localPosition": {
+            "X": 0F,
+            "Y": 20F,
+            "Z": 0F
+          },
+          "_localScale": {
+            "X": 1F,
+            "Y": 1F,
+            "Z": 1F
+          },
+          "_localRotation": {
+            "X": 0.48219183F,
+            "Y": 0.30147436F,
+            "Z": -0.1811764F,
+            "W": 0.8023586F
+          }
+        },
+        "Components": [
+          {
+            "$id": 10,
+            "$type": "XEngine.Runtime.DirectionalLight, XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+            "ShadowResolution": 2048L,
+            "Cascades": 2L,
+            "ShadowDistance": 70F,
+            "Color": {
+              "R": 1F,
+              "G": 1F,
+              "B": 1F,
+              "A": 1F
+            },
+            "Intensity": 2.2F,
+            "ShadowStrength": 1F,
+            "ShadowBias": 0.001F,
+            "ShadowNormalBias": 0F,
+            "CastShadows": true,
+            "ShadowQuality": 1L,
+            "BakeMode": 0L,
+            "Cookie": {
+              "AssetID": "00000000-0000-0000-0000-000000000000"
+            },
+            "CookieSize": 10F,
+            "CookieIntensity": 1F,
+            "RenderingLayers": {
+              "mask": 255U
+            },
+            "_identifier": "fcc388b0-329a-453c-88f9-49f7be21f534",
+            "_enabled": true,
+            "_enabledInHierarchy": true,
+            "HideFlags": 0L,
+            "AssetPath": "",
+            "AssetID": "00000000-0000-0000-0000-000000000000",
+            "Name": "NewDirectionalLight"
+          }
+        ],
+        "Children": [
+
+        ]
+      },
+      {
+        "$id": 11,
+        "Name": "Terrain",
+        "AssetPath": "",
+        "Identifier": "a0457353-45b6-4310-b6e2-45125f840a50",
+        "Static": 0B,
+        "Enabled": 1B,
+        "EnabledInHierarchy": 1B,
+        "TagIndex": 0,
+        "LayerIndex": 0,
+        "HideFlags": 0,
+        "Transform": {
+          "$id": 12,
+          "$type": "XEngine.Vector.Transform, XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "_localPosition": {
+            "X": 0F,
+            "Y": 0F,
+            "Z": 0F
+          },
+          "_localScale": {
+            "X": 1F,
+            "Y": 1F,
+            "Z": 1F
+          },
+          "_localRotation": {
+            "X": 0F,
+            "Y": 0F,
+            "Z": 0F,
+            "W": 1F
+          }
+        },
+        "Components": [
+          {
+            "$id": 13,
+            "$type": "XEngine.Terrain.TerrainComponent, XEngine.Terrain.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+            "Data": {
+              "AssetID": "c3d8e1a2-4b5f-4070-89c1-d2e3f4a5b6c7"
+            },
+            "Material": {
+              "AssetID": "8fd62fda-e8e7-5259-bb59-ed06fc1b245d"
+            },
+            "MaxLODLevel": 4,
+            "MeshResolution": 32,
+            "RenderingLayers": {
+              "mask": 255U
+            },
+            "LODQuality": 1F,
+            "GrassMaterial": {
+              "AssetID": "78edbb20-1207-ff5d-9bfe-da84b87859f9"
+            },
+            "GrassDistance": 80F,
+            "GrassFadeStart": 0.6F,
+            "GrassDensityMultiplier": 1F,
+            "TreeDistance": 200F,
+            "TreeBillboardDistance": 40F,
+            "GroupingId": 0,
+            "AllowAutoConnect": true,
+            "_identifier": "2f4913cb-26b5-45fb-8601-319af1839d06",
+            "_enabled": true,
+            "_enabledInHierarchy": true,
+            "HideFlags": 0L,
+            "AssetPath": "",
+            "AssetID": "00000000-0000-0000-0000-000000000000",
+            "Name": "NewTerrainComponent"
+          },
+          {
+            "$id": 14,
+            "$type": "XEngine.Terrain.TerrainCollider, XEngine.Terrain.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+            "_identifier": "a19081d2-8869-45a1-bdd8-7ea44ba17e6b",
+            "_enabled": true,
+            "_enabledInHierarchy": true,
+            "HideFlags": 0L,
+            "AssetPath": "",
+            "AssetID": "00000000-0000-0000-0000-000000000000",
+            "Name": "NewTerrainCollider"
+          }
+        ],
+        "Children": [
+
+        ]
+      },
+      {
+        "$id": 15,
+        "Name": "Wind Zone",
+        "AssetPath": "",
+        "Identifier": "73380840-060d-4f41-a087-22b8d3124240",
+        "Static": 0B,
+        "Enabled": 1B,
+        "EnabledInHierarchy": 1B,
+        "TagIndex": 0,
+        "LayerIndex": 0,
+        "HideFlags": 0,
+        "Transform": {
+          "$id": 16,
+          "$type": "XEngine.Vector.Transform, XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "_localPosition": {
+            "X": 32F,
+            "Y": 12F,
+            "Z": 32F
+          },
+          "_localScale": {
+            "X": 1F,
+            "Y": 1F,
+            "Z": 1F
+          },
+          "_localRotation": {
+            "X": 0F,
+            "Y": 0.57864046F,
+            "Z": 0F,
+            "W": 0.81558275F
+          }
+        },
+        "Components": [
+          {
+            "$id": 17,
+            "$type": "XEngine.Terrain.WindZone, XEngine.Terrain.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+            "Mode": 0L,
+            "WindMain": 1.2F,
+            "WindTurbulence": 0.35F,
+            "WindPulseMagnitude": 0.5F,
+            "WindPulseFrequency": 0.2F,
+            "Radius": 50F,
+            "_identifier": "eab83e84-837c-46fd-a3cf-a837a1ebadb8",
+            "_enabled": true,
+            "_enabledInHierarchy": true,
+            "HideFlags": 0L,
+            "AssetPath": "",
+            "AssetID": "00000000-0000-0000-0000-000000000000",
+            "Name": "NewWindZone"
+          }
+        ],
+        "Children": [
+
+        ]
+      }
+    ]
+  },
+  "_goIdentifiers": {
+    "$id": 18,
+    "array": [
+      "b429318e-2105-43c4-9fdb-759713284b07",
+      "b46f3849-364d-4eee-b58d-e20fb0c7df24",
+      "a0457353-45b6-4310-b6e2-45125f840a50",
+      "73380840-060d-4f41-a087-22b8d3124240"
+    ]
+  },
+  "_compIdentifiers": {
+    "$id": 19,
+    "array": [
+      "6d286acb-7510-4919-b2b0-f4f09fdfe690",
+      "fcc388b0-329a-453c-88f9-49f7be21f534",
+      "2f4913cb-26b5-45fb-8601-319af1839d06",
+      "a19081d2-8869-45a1-bdd8-7ea44ba17e6b",
+      "eab83e84-837c-46fd-a3cf-a837a1ebadb8"
+    ]
+  },
+  "_compIdOffsets": {
+    "$id": 20,
+    "array": [
+      0,
+      1,
+      2,
+      4,
+      5
+    ]
+  },
+  "Fog": {
+    "Mode": 3L,
+    "Color": {
+      "R": 0.5F,
+      "G": 0.5F,
+      "B": 0.5F,
+      "A": 1F
+    },
+    "Start": 20F,
+    "End": 100F,
+    "Density": 0.01F
+  },
+  "Ambient": {
+    "Mode": 0L,
+    "Strength": 1F,
+    "Color": {
+      "X": 0.43F,
+      "Y": 0.55F,
+      "Z": 0.65F,
+      "W": 1F
+    },
+    "SkyColor": {
+      "X": 0.3F,
+      "Y": 0.3F,
+      "Z": 0.4F,
+      "W": 1F
+    },
+    "GroundColor": {
+      "X": 0.2F,
+      "Y": 0.2F,
+      "Z": 0.2F,
+      "W": 1F
+    }
+  },
+  "Provenance": {
+    "Author": NULL,
+    "Intent": NULL,
+    "Source": NULL,
+    "LastEditAtUtcTicks": 0L,
+    "ParentDeltaId": NULL
+  },
+  "Skybox": {
+    "Mode": 0L,
+    "SolidColor": {
+      "R": 0.2F,
+      "G": 0.3F,
+      "B": 0.5F,
+      "A": 1F
+    },
+    "GradientTop": {
+      "R": 0.4F,
+      "G": 0.6F,
+      "B": 0.9F,
+      "A": 1F
+    },
+    "GradientBottom": {
+      "R": 0.8F,
+      "G": 0.8F,
+      "B": 0.7F,
+      "A": 1F
+    },
+    "GradientExponent": 1F,
+    "CustomMaterial": {
+      "AssetID": "00000000-0000-0000-0000-000000000000"
+    }
+  },
+  "BakedLighting": {
+    "$id": 21,
+    "Lightmaps": {
+      "$id": 22,
+      "$values": [
+
+      ]
+    },
+    "ProbePositions": {
+      "$id": 23,
+      "array": [
+
+      ]
+    },
+    "ProbeSH": {
+      "$id": 24,
+      "array": [
+
+      ]
+    },
+    "ProbeTetrahedra": {
+      "$id": 25,
+      "array": [
+
+      ]
+    },
+    "ProbeTetNeighbours": {
+      "$id": 25
+    }
+  },
+  "LightmapBake": {
+    "$id": 26,
+    "AtlasSize": 1024,
+    "TexelsPerUnit": 20F,
+    "DilatePixels": 2,
+    "Bounces": 2,
+    "Samples": 64,
+    "ProbeSamples": 256,
+    "DoBackfaceCull": false,
+    "RussianRoulette": 0F,
+    "Denoise": false,
+    "DenoiseRadius": 5,
+    "BakeSkyLighting": false,
+    "IgnoreAlbedo": false
+  },
+  "AssetPath": "",
+  "AssetID": "e5f0a3c4-6d7b-4292-81e3-f4a5b6c7d8e9",
+  "Name": "Starter"
+}

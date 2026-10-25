@@ -1,0 +1,15 @@
+{
+  "name": "XEngine.2D.Tooling.Editor",
+  "references": [
+    "XEngine.Editor",
+    "XEngine.2D.Common.Runtime"
+  ],
+  "includePlatforms": ["Editor"],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "autoReferenced": true,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "defineConstraints": [],
+  "noEngineReferences": false
+}

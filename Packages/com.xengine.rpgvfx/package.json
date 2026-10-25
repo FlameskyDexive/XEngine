@@ -1,0 +1,12 @@
+{
+  "name": "com.xengine.rpgvfx",
+  "version": "0.1.1",
+  "displayName": "XEngine RPG VFX",
+  "description": "Ported Hovl Studio RPG particle effects: 12 built-in-pipeline shaders re-authored for the XEngine shader DSL plus the converted effect prefab/material/texture library.",
+  "installByDefault": false,
+  "xengine": "0.1.0",
+  "type": "package",
+  "category": "Official",
+  "supportedPlatforms": ["windows", "linux", "macos", "android", "ios", "harmonyos", "web"],
+  "keywords": ["xengine", "vfx", "particles", "rpg", "hovl"]
+}

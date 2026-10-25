@@ -1,0 +1,5 @@
+Upstream: https://github.com/ProwlEngine/Anthology (monorepo, lib dir Vector/)
+Wired remote in this repo: anthology -> F:/Git/Anthology
+Baseline tag: v2.8.6 (b3ab895d604be3146195b13d68896277eac261d9)
+Current: v3.3.0 (366251d23364dcd637b02c0821130dd0297a058b) — synced 2026-08-31 (prowl-sync M1.3)
+Local patches: AABB Arvo fast path + 9 XEngine-only SIMD/math files. See PATCHES.md.

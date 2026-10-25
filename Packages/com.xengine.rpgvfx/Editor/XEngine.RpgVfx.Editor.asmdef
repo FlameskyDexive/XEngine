@@ -1,0 +1,16 @@
+{
+  "name": "XEngine.RpgVfx.Editor",
+  "references": [
+    "XEngine.UnityImporter.Editor"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "autoReferenced": true,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "defineConstraints": [],
+  "noEngineReferences": false
+}

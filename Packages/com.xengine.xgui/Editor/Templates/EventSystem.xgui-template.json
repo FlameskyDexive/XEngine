@@ -1,0 +1,3 @@
+{
+  "root": { "id": "eventSystem", "name": "Event System", "components": [ { "type": "EventSystem" }, { "type": "StandaloneInputModule" } ] }
+}

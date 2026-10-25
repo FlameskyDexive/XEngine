@@ -1,0 +1,30 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <!--
+    XHub dark palette (planning doc §2.2): dark surfaces, one blue accent for primary actions.
+    The matching control styles live in HubStyles.axaml; brushes live here so pages can bind
+    with DynamicResource directly.
+  -->
+  <Color x:Key="HubBackgroundColor">#1E1E23</Color>
+  <Color x:Key="HubSidebarColor">#17171B</Color>
+  <Color x:Key="HubCardColor">#26262C</Color>
+  <Color x:Key="HubCardHoverColor">#2C2C33</Color>
+  <Color x:Key="HubBorderColor">#34343B</Color>
+  <Color x:Key="HubTextPrimaryColor">#E9E9EE</Color>
+  <Color x:Key="HubTextSecondaryColor">#9C9CA6</Color>
+  <Color x:Key="HubAccentColor">#2F7CF6</Color>
+  <Color x:Key="HubAccentHoverColor">#4E92FF</Color>
+  <Color x:Key="HubAccentPressedColor">#1F63D6</Color>
+
+  <SolidColorBrush x:Key="HubBackgroundBrush" Color="{DynamicResource HubBackgroundColor}" />
+  <SolidColorBrush x:Key="HubSidebarBrush" Color="{DynamicResource HubSidebarColor}" />
+  <SolidColorBrush x:Key="HubCardBrush" Color="{DynamicResource HubCardColor}" />
+  <SolidColorBrush x:Key="HubCardHoverBrush" Color="{DynamicResource HubCardHoverColor}" />
+  <SolidColorBrush x:Key="HubBorderBrush" Color="{DynamicResource HubBorderColor}" />
+  <SolidColorBrush x:Key="HubTextPrimaryBrush" Color="{DynamicResource HubTextPrimaryColor}" />
+  <SolidColorBrush x:Key="HubTextSecondaryBrush" Color="{DynamicResource HubTextSecondaryColor}" />
+  <SolidColorBrush x:Key="HubAccentBrush" Color="{DynamicResource HubAccentColor}" />
+  <SolidColorBrush x:Key="HubAccentHoverBrush" Color="{DynamicResource HubAccentHoverColor}" />
+  <SolidColorBrush x:Key="HubAccentPressedBrush" Color="{DynamicResource HubAccentPressedColor}" />
+</ResourceDictionary>

@@ -1,0 +1,16 @@
+{
+  "$id": 1,
+  "$type": "XEngine.VoxelWorld.VoxelDefinition, XEngine.VoxelWorld.Runtime",
+  "Title": "Wood",
+  "RenderType": 0,
+  "TextureTop": { "AssetID": "4d9e2b30-8c5e-4f02-ad3b-1a7c9d0e5f25" },
+  "TextureSide": { "AssetID": "4d9e2b30-8c5e-4f02-ad3b-1a7c9d0e5f25" },
+  "TextureBottom": { "AssetID": "4d9e2b30-8c5e-4f02-ad3b-1a7c9d0e5f25" },
+  "TintColor": { "R": 0.43137255, "G": 0.28235295, "B": 0.15686275, "A": 1 },
+  "Alpha": 1,
+  "LightIntensity": 0,
+  "Hidden": false,
+  "CanBeCollected": true,
+  "Name": "WoodVoxel",
+  "AssetID": "00000000-0000-0000-0000-000000000000"
+}

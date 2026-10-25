@@ -1,0 +1,13 @@
+{
+  "root": {
+    "id": "toggle",
+    "name": "Toggle",
+    "rect": { "size": [160, 28] },
+    "components": [ { "type": "Image", "properties": { "Color": [0.16, 0.16, 0.20, 1] } }, { "type": "Toggle" } ],
+    "children": [
+      { "id": "checkmark", "name": "Checkmark", "rect": { "anchorMin": [0, 0.5], "anchorMax": [0, 0.5], "pivot": [0, 0.5], "size": [18, 18], "position": [5, 0] }, "components": [ { "type": "Image", "properties": { "Color": [0.35, 0.62, 0.95, 1] } } ] },
+      { "id": "label", "name": "Label", "rect": { "stretch": true, "size": [-32, 0], "position": [16, 0] }, "components": [ { "type": "Text", "properties": { "TextValue": "Toggle", "Alignment": "CenterLeft" } } ] }
+    ]
+  },
+  "bindings": [ { "node": "toggle", "component": "Toggle", "property": "TargetGraphicComponent", "targetNode": "toggle", "targetComponent": "Image" } ]
+}

@@ -1,0 +1,202 @@
+[prefab] Laser beam 1/Sparks: shape type 8 → Sphere (unsupported)
+[prefab] Laser beam 10/Sparks: shape type 8 → Sphere (unsupported)
+[prefab] Laser beam 3/Sparks: shape type 8 → Sphere (unsupported)
+[prefab] Laser beam 3/Circles: render alignment 4 uses view fallback
+[prefab] Laser beam 7/Sparks: shape type 8 → Sphere (unsupported)
+[prefab] Laser beam 8/Sparks: shape type 8 → Sphere (unsupported)
+[prefab] Laser beam demo interactions/Sparks: shape type 8 → Sphere (unsupported)
+[prefab] Flash 1/Sparks: shape type 8 → Sphere (unsupported)
+[prefab] Flash 12/FlashSparks: shape type 8 → Sphere (unsupported)
+[prefab] Flash 16/Sparks: shape type 8 → Sphere (unsupported)
+[prefab] Flash 27/Flash 27: shape type 2 → Sphere (unsupported)
+[prefab] Flash 3/Flash 3: shape type 8 → Sphere (unsupported)
+[prefab] Flash 4/Flash 4: shape type 8 → Sphere (unsupported)
+[prefab] Flash 6/Sparks: shape type 8 → Sphere (unsupported)
+[prefab] Flash 7/Sparks: shape type 8 → Sphere (unsupported)
+[prefab] Flash 9/Sparks: shape type 8 → Sphere (unsupported)
+[prefab] Hit 13/MuzzleFlash: shape type 2 → Sphere (unsupported)
+[prefab] Hit 17/Hit 17: shape type 2 → Sphere (unsupported)
+[prefab] Hit 17/Glow: shape type 2 → Sphere (unsupported)
+[prefab] Hit 17/Darkness: shape type 2 → Sphere (unsupported)
+[prefab] Hit 17/Wind: shape type 2 → Sphere (unsupported)
+[prefab] Hit 17/Lightning: shape type 2 → Sphere (unsupported)
+[prefab] Hit 18/Hit 18: shape type 2 → Sphere (unsupported)
+[prefab] Hit 18/Wind: shape type 2 → Sphere (unsupported)
+[prefab] Hit 18/Glow: shape type 2 → Sphere (unsupported)
+[prefab] Hit 18/Darkness: shape type 2 → Sphere (unsupported)
+[prefab] Hit 18/Lightning: shape type 2 → Sphere (unsupported)
+[prefab] Hit 24/Debris: shape type 2 → Sphere (unsupported)
+[prefab] Hit 24/Trails: shape type 2 → Sphere (unsupported)
+[prefab] Hit 25/Trails: shape type 2 → Sphere (unsupported)
+[prefab] Hit 25/Debris: shape type 2 → Sphere (unsupported)
+[prefab] Hit 8/Hit 8: render alignment 4 uses view fallback
+[prefab] Hit 9/Sparks: sub-emitter fileID 0 in source (broken reference) — skipped
+[prefab] Flower slash/Flower slash: shape type 2 → Sphere (unsupported)
+[prefab] Flower slash/Flower slash: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Flower slash/Light: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Flower slash/PTrails: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Front spikes attack/Spikes: material guid e5469e23398769844915bee4a78915d4 unresolved
+[prefab] Front spikes attack/CenterTrails: shape type 2 → Sphere (unsupported)
+[prefab] Front spikes attack/CenterLightning2: shape type 2 → Sphere (unsupported)
+[prefab] Ise attack/Ise attack: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Ise attack/Ice: material guid e5469e23398769844915bee4a78915d4 unresolved
+[prefab] Ise attack/IceExpl: material guid e5469e23398769844915bee4a78915d4 unresolved
+[prefab] Knife hit/Knife hit: render alignment 4 uses view fallback
+[prefab] Knife hit/SparksExpl: shape type 2 → Sphere (unsupported)
+[prefab] Knives/Knives: render alignment 4 uses view fallback
+[prefab] Knives/WindIncision: render alignment 4 uses view fallback
+[prefab] Leaves buff/Leaves buff: shape type 2 → Sphere (unsupported)
+[prefab] Leaves buff/Leaves buff: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Leaves buff/Leaves: shape type 2 → Sphere (unsupported)
+[prefab] Leaves buff/Smoke: shape type 2 → Sphere (unsupported)
+[prefab] Leaves buff/Trails: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Leaves buff/BTrail: shape type 2 → Sphere (unsupported)
+[prefab] Leaves buff/BTrail: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Magic attack/Magic attack: shape type 8 → Sphere (unsupported)
+[prefab] Magic hit/BigSparks: shape type 2 → Sphere (unsupported)
+[prefab] Magic hit/WhiteSparks: shape type 2 → Sphere (unsupported)
+[prefab] Magic hit/RombsExp: shape type 2 → Sphere (unsupported)
+[prefab] Magic hit/Fire: shape type 2 → Sphere (unsupported)
+[prefab] Meteor 2/Trails: render alignment 4 uses view fallback
+[prefab] Meteor 2/Fire: shape type 2 → Sphere (unsupported)
+[prefab] Meteor hit 2/Meteor hit 2: shape type 2 → Sphere (unsupported)
+[prefab] Meteor hit/Sparks: shape type 2 → Sphere (unsupported)
+[prefab] Meteor hit/Fire: shape type 2 → Sphere (unsupported)
+[prefab] Meteor hit/GlowBlack: shape type 2 → Sphere (unsupported)
+[prefab] Meteor hit/BigSparks: shape type 2 → Sphere (unsupported)
+[prefab] Meteor shower 2/Glow: shape type 2 → Sphere (unsupported)
+[prefab] Meteor/Fragments: shape type 2 → Sphere (unsupported)
+[prefab] Meteor/Sparks: shape type 2 → Sphere (unsupported)
+[prefab] Meteor/Flare: sub-emitter fileID 0 in source (broken reference) — skipped
+[prefab] Meteor/Flare: sub-emitter fileID 0 in source (broken reference) — skipped
+[prefab] Meteor/Flare: sub-emitter fileID 0 in source (broken reference) — skipped
+[prefab] Meteor/Glow: sub-emitter fileID 0 in source (broken reference) — skipped
+[prefab] Meteor/Glow: sub-emitter fileID 0 in source (broken reference) — skipped
+[prefab] Meteor/Glow: sub-emitter fileID 0 in source (broken reference) — skipped
+[prefab] Magic circle 1/Light: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Magic circle 10/Light: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Magic circle 10/Trails: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Magic circle 11/Light: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Magic circle 2/Light: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Magic circle 3/Light: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Magic circle 3/Fire: shape type 6 → Sphere (unsupported)
+[prefab] Magic circle 4/Splashes: shape type 8 → Sphere (unsupported)
+[prefab] Magic circle 4/Light: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Magic circle 4/Sparks: sub-emitter fileID 0 in source (broken reference) — skipped
+[prefab] Magic circle 5/Light: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Magic circle 5/Trails: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Magic circle 6/Light: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Magic circle 7/Light: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Magic circle 8/Light: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Magic circle 9/Light: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Magic shield 1/Light: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Magic shield 2/Light: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Magic shield 2/Sparks: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Magic shield 3/Magic shield 3: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Magic shield 3/GlowEnd: shape type 8 → Sphere (unsupported)
+[prefab] Magic shield 4/Light: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Magic shield 4/Sacura: shape type 2 → Sphere (unsupported)
+[prefab] Marker 1 Loop/Marker 1 Loop: render alignment 4 uses view fallback
+[prefab] Marker 1/Marker 1: render alignment 4 uses view fallback
+[prefab] Marker 6 Loop/Marker 6 Loop: render alignment 4 uses view fallback
+[prefab] Marker 6/Marker 6: render alignment 4 uses view fallback
+[prefab] 2D Projectile 10/2D Projectile 10: render alignment 4 uses view fallback
+[prefab] 2D Projectile 10/Core: render alignment 4 uses view fallback
+[prefab] 2D Projectile 12/2D Projectile 12: render alignment 4 uses view fallback
+[prefab] 2D Projectile 13/2D Projectile 13: render alignment 4 uses view fallback
+[prefab] 2D Projectile 26/Wind: render alignment 4 uses view fallback
+[prefab] 2D Projectile 3/Circles: render alignment 4 uses view fallback
+[prefab] 2D Projectile 7/Core: material guid 0000000000000000f000000000000000 unresolved
+[prefab] 2D Projectile 7/Trails: render alignment 4 uses view fallback
+[prefab] 2D Projectile 8/2D Projectile 8: render alignment 4 uses view fallback
+[prefab] 2D Projectile 9/Core: sub-emitter fileID 0 in source (broken reference) — skipped
+[prefab] Projectile 1/Projectile 1: render alignment 4 uses view fallback
+[prefab] Projectile 1/Sparks: shape type 8 → Sphere (unsupported)
+[prefab] Projectile 1/Waves: render alignment 4 uses view fallback
+[prefab] Projectile 10/Projectile 10: render alignment 4 uses view fallback
+[prefab] Projectile 10/Core: render alignment 4 uses view fallback
+[prefab] Projectile 11/Projectile 11: render alignment 4 uses view fallback
+[prefab] Projectile 12/Projectile 12: render alignment 4 uses view fallback
+[prefab] Projectile 12/FlashSparks: shape type 8 → Sphere (unsupported)
+[prefab] Projectile 13/Projectile 13: render alignment 4 uses view fallback
+[prefab] Projectile 14/Projectile 14: render alignment 4 uses view fallback
+[prefab] Projectile 15/Projectile 15: render alignment 4 uses view fallback
+[prefab] Projectile 16/Sparks: shape type 8 → Sphere (unsupported)
+[prefab] Projectile 19/Projectile 19: sub-emitter fileID 0 in source (broken reference) — skipped
+[prefab] Projectile 20/Projectile 20: render alignment 4 uses view fallback
+[prefab] Projectile 21/Projectile 21: render alignment 4 uses view fallback
+[prefab] Projectile 23/Projectile 23: sub-emitter fileID 0 in source (broken reference) — skipped
+[prefab] Projectile 24/Projectile 24: render alignment 4 uses view fallback
+[prefab] Projectile 25/Projectile 25: render alignment 4 uses view fallback
+[prefab] Projectile 26/Wind: render alignment 4 uses view fallback
+[prefab] Projectile 27/StartHearts: shape type 2 → Sphere (unsupported)
+[prefab] Projectile 3/Sparks: shape type 8 → Sphere (unsupported)
+[prefab] Projectile 3/Circles: render alignment 4 uses view fallback
+[prefab] Projectile 4/Projectile 4: render alignment 4 uses view fallback
+[prefab] Projectile 4/Sparks: shape type 8 → Sphere (unsupported)
+[prefab] Projectile 6/Sparks: shape type 8 → Sphere (unsupported)
+[prefab] Projectile 7/Projectile 7: render alignment 4 uses view fallback
+[prefab] Projectile 7/Core: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Projectile 7/Waves: render alignment 4 uses view fallback
+[prefab] Projectile 7/Sparks: shape type 8 → Sphere (unsupported)
+[prefab] Projectile 7/Trails: render alignment 4 uses view fallback
+[prefab] Projectile 8/Projectile 8: render alignment 4 uses view fallback
+[prefab] Projectile 9/Projectile 9: render alignment 4 uses view fallback
+[prefab] Projectile 9/Sparks: shape type 8 → Sphere (unsupported)
+[prefab] Projectile 9/Core: render alignment 4 uses view fallback
+[prefab] Projectile 9/Core: sub-emitter fileID 0 in source (broken reference) — skipped
+[prefab] Projectile 10/Projectile 10: render alignment 4 uses view fallback
+[prefab] Projectile 10/Core: render alignment 4 uses view fallback
+[prefab] Projectile 12/Projectile 12: render alignment 4 uses view fallback
+[prefab] Projectile 13/Projectile 13: render alignment 4 uses view fallback
+[prefab] Projectile 26/Wind: render alignment 4 uses view fallback
+[prefab] Projectile 3/Circles: render alignment 4 uses view fallback
+[prefab] Projectile 7/Core: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Projectile 7/Trails: render alignment 4 uses view fallback
+[prefab] Projectile 8/Projectile 8: render alignment 4 uses view fallback
+[prefab] Projectile 9/Core: sub-emitter fileID 0 in source (broken reference) — skipped
+[prefab] Magic circle 1 loop/Light: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Magic circle 10 loop/Light: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Magic circle 10 loop/Trails: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Magic circle 11 loop/Light: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Magic circle 2 loop/Light: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Magic circle 3 loop/Fire: shape type 6 → Sphere (unsupported)
+[prefab] Magic circle 3 loop/Light: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Magic circle 4 loop/Light: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Magic circle 4 loop/Splashes: shape type 8 → Sphere (unsupported)
+[prefab] Magic circle 4 loop/Sparks: sub-emitter fileID 0 in source (broken reference) — skipped
+[prefab] Magic circle 5 loop/Trails: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Magic circle 5 loop/Light: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Magic circle 9 loop/Light: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Magic shield 1 loop/Light: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Magic shield 4 loop/Sacura: shape type 2 → Sphere (unsupported)
+[prefab] Magic shield 4 loop/Light: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Buff 1/Buff 1: shape type 8 → Sphere (unsupported)
+[prefab] Buff 1/MainFlares: shape type 17 → Sphere (unsupported)
+[prefab] Buff 1/Circles: sub-emitter fileID 0 in source (broken reference) — skipped
+[prefab] Buff 1/MainSparks: sub-emitter fileID 0 in source (broken reference) — skipped
+[prefab] Buff 2/Semicircles: shape type 8 → Sphere (unsupported)
+[prefab] Buff 2/Trails: shape type 2 → Sphere (unsupported)
+[prefab] Buff 3/Buff 3: shape type 2 → Sphere (unsupported)
+[prefab] Buff 3/Lightning2: shape type 2 → Sphere (unsupported)
+[prefab] Buff 6/Buff 6: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Debuff 1/HealthEnergyUp: shape type 8 → Sphere (unsupported)
+[prefab] Debuff 1/HealthEnergyRor: shape type 8 → Sphere (unsupported)
+[prefab] Debuff 2/StartTrail: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Debuff 2/SparksStart: shape type 2 → Sphere (unsupported)
+[prefab] Dragon punch/Dragon punch: render alignment 4 uses view fallback
+[prefab] Dragon punch/Aura: render alignment 4 uses view fallback
+[prefab] Dragon punch/Aura2: render alignment 4 uses view fallback
+[prefab] Dragon punch/RayWaves: render alignment 4 uses view fallback
+[prefab] Gold dot/Ground: shape type 2 → Sphere (unsupported)
+[prefab] Heal/Heal: shape type 8 → Sphere (unsupported)
+[prefab] Heal/GlowSparks: shape type 8 → Sphere (unsupported)
+[prefab] Heal/Flash: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Heal/Trails: shape type 8 → Sphere (unsupported)
+[prefab] Heal/Trails: material guid 0000000000000000f000000000000000 unresolved
+[prefab] Lvl up/CircleRainbow: render alignment 3 uses view fallback
+[prefab] Lvl up/SidesFlash: shape type 2 → Sphere (unsupported)
+[prefab] Lvl up/UpSparks: shape type 8 → Sphere (unsupported)
+[prefab] Soft blue buff/DownSparks: shape type 8 → Sphere (unsupported)
+[prefab] Soft blue buff/Light(Delete for HD): material guid 0000000000000000f000000000000000 unresolved
+[prefab] Soft blue buff/Sparks: shape type 2 → Sphere (unsupported)

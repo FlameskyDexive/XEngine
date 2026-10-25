@@ -1,0 +1,51 @@
+{
+  "name": "spinegen-pipeline",
+  "description": "One-shot Spine Generator: slice a character illustration into parts, fill the inpaint seeds, rig + skin it, and append an animation. Fully offline with mock providers; swap providers for generative fill/animation.",
+  "inputs": {
+    "type": "object",
+    "properties": {
+      "image": { "type": "string", "description": "Character PNG, project- or Assets-relative" },
+      "fillProvider": { "type": "string", "description": "mock | openai | comfyui" },
+      "motion": { "type": "string", "description": "Built-in motion: idle_breath | sway | bob | wave_arm" },
+      "split": { "type": "string", "description": "components (default) | watershed — watershed cuts solid-touching parts at DT saddles (use for mech/armor art)" }
+    },
+    "required": ["image"]
+  },
+  "steps": [
+    {
+      "name": "slice",
+      "tool": "spinegen_slice",
+      "arguments": { "image": "${inputs.image}", "split": "${inputs.split}" },
+      "dependsOn": [],
+      "failurePolicy": "Stop"
+    },
+    {
+      "name": "fill",
+      "tool": "spinegen_fill",
+      "arguments": { "slice": "${steps.slice.outputDirectory}", "provider": "${inputs.fillProvider}" },
+      "dependsOn": ["slice"],
+      "failurePolicy": "Stop"
+    },
+    {
+      "name": "rig",
+      "tool": "spinegen_rig",
+      "arguments": { "slice": "${steps.slice.outputDirectory}" },
+      "dependsOn": ["fill"],
+      "failurePolicy": "Stop"
+    },
+    {
+      "name": "skin",
+      "tool": "spinegen_skin",
+      "arguments": { "slice": "${steps.slice.outputDirectory}" },
+      "dependsOn": ["rig"],
+      "failurePolicy": "Stop"
+    },
+    {
+      "name": "animate",
+      "tool": "spinegen_animate",
+      "arguments": { "slice": "${steps.slice.outputDirectory}", "motion": "${inputs.motion}" },
+      "dependsOn": ["skin"],
+      "failurePolicy": "Stop"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "root": {
+    "id": "toggleGroup",
+    "name": "Toggle Group",
+    "rect": { "size": [200, 120] },
+    "components": [ { "type": "ToggleGroup" }, { "type": "VerticalLayoutGroup" } ]
+  }
+}

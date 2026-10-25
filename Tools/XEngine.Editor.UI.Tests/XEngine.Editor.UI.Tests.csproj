@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsTestProject>true</IsTestProject>
+    <IsPackable>false</IsPackable>
+    <ServerGarbageCollection>false</ServerGarbageCollection>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageReference Include="xunit" Version="2.9.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3" />
+    <ProjectReference Include="../../XEngine.Editor.UI/XEngine.Editor.UI.csproj" />
+    <ProjectReference Include="../../ThirdParty/Quill/Quill/Quill.csproj" />
+    <Using Include="Xunit" />
+    <Content Include="../../XEngine.Editor/Resources/Geist-Regular.ttf" Link="Geist-Regular.ttf" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

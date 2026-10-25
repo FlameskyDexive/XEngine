@@ -1,0 +1,12 @@
+{
+  "guid": "ed5c9be0-df7d-4d6c-a3e6-5d63733e4ba8",
+  "importer": "PluginImporter",
+  "importerVersion": 1,
+  "settings": {
+    "editorOnly": false,
+    "autoReferenced": true,
+    "anyPlatform": false,
+    "platWindows": true,
+    "cpu": "x64"
+  }
+}

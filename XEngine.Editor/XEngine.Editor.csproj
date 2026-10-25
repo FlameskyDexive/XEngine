@@ -1,0 +1,325 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Version>1.0.0-f1</Version>
+    <!-- Displayed by the editor (title / launcher) via AssemblyInformationalVersionAttribute;
+         free-form because NuGet would reject the Unity-style "f1" prerelease without a hyphen. -->
+    <InformationalVersion>V1.0.0f1</InformationalVersion>
+    <NoWarn>8600;8601;8618;8602;8603;8604;8625</NoWarn>
+    <ApplicationIcon>xengine.ico</ApplicationIcon>
+    <!--
+      Editor-host GC exception (evidence: docs/benchmarks/editor-memory/gc-matrix/, 2026-08-27).
+      Directory.Build.props defaults to ServerGC+RetainVM for players; the editor's UI-thread
+      churn profile measures 67% lower peak private memory on Workstation GC + DATAS with equal
+      allocation throughput and a healthy ~4 Hz gen0 cadence:
+        idle  priv 1145 MB (server) -> 880 MB (workstation)
+        hover priv 2868 MB (server) -> 939 MB (workstation)
+      Rollback: delete this property; DATAS stays enabled by the .NET 10 runtime default either way.
+    -->
+    <ServerGarbageCollection>false</ServerGarbageCollection>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>../Build/Editor/Debug/</OutputPath>
+    <!-- WinExe for BOTH configs: a CUI console window re-renders on every Console.WriteLine and
+         per-frame editor logging made the Debug build visibly lag. Logs live in Editor.log, the
+         Console panel and the crash dialog; CLI flags still allocate a console via
+         EnsureCliConsole (AllocConsole). -->
+    <OutputType>WinExe</OutputType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>../Build/Editor/Release/</OutputPath>
+    <!-- WinExe: double-clicking the Release editor must not spawn a console. CLI flags
+         (help, buildmode, toolchain import/resolve) reattach or allocate one in Main. -->
+    <OutputType>WinExe</OutputType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\XEngine.Runtime\XEngine.Runtime.csproj" />
+    <!--
+      Layer 0 (process-aware data layer): the editor's Undo path generates provenance-bearing
+      deltas for every property change, feeding the operation journal (A2) and AI scene-write
+      tools (B2). See docs/superpowers/specs/2026-07-29-ai-friendly-engine-roadmap.md.
+    -->
+    <ProjectReference Include="..\Tools\XEngine.Data.Provenance\XEngine.Data.Provenance.csproj" />
+    <!--
+      Layer 2 (in-process MCP server): EditorApplication hosts the AiServerHost and drains its
+      MainThreadDispatcher each frame so MCP runtime tools (live scene/logs/playmode) execute on the
+      main loop. See roadmap §5 (B3-cont).
+    -->
+    <ProjectReference Include="..\Tools\XEngine.Ai.Server\XEngine.Ai.Server.csproj" />
+    <!-- ★ Gen-P4.1 — Candidate gallery reads the generation task ledger (engine-agnostic Gateway). -->
+    <ProjectReference Include="..\Tools\XEngine.Ai.Gateway\XEngine.Ai.Gateway.csproj" />
+    <!--
+      P3 package registry — the package system's npm-protocol client (packument/search/tarball/
+      publish). Engine names stay com.xengine.*; only the wire format uses the @xengine scope.
+      See docs/superpowers/specs/2026-09-08-npm-registry-packages.md.
+    -->
+    <ProjectReference Include="..\Tools\XEngine.PackageRegistry\XEngine.PackageRegistry.csproj" />
+    <ProjectReference Include="..\XEngine.Editor.UI\XEngine.Editor.UI.csproj" />
+    <ProjectReference Include="..\XEngine.Editor.UI.Rendering\XEngine.Editor.UI.Rendering.csproj" />
+    <!--
+      AI agent harness — seeds the agent scaffolding (三件套 .mcp.json/AGENTS.md/skills) into newly
+      created game projects. Same library xengine-cli's harness verbs use.
+    -->
+    <ProjectReference Include="..\Tools\XEngine.Ai.Harness\XEngine.Ai.Harness.csproj" />
+    <!--
+      A1b — the Three.js Authoring panel drives the shared STA WebView2 host process through the
+      same client + three-authoring/1 protocol the CLI uses, so panel and CLI exports are
+      byte-identical for the same request.
+    -->
+    <ProjectReference Include="..\Tools\XEngine.Ai.ThreeHost.Client\XEngine.Ai.ThreeHost.Client.csproj" />
+    <!--
+      A2 — the panel's acceptance hook reads the export cache-state sidecar (.threefx-state.json)
+      so a cache hit can still report the artifact hash.
+    -->
+    <ProjectReference Include="..\Tools\XEngine.Ai.ThreeFx\XEngine.Ai.ThreeFx.csproj" />
+    <!--
+      prowl-sync M7.1 — script-safety analyzers ship with the editor so user-script csprojs can
+      reference XEngine.Analyzers.dll as a Roslyn <Analyzer> (ScriptCompiler emits the item). A
+      plain ProjectReference (not OutputItemType="Analyzer") is deliberate: the DLL must be copied
+      to the editor's output for the generated csproj to point at.
+    -->
+    <ProjectReference Include="..\Tools\XEngine.Analyzers\XEngine.Analyzers.csproj" />
+  </ItemGroup>
+
+  <!-- Fix for Linux Builds -->
+  <PropertyGroup Condition="$([MSBuild]::IsOSPlatform('Linux')) and '$(RuntimeIdentifier)' == ''">
+    <RuntimeIdentifier>$(NETCoreSdkPortableRuntimeIdentifier)</RuntimeIdentifier>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+  </PropertyGroup>
+
+  <!--
+    Shipped native payload (shader toolchain + windowing backend). Selected HERE, in the
+    publish leaf: the SDK strips RuntimeIdentifier from referenced-project builds, so the
+    Slang/Runtime copy groups only ever see the build-machine OS and cross-publish (CI
+    linux runner building the win-x64 editor) ships the wrong platform. Publishing RID
+    wins; without an RID the host OS is the target (plain local builds).
+    wgpu ships for win-x64 only; DXC (dxcompiler/dxil) is Windows-only by nature.
+  -->
+  <ItemGroup Condition="'$(RuntimeIdentifier)' == 'win-x64' OR ('$(RuntimeIdentifier)' == '' AND $([MSBuild]::IsOsPlatform('Windows')))">
+    <None Include="..\ThirdParty\Slang\Native\lib\windows-x64\bin\*.dll"
+          Link="%(Filename)%(Extension)" CopyToPublishDirectory="PreserveNewest" Visible="false" />
+    <None Include="..\ThirdParty\DXC\windows-x64\bin\x64\dxcompiler.dll"
+          Link="dxcompiler.dll" CopyToPublishDirectory="PreserveNewest" Visible="false" />
+    <None Include="..\ThirdParty\DXC\windows-x64\bin\x64\dxil.dll"
+          Link="dxil.dll" CopyToPublishDirectory="PreserveNewest" Visible="false" />
+    <None Include="..\ThirdParty\wgpu-native\runtimes\win-x64\native\wgpu_native.dll"
+          Link="wgpu_native.dll" CopyToPublishDirectory="PreserveNewest" Visible="false" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(RuntimeIdentifier)' == 'linux-x64' OR ('$(RuntimeIdentifier)' == '' AND $([MSBuild]::IsOsPlatform('Linux')) AND '$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)' == 'X64')">
+    <None Include="..\ThirdParty\Slang\Native\lib\linux-x64\lib\*.so"
+          Link="%(Filename)%(Extension)" CopyToPublishDirectory="PreserveNewest" Visible="false" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(RuntimeIdentifier)' == 'linux-arm64' OR ('$(RuntimeIdentifier)' == '' AND $([MSBuild]::IsOsPlatform('Linux')) AND '$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)' == 'Arm64')">
+    <None Include="..\ThirdParty\Slang\Native\lib\linux-arm64\lib\*.so"
+          Link="%(Filename)%(Extension)" CopyToPublishDirectory="PreserveNewest" Visible="false" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(RuntimeIdentifier)' == 'osx-x64' OR ('$(RuntimeIdentifier)' == '' AND $([MSBuild]::IsOsPlatform('OSX')) AND '$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)' == 'X64')">
+    <None Include="..\ThirdParty\Slang\Native\lib\macos-x64\lib\*.dylib"
+          Link="%(Filename)%(Extension)" CopyToPublishDirectory="PreserveNewest" Visible="false" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(RuntimeIdentifier)' == 'osx-arm64' OR ('$(RuntimeIdentifier)' == '' AND $([MSBuild]::IsOsPlatform('OSX')) AND '$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)' == 'Arm64')">
+    <None Include="..\ThirdParty\Slang\Native\lib\macos-arm64\lib\*.dylib"
+          Link="%(Filename)%(Extension)" CopyToPublishDirectory="PreserveNewest" Visible="false" />
+  </ItemGroup>
+
+  <!-- GetCopyToPublishDirectoryItems traverses RID-agnostic library references
+       without RuntimeIdentifier. Slang can therefore return the host's libraries
+       as well as the RID payload declared above. Keep only this leaf's selected
+       Slang sources before the SDK checks duplicate publish paths. -->
+  <Target Name="SelectEditorSlangPublishPayload"
+          AfterTargets="ComputeFilesToPublish"
+          BeforeTargets="_HandleFileConflictsForPublish"
+          Condition="'$(RuntimeIdentifier)' != ''">
+    <PropertyGroup>
+      <_EditorSlangNativeRoot>$([MSBuild]::NormalizeDirectory('$(MSBuildProjectDirectory)', '..', 'ThirdParty', 'Slang', 'Native', 'lib'))</_EditorSlangNativeRoot>
+    </PropertyGroup>
+    <ItemGroup>
+      <_EditorSlangNativeSource Include="@(None)"
+                                Condition="$([System.String]::Copy('%(None.FullPath)').StartsWith('$(_EditorSlangNativeRoot)'))" />
+      <_EditorSlangNativeSourceFullPath Include="@(_EditorSlangNativeSource->'%(FullPath)')" />
+      <_InheritedSlangPublishFile Include="@(ResolvedFileToPublish)"
+                                 Condition="$([System.String]::Copy('%(ResolvedFileToPublish.FullPath)').StartsWith('$(_EditorSlangNativeRoot)'))" />
+      <_InheritedSlangPublishFile Remove="@(_EditorSlangNativeSourceFullPath)" />
+      <ResolvedFileToPublish Remove="@(_InheritedSlangPublishFile)" />
+    </ItemGroup>
+    <Error Condition="'@(_EditorSlangNativeSourceFullPath)' == ''"
+           Text="No Slang native payload is available for Editor publish RID $(RuntimeIdentifier)." />
+  </Target>
+
+
+  <!-- Allow test project to access internal members (e.g. test-only sweep/eviction hooks) -->
+  <ItemGroup>
+    <InternalsVisibleTo Include="XEngine.Editor.Test" />
+    <InternalsVisibleTo Include="XEngine.Terrain.Editor" />
+    <InternalsVisibleTo Include="XEngine.AI.Navigation.Editor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Vendored Anthology libraries (formerly external XEngine.* NuGet packages).
+         Consumed as source via ProjectReference to ThirdParty/ for a self-contained build. -->
+    <ProjectReference Include="..\ThirdParty\Origami\Origami\Origami.csproj" />
+    <ProjectReference Include="..\ThirdParty\Photonic\Photonic\Photonic.csproj" />
+    <ProjectReference Include="..\ThirdParty\Rosetta\Rosetta\Rosetta.csproj" />
+    <ProjectReference Include="..\ThirdParty\Unwrapper\Unwrapper\Unwrapper.csproj" />
+    <!-- Optional AI Navigation package compiles against these Editor-output copies
+         (ScriptCompiler.GenerateCsproj scans engineDir/*.dll). -->
+    <ProjectReference Include="..\ThirdParty\DotRecast\DotRecast.Core\DotRecast.Core.csproj" />
+    <ProjectReference Include="..\ThirdParty\DotRecast\DotRecast.Recast\DotRecast.Recast.csproj" />
+    <ProjectReference Include="..\ThirdParty\DotRecast\DotRecast.Detour\DotRecast.Detour.csproj" />
+    <ProjectReference Include="..\ThirdParty\DotRecast\DotRecast.Detour.TileCache\DotRecast.Detour.TileCache.csproj" />
+    <ProjectReference Include="..\ThirdParty\DotRecast\DotRecast.Detour.Crowd\DotRecast.Detour.Crowd.csproj" />
+    <ProjectReference Include="..\ThirdParty\DotRecast\DotRecast.Detour.Dynamic\DotRecast.Detour.Dynamic.csproj" />
+    <!-- XEngine.Echo/Paper/Vector are pulled in transitively via Origami's ProjectReferences. -->
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\**" />
+    <EmbeddedResource Remove="Resources\xengine.png" />
+    <EmbeddedResource Include="..\xengine.png"
+                      Link="Resources\xengine.png"
+                      LogicalName="XEngine.Editor.Resources.xengine.png" />
+    <EmbeddedResource Include="xengine.ico" Link="Resources\xengine.ico" />
+    <EmbeddedResource Include="..\XEngine.Runtime\Platforms\HarmonyOS\Native\CMakeLists.txt"
+                      Link="Resources\HarmonyOS\Native\CMakeLists.txt"
+                      LogicalName="XEngine.HarmonyOS.Native.CMakeLists.txt" />
+    <EmbeddedResource Include="..\XEngine.Runtime\Platforms\HarmonyOS\Native\xengine_host_napi.cpp"
+                      Link="Resources\HarmonyOS\Native\xengine_host_napi.cpp"
+                      LogicalName="XEngine.HarmonyOS.Native.xengine_host_napi.cpp" />
+    <EmbeddedResource Include="..\XEngine.Runtime\Platforms\HarmonyOS\Native\xengine_player_abi.h"
+                      Link="Resources\HarmonyOS\Native\xengine_player_abi.h"
+                      LogicalName="XEngine.HarmonyOS.Native.xengine_player_abi.h" />
+  </ItemGroup>
+
+  <!-- First-party packages are part of the Editor distribution, not project dependencies.
+       The glob covers every com.xengine.* package, so adding a new built-in package needs no
+       csproj edit — just drop it under Packages/com.xengine.<name>/. -->
+  <ItemGroup>
+    <None Include="..\Packages\com.xengine.*\**\*"
+          Link="Packages\%(RecursiveDir)%(Filename)%(Extension)"
+          CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <!-- A fresh project resolves built-in packages from the Editor distribution, so a build that omits
+       any package's manifest or Runtime asmdef must fail before an unusable Editor is produced. -->
+  <Target Name="VerifyBuiltInPackages" AfterTargets="Build" Condition="'$(DesignTimeBuild)' != 'true'">
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.xgui\package.json')"
+           Text="The Editor distribution is missing the built-in XGUI package manifest." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.xgui\Runtime\XEngine.XGUI.Runtime.asmdef')"
+           Text="The Editor distribution is missing the built-in XGUI Runtime assembly definition." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.xgui\Editor\XEngine.XGUI.Editor.asmdef')"
+           Text="The Editor distribution is missing the built-in XGUI Editor assembly definition." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.timeline\package.json')"
+           Text="The Editor distribution is missing the built-in Timeline package manifest." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.timeline\Runtime\XEngine.Timeline.Runtime.asmdef')"
+           Text="The Editor distribution is missing the built-in Timeline Runtime assembly definition." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.feature.2d\package.json')"
+           Text="The Editor distribution is missing the built-in 2D feature package manifest." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.2d.common\Runtime\XEngine.2D.Common.Runtime.asmdef')"
+           Text="The Editor distribution is missing the built-in 2D Common Runtime assembly definition." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.ai.navigation\package.json')"
+           Text="The Editor distribution is missing the official optional AI Navigation package manifest." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.ai.navigation\Runtime\XEngine.AI.Navigation.Runtime.asmdef')"
+           Text="The Editor distribution is missing the official optional AI Navigation Runtime assembly definition." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.ai.navigation\Editor\XEngine.AI.Navigation.Editor.asmdef')"
+           Text="The Editor distribution is missing the official optional AI Navigation Editor assembly definition." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.ai.navigation\Documentation~\index.md')"
+           Text="The Editor distribution is missing the official optional AI Navigation Documentation~ index." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.ai.navigation\CHANGELOG.md')"
+           Text="The Editor distribution is missing the official optional AI Navigation changelog." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.vfx\package.json')"
+           Text="The Editor distribution is missing the official optional VFX package manifest." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.vfx\Runtime\XEngine.VFX.Runtime.asmdef')"
+           Text="The Editor distribution is missing the official optional VFX Runtime assembly definition." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.vfx\Editor\XEngine.VFX.Editor.asmdef')"
+           Text="The Editor distribution is missing the official optional VFX Editor assembly definition." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.vfx\Documentation~\index.md')"
+           Text="The Editor distribution is missing the official optional VFX Documentation~ index." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.vfx\CHANGELOG.md')"
+           Text="The Editor distribution is missing the official optional VFX changelog." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.terrain\package.json')"
+           Text="The Editor distribution is missing the official optional Terrain package manifest." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.terrain\Runtime\XEngine.Terrain.Runtime.asmdef')"
+           Text="The Editor distribution is missing the official optional Terrain Runtime assembly definition." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.terrain\Editor\XEngine.Terrain.Editor.asmdef')"
+           Text="The Editor distribution is missing the official optional Terrain Editor assembly definition." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.terrain\Documentation~\index.md')"
+           Text="The Editor distribution is missing the official optional Terrain Documentation~ index." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.terrain\CHANGELOG.md')"
+           Text="The Editor distribution is missing the official optional Terrain changelog." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.spine\package.json')"
+           Text="The Editor distribution is missing the official optional Spine package manifest." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.spine\Runtime\XEngine.Spine.Runtime.asmdef')"
+           Text="The Editor distribution is missing the official optional Spine Runtime assembly definition." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.spine\Editor\XEngine.Spine.Editor.asmdef')"
+           Text="The Editor distribution is missing the official optional Spine Editor assembly definition." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.spine\Documentation~\index.md')"
+           Text="The Editor distribution is missing the official optional Spine Documentation~ index." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.spine\CHANGELOG.md')"
+           Text="The Editor distribution is missing the official optional Spine changelog." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.nodeplay\package.json')"
+           Text="The Editor distribution is missing the official optional NodePlay package manifest." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.nodeplay\Runtime\XEngine.NodePlay.Runtime.asmdef')"
+           Text="The Editor distribution is missing the official optional NodePlay Runtime assembly definition." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.nodeplay\Editor\XEngine.NodePlay.Editor.asmdef')"
+           Text="The Editor distribution is missing the official optional NodePlay Editor assembly definition." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.nodeplay\Documentation~\index.md')"
+           Text="The Editor distribution is missing the official optional NodePlay Documentation~ index." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.nodeplay\CHANGELOG.md')"
+           Text="The Editor distribution is missing the official optional NodePlay changelog." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.genshin\package.json')"
+           Text="The Editor distribution is missing the official optional Genshin package manifest." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.genshin\Runtime\XEngine.Genshin.Runtime.asmdef')"
+           Text="The Editor distribution is missing the official optional Genshin Runtime assembly definition." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.genshin\Editor\XEngine.Genshin.Editor.asmdef')"
+           Text="The Editor distribution is missing the official optional Genshin Editor assembly definition." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.genshin\Documentation~\index.md')"
+           Text="The Editor distribution is missing the official optional Genshin Documentation~ index." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.genshin\CHANGELOG.md')"
+           Text="The Editor distribution is missing the official optional Genshin changelog." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.unityimporter\package.json')"
+           Text="The Editor distribution is missing the official optional Unity Importer package manifest." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.unityimporter\Runtime\XEngine.UnityImporter.Runtime.asmdef')"
+           Text="The Editor distribution is missing the official optional Unity Importer Runtime assembly definition." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.unityimporter\Editor\XEngine.UnityImporter.Editor.asmdef')"
+           Text="The Editor distribution is missing the official optional Unity Importer Editor assembly definition." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.unityimporter\Documentation~\index.md')"
+           Text="The Editor distribution is missing the official optional Unity Importer Documentation~ index." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.unityimporter\CHANGELOG.md')"
+           Text="The Editor distribution is missing the official optional Unity Importer changelog." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.postprocessing\package.json')"
+           Text="The Editor distribution is missing the official optional Post Processing package manifest." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.postprocessing\Runtime\XEngine.PostProcessing.Runtime.asmdef')"
+           Text="The Editor distribution is missing the official optional Post Processing Runtime assembly definition." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.postprocessing\Editor\XEngine.PostProcessing.Editor.asmdef')"
+           Text="The Editor distribution is missing the official optional Post Processing Editor assembly definition." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.postprocessing\Documentation~\index.md')"
+           Text="The Editor distribution is missing the official optional Post Processing Documentation~ index." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.postprocessing\CHANGELOG.md')"
+           Text="The Editor distribution is missing the official optional Post Processing changelog." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.xui\package.json')"
+           Text="The Editor distribution is missing the official optional XUI package manifest." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.xui\Runtime\XEngine.XUI.Runtime.asmdef')"
+           Text="The Editor distribution is missing the official optional XUI Runtime assembly definition." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.xui\Editor\XEngine.XUI.Editor.asmdef')"
+           Text="The Editor distribution is missing the official optional XUI Editor assembly definition." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.xui\Documentation~\index.md')"
+           Text="The Editor distribution is missing the official optional XUI Documentation~ index." />
+    <Error Condition="!Exists('$(TargetDir)Packages\com.xengine.xui\CHANGELOG.md')"
+           Text="The Editor distribution is missing the official optional XUI changelog." />
+  </Target>
+
+  <ItemGroup>
+    <PackageReference Include="AsepriteDotNet" Version="1.9.1" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="5.6.0" />
+    <PackageReference Include="System.Reflection.MetadataLoadContext" Version="9.0.0" />
+  </ItemGroup>
+
+</Project>

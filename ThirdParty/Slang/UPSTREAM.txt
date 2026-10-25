@@ -1,0 +1,6 @@
+Upstream: https://github.com/ProwlEngine/Anthology (monorepo, lib dir Slang/)
+Wired remote in this repo: anthology -> F:/Git/Anthology
+Baseline tag: v2.8.6 (b3ab895d604be3146195b13d68896277eac261d9)
+Sync target (2026-08-31 round): v3.3.0 (366251d23364dcd637b02c0821130dd0297a058b)
+Upstream commits touching Slang between baseline and target: 0
+Local patches: 1 family (native COM proxy/blob/session disposal, leak fix) + tracked native binary layout. See PATCHES.md.

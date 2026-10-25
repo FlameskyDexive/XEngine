@@ -1,0 +1,9 @@
+{
+  "name": "com.xengine.timeline",
+  "version": "0.1.0",
+  "displayName": "Timeline",
+  "description": "Cutscene/sequence editor for XEngine — built on the PlayableGraph runtime",
+  "keywords": ["xengine"],
+  "supportedPlatforms": ["Windows", "Linux", "MacOS", "Android", "HarmonyOS"],
+  "license": "MIT"
+}

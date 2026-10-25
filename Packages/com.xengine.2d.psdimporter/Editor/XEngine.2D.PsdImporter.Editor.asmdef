@@ -1,0 +1,16 @@
+{
+  "name": "XEngine.2D.PsdImporter.Editor",
+  "references": [
+    "XEngine.Editor"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "autoReferenced": true,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "defineConstraints": [],
+  "noEngineReferences": false
+}

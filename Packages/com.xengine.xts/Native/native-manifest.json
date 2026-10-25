@@ -1,0 +1,34 @@
+{
+  "schema": "xengine.xts.native.manifest.v1",
+  "abiVersion": 1,
+  "quickjsVersion": "2025-04-26",
+  // windows-x64: built locally by Native/build-windows.ps1 (cl.exe via
+  // vcvars64). The build id is the artifact hash prefix until a platform
+  // toolchain provides a native build-id section.
+  // harmonyos-*: cross-compiled by Native/build-harmonyos.ps1 with the ohos
+  // ndk clang (x86_64 for the emulator, arm64-v8a for devices); GNU build
+  // ids emitted via -Wl,--build-id=sha1 match the HarmonyOS receipt format.
+  "platforms": {
+    "windows-x64": {
+      "library": "Plugins/Windows/x64/xengine_xts.dll",
+      "abi": "x64",
+      "sha256": "e8de2e5ee090a339831fa2e8e489304e6c3b40aeaf154bad799b9449f392be28",
+      "source": "Native/build-windows.ps1 (MSVC cl.exe 14.44.35207, /utf-8 /std:c11 /O2)",
+      "buildId": "e8de2e5ee090a339"
+    },
+    "harmonyos-x86_64": {
+      "library": "Plugins/HarmonyOS/x86_64/libxengine_xts.so",
+      "abi": "x86_64",
+      "sha256": "ba26271911bd4bbcc856172eddcec6eed8e0a98f8e59d265a0d0ce2c7a0a60d5",
+      "source": "Native/build-harmonyos.ps1 (ohos ndk clang 15.0.4)",
+      "buildId": "f3f663250d08a6eb"
+    },
+    "harmonyos-arm64": {
+      "library": "Plugins/HarmonyOS/arm64/libxengine_xts.so",
+      "abi": "arm64-v8a",
+      "sha256": "32ce2cb8295164b70ba5b2d21a93b8aaaad3a0dd28a2a860f2d3af4c5786fcdd",
+      "source": "Native/build-harmonyos.ps1 (ohos ndk clang 15.0.4)",
+      "buildId": "96b84df8f8d431e1"
+    }
+  }
+}

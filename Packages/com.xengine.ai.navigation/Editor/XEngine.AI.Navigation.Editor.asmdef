@@ -1,0 +1,12 @@
+{
+  "name": "XEngine.AI.Navigation.Editor",
+  "references": ["XEngine.AI.Navigation.Runtime", "XEngine.Editor"],
+  "includePlatforms": ["Editor"],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "autoReferenced": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "defineConstraints": [],
+  "noEngineReferences": false
+}

@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <!-- Authoring-chain library shared by the host, the CLI and (via the Host) MCP tools. -->
+    <XEngineEnableAnalyzers>false</XEngineEnableAnalyzers>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\XEngine.Ai.Protocol\XEngine.Ai.Protocol.csproj" />
+    <ProjectReference Include="..\..\ThirdParty\Echo\Echo\Echo.csproj" />
+    <!-- A3 — the controlled conversion layer reuses Clay's typed glTF import (ModelImporter). -->
+    <ProjectReference Include="..\..\ThirdParty\Clay\Clay\Clay.csproj" />
+  </ItemGroup>
+
+  <!-- Cache-identity normalization is an internal detail; tests pin its semantics. -->
+  <ItemGroup>
+    <InternalsVisibleTo Include="XEngine.Ai.Host.Tests" />
+  </ItemGroup>
+
+</Project>

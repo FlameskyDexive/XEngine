@@ -1,0 +1,23 @@
+{
+  "name": "com.xengine.gpu-animation",
+  "version": "0.1.1",
+  "displayName": "GPU Animation",
+  "description": "Animation Baker and Instancing: bake skinned-mesh animations into vertex animation textures (VAT) and render thousands of GPU-instanced animated characters. Official optional package: listed in Package Manager, not mounted until installed.",
+  "installByDefault": false,
+  "xengine": "0.1.1",
+  "type": "package",
+  "category": "Official",
+  "documentationUrl": "Documentation~/index.md",
+  "changelogUrl": "CHANGELOG.md",
+  "licensesUrl": "LICENSE.md",
+  "supportedPlatforms": ["Windows", "Linux", "MacOS", "Android", "HarmonyOS"],
+  "license": "MIT",
+  "keywords": ["xengine", "gpu-animation", "vertex-animation-texture", "vat", "instancing", "crowd", "animation-baker"],
+  "samples": [
+    {
+      "displayName": "Crowd",
+      "description": "Self-baking runtime crowd: procedural skinned flag + bake + 10,000 GPU-instanced instances. No pre-baked assets needed.",
+      "path": "Samples~/Crowd"
+    }
+  ]
+}

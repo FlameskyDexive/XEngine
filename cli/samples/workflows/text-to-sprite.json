@@ -1,0 +1,79 @@
+{
+  "name": "text-to-sprite",
+  "description": "Prompt → PixelLab/mock sprite sheet → TextureImporter Multiple grid slice → GameObject with SpriteRenderer + SpriteFlipbook. Mock kind=sprite yields a 32×8 / 4-frame strip (8×8 cells). PixelLab returns a single PNG — prompt for a strip and pass columns/rows.",
+  "inputs": {
+    "type": "object",
+    "properties": {
+      "provider": { "type": "string", "description": "Generation provider: mock | pixellab" },
+      "prompt": { "type": "string", "description": "Pixel-art character / walk-cycle prompt" },
+      "scenePath": { "type": "string", "description": "Project-relative .scene to wire into" },
+      "objectName": { "type": "string", "description": "Name for the new GameObject / asset base name" },
+      "idempotencyKey": { "type": "string", "description": "Stable key prefix for journaled writes" },
+      "columns": { "type": "integer", "description": "Spritesheet columns (default 4)" },
+      "rows": { "type": "integer", "description": "Spritesheet rows (default 1)" },
+      "fps": { "type": "number", "description": "Flipbook frames per second (default 12)" }
+    },
+    "required": ["provider", "prompt", "scenePath", "objectName", "idempotencyKey"],
+    "additionalProperties": false
+  },
+  "steps": [
+    {
+      "name": "submit",
+      "tool": "gen_submit",
+      "arguments": {
+        "provider": "${inputs.provider}",
+        "kind": "sprite",
+        "prompt": "${inputs.prompt}"
+      },
+      "dependsOn": [],
+      "failurePolicy": "Stop"
+    },
+    {
+      "name": "status",
+      "tool": "gen_status",
+      "arguments": { "taskId": "${steps.submit.taskId}" },
+      "dependsOn": ["submit"],
+      "failurePolicy": "Stop"
+    },
+    {
+      "name": "fetch",
+      "tool": "gen_fetch",
+      "arguments": {
+        "taskId": "${steps.submit.taskId}",
+        "baseName": "${inputs.objectName}",
+        "idempotencyKey": "${inputs.idempotencyKey}-fetch",
+        "intent": "sprite-sheet: ${inputs.prompt}"
+      },
+      "dependsOn": ["status"],
+      "failurePolicy": "Stop"
+    },
+    {
+      "name": "create-go",
+      "tool": "scene_object_create",
+      "arguments": {
+        "scenePath": "${inputs.scenePath}",
+        "name": "${inputs.objectName}",
+        "idempotencyKey": "${inputs.idempotencyKey}-go",
+        "intent": "sprite host object"
+      },
+      "dependsOn": ["fetch"],
+      "failurePolicy": "Stop"
+    },
+    {
+      "name": "wire",
+      "tool": "sprite_wire",
+      "arguments": {
+        "scenePath": "${inputs.scenePath}",
+        "objectIdentifier": "${steps.create-go.createdIdentifier}",
+        "assetPath": "${steps.fetch.assets.0.assetPath}",
+        "columns": "${inputs.columns}",
+        "rows": "${inputs.rows}",
+        "framesPerSecond": "${inputs.fps}",
+        "idempotencyKey": "${inputs.idempotencyKey}-wire",
+        "intent": "sprite: slice + flipbook"
+      },
+      "dependsOn": ["create-go"],
+      "failurePolicy": "Stop"
+    }
+  ]
+}

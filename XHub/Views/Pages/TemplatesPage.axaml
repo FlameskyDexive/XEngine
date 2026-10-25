@@ -1,0 +1,54 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:XHub.Resources;assembly=XHub"
+             xmlns:vm="clr-namespace:XHub.ViewModels"
+             x:Class="XHub.Views.TemplatesPage"
+             x:DataType="vm:TemplatesViewModel">
+  <Grid RowDefinitions="Auto,*">
+    <TextBlock Classes="pageTitle" Text="{ReflectionBinding [templates.title], Source={x:Static loc:Loc.Instance}}" />
+
+    <ScrollViewer Grid.Row="1" Margin="0,16,0,0">
+      <ItemsControl ItemsSource="{Binding Templates}">
+        <ItemsControl.ItemsPanel>
+          <ItemsPanelTemplate>
+            <UniformGrid Columns="2" />
+          </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate>
+          <DataTemplate x:DataType="vm:TemplateItemViewModel">
+            <Border Classes="hubCard" Margin="0,0,16,16" Padding="0" MaxWidth="360">
+              <StackPanel>
+                <!-- XEngine-owned preview art: layered gradient + cube glyph -->
+                <Border Height="120" CornerRadius="8,8,0,0">
+                  <Border.Background>
+                    <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                      <GradientStop Color="#1B2A4A" Offset="0" />
+                      <GradientStop Color="#2F7CF6" Offset="1" />
+                    </LinearGradientBrush>
+                  </Border.Background>
+                  <Panel>
+                    <PathIcon Width="52" Height="52" Foreground="#CCFFFFFF"
+                              Data="M12,2 L21,7 L21,17 L12,22 L3,17 L3,7 Z" />
+                    <TextBlock Text="{Binding EngineVersionText}" Margin="0,0,10,8" FontSize="10"
+                               HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                               Foreground="#AAFFFFFF" />
+                  </Panel>
+                </Border>
+                <StackPanel Margin="14,12,14,14" Spacing="6">
+                  <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="15"
+                             Foreground="{DynamicResource HubTextPrimaryBrush}" />
+                  <TextBlock Text="{Binding Description}" FontSize="12" TextWrapping="Wrap" MinHeight="34"
+                             Foreground="{DynamicResource HubTextSecondaryBrush}" />
+                  <Button Classes="accent" HorizontalAlignment="Left" Margin="0,6,0,0"
+                          Command="{Binding $parent[UserControl].DataContext.UseTemplateCommand}"
+                          CommandParameter="{Binding}"
+                          Content="{ReflectionBinding [templates.use], Source={x:Static loc:Loc.Instance}}" />
+                </StackPanel>
+              </StackPanel>
+            </Border>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </ScrollViewer>
+  </Grid>
+</UserControl>

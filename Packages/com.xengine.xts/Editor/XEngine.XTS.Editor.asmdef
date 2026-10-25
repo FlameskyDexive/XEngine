@@ -1,0 +1,12 @@
+{
+  "name": "XEngine.XTS.Editor",
+  "references": ["XEngine.XTS.Runtime", "XEngine.Editor"],
+  "includePlatforms": ["Editor"],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "autoReferenced": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "defineConstraints": [],
+  "noEngineReferences": false
+}

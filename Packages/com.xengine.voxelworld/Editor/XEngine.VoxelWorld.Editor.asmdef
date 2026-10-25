@@ -1,0 +1,13 @@
+{
+  "name": "XEngine.VoxelWorld.Editor",
+  "rootNamespace": "XEngine.VoxelWorld.Editor",
+  "references": ["XEngine.VoxelWorld.Runtime", "XEngine.Editor"],
+  "includePlatforms": ["Editor"],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "autoReferenced": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "defineConstraints": [],
+  "noEngineReferences": false
+}

@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>$(XEngineTargetFrameworks)</TargetFrameworks>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>XEngine.Unwrapper</RootNamespace>
+
+    <!-- Package metadata -->
+    <PackageId>XEngine.Unwrapper</PackageId>
+    <Title>XEngine.Unwrapper</Title>
+
+    <Description>Mesh UV unwrapper for the XEngine Game Engine. Produces lightmap-style atlases from arbitrary triangle meshes using Lloyd-style chart segmentation, angle-based flattening (LinABF), and least-squares conformal mapping (LSCM), then packs the charts into [0,1]². Parallel, SIMD-vectorised CG solver, ~30s on Sponza (260k tris) on a desktop CPU.</Description>
+    <PackageTags>uv;unwrap;lightmap;atlas;lscm;parametrization;mesh;3d;xengine;gamedev;game-engine;dotnet;csharp</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Vector\Vector\Vector.csproj" />
+  </ItemGroup>
+
+</Project>

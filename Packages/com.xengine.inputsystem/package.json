@@ -1,0 +1,13 @@
+{
+  "name": "com.xengine.inputsystem",
+  "version": "0.1.1",
+  "displayName": "Input System",
+  "description": "Unity Input System API subset on XEngine's InputManagement layer: InputActionAsset (multi-map + control schemes), Unity .inputactions JSON import, PlayerInput component, .triggered polling compat, interactive rebinding with JSON overrides. zonezero M4.",
+  "keywords": ["xengine"],
+  "installByDefault": false,
+  "xengine": "0.1.0",
+  "type": "package",
+  "category": "Official",
+  "supportedPlatforms": [ "Windows", "Linux", "macOS", "Android", "iOS", "Web", "HarmonyOS" ],
+  "dependencies": {}
+}

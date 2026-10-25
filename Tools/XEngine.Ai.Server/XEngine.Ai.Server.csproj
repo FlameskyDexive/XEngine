@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    XEngine.Ai.Server — Layer 2 (in-process MCP server). The editor/Player starts the MCP stdio
+    server in-process (background Task), and tool handlers are marshalled onto the engine's main
+    loop via MainThreadDispatcher. This is the path that reaches live state: the running scene
+    graph, Debug.OnLog (logs tool), playmode, runtime eval. See roadmap §5 (B3).
+
+    Engine-agnostic core (this library): the dispatcher + server host. Engine-side tools that touch
+    Scene/GameObject/Debug live in the Editor and register into this host at startup.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Description>XEngine in-process MCP server host + main-thread dispatcher.</Description>
+    <XEngineEnableAnalyzers>false</XEngineEnableAnalyzers>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="ModelContextProtocol" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\XEngine.Ai.Protocol\XEngine.Ai.Protocol.csproj" />
+  </ItemGroup>
+
+</Project>

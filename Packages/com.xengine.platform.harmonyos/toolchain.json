@@ -1,0 +1,32 @@
+{
+  "manifestVersion": 1,
+  "platform": "harmonyos",
+  "hostRequirement": "windows-x64",
+  "notes": "ohos-sdk is the official OpenHarmony combined windows+linux archive (~4.5GB) from the Huawei Cloud open mirror, hash-pinned with the mirror's own .sha256 sidecar. The SDK Bundle is a self-built artifact; until the XEngine-Toolchains GitHub Releases feed hosts it, the channel accepts a local bundle archive (existing import path) and reports clear guidance otherwise.",
+  "components": [
+    {
+      "id": "ohos-sdk",
+      "kind": "archive",
+      "version": "5.0.3-Release",
+      "optional": false,
+      "sources": [
+        { "kind": "vendor", "url": "https://repo.huaweicloud.com/openharmony/os/5.0.3-Release/ohos-sdk-windows_linux-public.tar.gz", "sha256": "17cabf4aa94b02d9ee7366f49988eee549edbf6666a0743974aa5e1562f4cf88" }
+      ],
+      "layout": "ohos-sdk",
+      "stripRootSegments": 1,
+      "unpackZipsUnder": "windows",
+      "verify": "native/oh-uni-package.json"
+    },
+    {
+      "id": "sdk-bundle",
+      "kind": "archive",
+      "version": "0.1.0",
+      "optional": false,
+      "sources": [
+        { "kind": "vendor", "url": "https://github.com/FlameskyDexive/XEngine-Toolchains/releases/download/harmonyos-sdk-bundle-0.1.0/harmonyos-sdk-bundle-0.1.0.zip" }
+      ],
+      "layout": "bundle/harmonyos-sdk-bundle-0.1.0",
+      "verify": "SHA256SUMS"
+    }
+  ]
+}

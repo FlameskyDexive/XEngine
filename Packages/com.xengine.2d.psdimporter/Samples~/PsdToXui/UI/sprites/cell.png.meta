@@ -1,0 +1,16 @@
+{
+  "guid": "7cead9c2-eeba-4497-8bfb-be628aa45e5d",
+  "importer": "TextureImporter",
+  "importerVersion": 3,
+  "settings": {
+    "generateMipmaps": false,
+    "sRGB": true,
+    "minFilter": 1L,
+    "magFilter": 1L,
+    "sprite": {
+      "Mode": 1L,
+      "PixelsPerUnit": 100F,
+      "GenerateTightMesh": false
+    }
+  }
+}

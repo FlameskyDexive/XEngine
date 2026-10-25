@@ -1,0 +1,5 @@
+D:\Engine\XEngine\Packages\com.xengine.spine38\Runtime\spine-csharp\SkeletonBinary.cs(920,5): warning CA2022: Avoid inexact read with 'System.IO.Stream.Read(byte[], int, int)' (https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca2022) [D:\Engine\XEngine\Packages\com.xengine.spine38\Tests~\XEngine.Spine38.Tests.csproj]
+Test run for D:\Engine\XEngine\Build\Spine38Tests\Debug\net10.0\XEngine.Spine38.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+
+Passed!  - Failed:     0, Passed:    14, Skipped:     0, Total:    14, Duration: 190 ms - XEngine.Spine38.Tests.dll (net10.0)

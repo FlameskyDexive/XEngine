@@ -1,0 +1,13 @@
+using XEngine.Runtime;
+using XEngine.Vector;
+
+public class {[className]} : MonoBehaviour
+{
+    public Float3 Axis = new Float3(0, 1, 0);
+    public float DegreesPerSecond = 90f;
+
+    public override void Update()
+    {
+        Transform.Rotate(Axis, DegreesPerSecond * Time.DeltaTime);
+    }
+}

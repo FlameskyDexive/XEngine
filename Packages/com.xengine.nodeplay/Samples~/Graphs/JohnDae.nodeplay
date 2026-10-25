@@ -1,0 +1,342 @@
+{
+  "$id": 1,
+  "$type": "XEngine.NodePlay.Dialogue.NPDialogueAsset, XEngine.Editor.Test",
+  "ActorParameters": {
+    "$id": 2,
+    "$values": [
+      {
+        "$id": 3,
+        "Key": "john",
+        "Name": "John"
+      },
+      {
+        "$id": 4,
+        "Key": "dae",
+        "Name": "Dae"
+      }
+    ]
+  },
+  "GraphName": "Demo/John & Dae",
+  "Module": "dialogue",
+  "Nodes": {
+    "$id": 5,
+    "$values": [
+      {
+        "$id": 6,
+        "$type": "XEngine.NodePlay.Dialogue.DTStatementNode, XEngine.Editor.Test",
+        "ActorKey": "john",
+        "Statement": {
+          "$id": 7,
+          "Text": "Hey [player], seen my [item]?",
+          "AudioKey": "",
+          "Meta": ""
+        },
+        "AudioKey": "",
+        "Id": "e6110a08948845d2b805225a8b5e2a77",
+        "Name": "Greet",
+        "Position": {
+          "X": 60F,
+          "Y": 40F
+        },
+        "Comment": "",
+        "Disabled": false,
+        "Breakpoint": false
+      },
+      {
+        "$id": 8,
+        "$type": "XEngine.NodePlay.Dialogue.DTStatementNode, XEngine.Editor.Test",
+        "ActorKey": "dae",
+        "Statement": {
+          "$id": 9,
+          "Text": "What's in it for me?",
+          "AudioKey": "",
+          "Meta": ""
+        },
+        "AudioKey": "",
+        "Id": "6e7dfe841c3e4b0aac72969098db51c7",
+        "Name": "Reply",
+        "Position": {
+          "X": 60F,
+          "Y": 160F
+        },
+        "Comment": "",
+        "Disabled": false,
+        "Breakpoint": false
+      },
+      {
+        "$id": 10,
+        "$type": "XEngine.NodePlay.Dialogue.DTMultipleChoiceNode, XEngine.Editor.Test",
+        "ActorKey": "john",
+        "AvailableTime": 0F,
+        "Options": {
+          "$id": 11,
+          "$values": [
+            {
+              "$id": 12,
+              "Text": "Nothing.",
+              "Condition": NULL,
+              "SaySelection": false
+            },
+            {
+              "$id": 13,
+              "Text": "Gold.",
+              "Condition": NULL,
+              "SaySelection": true
+            }
+          ]
+        },
+        "Id": "26db9853bf354d70ab517208f51c714f",
+        "Name": "Ask",
+        "Position": {
+          "X": 60F,
+          "Y": 280F
+        },
+        "Comment": "",
+        "Disabled": false,
+        "Breakpoint": false
+      },
+      {
+        "$id": 14,
+        "$type": "XEngine.NodePlay.Dialogue.DTStatementNode, XEngine.Editor.Test",
+        "ActorKey": "dae",
+        "Statement": {
+          "$id": 15,
+          "Text": "Hmph.",
+          "AudioKey": "",
+          "Meta": ""
+        },
+        "AudioKey": "",
+        "Id": "719f755e8d3b4126b52828685b902647",
+        "Name": "Rude",
+        "Position": {
+          "X": 300F,
+          "Y": 400F
+        },
+        "Comment": "",
+        "Disabled": false,
+        "Breakpoint": false
+      },
+      {
+        "$id": 16,
+        "$type": "XEngine.NodePlay.Dialogue.DTStatementNode, XEngine.Editor.Test",
+        "ActorKey": "dae",
+        "Statement": {
+          "$id": 17,
+          "Text": "Deal.",
+          "AudioKey": "",
+          "Meta": ""
+        },
+        "AudioKey": "",
+        "Id": "01d3ae5ccf7f4c58b497883a799d07c7",
+        "Name": "Nice",
+        "Position": {
+          "X": 560F,
+          "Y": 400F
+        },
+        "Comment": "",
+        "Disabled": false,
+        "Breakpoint": false
+      },
+      {
+        "$id": 18,
+        "$type": "XEngine.NodePlay.Dialogue.DTFinishNode, XEngine.Editor.Test",
+        "Success": true,
+        "Id": "d13ad6c6dd0f40d3bd3a2aae978f9031",
+        "Name": "Bye",
+        "Position": {
+          "X": 430F,
+          "Y": 540F
+        },
+        "Comment": "",
+        "Disabled": false,
+        "Breakpoint": false
+      }
+    ]
+  },
+  "Connections": {
+    "$id": 19,
+    "$values": [
+      {
+        "$id": 20,
+        "Id": "c979d8e330354530be5f025a1fe82474",
+        "FromNodeId": "e6110a08948845d2b805225a8b5e2a77",
+        "ToNodeId": "6e7dfe841c3e4b0aac72969098db51c7",
+        "Disabled": false,
+        "Points": {
+          "$id": 21,
+          "$values": [
+
+          ]
+        },
+        "Source": {
+          "$id": 6,
+          "$type": "XEngine.NodePlay.Dialogue.DTStatementNode, XEngine.Editor.Test"
+        },
+        "Target": {
+          "$id": 8,
+          "$type": "XEngine.NodePlay.Dialogue.DTStatementNode, XEngine.Editor.Test"
+        },
+        "Status": 0L
+      },
+      {
+        "$id": 22,
+        "Id": "26bf85d084f74a9b9925dfacc22c5143",
+        "FromNodeId": "6e7dfe841c3e4b0aac72969098db51c7",
+        "ToNodeId": "26db9853bf354d70ab517208f51c714f",
+        "Disabled": false,
+        "Points": {
+          "$id": 23,
+          "$values": [
+
+          ]
+        },
+        "Source": {
+          "$id": 8,
+          "$type": "XEngine.NodePlay.Dialogue.DTStatementNode, XEngine.Editor.Test"
+        },
+        "Target": {
+          "$id": 10,
+          "$type": "XEngine.NodePlay.Dialogue.DTMultipleChoiceNode, XEngine.Editor.Test"
+        },
+        "Status": 0L
+      },
+      {
+        "$id": 24,
+        "Id": "b6aabd1e20d145fba915739779e988d5",
+        "FromNodeId": "26db9853bf354d70ab517208f51c714f",
+        "ToNodeId": "719f755e8d3b4126b52828685b902647",
+        "Disabled": false,
+        "Points": {
+          "$id": 25,
+          "$values": [
+
+          ]
+        },
+        "Source": {
+          "$id": 10,
+          "$type": "XEngine.NodePlay.Dialogue.DTMultipleChoiceNode, XEngine.Editor.Test"
+        },
+        "Target": {
+          "$id": 14,
+          "$type": "XEngine.NodePlay.Dialogue.DTStatementNode, XEngine.Editor.Test"
+        },
+        "Status": 0L
+      },
+      {
+        "$id": 26,
+        "Id": "91a469b5264e4948887a2488e2a2ae6c",
+        "FromNodeId": "26db9853bf354d70ab517208f51c714f",
+        "ToNodeId": "01d3ae5ccf7f4c58b497883a799d07c7",
+        "Disabled": false,
+        "Points": {
+          "$id": 27,
+          "$values": [
+
+          ]
+        },
+        "Source": {
+          "$id": 10,
+          "$type": "XEngine.NodePlay.Dialogue.DTMultipleChoiceNode, XEngine.Editor.Test"
+        },
+        "Target": {
+          "$id": 16,
+          "$type": "XEngine.NodePlay.Dialogue.DTStatementNode, XEngine.Editor.Test"
+        },
+        "Status": 0L
+      },
+      {
+        "$id": 28,
+        "Id": "7686b8bdd6d842889c3e50281a35db1d",
+        "FromNodeId": "719f755e8d3b4126b52828685b902647",
+        "ToNodeId": "d13ad6c6dd0f40d3bd3a2aae978f9031",
+        "Disabled": false,
+        "Points": {
+          "$id": 29,
+          "$values": [
+
+          ]
+        },
+        "Source": {
+          "$id": 14,
+          "$type": "XEngine.NodePlay.Dialogue.DTStatementNode, XEngine.Editor.Test"
+        },
+        "Target": {
+          "$id": 18,
+          "$type": "XEngine.NodePlay.Dialogue.DTFinishNode, XEngine.Editor.Test"
+        },
+        "Status": 0L
+      },
+      {
+        "$id": 30,
+        "Id": "a81f6d08da17427d915e0c05d6319920",
+        "FromNodeId": "01d3ae5ccf7f4c58b497883a799d07c7",
+        "ToNodeId": "d13ad6c6dd0f40d3bd3a2aae978f9031",
+        "Disabled": false,
+        "Points": {
+          "$id": 31,
+          "$values": [
+
+          ]
+        },
+        "Source": {
+          "$id": 16,
+          "$type": "XEngine.NodePlay.Dialogue.DTStatementNode, XEngine.Editor.Test"
+        },
+        "Target": {
+          "$id": 18,
+          "$type": "XEngine.NodePlay.Dialogue.DTFinishNode, XEngine.Editor.Test"
+        },
+        "Status": 0L
+      }
+    ]
+  },
+  "Groups": {
+    "$id": 32,
+    "$values": [
+
+    ]
+  },
+  "Stickies": {
+    "$id": 33,
+    "$values": [
+
+    ]
+  },
+  "PrimeNodeId": "e6110a08948845d2b805225a8b5e2a77",
+  "LocalBlackboard": {
+    "$id": 34,
+    "Variables": {
+      "$id": 35,
+      "$values": [
+        {
+          "$id": 36,
+          "Name": "player",
+          "ValueId": "c6acf505bbfc48bb8d0a48860d76b6bb",
+          "IsPublic": true,
+          "Value": {
+            "$t": "s",
+            "$v": "Hero"
+          },
+          "PropertyPath": ""
+        },
+        {
+          "$id": 37,
+          "Name": "item",
+          "ValueId": "d3af674cec1b46508f373b6646bd2293",
+          "IsPublic": true,
+          "Value": {
+            "$t": "s",
+            "$v": "wrench"
+          },
+          "PropertyPath": ""
+        }
+      ]
+    }
+  },
+  "OwnerRunner": NULL,
+  "GraphBlackboard": NULL,
+  "ElapsedTime": 0F,
+  "AssetPath": "",
+  "AssetID": "00000000-0000-0000-0000-000000000000",
+  "Name": "NewNPDialogueAsset"
+}

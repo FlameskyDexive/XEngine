@@ -1,0 +1,68 @@
+{
+  "$id": 1,
+  "$type": "XEngine.Runtime.Resources.Material, XEngine.Runtime",
+  "_shader": {
+    "AssetID": "24becfa7-4efc-0012-8764-db072e4c9dc1"
+  },
+  "_properties": {
+    "$id": 2,
+    "_colors": {
+      "_Color": {
+        "R": 1F,
+        "G": 1F,
+        "B": 1F,
+        "A": 1F
+      },
+      "_DistortionSpeedXYPowerZ": {
+        "R": 0F,
+        "G": 0F,
+        "B": 0F,
+        "A": 0F
+      },
+      "_SpeedMainTexUVNoiseZW": {
+        "R": 0F,
+        "G": 0F,
+        "B": 0F,
+        "A": 0F
+      }
+    },
+    "_vectors2": {},
+    "_vectors3": {},
+    "_vectors4": {},
+    "_floats": {
+      "_CullMode": 0F,
+      "_Depthpower": 0.3F,
+      "_Emission": 2F,
+      "_Opacity": 3F,
+      "_Usecenterglow": 0F,
+      "_Usedepth": 1F
+    },
+    "_ints": {},
+    "_matrices": {},
+    "_matrixArr": {},
+    "_textures": {
+      "_MainTex": {
+        "AssetID": "733b2d8e-1dcf-6a27-98b7-d9b7a96ab159"
+      }
+    },
+    "_textures3D": {},
+    "_texturesCube": {},
+    "_buffers": {},
+    "_bufferBindings": {}
+  },
+  "_overrides": [
+    "_Color",
+    "_DistortionSpeedXYPowerZ",
+    "_SpeedMainTexUVNoiseZW",
+    "_CullMode",
+    "_Depthpower",
+    "_Emission",
+    "_Opacity",
+    "_Usecenterglow",
+    "_Usedepth",
+    "_MainTex"
+  ],
+  "AssetPath": "",
+  "AssetID": "00000000-0000-0000-0000-000000000000",
+  "Name": "Heart3bcg"
+}

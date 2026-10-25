@@ -1,0 +1,10 @@
+{
+    "name": "XEngine.MagicaCloth2.Runtime",
+    "rootNamespace": "XEngine.MagicaCloth2",
+    "references": [ "XEngine.Runtime" ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "noEngineReferences": false
+}

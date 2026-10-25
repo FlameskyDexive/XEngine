@@ -1,0 +1,295 @@
+namespace JitterTests.Regression;
+
+public class CollisionManifoldTests
+{
+    private static VertexSupportMap CreateRidgeSupport()
+    {
+        return new([
+            new JVector(-2, -1, 0),
+            new JVector(2, -1, 0),
+            new JVector(-2, 1, -1),
+            new JVector(2, 1, -1),
+            new JVector(-2, 1, 1),
+            new JVector(2, 1, 1)
+        ]);
+    }
+
+    private static CollisionManifold BuildManifold<Ta, Tb>(in Ta shapeA, in Tb shapeB,
+        in JQuaternion orientationA, in JQuaternion orientationB,
+        in JVector positionA, in JVector positionB,
+        out JVector pointA, out JVector pointB, out JVector normal, out Real penetration)
+        where Ta : ISupportMappable where Tb : ISupportMappable
+    {
+        bool hit = NarrowPhase.Collision(shapeA, shapeB, orientationA, orientationB, positionA, positionB,
+            out pointA, out pointB, out normal, out penetration);
+
+        Assert.That(hit, Is.True);
+
+        CollisionManifold manifold = default;
+        manifold.BuildManifold(shapeA, shapeB, orientationA, orientationB, positionA, positionB, pointA, pointB, normal);
+
+        return manifold;
+    }
+
+    private static void AssertUniqueContacts(CollisionManifold manifold, Real epsilonSq)
+    {
+        for (int i = 0; i < manifold.Count; i++)
+        {
+            for (int j = i + 1; j < manifold.Count; j++)
+            {
+                Assert.That((manifold.ManifoldA[i] - manifold.ManifoldA[j]).LengthSquared(), Is.GreaterThan(epsilonSq));
+            }
+        }
+    }
+
+    private static void AssertSamePointSet(IReadOnlyList<JVector> expected, IReadOnlyList<JVector> actual, Real epsilonSq)
+    {
+        Assert.That(actual, Has.Count.EqualTo(expected.Count));
+
+        bool[] matched = new bool[actual.Count];
+
+        foreach (JVector expectedPoint in expected)
+        {
+            int match = -1;
+
+            for (int i = 0; i < actual.Count; i++)
+            {
+                if (matched[i]) continue;
+                if ((actual[i] - expectedPoint).LengthSquared() > epsilonSq) continue;
+
+                match = i;
+                break;
+            }
+
+            Assert.That(match, Is.GreaterThanOrEqualTo(0));
+            matched[match] = true;
+        }
+    }
+
+    private static void AssertQuadrantCoverage(CollisionManifold manifold, in JVector referencePosition, Real axisEpsilon)
+    {
+        bool positiveXPositiveZ = false;
+        bool positiveXNegativeZ = false;
+        bool negativeXPositiveZ = false;
+        bool negativeXNegativeZ = false;
+
+        for (int i = 0; i < manifold.Count; i++)
+        {
+            JVector local = manifold.ManifoldA[i] - referencePosition;
+
+            Assert.That(MathR.Abs(local.X), Is.GreaterThan(axisEpsilon));
+            Assert.That(MathR.Abs(local.Z), Is.GreaterThan(axisEpsilon));
+
+            if (local.X > (Real)0.0)
+            {
+                if (local.Z > (Real)0.0) positiveXPositiveZ = true;
+                else positiveXNegativeZ = true;
+            }
+            else
+            {
+                if (local.Z > (Real)0.0) negativeXPositiveZ = true;
+                else negativeXNegativeZ = true;
+            }
+        }
+
+        Assert.That(positiveXPositiveZ, Is.True);
+        Assert.That(positiveXNegativeZ, Is.True);
+        Assert.That(negativeXPositiveZ, Is.True);
+        Assert.That(negativeXNegativeZ, Is.True);
+    }
+
+    [TestCase]
+    public void EqualFaceBoxes_ProduceFourCornerContacts()
+    {
+        BoxShape shapeA = new BoxShape(new JVector(2, 2, 2));
+        BoxShape shapeB = new BoxShape(new JVector(2, 2, 2));
+
+        CollisionManifold manifold = BuildManifold(shapeA, shapeB,
+            JQuaternion.Identity, JQuaternion.Identity,
+            JVector.Zero, new JVector(0, (Real)1.9, 0),
+            out _, out _, out JVector normal, out Real penetration);
+
+        const Real epsilon = (Real)1e-4;
+
+        Assert.That(manifold.Count, Is.EqualTo(4));
+        AssertUniqueContacts(manifold, epsilon * epsilon);
+
+        for (int i = 0; i < manifold.Count; i++)
+        {
+            JVector mfA = manifold.ManifoldA[i];
+            JVector mfB = manifold.ManifoldB[i];
+
+            Assert.That(MathR.Abs(mfA.Y - (Real)1.0), Is.LessThan(epsilon));
+            Assert.That(MathR.Abs(mfB.Y - (Real)0.9), Is.LessThan(epsilon));
+            Assert.That(MathR.Abs(MathR.Abs(mfA.X) - (Real)1.0), Is.LessThan(epsilon));
+            Assert.That(MathR.Abs(MathR.Abs(mfA.Z) - (Real)1.0), Is.LessThan(epsilon));
+            Assert.That(MathR.Abs(JVector.Dot(mfA - mfB, normal) - penetration), Is.LessThan(epsilon));
+        }
+    }
+
+    [TestCase]
+    public void RotatedFaceBoxes_IncludeIntersectionVertices()
+    {
+        BoxShape shapeA = new BoxShape(new JVector(2, 2, 2));
+        BoxShape shapeB = new BoxShape(new JVector(2, 2, 2));
+
+        JQuaternion orientationB = JQuaternion.CreateRotationY((Real)(MathR.PI / 4.0));
+
+        CollisionManifold manifold = BuildManifold(shapeA, shapeB,
+            JQuaternion.Identity, orientationB,
+            JVector.Zero, new JVector(0, (Real)1.9, 0),
+            out _, out _, out JVector normal, out Real penetration);
+
+        const Real epsilon = (Real)2e-4;
+
+        Assert.That(manifold.Count, Is.EqualTo(4));
+        AssertUniqueContacts(manifold, epsilon * epsilon);
+
+        for (int i = 0; i < manifold.Count; i++)
+        {
+            JVector mfA = manifold.ManifoldA[i];
+            JVector mfB = manifold.ManifoldB[i];
+
+            Assert.That(MathR.Abs(mfA.Y - (Real)1.0), Is.LessThan(epsilon));
+            Assert.That(MathR.Abs(JVector.Dot(mfA - mfB, normal) - penetration), Is.LessThan(epsilon));
+
+            Assert.That(MathR.Abs(mfA.X), Is.LessThanOrEqualTo((Real)1.0 + epsilon));
+            Assert.That(MathR.Abs(mfA.Z), Is.LessThanOrEqualTo((Real)1.0 + epsilon));
+
+            JVector localB = mfB - new JVector(0, (Real)1.9, 0);
+            JVector.ConjugatedTransform(localB, orientationB, out localB);
+
+            Assert.That(MathR.Abs(localB.Y + (Real)1.0), Is.LessThan(epsilon));
+            Assert.That(MathR.Abs(localB.X), Is.LessThanOrEqualTo((Real)1.0 + epsilon));
+            Assert.That(MathR.Abs(localB.Z), Is.LessThanOrEqualTo((Real)1.0 + epsilon));
+        }
+    }
+
+    [TestCase]
+    public void RotatedFaceBoxes_ReductionSpansAllQuadrantsOfOverlapPolygon()
+    {
+        BoxShape shapeA = new BoxShape(new JVector(2, 2, 2));
+        BoxShape shapeB = new BoxShape(new JVector(2, 2, 2));
+
+        JQuaternion orientationB = JQuaternion.CreateRotationY((Real)(MathR.PI / 4.0));
+
+        CollisionManifold manifold = BuildManifold(shapeA, shapeB,
+            JQuaternion.Identity, orientationB,
+            JVector.Zero, new JVector(0, (Real)1.9, 0),
+            out _, out _, out _, out _);
+
+        const Real epsilon = (Real)2e-4;
+
+        Assert.That(manifold.Count, Is.EqualTo(4));
+        AssertUniqueContacts(manifold, epsilon * epsilon);
+        AssertQuadrantCoverage(manifold, JVector.Zero, (Real)0.05);
+    }
+
+    [TestCase]
+    public void RotatedFaceBoxes_AtLargeWorldOffset_MatchNearOriginContacts()
+    {
+        BoxShape shapeA = new BoxShape(new JVector(2, 2, 2));
+        BoxShape shapeB = new BoxShape(new JVector(2, 2, 2));
+
+        JQuaternion orientationB = JQuaternion.CreateRotationY((Real)(MathR.PI / 4.0));
+        JVector worldOffset = new JVector((Real)10_000.0, (Real)(-20_000.0), (Real)30_000.0);
+        bool hit = NarrowPhase.Collision(shapeA, shapeB,
+            JQuaternion.Identity, orientationB,
+            JVector.Zero, new JVector(0, (Real)1.9, 0),
+            out JVector pointA, out JVector pointB, out JVector normal, out _);
+
+        Assert.That(hit, Is.True);
+
+        CollisionManifold nearOrigin = default;
+        nearOrigin.BuildManifold(shapeA, shapeB,
+            JQuaternion.Identity, orientationB,
+            JVector.Zero, new JVector(0, (Real)1.9, 0),
+            pointA, pointB, normal);
+        CollisionManifold translated = default;
+        translated.BuildManifold(shapeA, shapeB,
+            JQuaternion.Identity, orientationB,
+            worldOffset, worldOffset + new JVector(0, (Real)1.9, 0),
+            pointA + worldOffset, pointB + worldOffset, normal);
+
+        const Real epsilon = (Real)1e-3;
+
+        Assert.That(translated.Count, Is.EqualTo(nearOrigin.Count));
+
+        List<JVector> expectedA = [];
+        List<JVector> expectedB = [];
+        List<JVector> actualA = [];
+        List<JVector> actualB = [];
+
+        for (int i = 0; i < nearOrigin.Count; i++)
+        {
+            expectedA.Add(nearOrigin.ManifoldA[i]);
+            expectedB.Add(nearOrigin.ManifoldB[i]);
+            actualA.Add(translated.ManifoldA[i] - worldOffset);
+            actualB.Add(translated.ManifoldB[i] - worldOffset);
+        }
+
+        AssertSamePointSet(expectedA, actualA, epsilon * epsilon);
+        AssertSamePointSet(expectedB, actualB, epsilon * epsilon);
+    }
+
+    [TestCase]
+    public void BoxFaceAndRidge_ProduceLineSegmentEndpoints()
+    {
+        SupportPrimitives.Box shapeA = SupportPrimitives.CreateBox(new JVector(2, 2, 2));
+        VertexSupportMap shapeB = CreateRidgeSupport();
+
+        CollisionManifold manifold = default;
+        manifold.BuildManifold(shapeA, shapeB,
+            JQuaternion.Identity, JQuaternion.Identity,
+            JVector.Zero, new JVector(0, (Real)2.9, 0),
+            new JVector(0, (Real)2.0, 0), new JVector(0, (Real)1.9, 0), JVector.UnitY);
+
+        const Real epsilon = (Real)1e-4;
+
+        Assert.That(manifold.Count, Is.EqualTo(2));
+        AssertUniqueContacts(manifold, epsilon * epsilon);
+
+        for (int i = 0; i < manifold.Count; i++)
+        {
+            JVector mfA = manifold.ManifoldA[i];
+            JVector mfB = manifold.ManifoldB[i];
+
+            Assert.That(MathR.Abs(mfA.Y - (Real)2.0), Is.LessThan(epsilon));
+            Assert.That(MathR.Abs(mfB.Y - (Real)1.9), Is.LessThan(epsilon));
+            Assert.That(MathR.Abs(MathR.Abs(mfA.X) - (Real)2.0), Is.LessThan(epsilon));
+            Assert.That(MathR.Abs(mfA.Z), Is.LessThan(epsilon));
+            Assert.That(MathR.Abs(mfB.Z), Is.LessThan(epsilon));
+        }
+    }
+
+    [TestCase]
+    public void RidgeAndBoxFace_ProduceLineSegmentEndpoints()
+    {
+        VertexSupportMap shapeA = CreateRidgeSupport();
+        SupportPrimitives.Box shapeB = SupportPrimitives.CreateBox(new JVector(2, 2, 2));
+
+        CollisionManifold manifold = default;
+        manifold.BuildManifold(shapeA, shapeB,
+            JQuaternion.Identity, JQuaternion.Identity,
+            new JVector(0, (Real)2.9, 0), JVector.Zero,
+            new JVector(0, (Real)1.9, 0), new JVector(0, (Real)2.0, 0), -JVector.UnitY);
+
+        const Real epsilon = (Real)1e-4;
+
+        Assert.That(manifold.Count, Is.EqualTo(2));
+        AssertUniqueContacts(manifold, epsilon * epsilon);
+
+        for (int i = 0; i < manifold.Count; i++)
+        {
+            JVector mfA = manifold.ManifoldA[i];
+            JVector mfB = manifold.ManifoldB[i];
+
+            Assert.That(MathR.Abs(mfA.Y - (Real)1.9), Is.LessThan(epsilon));
+            Assert.That(MathR.Abs(mfB.Y - (Real)2.0), Is.LessThan(epsilon));
+            Assert.That(MathR.Abs(MathR.Abs(mfA.X) - (Real)2.0), Is.LessThan(epsilon));
+            Assert.That(MathR.Abs(MathR.Abs(mfB.X) - (Real)2.0), Is.LessThan(epsilon));
+            Assert.That(MathR.Abs(mfA.Z), Is.LessThan(epsilon));
+            Assert.That(MathR.Abs(mfB.Z), Is.LessThan(epsilon));
+        }
+    }
+}

@@ -1,0 +1,182 @@
+{
+  "$id": 1,
+  "$type": "XEngine.Runtime.Resources.Material, XEngine.Runtime",
+  "_shader": {
+    "AssetID": "24becfa7-4efc-0012-8764-db072e4c9dc1"
+  },
+  "_properties": {
+    "$id": 2,
+    "_colors": {
+      "_CameraFadeParams": {
+        "R": 0F,
+        "G": 1F,
+        "B": 0F,
+        "A": 0F
+      },
+      "_Color": {
+        "R": 1F,
+        "G": 1F,
+        "B": 1F,
+        "A": 1F
+      },
+      "_ColorAddSubDiff": {
+        "R": -1F,
+        "G": 1F,
+        "B": 0F,
+        "A": 0F
+      },
+      "_DistortionSpeedXYPowerZ": {
+        "R": 0F,
+        "G": 0F,
+        "B": 0F,
+        "A": 0F
+      },
+      "_EmissionColor": {
+        "R": 0F,
+        "G": 0F,
+        "B": 0F,
+        "A": 0F
+      },
+      "_SoftParticleFadeParams": {
+        "R": 0F,
+        "G": 5F,
+        "B": 0F,
+        "A": 0F
+      },
+      "_SpeedMainTexUVNoiseUV": {
+        "R": 0F,
+        "G": 0F,
+        "B": 0F,
+        "A": 0F
+      },
+      "_SpeedMainTexUVNoiseZW": {
+        "R": 0F,
+        "G": 0F,
+        "B": 0F,
+        "A": 0F
+      },
+      "_TintColor": {
+        "R": 1F,
+        "G": 1F,
+        "B": 1F,
+        "A": 1F
+      }
+    },
+    "_vectors2": {},
+    "_vectors3": {},
+    "_vectors4": {},
+    "_floats": {
+      "_BlendOp": 0F,
+      "_BumpScale": 1F,
+      "_CameraFadingEnabled": 0F,
+      "_CameraFarFadeDistance": 2F,
+      "_CameraNearFadeDistance": 1F,
+      "_ColorMode": 4F,
+      "_Cull": 2F,
+      "_CullMode": 0F,
+      "_Cutoff": 0.5F,
+      "_Depthpower": 0.15F,
+      "_DetailNormalMapScale": 1F,
+      "_DistortionBlend": 0F,
+      "_DistortionEnabled": 0F,
+      "_DistortionStrength": 1F,
+      "_DistortionStrengthScaled": 0.1F,
+      "_DstBlend": 10F,
+      "_Emission": 2F,
+      "_EmissionEnabled": 0F,
+      "_FlipbookMode": 1F,
+      "_GlossMapScale": 1F,
+      "_Glossiness": 0.5F,
+      "_GlossyReflections": 1F,
+      "_InvFade": 3F,
+      "_LightingEnabled": 0F,
+      "_MainTexUspeed": 0F,
+      "_MainTexVspeed": 0F,
+      "_Metallic": 0F,
+      "_Mode": 6F,
+      "_NoiseUspeed": 0F,
+      "_NoiseVspeed": 0F,
+      "_OcclusionStrength": 1F,
+      "_Opacity": 1F,
+      "_Parallax": 0.02F,
+      "_SmoothnessTextureChannel": 0F,
+      "_SoftParticlesEnabled": 1F,
+      "_SoftParticlesFarFadeDistance": 0.2F,
+      "_SoftParticlesNearFadeDistance": 0F,
+      "_SpecularHighlights": 1F,
+      "_SrcBlend": 2F,
+      "_UVSec": 0F,
+      "_Usecenterglow": 0F,
+      "_Usedepth": 1F
+    },
+    "_ints": {},
+    "_matrices": {},
+    "_matrixArr": {},
+    "_textures": {
+      "_MainTex": {
+        "AssetID": "46a8f741-258c-f5a0-5e6f-200822569ca1"
+      }
+    },
+    "_textures3D": {},
+    "_texturesCube": {},
+    "_buffers": {},
+    "_bufferBindings": {}
+  },
+  "_overrides": [
+    "_CameraFadeParams",
+    "_Color",
+    "_ColorAddSubDiff",
+    "_DistortionSpeedXYPowerZ",
+    "_EmissionColor",
+    "_SoftParticleFadeParams",
+    "_SpeedMainTexUVNoiseUV",
+    "_SpeedMainTexUVNoiseZW",
+    "_TintColor",
+    "_BlendOp",
+    "_BumpScale",
+    "_CameraFadingEnabled",
+    "_CameraFarFadeDistance",
+    "_CameraNearFadeDistance",
+    "_ColorMode",
+    "_Cull",
+    "_CullMode",
+    "_Cutoff",
+    "_Depthpower",
+    "_DetailNormalMapScale",
+    "_DistortionBlend",
+    "_DistortionEnabled",
+    "_DistortionStrength",
+    "_DistortionStrengthScaled",
+    "_DstBlend",
+    "_Emission",
+    "_EmissionEnabled",
+    "_FlipbookMode",
+    "_GlossMapScale",
+    "_Glossiness",
+    "_GlossyReflections",
+    "_InvFade",
+    "_LightingEnabled",
+    "_MainTexUspeed",
+    "_MainTexVspeed",
+    "_Metallic",
+    "_Mode",
+    "_NoiseUspeed",
+    "_NoiseVspeed",
+    "_OcclusionStrength",
+    "_Opacity",
+    "_Parallax",
+    "_SmoothnessTextureChannel",
+    "_SoftParticlesEnabled",
+    "_SoftParticlesFarFadeDistance",
+    "_SoftParticlesNearFadeDistance",
+    "_SpecularHighlights",
+    "_SrcBlend",
+    "_UVSec",
+    "_Usecenterglow",
+    "_Usedepth",
+    "_MainTex"
+  ],
+  "AssetPath": "",
+  "AssetID": "00000000-0000-0000-0000-000000000000",
+  "Name": "DirtBcg"
+}

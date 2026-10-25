@@ -1,0 +1,13 @@
+{
+  "guid": "fdc9f888-96fc-048b-f860-0563a62b9e7e",
+  "importer": "TextureImporter",
+  "importerVersion": 6,
+  "settings": {
+    "generateMipmaps": true,
+    "sRGB": true,
+    "sRGBSampling": false,
+    "minFilter": 5,
+    "magFilter": 1,
+    "wrapMode": 0
+  }
+}

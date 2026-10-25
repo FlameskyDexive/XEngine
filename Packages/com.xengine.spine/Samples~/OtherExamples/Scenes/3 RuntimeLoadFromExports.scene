@@ -1,0 +1,83 @@
+{
+  "$id": 1,
+  "$type": "XEngine.Runtime.Resources.Scene, XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+  "serializeObj": {
+    "$id": 2,
+    "$type": "XEngine.Runtime.GameObject[], XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+    "array": [
+      {
+        "$id": 3,
+        "$type": "XEngine.Runtime.GameObject, XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "Name": "Main Camera",
+        "AssetPath": "",
+        "Identifier": "e5f6a7b8-c9d0-4123-e456-789abcdef005",
+        "Static": 0B,
+        "Enabled": 1B,
+        "EnabledInHierarchy": 1B,
+        "TagIndex": 1,
+        "LayerIndex": 0,
+        "HideFlags": 0,
+        "Transform": {
+          "$id": 4,
+          "$type": "XEngine.Vector.Transform, XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "_localPosition": { "X": 0F, "Y": 1.6F, "Z": -10F },
+          "_localScale": { "X": 1F, "Y": 1F, "Z": 1F },
+          "_localRotation": { "X": 0F, "Y": 0F, "Z": 0F, "W": 1F }
+        },
+        "Components": [
+          {
+            "$id": 5,
+            "$type": "XEngine.Runtime.Camera, XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+            "Effects": { "$id": 6, "$values": [] },
+            "ClearFlags": 3L,
+            "ClearColor": { "R": 0.16F, "G": 0.18F, "B": 0.22F, "A": 1F },
+            "CullingMask": { "mask": 4294967295U },
+            "ProjectionMode": 1L,
+            "FieldOfView": 60F,
+            "OrthographicSize": 5F,
+            "NearClipPlane": 0.1F,
+            "FarClipPlane": 100F,
+            "Viewrect": { "Min": { "X": 0F, "Y": 0F }, "Max": { "X": 1F, "Y": 1F } },
+            "Depth": -1,
+            "TargetDisplay": 0,
+            "RenderType": 0L,
+            "CameraStack": { "$id": 7, "$values": [] },
+            "VolumeMask": { "$id": 8, "mask": 4294967295U }
+          }
+        ]
+      },
+      {
+        "$id": 9,
+        "$type": "XEngine.Runtime.GameObject, XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "Name": "runtime-load",
+        "AssetPath": "",
+        "Identifier": "f6a7b8c9-d0e1-4234-f567-89abcdef0606",
+        "Static": 0B,
+        "Enabled": 1B,
+        "EnabledInHierarchy": 1B,
+        "TagIndex": 0,
+        "LayerIndex": 0,
+        "HideFlags": 0,
+        "Transform": {
+          "$id": 10,
+          "$type": "XEngine.Vector.Transform, XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "_localPosition": { "X": 0F, "Y": 0F, "Z": 0F },
+          "_localScale": { "X": 1F, "Y": 1F, "Z": 1F },
+          "_localRotation": { "X": 0F, "Y": 0F, "Z": 0F, "W": 1F }
+        },
+        "Components": [
+          {
+            "$id": 11,
+            "$type": "XEngine.Spine.Samples.OtherExamples.RuntimeLoadFromExportsExample, XEngine.Spine.Samples, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+            "JsonPath": "",
+            "AtlasPath": "",
+            "TexturePath": "",
+            "SkinName": "goblin",
+            "AnimationName": "walk",
+            "DelaySeconds": 0F
+          }
+        ]
+      }
+    ]
+  }
+}

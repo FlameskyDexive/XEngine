@@ -1,0 +1,12 @@
+{
+  "$id": 1,
+  "$type": "XEngine.VoxelWorld.BiomeDefinition, XEngine.VoxelWorld.Runtime",
+  "VoxelTop": { "AssetID": "4d9e2b30-8c5e-4f02-ad3b-1a7c9d0e5f31" },
+  "VoxelDirt": { "AssetID": "4d9e2b30-8c5e-4f02-ad3b-1a7c9d0e5f31" },
+  "AltitudeMin": 0,
+  "AltitudeMax": 0.65,
+  "MoistureMin": 0,
+  "MoistureMax": 0.45,
+  "Name": "DesertBiome",
+  "AssetID": "00000000-0000-0000-0000-000000000000"
+}

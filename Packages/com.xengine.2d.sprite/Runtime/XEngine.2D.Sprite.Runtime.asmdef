@@ -1,0 +1,15 @@
+{
+  "name": "XEngine.2D.Sprite.Runtime",
+  "references": [
+    "XEngine.Runtime",
+    "XEngine.2D.Common.Runtime"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "autoReferenced": true,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "defineConstraints": [],
+  "noEngineReferences": false
+}

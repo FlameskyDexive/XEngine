@@ -1,0 +1,23 @@
+{
+  "name": "com.xengine.voxelworld",
+  "version": "0.1.18",
+  "displayName": "Voxel World",
+  "description": "Official optional voxel world runtime for XEngine: 16-cubed chunks, greedy meshing, biome terrain, and first-person build tools. Ships with the Editor but is not mounted until installed. Preview builds may include temporary third-party art listed in THIRD_PARTY_ASSETS.md; package code is MIT.",
+  "installByDefault": false,
+  "xengine": "0.1.0",
+  "type": "package",
+  "category": "Official",
+  "documentationUrl": "Documentation~/index.md",
+  "changelogUrl": "CHANGELOG.md",
+  "licensesUrl": "LICENSE.md",
+  "supportedPlatforms": ["Windows", "Linux", "MacOS", "Android", "HarmonyOS"],
+  "license": "MIT",
+  "keywords": ["xengine", "voxel", "voxelworld", "chunk", "terrain"],
+  "samples": [
+    {
+      "displayName": "Empty World",
+      "description": "Placeholder sample folder. Playable Flat/Earth scenes land in later nodes.",
+      "path": "Samples~/Empty"
+    }
+  ]
+}

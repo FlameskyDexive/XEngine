@@ -1,0 +1,28 @@
+{
+  "name": "com.xengine.vfx",
+  "version": "0.1.0",
+  "displayName": "Visual Effect Graph",
+  "description": "Node-based GPU visual effects. Official optional package: listed in Package Manager, not mounted until installed.",
+  "installByDefault": false,
+  "xengine": "0.1.0",
+  "type": "package",
+  "category": "Official",
+  "documentationUrl": "Documentation~/index.md",
+  "changelogUrl": "CHANGELOG.md",
+  "licensesUrl": "LICENSE.md",
+  "supportedPlatforms": ["Windows", "Linux", "MacOS", "Android", "HarmonyOS"],
+  "license": "MIT",
+  "keywords": ["xengine", "vfx", "visualeffect", "graph", "particles", "compute"],
+  "samples": [
+    {
+      "displayName": "Simple Loop",
+      "description": "Continuous GPU particle loop (ConstantSpawnRate + gravity). Assign the .vfx to a VisualEffect component.",
+      "path": "Samples~/SimpleLoop"
+    },
+    {
+      "displayName": "Simple Burst",
+      "description": "One-shot burst on Play (BurstCount). Assign the .vfx to a VisualEffect component.",
+      "path": "Samples~/SimpleBurst"
+    }
+  ]
+}

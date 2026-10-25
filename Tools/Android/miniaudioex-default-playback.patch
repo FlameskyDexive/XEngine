@@ -1,0 +1,18 @@
+diff --git a/src/miniaudioex.c b/src/miniaudioex.c
+--- a/src/miniaudioex.c
++++ b/src/miniaudioex.c
+@@ -300,0 +301,6 @@ MA_API ma_ex_context *ma_ex_context_init(const ma_ex_context_config *config) {
++    ma_device_id *pSelectedDevice = NULL;
++
++    // Device enumeration can probe capture devices on Android. The default
++    // playback path does not need enumeration; miniaudio selects it for us.
++    if(config->deviceInfo.index >= 0) {
++
+@@ -320,2 +325,0 @@ MA_API ma_ex_context *ma_ex_context_init(const ma_ex_context_config *config) {
+-    ma_device_id *pSelectedDevice = NULL;
+-
+@@ -323,2 +327,2 @@ MA_API ma_ex_context *ma_ex_context_init(const ma_ex_context_config *config) {
+-    if(config->deviceInfo.index >= 0)
+-        pSelectedDevice = &pPlaybackInfos[config->deviceInfo.index].id;
++    pSelectedDevice = &pPlaybackInfos[config->deviceInfo.index].id;
++    }

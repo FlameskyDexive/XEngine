@@ -1,0 +1,8 @@
+using XEngine.Runtime;
+
+[CreateAssetMenu("{[className]}", Extension = ".asset")]
+public class {[className]} : ScriptableObject
+{
+    public float ExampleFloat = 1f;
+    public string ExampleText = "";
+}

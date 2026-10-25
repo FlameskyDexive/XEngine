@@ -1,0 +1,12 @@
+{
+  "name": "XEngine.SpineGenerator.Editor",
+  "references": ["XEngine.Runtime", "XEngine.XGUI.Runtime", "XEngine.Spine.Runtime", "XEngine.Editor"],
+  "includePlatforms": ["Editor"],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "autoReferenced": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "defineConstraints": [],
+  "noEngineReferences": false
+}

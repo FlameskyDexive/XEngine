@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>$(XEngineTargetFrameworks)</TargetFrameworks>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <!-- Package metadata -->
+    <PackageId>XEngine.Rosetta</PackageId>
+    <Title>XEngine.Rosetta</Title>
+    <Description>A lightweight, backend-agnostic localization library for .NET. Static API, named interpolation, CLDR pluralization, gender variants, and pluggable providers.</Description>
+    <PackageTags>localization;i18n;l10n;translation;gamedev;game-engine;xengine;dotnet;csharp;pluralization;cldr</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Rosetta.Tests" />
+  </ItemGroup>
+
+</Project>

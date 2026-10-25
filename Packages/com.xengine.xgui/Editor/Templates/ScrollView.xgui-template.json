@@ -1,0 +1,25 @@
+{
+  "root": {
+    "id": "scrollView",
+    "name": "Scroll View",
+    "rect": { "size": [240, 180] },
+    "components": [ { "type": "Image", "properties": { "Color": [0.14, 0.14, 0.17, 1] } }, { "type": "ScrollRect" } ],
+    "children": [
+      { "id": "viewport", "name": "Viewport", "rect": { "stretch": true, "size": [-12, -12], "position": [-6, 6] }, "components": [ { "type": "RectMask2D" } ], "children": [
+        { "id": "content", "name": "Content", "rect": { "anchorMin": [0, 1], "anchorMax": [0, 1], "pivot": [0, 1], "size": [400, 400] } }
+      ] },
+      { "id": "vertical", "name": "Scrollbar Vertical", "rect": { "anchorMin": [1, 0], "anchorMax": [1, 1], "pivot": [1, 0.5], "size": [12, -12], "position": [0, 6] }, "components": [ { "type": "Image", "properties": { "Color": [0.10, 0.10, 0.13, 1] } }, { "type": "Scrollbar", "properties": { "Direction": "TopToBottom", "Size": 0.3 } } ], "children": [ { "id": "verticalHandle", "name": "Handle", "rect": { "stretch": true }, "components": [ { "type": "Image", "properties": { "Color": [0.42, 0.42, 0.48, 1], "RaycastTarget": false } } ] } ] },
+      { "id": "horizontal", "name": "Scrollbar Horizontal", "rect": { "anchorMin": [0, 0], "anchorMax": [1, 0], "pivot": [0.5, 0], "size": [-12, 12], "position": [-6, 0] }, "components": [ { "type": "Image", "properties": { "Color": [0.10, 0.10, 0.13, 1] } }, { "type": "Scrollbar", "properties": { "Direction": "LeftToRight", "Size": 0.3 } } ], "children": [ { "id": "horizontalHandle", "name": "Handle", "rect": { "stretch": true }, "components": [ { "type": "Image", "properties": { "Color": [0.42, 0.42, 0.48, 1], "RaycastTarget": false } } ] } ] }
+    ]
+  },
+  "bindings": [
+    { "node": "scrollView", "component": "ScrollRect", "property": "Viewport", "targetNode": "viewport", "targetComponent": "RectTransform" },
+    { "node": "scrollView", "component": "ScrollRect", "property": "Content", "targetNode": "content", "targetComponent": "RectTransform" },
+    { "node": "scrollView", "component": "ScrollRect", "property": "VerticalScrollbar", "targetNode": "vertical", "targetComponent": "Scrollbar" },
+    { "node": "scrollView", "component": "ScrollRect", "property": "HorizontalScrollbar", "targetNode": "horizontal", "targetComponent": "Scrollbar" },
+    { "node": "vertical", "component": "Scrollbar", "property": "TargetGraphicComponent", "targetNode": "vertical", "targetComponent": "Image" },
+    { "node": "vertical", "component": "Scrollbar", "property": "HandleRect", "targetNode": "verticalHandle", "targetComponent": "RectTransform" },
+    { "node": "horizontal", "component": "Scrollbar", "property": "TargetGraphicComponent", "targetNode": "horizontal", "targetComponent": "Image" },
+    { "node": "horizontal", "component": "Scrollbar", "property": "HandleRect", "targetNode": "horizontalHandle", "targetComponent": "RectTransform" }
+  ]
+}

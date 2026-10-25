@@ -1,0 +1,24 @@
+{
+  "root": {
+    "id": "input",
+    "name": "Input Field",
+    "rect": { "size": [220, 36] },
+    "components": [ { "type": "Image", "properties": { "Color": [0.12, 0.12, 0.15, 1] } }, { "type": "InputField" } ],
+    "children": [
+      { "id": "area", "name": "Text Area", "rect": { "stretch": true, "size": [-16, -8] }, "components": [ { "type": "RectMask2D" } ], "children": [
+        { "id": "placeholder", "name": "Placeholder", "rect": { "stretch": true }, "components": [ { "type": "Text", "properties": { "TextValue": "Enter text...", "Alignment": "CenterLeft", "TextColor": [0.5, 0.5, 0.55, 1] } } ] },
+        { "id": "text", "name": "Text", "rect": { "stretch": true }, "components": [ { "type": "Text", "properties": { "Alignment": "CenterLeft", "TextColor": [0.90, 0.90, 0.92, 1] } } ] },
+        { "id": "selection", "name": "Selection", "rect": { "anchorMin": [0, 0], "anchorMax": [0, 1], "pivot": [0, 0.5], "size": [0, -4] }, "components": [ { "type": "Image", "properties": { "RaycastTarget": false } } ] },
+        { "id": "caret", "name": "Caret", "rect": { "anchorMin": [0, 0], "anchorMax": [0, 1], "pivot": [0, 0.5], "size": [1.5, -4] }, "components": [ { "type": "Image", "properties": { "RaycastTarget": false } } ] }
+      ] }
+    ]
+  },
+  "bindings": [
+    { "node": "input", "component": "InputField", "property": "TargetGraphicComponent", "targetNode": "input", "targetComponent": "Image" },
+    { "node": "input", "component": "InputField", "property": "TextArea", "targetNode": "area", "targetComponent": "RectTransform" },
+    { "node": "input", "component": "InputField", "property": "Placeholder", "targetNode": "placeholder", "targetComponent": "Text" },
+    { "node": "input", "component": "InputField", "property": "TextComponent", "targetNode": "text", "targetComponent": "Text" },
+    { "node": "input", "component": "InputField", "property": "Selection", "targetNode": "selection", "targetComponent": "RectTransform" },
+    { "node": "input", "component": "InputField", "property": "Caret", "targetNode": "caret", "targetComponent": "RectTransform" }
+  ]
+}

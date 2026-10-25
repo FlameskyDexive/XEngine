@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>$(XEngineTargetFrameworksCompat)</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <RootNamespace>XEngine.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+    <PackageId>XEngine.$(AssemblyName)</PackageId>
+    <Title>XEngine.Quill</Title>
+    <Description>A Hardware-Accelerated Anti-Aliased Vector Graphics Library made with .NET</Description>
+    <PackageTags>vector-graphics;vector;graphics;canvas;2d;2d-graphics;game-development;graphics-library;anti-aliased;hardware-accelerated;xengine;rendering;bezier;path;gpu;fast</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Scribe\Scribe\Scribe.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="XEngine.Runtime" />
+    <InternalsVisibleTo Include="XEngine.Runtime.Test" />
+  </ItemGroup>
+
+  <!--
+    Upstream v3.3.0: regenerates every backend's shader from Shaders/Canvas.slang. The target is
+    self-disabling in XEngine — we do not vendor Quill's ShaderGen/ generator project, so the
+    Exists() guard fails and the step no-ops. Kept so a future vendoring of ShaderGen lights it up.
+  -->
+  <PropertyGroup>
+    <QuillShaderGenDir>$(MSBuildThisFileDirectory)..\ShaderGen</QuillShaderGenDir>
+    <QuillShaderSource>$(MSBuildThisFileDirectory)Shaders\Canvas.slang</QuillShaderSource>
+    <QuillGeneratedShader>$(MSBuildThisFileDirectory)Shaders\.shadergen.stamp</QuillGeneratedShader>
+    <QuillSkipShaderGen Condition="'$(QuillSkipShaderGen)' == ''">false</QuillSkipShaderGen>
+  </PropertyGroup>
+
+  <Target Name="QuillGenerateShaders"
+          AfterTargets="Build"
+          Condition="'$(QuillSkipShaderGen)' != 'true' AND '$(TargetFramework)' == 'net10.0' AND Exists('$(QuillShaderGenDir)\Quill.ShaderGen.csproj')"
+          Inputs="$(QuillShaderSource)"
+          Outputs="$(QuillGeneratedShader)">
+    <Message Importance="high" Text="Quill: regenerating backend shaders from Canvas.slang" />
+    <Exec Command="dotnet run --project &quot;$(QuillShaderGenDir)\Quill.ShaderGen.csproj&quot; -c Release --no-launch-profile"
+          ContinueOnError="true"
+          StandardOutputImportance="high">
+      <Output TaskParameter="ExitCode" PropertyName="QuillShaderGenExit" />
+    </Exec>
+    <Warning Condition="'$(QuillShaderGenExit)' != '0'"
+             Text="Quill shader generation failed (exit $(QuillShaderGenExit)); the checked-in generated shaders were left unchanged." />
+  </Target>
+
+</Project>

@@ -1,0 +1,27 @@
+{
+  "name": "com.xengine.feature.2d",
+  "version": "0.1.0",
+  "displayName": "2D Feature",
+  "description": "Meta-package that installs every first-party XEngine 2D subpackage. Official optional package: listed in Package Manager, not mounted until installed.",
+  "keywords": ["xengine"],
+  "installByDefault": false,
+  "xengine": "0.1.0",
+  "type": "feature",
+  "category": "2D",
+  "documentationUrl": "Documentation~/index.md",
+  "changelogUrl": "CHANGELOG.md",
+  "licensesUrl": "LICENSE.md",
+  "license": "MIT",
+  "dependencies": {
+    "com.xengine.2d.common": "0.1.0",
+    "com.xengine.2d.sprite": "0.1.0",
+    "com.xengine.2d.pixel-perfect": "0.1.0",
+    "com.xengine.2d.tilemap": "0.1.0",
+    "com.xengine.2d.tilemap.extras": "0.1.0",
+    "com.xengine.2d.animation": "0.1.0",
+    "com.xengine.2d.spriteshape": "0.1.0",
+    "com.xengine.2d.aseprite": "0.1.0",
+    "com.xengine.2d.psdimporter": "0.1.0",
+    "com.xengine.2d.tooling": "0.1.0"
+  }
+}

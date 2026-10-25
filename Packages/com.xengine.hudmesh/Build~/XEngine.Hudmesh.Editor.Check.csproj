@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Compile-check for the Hudmesh Editor assembly: nothing under XEngine.sln builds package
+       sources, so this project (not in the solution) provides the exact reference set the
+       Editor asmdef declares. Run: dotnet build Packages/com.xengine.hudmesh/Build~/XEngine.Hudmesh.Editor.Check.csproj -->
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <!-- Matches the real Editor asmdef name so XEngine.Runtime's InternalsVisibleTo applies. -->
+    <AssemblyName>XEngine.Hudmesh.Editor</AssemblyName>
+    <RootNamespace>XEngine.Hudmesh.Editor</RootNamespace>
+    <NoWarn>8600;8601;8618;8602;8603;8604;8625;1591</NoWarn>
+    <BaseOutputPath>$(RepoRoot)Build\HudmeshEditorCheck\</BaseOutputPath>
+    <BaseIntermediateOutputPath>$(RepoRoot)Build\HudmeshEditorCheck\obj\</BaseIntermediateOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="$(RepoRoot)XEngine.Runtime\XEngine.Runtime.csproj" />
+    <ProjectReference Include="$(RepoRoot)XEngine.Editor\XEngine.Editor.csproj" />
+    <PackageReference Include="Magick.NET-Q8-AnyCPU" Version="14.13.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Runtime\**\*.cs" Link="Runtime\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\Editor\**\*.cs" Link="Editor\%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+
+</Project>

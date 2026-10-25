@@ -1,0 +1,88 @@
+<Project>
+  <PropertyGroup>
+    <RepoRoot>$(MSBuildThisFileDirectory)</RepoRoot>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <Deterministic>true</Deterministic>
+
+    <!-- Android-target Runtime payload builds must not overwrite the desktop project.assets.json
+         consumed by the Editor/test build. The caller may place this cache under the project Temp. -->
+    <AndroidIntermediateRoot Condition="('$(IsAndroidTarget)' == 'true' OR $(RuntimeIdentifier.StartsWith('android-'))) AND '$(AndroidIntermediateRoot)' == ''">$(RepoRoot)Build\AndroidIntermediate\</AndroidIntermediateRoot>
+    <BaseIntermediateOutputPath Condition="'$(IsAndroidTarget)' == 'true' OR $(RuntimeIdentifier.StartsWith('android-'))">$(AndroidIntermediateRoot)$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+    <MSBuildProjectExtensionsPath Condition="'$(IsAndroidTarget)' == 'true' OR $(RuntimeIdentifier.StartsWith('android-'))">$(BaseIntermediateOutputPath)</MSBuildProjectExtensionsPath>
+    <DefaultItemExcludes Condition="'$(IsAndroidTarget)' == 'true' OR $(RuntimeIdentifier.StartsWith('android-'))">$(DefaultItemExcludes);$(MSBuildProjectDirectory)\obj\**</DefaultItemExcludes>
+
+    <!-- iOS-target Runtime payload builds must not overwrite the desktop project.assets.json or
+         collide with simulator/device builds. The player pipeline supplies a build-local root. -->
+    <IosIntermediateRoot Condition="$(RuntimeIdentifier.StartsWith('ios')) AND '$(IosIntermediateRoot)' == ''">$(RepoRoot)Build\IosIntermediate\</IosIntermediateRoot>
+    <BaseIntermediateOutputPath Condition="$(RuntimeIdentifier.StartsWith('ios'))">$(IosIntermediateRoot)$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+    <MSBuildProjectExtensionsPath Condition="$(RuntimeIdentifier.StartsWith('ios'))">$(BaseIntermediateOutputPath)</MSBuildProjectExtensionsPath>
+    <DefaultItemExcludes Condition="$(RuntimeIdentifier.StartsWith('ios'))">$(DefaultItemExcludes);$(MSBuildProjectDirectory)\obj\**</DefaultItemExcludes>
+
+    <!-- OpenHarmony NativeAOT currently uses Linux-compatible RIDs, so its explicit target flag
+         owns the intermediate-output isolation instead of RuntimeIdentifier inference. -->
+    <IsHarmonyOSTarget Condition="'$(IsHarmonyOSTarget)' == '' AND '$(OpenHarmonyTarget)' == 'true'">true</IsHarmonyOSTarget>
+    <IsHarmonyOSTarget Condition="'$(IsHarmonyOSTarget)' == ''">false</IsHarmonyOSTarget>
+    <HarmonyOSIntermediateRoot Condition="'$(IsHarmonyOSTarget)' == 'true' AND '$(HarmonyOSIntermediateRoot)' == ''">$(RepoRoot)Build\HarmonyOSIntermediate\</HarmonyOSIntermediateRoot>
+    <BaseIntermediateOutputPath Condition="'$(IsHarmonyOSTarget)' == 'true'">$(HarmonyOSIntermediateRoot)$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+    <MSBuildProjectExtensionsPath Condition="'$(IsHarmonyOSTarget)' == 'true'">$(BaseIntermediateOutputPath)</MSBuildProjectExtensionsPath>
+    <DefaultItemExcludes Condition="'$(IsHarmonyOSTarget)' == 'true'">$(DefaultItemExcludes);$(MSBuildProjectDirectory)\obj\**</DefaultItemExcludes>
+
+    <IsBrowserTarget Condition="'$(IsBrowserTarget)' == '' AND '$(RuntimeIdentifier)' == 'browser-wasm'">true</IsBrowserTarget>
+    <IsBrowserTarget Condition="'$(IsBrowserTarget)' == ''">false</IsBrowserTarget>
+    <BrowserIntermediateRoot Condition="'$(IsBrowserTarget)' == 'true' AND '$(BrowserIntermediateRoot)' == ''">$(RepoRoot)Build\BrowserIntermediate\</BrowserIntermediateRoot>
+    <BaseIntermediateOutputPath Condition="'$(IsBrowserTarget)' == 'true'">$(BrowserIntermediateRoot)$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+    <MSBuildProjectExtensionsPath Condition="'$(IsBrowserTarget)' == 'true'">$(BaseIntermediateOutputPath)</MSBuildProjectExtensionsPath>
+    <DefaultItemExcludes Condition="'$(IsBrowserTarget)' == 'true'">$(DefaultItemExcludes);$(MSBuildProjectDirectory)\obj\**</DefaultItemExcludes>
+
+    <!-- Default: enable XEngine performance analyzers for engine code. -->
+    <XEngineEnableAnalyzers Condition="'$(XEngineEnableAnalyzers)' == ''">true</XEngineEnableAnalyzers>
+
+    <!-- Analyzer / test / tool projects must not analyze themselves. -->
+    <XEngineEnableAnalyzers Condition="$(MSBuildProjectDirectory.Contains('Tools\XEngine.Analyzers')) OR $(MSBuildProjectDirectory.Contains('Tools/XEngine.Analyzers'))">false</XEngineEnableAnalyzers>
+    <XEngineEnableAnalyzers Condition="$(MSBuildProjectName.EndsWith('.Test')) OR $(MSBuildProjectName.EndsWith('.Tests'))">false</XEngineEnableAnalyzers>
+    <XEngineEnableAnalyzers Condition="$(MSBuildProjectDirectory.Contains('Samples\')) OR $(MSBuildProjectDirectory.Contains('Samples/'))">false</XEngineEnableAnalyzers>
+    <XEngineEnableAnalyzers Condition="$(MSBuildProjectDirectory.Contains('BRDFGen'))">false</XEngineEnableAnalyzers>
+    <!-- Vendored third-party code under ThirdParty/ is not subject to the engine's
+         hot-path performance analyzers (PR0001-PR0007); it is upstream-authored and
+         measured by its own maintainers, not by the engine's per-frame budgets. -->
+    <XEngineEnableAnalyzers Condition="$(MSBuildProjectDirectory.Contains('ThirdParty\')) OR $(MSBuildProjectDirectory.Contains('ThirdParty/'))">false</XEngineEnableAnalyzers>
+
+    <!--
+      Stage 1: do NOT TreatWarningsAsErrors globally.
+      PR0001 (LINQ) uses the benchmark-backed operator/source allowlist and stays Warning.
+      PR0002-7 (HotPath) are Error when [HotPath] is used.
+      Do not promote PR0001 solution-wide without validating the targeted directories
+      (see docs/superpowers/specs/2026-07-23-high-performance-engine-roadmap-design.md).
+    -->
+
+    <!--
+      CoreCLR host tuning for executables (Editor / Samples).
+      Flows into generated runtimeconfig.json.
+    -->
+    <TieredCompilation>true</TieredCompilation>
+    <TieredPGO>true</TieredPGO>
+    <ServerGarbageCollection>true</ServerGarbageCollection>
+    <ConcurrentGarbageCollection>true</ConcurrentGarbageCollection>
+    <RetainVMGarbageCollection>true</RetainVMGarbageCollection>
+  </PropertyGroup>
+
+  <!--
+    XEngine.Analyzers (PR0001-PR0011).
+    Adapted from XEngine.Analyzers. Reference as Analyzer only (no runtime assembly).
+  -->
+  <ItemGroup Condition="'$(XEngineEnableAnalyzers)' == 'true' AND '$(MSBuildProjectExtension)' == '.csproj'">
+    <ProjectReference Include="$(RepoRoot)Tools\XEngine.Analyzers\XEngine.Analyzers.csproj"
+                      OutputItemType="Analyzer"
+                      ReferenceOutputAssembly="false"
+                      PrivateAssets="all" />
+  </ItemGroup>
+
+  <!--
+    prowl-sync M7.1: PR0008/PR0009 downgraded to suggestion until the ~300 legacy EngineObject
+    null-conditional/null-coalescing sites are cleaned up (see
+    docs/superpowers/specs/2026-08-31-prowl-preview4-sync-plan.md §PR0008/0009 campaign).
+    PR0010/PR0011 (MonoBehaviour constructor) remain at their authored severity.
+    Remove these lines when the cleanup campaign completes.
+  -->
+</Project>

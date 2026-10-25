@@ -1,0 +1,13 @@
+{
+  "root": {
+    "id": "scrollbar",
+    "name": "Scrollbar",
+    "rect": { "size": [200, 16] },
+    "components": [ { "type": "Image", "properties": { "Color": [0.10, 0.10, 0.13, 1] } }, { "type": "Scrollbar", "properties": { "Size": 0.3 } } ],
+    "children": [ { "id": "handle", "name": "Handle", "rect": { "stretch": true }, "components": [ { "type": "Image", "properties": { "Color": [0.42, 0.42, 0.48, 1], "RaycastTarget": false } } ] } ]
+  },
+  "bindings": [
+    { "node": "scrollbar", "component": "Scrollbar", "property": "TargetGraphicComponent", "targetNode": "scrollbar", "targetComponent": "Image" },
+    { "node": "scrollbar", "component": "Scrollbar", "property": "HandleRect", "targetNode": "handle", "targetComponent": "RectTransform" }
+  ]
+}

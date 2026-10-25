@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    XEngine.Data.Provenance — Layer 0 (process-aware data layer).
+    Wires the dormant EchoObject.CreateDelta/ApplyDelta field-level diff primitive into the engine
+    as the single operation-recording primitive, and attaches provenance (author/intent/timestamp/
+    source) to every recorded change. This is what makes assets carry "how did this project get
+    here" instead of only final state — the foundation the AI tool layer (Layer 1/2) builds on.
+    See docs/superpowers/specs/2026-07-29-ai-friendly-engine-roadmap.md §4 (A0/A1).
+
+    Deliberately does NOT modify ThirdParty/Echo (vendored, upstream-tested). It wraps EchoObject
+    deltas with an engine-side provenance header and provides the ChangeJournal that A2 persists.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Description>XEngine process-aware data layer: delta + provenance + journal.</Description>
+
+    <!-- Editor-supporting infra, not per-frame engine hot path: exempt from PR0001-PR0007. -->
+    <XEngineEnableAnalyzers>false</XEngineEnableAnalyzers>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Echo is standalone (BCL + its source generator), so referencing it directly keeps this
+         layer lightweight and free of the Runtime desktop dependency closure. The Editor consumes
+         this library and already pulls Echo transitively. -->
+    <ProjectReference Include="..\..\ThirdParty\Echo\Echo\Echo.csproj" />
+  </ItemGroup>
+
+</Project>

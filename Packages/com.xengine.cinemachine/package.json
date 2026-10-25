@@ -1,0 +1,13 @@
+{
+  "name": "com.xengine.cinemachine",
+  "version": "0.1.0",
+  "displayName": "Cinemachine",
+  "description": "Cinemachine 2.x API subset for XEngine: Brain (priority selection + eased blends), VirtualCamera with Transposer/Composer pipeline, FreeLook 3-rig orbit camera, Collider obstacle pull-in. zonezero M6.",
+  "keywords": ["xengine"],
+  "installByDefault": false,
+  "xengine": "0.1.0",
+  "type": "package",
+  "category": "Official",
+  "supportedPlatforms": [ "Windows", "Linux", "macOS", "Android", "iOS", "Web", "HarmonyOS" ],
+  "dependencies": {}
+}

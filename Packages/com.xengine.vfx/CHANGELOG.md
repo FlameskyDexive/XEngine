@@ -1,0 +1,79 @@
+# Changelog
+
+## [0.1.0] - 2026-08-15
+
+- Official optional package: listed in Package Manager, copied to `Library/PackageCache` on Install.
+- GPU particle `VisualEffect` (Init / Update / WriteArgs compute + `DrawIndexedIndirect` output). Vulkan first; OpenGL / WebGL2 gate off compute.
+- Echo `.vfx` graphs, Empty/Loop/Burst/Trail templates, `VfxGraphCompiler` / `VfxGraphSourceCompiler`.
+- Editor `VfxGraphWindow` (Origami canvas, blackboard exposed properties, GPU `PreviewRenderer` viewport with CPU fallback) and Inspectors.
+- Runtime `VisualEffect.SetFloat` / `SetVector3` / `SetTexture` overrides for blackboard names.
+- Output pass samples `_MainTex` (t2, after particle SRVs) so instance textures tint billboards.
+- Flipbook UVs from particle age/lifetime via blackboard `FlipbookColumns` / `FlipbookRows` (1×1 default).
+- Update compute collides with a blackboard plane: `CollisionMode` 0 off / 1 kill / 2 bounce, `CollisionPlane` (nx,ny,nz,d), `CollisionBounce` restitution.
+- `OutputParticleMesh` draws a cube (or `SetMesh` override) per particle; WriteArgs uses the mesh index count.
+- Nested `.vfx` includes: `Subgraph` operator/block with `Path` inlines the child's blocks; parent blackboard names win.
+- Lit Output: `LitMode` 0 unlit / 1 Lambert / 2 Blinn-Phong. Blackboard `LightDirection` / `LightColor` / `AmbientColor` / `Shininess`; scene directional light fills those when present.
+- Update compute collides with an analytic SDF: `SdfCollisionMode` 0 off / 1 kill / 2 bounce, `SdfShape` 1 sphere / 2 box, `SdfCenter` / `SdfSize`.
+- Update compute turbulence: curl-of-value-noise from `TurbulenceIntensity` / `TurbulenceFrequency`.
+- Soft particles: Output fades alpha against `_CameraDepthTexture` (t3) from blackboard `SoftParticleFade` (0 = off).
+- Texture3D SDF collision: `SdfShape` 3 samples blackboard `SdfVolume` (`_SdfVolume` t0 on Update). `VfxSimParams` stays 144 bytes.
+- GPU events: Update `TriggerEvent` OnDie / OnCollide / Always / OnPlay from blackboard `EventKind` / `EventCount`. OnDie ring-spawns children; OnDie / OnCollide increment `_Counters[0]`. Always / OnPlay enqueue on the CPU. `VfxSimParams` stays 160 bytes.
+- GPU event target: Update `GPUEventTarget` names another `VisualEffect`. `SendEvent` / `ForwardGpuEvents` enqueue spawn on that target. `VfxSimParams` stays 160 bytes.
+- Output strips: `OutputParticleStrip` connects neighboring live particles into a camera-facing ribbon (`_OutputMode` 2). Trail uses this output. `VfxSimParams` stays 144 bytes.
+- Depth collision: Update `CollideWithDepth` Kill/Bounce against `_VfxCameraDepth`. `DepthCollisionMode` packs into `SdfCenter.w`.
+- Conform to SDF: Update `ConformToSDF` pulls particles onto the SDF isosurface from blackboard `ConformAttraction`. `VfxSimParams` is 160 bytes.
+- Vector field: Update `VectorField` samples blackboard `VectorField` (Texture3D) over the SDF box and adds `sample * VectorFieldIntensity * dt` to velocity. Intensity `<= 0` is a no-op. `VfxSimParams` stays 160 bytes.
+- Cylinder / cone collision: `SdfShape` 4 is a Y-capped cylinder, 5 is a Y-capped cone. Kill/Bounce reuse `SdfCollisionMode`. `VfxSimParams` stays 160 bytes.
+- Spawn over distance: Spawn `SpawnOverDistance` emits `rate` particles per unit the emitter travels. Rate `<= 0` is a no-op. `VfxSimParams` stays 160 bytes.
+- Periodic burst: Spawn `PeriodicBurst` emits `Count` particles every `Period` seconds. Count or period `<= 0` is a no-op. CPU-side; first burst fires after one period. `VfxSimParams` stays 160 bytes.
+- Attribute map: Init `AttributeMap` samples a Texture2D at `slot % (w*h)` for position / color / size (`AttributeMapMode` 0 off / 1 position / 2 color / 3 size / 4 position+color). Mode `<= 0` is a no-op. `VfxSimParams` stays 160 bytes.
+- Output distortion: Output `Distort` refracts `_VfxSceneColor` (t4) by `(localUV * 2 - 1) * DistortionIntensity`. Intensity `<= 0` is a no-op. `VfxSimParams` stays 160 bytes.
+- Particle lights: Output `ParticleLight` contributes point lights from Init `HashDir` ballistics (`ParticleLightIntensity` / `Range` / `Count`, max 16). Intensity or count `<= 0` is a no-op. `VfxSimParams` stays 160 bytes.
+- Particle decals: `OutputParticleDecal` (`_OutputMode` 3) projects quads onto `CollisionPlane` with a 1 cm normal bias. `VfxSimParams` stays 160 bytes.
+- Particle sort: Output `Sort` bitonic-sorts live indices back-to-front by camera distance (`SortMode` 0 off / 1 on). Strips skip sort. `VfxSimParams` stays 160 bytes.
+- Camera fade: Output `CameraFade` multiplies alpha by near fade-in and far fade-out (`CameraFadeNear` / `CameraFadeFar`, 0 = off). Output cbuffer stays 112 bytes. `VfxSimParams` stays 160 bytes.
+- Flipbook blend: Output `FlipbookBlend` mixes the current atlas cell with the next (`FlipbookBlend` 0 = off). Output cbuffer is 128 bytes. `VfxSimParams` stays 160 bytes.
+- Flipbook motion vectors: Output `FlipbookMotion` warps those UVs from `_FlipbookMotion` (t5, RG 0.5 = rest) before the blend. Scale `<= 0` is a no-op. Compiler-inserted; output cbuffer stays 128 bytes. `VfxSimParams` stays 160 bytes.
+- Color / size over life: Update `ColorOverLife` and `SizeOverLife` mix by age (`from + (to - from) * t`, no `lerp`). Size is multiplicative. On Loop/Burst/Mesh/Decal/Trail. `VfxSimParams` stays 160 bytes.
+- Motion vectors: Output `MotionVector` reconstructs previous world as `position - velocity * dt` and encodes the NDC delta (`MotionVectorMode` 0 = off). Output cbuffer stays 128 bytes. `VfxSimParams` stays 160 bytes.
+- Orient along velocity: Output `OrientAlongVelocity` aligns quad/mesh local Y with velocity (`OrientMode` 0 = camera-facing). Output cbuffer stays 128 bytes. `VfxSimParams` stays 160 bytes.
+- Position shape: Init `PositionShape` offsets spawn inside a sphere / box / cone / circle (`Mode` 0 = emitter point). Compiler-inserted. `VfxSimParams` stays 160 bytes.
+- Inherit velocity: Init `InheritVelocity` adds emitter motion × `Amount` at spawn. Amount `<= 0` is a no-op. Compiler-inserted; Init dispatch reuses `p.gravity` for that velocity then restores it. `VfxSimParams` stays 160 bytes.
+- Trigger event rate: Update `TriggerEventRate` queues `Rate` events per second on the CPU GPU-event path (honors `GPUEventTarget`). Rate `<= 0` is a no-op. `VfxSimParams` stays 160 bytes.
+- Trigger event over distance: Update `TriggerEventOverDistance` queues `Rate` events per unit the emitter travels. Rate `<= 0` is a no-op. Samples the same last pose as spawn-over-distance. `VfxSimParams` stays 160 bytes.
+- Size over speed: Update `SizeOverSpeed` multiplies size by `1 + length(velocity) * Amount`. Amount `<= 0` is a no-op. Compiler-inserted. `VfxSimParams` stays 160 bytes.
+- Color over speed: Update `ColorOverSpeed` mixes color from `From` to `To` by `saturate(length(velocity) / Scale)`. Scale `<= 0` is a no-op. Compiler-inserted. `VfxSimParams` stays 160 bytes.
+- Screen-space size: Output `ScreenSpaceSize` scales size by `cameraDistance / Amount` so authored size holds at that reference distance. Amount `<= 0` is a no-op. Compiler-inserted; output cbuffer stays 128 bytes. `VfxSimParams` stays 160 bytes.
+- Trigger event once: Update `TriggerEventOnce` queues `Count` events on the first Simulate (honors `GPUEventTarget`). Count `<= 0` is a no-op. `Stop()` re-arms. `VfxSimParams` stays 160 bytes.
+- Collision friction: Update `CollisionFriction` scales bounce tangent by `saturate(1 - Amount)`. Amount `<= 0` is a no-op. Compiler-inserted after plane / SDF / depth contact. `VfxSimParams` stays 160 bytes.
+- Collision elasticity: Update `CollisionElasticity` scales bounce normal by `saturate(1 - Amount)`. Amount `<= 0` is a no-op. Compiler-inserted after plane / SDF / depth contact. `VfxSimParams` stays 160 bytes.
+- Collision lifetime loss: Update `CollisionLifetimeLoss` scales remaining life by `saturate(1 - Amount)`. Amount `<= 0` is a no-op. Compiler-inserted after plane / SDF / depth contact. `VfxSimParams` stays 160 bytes.
+- Limit velocity: Update `LimitVelocity` clamps speed to `Speed`. Speed `<= 0` is a no-op. Compiler-inserted. `VfxSimParams` stays 160 bytes.
+- Kill sphere: Update `KillSphere` sets `alive = 0` inside a sphere (`X`/`Y`/`Z`/`Radius`). Radius `<= 0` is a no-op. Compiler-inserted. `VfxSimParams` stays 160 bytes.
+- Kill AABox: Update `KillAABox` sets `alive = 0` inside an axis-aligned box (`X`/`Y`/`Z`/`Sx`/`Sy`/`Sz`). Any half-extent `<= 0` is a no-op. Compiler-inserted. `VfxSimParams` stays 160 bytes.
+- Attract: Update `Attract` adds velocity toward `float3(X,Y,Z)` by `Strength * dt`. Strength `<= 0` is a no-op. Compiler-inserted. `VfxSimParams` stays 160 bytes.
+- Orient Look At: Output `OrientLookAt` aims quad/mesh local Y at `float3(X,Y,Z)` when Mode `>= 1.5`. Mode `<= 0` is a no-op. Compiler-inserted. Output cbuffer stays 128 bytes.
+- Flipbook Rate: Output `FlipbookRate` advances atlas cells by `age * Rate` (wrapped) when Rate `> 0`. Rate `<= 0` keeps lifetime mapping. Compiler-inserted. Output cbuffer stays 128 bytes.
+- Flipbook Start: Output `FlipbookStart` offsets the atlas cell by `Frame`, then wraps. Frame `== 0` is a no-op. Compiler-inserted. Output cbuffer stays 128 bytes.
+- Conform to Sphere: Update `ConformToSphere` adds velocity toward a sphere surface. Strength `<= 0` is a no-op. Compiler-inserted. `VfxSimParams` stays 160 bytes.
+- Vortex: Update `Vortex` adds tangential rotation and optional pull toward an axis. Zero axis, or both Rotation and Attraction `== 0`, is a no-op. Compiler-inserted. `VfxSimParams` stays 160 bytes.
+- Conform to Cylinder: Update `ConformToCylinder` adds velocity toward a cylinder surface around an axis. Strength `<= 0` or a zero axis is a no-op. Compiler-inserted. `VfxSimParams` stays 160 bytes.
+- Multiply Size: Update `MultiplySize` scales particle size by `Amount`. Amount `== 1` is a no-op. Compiler-inserted. `VfxSimParams` stays 160 bytes.
+- Multiply Color: Update `MultiplyColor` scales particle RGBA by a constant color. Identity `(1,1,1,1)` is a no-op. Compiler-inserted. `VfxSimParams` stays 160 bytes.
+- Add Size: Update `AddSize` adds `Amount` to particle size. Amount `== 0` is a no-op. Compiler-inserted. `VfxSimParams` stays 160 bytes.
+- Add Color: Update `AddColor` adds a constant RGBA to particle color. Identity `(0,0,0,0)` is a no-op. Compiler-inserted. `VfxSimParams` stays 160 bytes.
+- Add Velocity: Update `AddVelocity` adds a constant XYZ to particle velocity (not scaled by dt). Zero vector is a no-op. Compiler-inserted. `VfxSimParams` stays 160 bytes.
+- Multiply Velocity: Update `MultiplyVelocity` scales particle velocity by `Amount`. Amount `== 1` is a no-op. Compiler-inserted. `VfxSimParams` stays 160 bytes.
+- Overwrite Size: Update `OverwriteSize` overwrites particle size with `Amount` (Init already owns `SetSize`). Amount `== 0` is a no-op (use MultiplySize 0 for a true zero). Compiler-inserted. `VfxSimParams` stays 160 bytes.
+- Overwrite Color: Update `OverwriteColor` overwrites particle RGBA (Init already owns `SetColor`). Identity `(0,0,0,0)` is a no-op (use MultiplyColor 0 for a true zero). Compiler-inserted. `VfxSimParams` stays 160 bytes.
+- Overwrite Velocity: Update `OverwriteVelocity` overwrites particle velocity (Init already owns `SetVelocity`). Zero vector is a no-op (use MultiplyVelocity 0 for a true zero). Compiler-inserted. `VfxSimParams` stays 160 bytes.
+- Overwrite Lifetime: Update `OverwriteLifetime` overwrites particle lifetime (Init already owns `SetLifetime`). Amount `== 0` is a no-op. Compiler-inserted. `VfxSimParams` stays 160 bytes.
+- Add Lifetime: Update `AddLifetime` adds `Amount` to particle lifetime. Amount `== 0` is a no-op. Compiler-inserted. `VfxSimParams` stays 160 bytes.
+- Multiply Lifetime: Update `MultiplyLifetime` scales particle lifetime by `Amount`. Amount `== 1` is a no-op. Compiler-inserted. `VfxSimParams` stays 160 bytes.
+- Add Age: Update `AddAge` adds `Amount` to particle age. Amount `== 0` is a no-op. Compiler-inserted. `VfxSimParams` stays 160 bytes.
+- Multiply Age: Update `MultiplyAge` scales particle age by `Amount`. Amount `== 1` is a no-op. Compiler-inserted. `VfxSimParams` stays 160 bytes.
+- Set Age: Update `SetAge` overwrites particle age with `Amount`. Amount `== 0` is a no-op (use MultiplyAge 0 for a true zero). Compiler-inserted. `VfxSimParams` stays 160 bytes.
+- Add Position: Update `AddPosition` adds `X`/`Y`/`Z` to particle position (not scaled by dt). Zero vector is a no-op. Compiler-inserted. `VfxSimParams` stays 160 bytes.
+- Set Position: Update `SetPosition` overwrites particle position with `X`/`Y`/`Z`. Distinct from Init `PositionShape`. Zero vector is a no-op. Compiler-inserted. `VfxSimParams` stays 160 bytes.
+- Kill Plane: Update `KillPlane` sets `alive = 0` on the back side of `Nx`/`Ny`/`Nz`/`Distance`. Zero normal is a no-op. Compiler-inserted. `VfxSimParams` stays 160 bytes.
+- AI CLI: `vfxgraph_inspect` / `vfxgraph_patch` / `vfxgraph_compile` / `vfxgraph_nodes` / `vfxgraph_create`, plus live `runtime_vfx_state` / `runtime_vfx_preview`.

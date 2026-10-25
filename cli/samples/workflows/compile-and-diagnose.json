@@ -1,0 +1,29 @@
+{
+  "name": "compile-and-diagnose",
+  "description": "Build the project, then surface any new code diagnostics. Example of a declarative tool DAG (B4 foundation; workflow_run execution lands with the operation store).",
+  "inputs": {
+    "type": "object",
+    "properties": {
+      "editorExe": { "type": "string", "description": "Absolute path to XEngine.Editor.exe" },
+      "outputDir": { "type": "string", "description": "Build output directory" }
+    },
+    "required": ["editorExe", "outputDir"],
+    "additionalProperties": false
+  },
+  "steps": [
+    {
+      "name": "build",
+      "tool": "build_project",
+      "arguments": { "editorExe": "${inputs.editorExe}", "outputDir": "${inputs.outputDir}" },
+      "dependsOn": [],
+      "failurePolicy": "Stop"
+    },
+    {
+      "name": "diagnose",
+      "tool": "code_symbols",
+      "arguments": { "query": "${inputs.symbol || 'Scene'}", "limit": 50 },
+      "dependsOn": ["build"],
+      "failurePolicy": "Continue"
+    }
+  ]
+}

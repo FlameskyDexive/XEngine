@@ -1,0 +1,81 @@
+Doi.png
+	size: 1024, 512
+	filter: Linear, Linear
+armL
+	bounds: 502, 208, 163, 133
+armR
+	bounds: 852, 232, 133, 109
+arrow
+	bounds: 853, 25, 64, 85
+body
+	bounds: 2, 2, 274, 339
+bootR
+	bounds: 598, 72, 91, 84
+browL
+	bounds: 278, 13, 40, 22
+browR
+	bounds: 723, 24, 32, 25
+eyelids closed
+	bounds: 667, 249, 183, 92
+eyelids open
+	bounds: 667, 158, 176, 89
+hairL
+	bounds: 583, 10, 54, 60
+hairL2
+	bounds: 467, 27, 71, 76
+hairM
+	bounds: 278, 37, 96, 77
+hairM blob
+	bounds: 598, 161, 30, 45
+hairM blobS
+	bounds: 958, 13, 16, 20
+hairR
+	bounds: 540, 20, 41, 83
+hairR2
+	bounds: 502, 105, 94, 101
+hairSide
+	bounds: 765, 132, 48, 24
+head
+	bounds: 278, 116, 222, 225
+indexL
+	bounds: 919, 74, 24, 36
+indexR
+	bounds: 630, 178, 34, 28
+inmouth
+	bounds: 639, 15, 46, 55
+irisL
+	bounds: 987, 245, 34, 47
+irisL flatspec
+	bounds: 987, 233, 19, 10
+irisL spec
+	bounds: 346, 14, 18, 21
+irisR
+	bounds: 987, 294, 34, 47
+irisR flatspec
+	bounds: 765, 119, 22, 11
+irisR spec
+	bounds: 630, 159, 16, 17
+middleL
+	bounds: 815, 120, 26, 36
+middleR
+	bounds: 687, 23, 34, 26
+mouth
+	bounds: 376, 31, 89, 83
+nose
+	bounds: 1008, 233, 11, 10
+pinkyL
+	bounds: 320, 8, 24, 27
+pony1
+	bounds: 691, 51, 72, 105
+pony2
+	bounds: 765, 27, 86, 83
+ringL
+	bounds: 996, 30, 26, 30
+rotate
+	bounds: 845, 112, 105, 118
+strap
+	bounds: 952, 62, 62, 168
+thumbL
+	bounds: 919, 32, 37, 28
+thumbR
+	bounds: 958, 35, 36, 25

@@ -1,0 +1,44 @@
+{
+  "$id": 1,
+  "$type": "XEngine.Runtime.Resources.Material, XEngine.Runtime",
+  "_shader": {
+    "AssetID": "da3dbb76-b090-33f4-f8a8-a278da4de153"
+  },
+  "_properties": {
+    "$id": 2,
+    "_colors": {},
+    "_vectors2": {},
+    "_vectors3": {},
+    "_vectors4": {},
+    "_floats": {
+      "_CullMode": 2F,
+      "_Depthpower": 1F,
+      "_Distortionpower": 100F,
+      "_Emission": 2F,
+      "_InvFade": 2F
+    },
+    "_ints": {},
+    "_matrices": {},
+    "_matrixArr": {},
+    "_textures": {
+      "_NormalMap": {
+        "AssetID": "575e0d57-fd7b-c7e0-36ae-2564633b86bb"
+      }
+    },
+    "_textures3D": {},
+    "_texturesCube": {},
+    "_buffers": {},
+    "_bufferBindings": {}
+  },
+  "_overrides": [
+    "_CullMode",
+    "_Depthpower",
+    "_Distortionpower",
+    "_Emission",
+    "_InvFade",
+    "_NormalMap"
+  ],
+  "AssetPath": "",
+  "AssetID": "00000000-0000-0000-0000-000000000000",
+  "Name": "Distortion"
+}

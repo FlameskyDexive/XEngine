@@ -1,0 +1,89 @@
+{
+  "$id": 1,
+  "$type": "XEngine.Runtime.Resources.Scene, XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+  "serializeObj": {
+    "$id": 2,
+    "$type": "XEngine.Runtime.GameObject[], XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+    "array": [
+      {
+        "$id": 3,
+        "$type": "XEngine.Runtime.GameObject, XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "Name": "Main Camera",
+        "AssetPath": "",
+        "Identifier": "c3d4e5f6-a7b8-4901-c234-56789abcde03",
+        "Static": 0B,
+        "Enabled": 1B,
+        "EnabledInHierarchy": 1B,
+        "TagIndex": 1,
+        "LayerIndex": 0,
+        "HideFlags": 0,
+        "Transform": {
+          "$id": 4,
+          "$type": "XEngine.Vector.Transform, XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "_localPosition": { "X": 0F, "Y": 2.4F, "Z": -10F },
+          "_localScale": { "X": 1F, "Y": 1F, "Z": 1F },
+          "_localRotation": { "X": 0F, "Y": 0F, "Z": 0F, "W": 1F }
+        },
+        "Components": [
+          {
+            "$id": 5,
+            "$type": "XEngine.Runtime.Camera, XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+            "Effects": { "$id": 6, "$values": [] },
+            "ClearFlags": 3L,
+            "ClearColor": { "R": 0.16F, "G": 0.18F, "B": 0.22F, "A": 1F },
+            "CullingMask": { "mask": 4294967295U },
+            "ProjectionMode": 1L,
+            "FieldOfView": 60F,
+            "OrthographicSize": 6F,
+            "NearClipPlane": 0.1F,
+            "FarClipPlane": 100F,
+            "Viewrect": { "Min": { "X": 0F, "Y": 0F }, "Max": { "X": 1F, "Y": 1F } },
+            "Depth": -1,
+            "TargetDisplay": 0,
+            "RenderType": 0L,
+            "CameraStack": { "$id": 7, "$values": [] },
+            "VolumeMask": { "$id": 8, "mask": 4294967295U }
+          }
+        ]
+      },
+      {
+        "$id": 9,
+        "$type": "XEngine.Runtime.GameObject, XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "Name": "mix-and-match",
+        "AssetPath": "",
+        "Identifier": "d4e5f6a7-b8c9-4012-d345-6789abcdef04",
+        "Static": 0B,
+        "Enabled": 1B,
+        "EnabledInHierarchy": 1B,
+        "TagIndex": 0,
+        "LayerIndex": 0,
+        "HideFlags": 0,
+        "Transform": {
+          "$id": 10,
+          "$type": "XEngine.Vector.Transform, XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "_localPosition": { "X": 0F, "Y": 0F, "Z": 0F },
+          "_localScale": { "X": 1F, "Y": 1F, "Z": 1F },
+          "_localRotation": { "X": 0F, "Y": 0F, "Z": 0F, "W": 1F }
+        },
+        "Components": [
+          {
+            "$id": 11,
+            "$type": "XEngine.Spine.SkeletonAnimation, XEngine.Spine.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+            "AnimationName": "idle",
+            "Loop": 1B,
+            "TimeScale": 1F,
+            "UnscaledTime": 0B,
+            "InitialSkinName": "skin-base",
+            "Color": { "R": 1F, "G": 1F, "B": 1F, "A": 1F },
+            "SortingLayer": 0,
+            "SortingOrder": 0
+          },
+          {
+            "$id": 12,
+            "$type": "XEngine.Spine.Samples.OtherExamples.MixAndMatchSkinsExample, XEngine.Spine.Samples, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"
+          }
+        ]
+      }
+    ]
+  }
+}

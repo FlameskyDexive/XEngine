@@ -1,0 +1,70 @@
+{
+  "$id": 1,
+  "$type": "XEngine.Runtime.Resources.Material, XEngine.Runtime",
+  "_shader": {
+    "AssetID": "e74b8fbd-074d-0de5-2cdd-b50c0752b0a4"
+  },
+  "_properties": {
+    "$id": 2,
+    "_colors": {
+      "_Color": {
+        "R": 1F,
+        "G": 1F,
+        "B": 1F,
+        "A": 1F
+      },
+      "_DistortionSpeedXYPowerZ": {
+        "R": 0F,
+        "G": 0F,
+        "B": 0F,
+        "A": 0F
+      },
+      "_SpeedMainTexUVNoiseZW": {
+        "R": 0F,
+        "G": 0F,
+        "B": 0F,
+        "A": 0F
+      }
+    },
+    "_vectors2": {},
+    "_vectors3": {},
+    "_vectors4": {},
+    "_floats": {
+      "_Blend2": 1F,
+      "_CullMode": 0F,
+      "_Depthpower": 0.4F,
+      "_Emission": 2F,
+      "_Opacity": 1F,
+      "_Usecenterglow": 0F,
+      "_Usedepth": 1F
+    },
+    "_ints": {},
+    "_matrices": {},
+    "_matrixArr": {},
+    "_textures": {
+      "_MainTex": {
+        "AssetID": "568783a7-2f72-ea9e-84e3-4c467846d1ac"
+      }
+    },
+    "_textures3D": {},
+    "_texturesCube": {},
+    "_buffers": {},
+    "_bufferBindings": {}
+  },
+  "_overrides": [
+    "_Color",
+    "_DistortionSpeedXYPowerZ",
+    "_SpeedMainTexUVNoiseZW",
+    "_Blend2",
+    "_CullMode",
+    "_Depthpower",
+    "_Emission",
+    "_Opacity",
+    "_Usecenterglow",
+    "_Usedepth",
+    "_MainTex"
+  ],
+  "AssetPath": "",
+  "AssetID": "00000000-0000-0000-0000-000000000000",
+  "Name": "Flare30bcg"
+}

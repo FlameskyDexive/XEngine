@@ -1,0 +1,23 @@
+{
+  "name": "com.xengine.nodeplay",
+  "version": "0.1.0",
+  "displayName": "NodePlay",
+  "description": "Visual behaviour graphs for XEngine: reactive behaviour trees, hierarchical state machines, and multi-actor dialogue trees on one shared node-graph core. Official optional package: listed in Package Manager, not mounted until installed.",
+  "installByDefault": false,
+  "xengine": "0.1.0",
+  "type": "package",
+  "category": "Official",
+  "documentationUrl": "Documentation~/index.md",
+  "changelogUrl": "CHANGELOG.md",
+  "licensesUrl": "LICENSE.md",
+  "supportedPlatforms": ["Windows", "Linux", "MacOS", "Android", "HarmonyOS"],
+  "license": "MIT",
+  "keywords": ["xengine", "nodeplay", "behaviourtree", "fsm", "dialogue", "ai", "visualscripting"],
+  "samples": [
+    {
+      "displayName": "Graphs (BT / FSM / Dialogue)",
+      "description": "Three ready graphs: reactive soldier chase BT, door FSM, John & Dae dialogue. Copy into Assets/NodePlay and open.",
+      "path": "Samples~/Graphs"
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:loc="clr-namespace:XHub.Resources;assembly=XHub"
+        xmlns:vm="clr-namespace:XHub.ViewModels"
+        x:Class="XHub.Views.Dialogs.NewProjectWindow"
+        x:DataType="vm:NewProjectViewModel"
+        Title="{ReflectionBinding [wizard.title], Source={x:Static loc:Loc.Instance}}"
+        SizeToContent="Height" Width="560"
+        WindowStartupLocation="CenterOwner" CanResize="False" ShowInTaskbar="False"
+        Background="{DynamicResource HubBackgroundBrush}"
+        Foreground="{DynamicResource HubTextPrimaryBrush}">
+
+  <StackPanel Margin="20" Spacing="12">
+    <!-- Template (preselected) -->
+    <TextBlock Classes="sectionHeader"
+               Text="{ReflectionBinding [wizard.template.label], Source={x:Static loc:Loc.Instance}}" />
+    <Border Classes="hubCard">
+      <StackPanel Spacing="4">
+        <TextBlock FontWeight="Medium"
+                   Text="{ReflectionBinding [template.universal3d.name], Source={x:Static loc:Loc.Instance}}" />
+        <TextBlock Classes="settingHint" TextWrapping="Wrap"
+                   Text="{ReflectionBinding [template.universal3d.description], Source={x:Static loc:Loc.Instance}}" />
+      </StackPanel>
+    </Border>
+
+    <!-- Engine version -->
+    <TextBlock Classes="sectionHeader"
+               Text="{ReflectionBinding [wizard.engine.label], Source={x:Static loc:Loc.Instance}}" />
+    <ComboBox SelectedIndex="{Binding SelectedInstallationIndex}" ItemsSource="{Binding Installations}"
+              HorizontalAlignment="Stretch" MinHeight="34" />
+
+    <!-- Name -->
+    <TextBlock Classes="sectionHeader"
+               Text="{ReflectionBinding [wizard.name.label], Source={x:Static loc:Loc.Instance}}" />
+    <TextBox Text="{Binding ProjectName}" Watermark="{ReflectionBinding [wizard.name.watermark], Source={x:Static loc:Loc.Instance}}" />
+
+    <!-- Parent folder -->
+    <TextBlock Classes="sectionHeader"
+               Text="{ReflectionBinding [wizard.parent.label], Source={x:Static loc:Loc.Instance}}" />
+    <Grid ColumnDefinitions="*,Auto">
+      <TextBox Text="{Binding ParentFolder}" />
+      <Button Grid.Column="1" Margin="8,0,0,0"
+              Command="{Binding BrowseParentCommand}"
+              Content="{ReflectionBinding [common.browse], Source={x:Static loc:Loc.Instance}}" />
+    </Grid>
+
+    <!-- Error surface -->
+    <TextBlock Text="{Binding ErrorText}" IsVisible="{Binding ErrorText.Length}"
+               Foreground="#FF8A80" TextWrapping="Wrap" FontSize="12" />
+
+    <!-- Actions -->
+    <Grid ColumnDefinitions="*,Auto,Auto" Margin="0,6,0,0">
+      <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="10">
+        <Button IsCancel="True" MinWidth="90"
+                Command="{Binding CancelCommand}"
+                Content="{ReflectionBinding [common.cancel], Source={x:Static loc:Loc.Instance}}" />
+        <Button Classes="accent" IsDefault="True" MinWidth="110"
+                IsEnabled="{Binding !IsCreating}"
+                Command="{Binding CreateCommand}"
+                Content="{ReflectionBinding [wizard.create], Source={x:Static loc:Loc.Instance}}" />
+      </StackPanel>
+    </Grid>
+  </StackPanel>
+</Window>

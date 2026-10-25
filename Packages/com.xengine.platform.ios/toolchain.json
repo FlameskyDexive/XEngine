@@ -1,0 +1,15 @@
+{
+  "manifestVersion": 1,
+  "platform": "ios",
+  "notes": "Apple software licensing forbids redistribution of Xcode; this module carries locators only. The locator chain is xcode-select -p, then DEVELOPER_DIR, then xcodebuild on PATH; Command-Line-Tools-only hosts are reported as degraded with install guidance.",
+  "components": [],
+  "locators": [
+    {
+      "id": "xcode",
+      "tool": "xcode-select",
+      "minVersion": "16.0",
+      "verifyExecutable": "xcodebuild",
+      "description": "Xcode (App Store). Signing, dotnet publish -r ios-arm64 and xcrun devicectl require macOS + Xcode."
+    }
+  ]
+}

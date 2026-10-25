@@ -1,0 +1,74 @@
+{
+  "name": "text-to-character",
+  "description": "Prompt → generated motion GLB (same-skeleton Idle/Walk clips) → GameObject + AnimatorController + bound Animator. Mock kind=motion yields AnimatedGlb (Idle+Walk). Meshy: generate+rig then animate (BYOC — no engine retarget). character_wire is the generate→controller glue; author-locomotion.json is the clip-GUID-only variant.",
+  "inputs": {
+    "type": "object",
+    "properties": {
+      "provider": { "type": "string", "description": "Generation provider: mock | meshy" },
+      "prompt": { "type": "string", "description": "Character / motion prompt" },
+      "scenePath": { "type": "string", "description": "Project-relative .scene to wire the character into" },
+      "objectName": { "type": "string", "description": "Name for the new GameObject / controller / asset base name" },
+      "idempotencyKey": { "type": "string", "description": "Stable key prefix for journaled writes" }
+    },
+    "required": ["provider", "prompt", "scenePath", "objectName", "idempotencyKey"],
+    "additionalProperties": false
+  },
+  "steps": [
+    {
+      "name": "submit",
+      "tool": "gen_submit",
+      "arguments": {
+        "provider": "${inputs.provider}",
+        "kind": "motion",
+        "prompt": "${inputs.prompt}"
+      },
+      "dependsOn": [],
+      "failurePolicy": "Stop"
+    },
+    {
+      "name": "status",
+      "tool": "gen_status",
+      "arguments": { "taskId": "${steps.submit.taskId}" },
+      "dependsOn": ["submit"],
+      "failurePolicy": "Stop"
+    },
+    {
+      "name": "fetch",
+      "tool": "gen_fetch",
+      "arguments": {
+        "taskId": "${steps.submit.taskId}",
+        "baseName": "${inputs.objectName}",
+        "idempotencyKey": "${inputs.idempotencyKey}-fetch",
+        "intent": "character-motion: ${inputs.prompt}"
+      },
+      "dependsOn": ["status"],
+      "failurePolicy": "Stop"
+    },
+    {
+      "name": "create-go",
+      "tool": "scene_object_create",
+      "arguments": {
+        "scenePath": "${inputs.scenePath}",
+        "name": "${inputs.objectName}",
+        "idempotencyKey": "${inputs.idempotencyKey}-go",
+        "intent": "character host object"
+      },
+      "dependsOn": ["fetch"],
+      "failurePolicy": "Stop"
+    },
+    {
+      "name": "wire",
+      "tool": "character_wire",
+      "arguments": {
+        "scenePath": "${inputs.scenePath}",
+        "objectIdentifier": "${steps.create-go.createdIdentifier}",
+        "modelAssetPath": "${steps.fetch.assets.0.assetPath}",
+        "controllerPath": "Assets/Animators/${inputs.objectName}.controller",
+        "idempotencyKey": "${inputs.idempotencyKey}-wire",
+        "intent": "character: clips → controller + Animator"
+      },
+      "dependsOn": ["create-go"],
+      "failurePolicy": "Stop"
+    }
+  ]
+}

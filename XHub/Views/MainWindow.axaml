@@ -1,0 +1,122 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:loc="clr-namespace:XHub.Resources;assembly=XHub"
+        xmlns:services="clr-namespace:XHub.Services;assembly=XHub"
+        xmlns:vm="clr-namespace:XHub.ViewModels"
+        xmlns:views="clr-namespace:XHub.Views"
+        x:Class="XHub.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="{ReflectionBinding [app.name], Source={x:Static loc:Loc.Instance}}"
+        Width="1120" Height="720"
+        MinWidth="960" MinHeight="600"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource HubBackgroundBrush}"
+        Foreground="{DynamicResource HubTextPrimaryBrush}">
+
+  <Window.Resources>
+    <!--
+      XEngine-owned vector glyphs (filled mini-language paths; no cutouts, so the default
+      nonzero fill rule renders them identically everywhere).
+    -->
+    <StreamGeometry x:Key="IconCube">M12,2 L21,7 L21,17 L12,22 L3,17 L3,7 Z</StreamGeometry>
+
+    <!--
+      Sidebar navigation item theme: flat rows, accent bar + brighter text when selected.
+      Text/icon recolor lives in HubStyles.axaml — a ControlTheme may not nest descendant
+      selectors, so those rules target the .navItem class applied to every themed item.
+    -->
+    <ControlTheme x:Key="NavListBoxItemTheme" TargetType="ListBoxItem">
+      <Setter Property="Classes.navItem" Value="True" />
+      <Setter Property="Foreground" Value="{DynamicResource HubTextSecondaryBrush}" />
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="Padding" Value="0" />
+      <Setter Property="Margin" Value="8,2" />
+      <Setter Property="MinHeight" Value="40" />
+      <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Border Name="root" Background="{TemplateBinding Background}" CornerRadius="6">
+            <ContentPresenter x:Name="PART_ContentPresenter"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Content="{TemplateBinding Content}"
+                              Margin="{TemplateBinding Padding}"
+                              HorizontalContentAlignment="Stretch"
+                              VerticalContentAlignment="Center" />
+          </Border>
+        </ControlTemplate>
+      </Setter>
+      <Style Selector="^:pointerover /template/ Border#root">
+        <Setter Property="Background" Value="{DynamicResource HubCardHoverBrush}" />
+      </Style>
+      <Style Selector="^:selected /template/ Border#root">
+        <Setter Property="Background" Value="{DynamicResource HubCardColor}" />
+      </Style>
+    </ControlTheme>
+
+    <DataTemplate x:Key="NavListItemTemplate" x:DataType="vm:NavItemViewModel">
+      <Panel Height="40">
+        <Border Width="3" Height="20" CornerRadius="1.5" HorizontalAlignment="Left"
+                Background="{DynamicResource HubAccentBrush}"
+                IsVisible="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" />
+        <StackPanel Orientation="Horizontal" Margin="16,0,0,0" Spacing="12" VerticalAlignment="Center">
+          <PathIcon Width="18" Height="18" Data="{Binding Icon}" />
+          <TextBlock Classes="navLabel" VerticalAlignment="Center" FontSize="13"
+                     Text="{Binding Label}" />
+        </StackPanel>
+      </Panel>
+    </DataTemplate>
+  </Window.Resources>
+
+  <Grid ColumnDefinitions="208,*">
+    <!-- ── Sidebar ─────────────────────────────────────────────── -->
+    <Border Grid.Column="0" Background="{DynamicResource HubSidebarBrush}">
+      <DockPanel>
+        <!-- Brand -->
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="16,16,0,12" Spacing="10">
+          <PathIcon Width="22" Height="22" Foreground="{DynamicResource HubAccentBrush}"
+                    Data="{StaticResource IconCube}" />
+          <TextBlock Text="{ReflectionBinding [app.name], Source={x:Static loc:Loc.Instance}}"
+                     FontSize="18" FontWeight="Bold" VerticalAlignment="Center" />
+        </StackPanel>
+
+        <!-- Bottom group: downloads + settings, then the version stamp -->
+        <StackPanel DockPanel.Dock="Bottom" Margin="0,8,0,10">
+          <ListBox Classes="navList"
+                   ItemTemplate="{StaticResource NavListItemTemplate}"
+                   ItemsSource="{Binding BottomNavItems}"
+                   SelectedIndex="{Binding BottomNavIndex}"
+                   ItemContainerTheme="{StaticResource NavListBoxItemTheme}" />
+          <TextBlock Margin="16,8,0,0" FontSize="11"
+                     Foreground="{DynamicResource HubTextSecondaryBrush}"
+                     Text="{x:Static services:VersionInfo.DisplayVersion}" />
+        </StackPanel>
+
+        <!-- Main nav -->
+        <ListBox Classes="navList" Margin="0,4,0,0"
+                 ItemTemplate="{StaticResource NavListItemTemplate}"
+                 ItemsSource="{Binding MainNavItems}"
+                 SelectedIndex="{Binding MainNavIndex}"
+                 ItemContainerTheme="{StaticResource NavListBoxItemTheme}" />
+      </DockPanel>
+    </Border>
+
+    <!-- ── Page content ────────────────────────────────────────── -->
+    <DockPanel Grid.Column="1">
+      <Border DockPanel.Dock="Bottom" BorderBrush="{DynamicResource HubBorderBrush}"
+              BorderThickness="0,1,0,0" Padding="14,6">
+        <TextBlock FontSize="11" Foreground="{DynamicResource HubTextSecondaryBrush}"
+                   Text="{ReflectionBinding [status.ready], Source={x:Static loc:Loc.Instance}}" />
+      </Border>
+      <ContentControl Content="{Binding CurrentPage}" Margin="24,20,24,12" Focusable="False">
+        <!-- Page VM → view mapping -->
+        <ContentControl.DataTemplates>
+          <DataTemplate DataType="vm:ProjectsViewModel"><views:ProjectsPage /></DataTemplate>
+          <DataTemplate DataType="vm:InstallationsViewModel"><views:InstallationsPage /></DataTemplate>
+          <DataTemplate DataType="vm:TemplatesViewModel"><views:TemplatesPage /></DataTemplate>
+          <DataTemplate DataType="vm:DownloadsViewModel"><views:DownloadsPage /></DataTemplate>
+          <DataTemplate DataType="vm:SettingsViewModel"><views:SettingsPage /></DataTemplate>
+        </ContentControl.DataTemplates>
+      </ContentControl>
+    </DockPanel>
+  </Grid>
+</Window>

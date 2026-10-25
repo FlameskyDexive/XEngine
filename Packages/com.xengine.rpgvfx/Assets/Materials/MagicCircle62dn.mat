@@ -1,0 +1,111 @@
+{
+  "$id": 1,
+  "$type": "XEngine.Runtime.Resources.Material, XEngine.Runtime",
+  "_shader": {
+    "AssetID": "a8f49bf1-c84f-d740-ff6a-3b91496b158a"
+  },
+  "_properties": {
+    "$id": 2,
+    "_colors": {
+      "_Dissolvecolor": {
+        "R": 0.915094F,
+        "G": 0.915094F,
+        "B": 0.915094F,
+        "A": 1F
+      },
+      "_DissolvespeedXY": {
+        "R": 0F,
+        "G": 0F,
+        "B": 0F,
+        "A": 0F
+      },
+      "_Maincolor": {
+        "R": 1F,
+        "G": 1F,
+        "B": 1F,
+        "A": 1F
+      },
+      "_Noisecolor": {
+        "R": 0.150943F,
+        "G": 0.150943F,
+        "B": 0.150943F,
+        "A": 1F
+      },
+      "_NoisespeedXYEmissonZPowerW": {
+        "R": 0.1F,
+        "G": 0.03F,
+        "B": 8F,
+        "A": 1F
+      },
+      "_TintColor": {
+        "R": 0.5F,
+        "G": 0.5F,
+        "B": 0.5F,
+        "A": 0.5F
+      }
+    },
+    "_vectors2": {},
+    "_vectors3": {},
+    "_vectors4": {},
+    "_floats": {
+      "_Dissolve": 1F,
+      "_InvFade": 3F,
+      "_Opacity": 1F,
+      "_ToggleSwitch0": 1F,
+      "_Usedepth": 0F,
+      "_Usetexturecolor": 1F,
+      "_Usetexturedissolve": 0F
+    },
+    "_ints": {},
+    "_matrices": {},
+    "_matrixArr": {},
+    "_textures": {
+      "_Dissolvenoise": {
+        "AssetID": "4d902ba5-54d6-ad0a-bef5-9064ddebf95a"
+      },
+      "_Main": {
+        "AssetID": "5303b748-b820-0181-9805-2b1fe91cf700"
+      },
+      "_MainTex": {
+        "AssetID": "0e8260aa-586f-cc1e-edb5-f4e22c75c09f"
+      },
+      "_Noise": {
+        "AssetID": "4d902ba5-54d6-ad0a-bef5-9064ddebf95a"
+      },
+      "_TextureNoise": {
+        "AssetID": "fefcf051-03a3-2441-104f-2b3579926730"
+      },
+      "_dshf": {
+        "AssetID": "72cef3be-4f7d-1e91-e523-cbe61b210c0f"
+      }
+    },
+    "_textures3D": {},
+    "_texturesCube": {},
+    "_buffers": {},
+    "_bufferBindings": {}
+  },
+  "_overrides": [
+    "_Dissolvecolor",
+    "_DissolvespeedXY",
+    "_Maincolor",
+    "_Noisecolor",
+    "_NoisespeedXYEmissonZPowerW",
+    "_TintColor",
+    "_Dissolve",
+    "_InvFade",
+    "_Opacity",
+    "_ToggleSwitch0",
+    "_Usedepth",
+    "_Usetexturecolor",
+    "_Usetexturedissolve",
+    "_Dissolvenoise",
+    "_Main",
+    "_MainTex",
+    "_Noise",
+    "_TextureNoise",
+    "_dshf"
+  ],
+  "AssetPath": "",
+  "AssetID": "00000000-0000-0000-0000-000000000000",
+  "Name": "MagicCircle62dn"
+}

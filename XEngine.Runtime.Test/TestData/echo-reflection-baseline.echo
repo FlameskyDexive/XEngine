@@ -1,0 +1,561 @@
+{
+  "$id": 1,
+  "$type": "XEngine.Runtime.GameObject, XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+  "Name": "EchoFixtureRoot",
+  "AssetPath": "",
+  "Identifier": "88aa28b3-04ce-4fd6-81b6-3ac86291c73d",
+  "Static": 0B,
+  "Enabled": 1B,
+  "EnabledInHierarchy": 1B,
+  "TagIndex": 0,
+  "LayerIndex": 0,
+  "HideFlags": 0,
+  "Transform": {
+    "$id": 2,
+    "$type": "XEngine.Vector.Transform, XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+    "_localPosition": {
+      "X": 1.5F,
+      "Y": -2.25F,
+      "Z": 3.125F
+    },
+    "_localScale": {
+      "X": 2F,
+      "Y": 2F,
+      "Z": 2F
+    },
+    "_localRotation": {
+      "X": 0F,
+      "Y": 0.38268346F,
+      "Z": 0F,
+      "W": 0.9238795F
+    }
+  },
+  "Components": [
+
+  ],
+  "Children": [
+    {
+      "$id": 3,
+      "Name": "Camera",
+      "AssetPath": "",
+      "Identifier": "0e255369-e36b-45d7-8033-40a55bf22aeb",
+      "Static": 0B,
+      "Enabled": 1B,
+      "EnabledInHierarchy": 1B,
+      "TagIndex": 0,
+      "LayerIndex": 0,
+      "HideFlags": 0,
+      "Transform": {
+        "$id": 4,
+        "$type": "XEngine.Vector.Transform, XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "_localPosition": {
+          "X": 0F,
+          "Y": 0F,
+          "Z": 0F
+        },
+        "_localScale": {
+          "X": 1F,
+          "Y": 1F,
+          "Z": 1F
+        },
+        "_localRotation": {
+          "X": 0F,
+          "Y": 0F,
+          "Z": 0F,
+          "W": 1F
+        }
+      },
+      "Components": [
+        {
+          "$id": 5,
+          "$type": "XEngine.Runtime.Camera, XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "Effects": {
+            "$id": 6,
+            "$values": [
+
+            ]
+          },
+          "ClearFlags": 1L,
+          "ClearColor": {
+            "R": 0.25F,
+            "G": 0.5F,
+            "B": 0.75F,
+            "A": 1F
+          },
+          "CullingMask": {
+            "mask": 4294967295U
+          },
+          "ProjectionMode": 0L,
+          "FieldOfView": 72.5F,
+          "OrthographicSize": 0.5F,
+          "NearClipPlane": 0.25F,
+          "FarClipPlane": 250F,
+          "Viewrect": {
+            "Min": {
+              "X": 0.1F,
+              "Y": 0.2F
+            },
+            "Max": {
+              "X": 0.8F,
+              "Y": 0.7F
+            }
+          },
+          "Depth": 3,
+          "TargetDisplay": 0,
+          "RenderType": 0L,
+          "CameraStack": {
+            "$id": 7,
+            "$values": [
+
+            ]
+          },
+          "Pipeline": NULL,
+          "Target": NULL,
+          "HDR": true,
+          "RenderScale": 1.25F,
+          "_identifier": "5376d3b5-ebb7-4279-96c6-36cf6017b5c0",
+          "_enabled": true,
+          "_enabledInHierarchy": true,
+          "HideFlags": 0L,
+          "AssetPath": "",
+          "AssetID": "00000000-0000-0000-0000-000000000000",
+          "Name": "NewCamera"
+        }
+      ],
+      "Children": [
+
+      ]
+    },
+    {
+      "$id": 8,
+      "Name": "Mesh",
+      "AssetPath": "",
+      "Identifier": "70a084ab-9fa9-4b98-870e-a9633975bb21",
+      "Static": 0B,
+      "Enabled": 1B,
+      "EnabledInHierarchy": 1B,
+      "TagIndex": 0,
+      "LayerIndex": 0,
+      "HideFlags": 0,
+      "Transform": {
+        "$id": 9,
+        "$type": "XEngine.Vector.Transform, XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "_localPosition": {
+          "X": 0F,
+          "Y": 0F,
+          "Z": 0F
+        },
+        "_localScale": {
+          "X": 1F,
+          "Y": 1F,
+          "Z": 1F
+        },
+        "_localRotation": {
+          "X": 0F,
+          "Y": 0F,
+          "Z": 0F,
+          "W": 1F
+        }
+      },
+      "Components": [
+        {
+          "$id": 10,
+          "$type": "XEngine.Runtime.MeshRenderer, XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "Mesh": {
+            "AssetID": "00000000-0000-0000-0000-000000000000"
+          },
+          "Materials": {
+            "$id": 11,
+            "$values": [
+
+            ]
+          },
+          "LightmapIndex": 4,
+          "LightmapScaleOffset": {
+            "X": 0.5F,
+            "Y": 0.5F,
+            "Z": 0.25F,
+            "W": 0.25F
+          },
+          "RenderingLayers": {
+            "mask": 255U
+          },
+          "_identifier": "e381efbd-ea13-4cc2-b955-e3d06f56d44f",
+          "_enabled": true,
+          "_enabledInHierarchy": true,
+          "HideFlags": 0L,
+          "AssetPath": "",
+          "AssetID": "00000000-0000-0000-0000-000000000000",
+          "Name": "NewMeshRenderer"
+        }
+      ],
+      "Children": [
+
+      ]
+    },
+    {
+      "$id": 12,
+      "Name": "Skinned",
+      "AssetPath": "",
+      "Identifier": "2f21796e-baa2-4770-970a-2cc7320c71e6",
+      "Static": 0B,
+      "Enabled": 1B,
+      "EnabledInHierarchy": 1B,
+      "TagIndex": 0,
+      "LayerIndex": 0,
+      "HideFlags": 0,
+      "Transform": {
+        "$id": 13,
+        "$type": "XEngine.Vector.Transform, XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "_localPosition": {
+          "X": 0F,
+          "Y": 0F,
+          "Z": 0F
+        },
+        "_localScale": {
+          "X": 1F,
+          "Y": 1F,
+          "Z": 1F
+        },
+        "_localRotation": {
+          "X": 0F,
+          "Y": 0F,
+          "Z": 0F,
+          "W": 1F
+        }
+      },
+      "Components": [
+        {
+          "$id": 14,
+          "$type": "XEngine.Runtime.SkinnedMeshRenderer, XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "SharedMesh": {
+            "AssetID": "00000000-0000-0000-0000-000000000000"
+          },
+          "Materials": {
+            "$id": 15,
+            "$values": [
+
+            ]
+          },
+          "RootBonePath": NULL,
+          "BonePaths": NULL,
+          "MainColor": {
+            "R": 1F,
+            "G": 1F,
+            "B": 1F,
+            "A": 1F
+          },
+          "LightmapIndex": -1,
+          "LightmapScaleOffset": {
+            "X": 1F,
+            "Y": 1F,
+            "Z": 0F,
+            "W": 0F
+          },
+          "RenderingLayers": {
+            "mask": 255U
+          },
+          "_blendShapeWeights": NULL,
+          "_identifier": "d9e46655-e908-4f04-afd5-94f796b6ece1",
+          "_enabled": true,
+          "_enabledInHierarchy": true,
+          "HideFlags": 0L,
+          "AssetPath": "",
+          "AssetID": "00000000-0000-0000-0000-000000000000",
+          "Name": "NewSkinnedMeshRenderer"
+        }
+      ],
+      "Children": [
+
+      ]
+    },
+    {
+      "$id": 16,
+      "Name": "Sprite",
+      "AssetPath": "",
+      "Identifier": "3e8da140-9aa3-4f73-9908-7f7b54db7663",
+      "Static": 0B,
+      "Enabled": 1B,
+      "EnabledInHierarchy": 1B,
+      "TagIndex": 0,
+      "LayerIndex": 0,
+      "HideFlags": 0,
+      "Transform": {
+        "$id": 17,
+        "$type": "XEngine.Vector.Transform, XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "_localPosition": {
+          "X": 0F,
+          "Y": 0F,
+          "Z": 0F
+        },
+        "_localScale": {
+          "X": 1F,
+          "Y": 1F,
+          "Z": 1F
+        },
+        "_localRotation": {
+          "X": 0F,
+          "Y": 0F,
+          "Z": 0F,
+          "W": 1F
+        }
+      },
+      "Components": [
+        {
+          "$id": 18,
+          "$type": "XEngine.Runtime.SpriteRenderer, XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "Sprite": {
+            "AssetID": "00000000-0000-0000-0000-000000000000"
+          },
+          "Color": {
+            "R": 1F,
+            "G": 0.5F,
+            "B": 0.25F,
+            "A": 0.75F
+          },
+          "DrawMode": 0L,
+          "Size": {
+            "X": 0F,
+            "Y": 0F
+          },
+          "FlipX": false,
+          "FlipY": false,
+          "Material": {
+            "AssetID": "00000000-0000-0000-0000-000000000000"
+          },
+          "SortingLayer": 0,
+          "SortingOrder": 0,
+          "RenderingLayers": {
+            "mask": 255U
+          },
+          "_identifier": "99f703df-527d-487f-99b8-9369aaf961d6",
+          "_enabled": true,
+          "_enabledInHierarchy": true,
+          "HideFlags": 0L,
+          "AssetPath": "",
+          "AssetID": "00000000-0000-0000-0000-000000000000",
+          "Name": "NewSpriteRenderer"
+        }
+      ],
+      "Children": [
+
+      ]
+    },
+    {
+      "$id": 19,
+      "Name": "Sun",
+      "AssetPath": "",
+      "Identifier": "c7a095d7-10cd-4058-a04d-665d4c954b64",
+      "Static": 0B,
+      "Enabled": 1B,
+      "EnabledInHierarchy": 1B,
+      "TagIndex": 0,
+      "LayerIndex": 0,
+      "HideFlags": 0,
+      "Transform": {
+        "$id": 20,
+        "$type": "XEngine.Vector.Transform, XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "_localPosition": {
+          "X": 0F,
+          "Y": 0F,
+          "Z": 0F
+        },
+        "_localScale": {
+          "X": 1F,
+          "Y": 1F,
+          "Z": 1F
+        },
+        "_localRotation": {
+          "X": 0F,
+          "Y": 0F,
+          "Z": 0F,
+          "W": 1F
+        }
+      },
+      "Components": [
+        {
+          "$id": 21,
+          "$type": "XEngine.Runtime.DirectionalLight, XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "ShadowResolution": 2048L,
+          "Cascades": 2L,
+          "ShadowDistance": 55F,
+          "Color": {
+            "R": 1F,
+            "G": 1F,
+            "B": 1F,
+            "A": 1F
+          },
+          "Intensity": 2.5F,
+          "ShadowStrength": 1F,
+          "ShadowBias": 0.001F,
+          "ShadowNormalBias": 0F,
+          "CastShadows": true,
+          "ShadowQuality": 1L,
+          "BakeMode": 0L,
+          "Cookie": {
+            "AssetID": "00000000-0000-0000-0000-000000000000"
+          },
+          "CookieSize": 10F,
+          "CookieIntensity": 1F,
+          "RenderingLayers": {
+            "mask": 255U
+          },
+          "_identifier": "be77dfee-76d9-407c-9646-0c85c9efab37",
+          "_enabled": true,
+          "_enabledInHierarchy": true,
+          "HideFlags": 0L,
+          "AssetPath": "",
+          "AssetID": "00000000-0000-0000-0000-000000000000",
+          "Name": "NewDirectionalLight"
+        }
+      ],
+      "Children": [
+
+      ]
+    },
+    {
+      "$id": 22,
+      "Name": "Bulb",
+      "AssetPath": "",
+      "Identifier": "e15a7ef4-c9d4-4561-957f-a342265d6aa0",
+      "Static": 0B,
+      "Enabled": 1B,
+      "EnabledInHierarchy": 1B,
+      "TagIndex": 0,
+      "LayerIndex": 0,
+      "HideFlags": 0,
+      "Transform": {
+        "$id": 23,
+        "$type": "XEngine.Vector.Transform, XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "_localPosition": {
+          "X": 0F,
+          "Y": 0F,
+          "Z": 0F
+        },
+        "_localScale": {
+          "X": 1F,
+          "Y": 1F,
+          "Z": 1F
+        },
+        "_localRotation": {
+          "X": 0F,
+          "Y": 0F,
+          "Z": 0F,
+          "W": 1F
+        }
+      },
+      "Components": [
+        {
+          "$id": 24,
+          "$type": "XEngine.Runtime.PointLight, XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "ShadowResolution": 256L,
+          "Range": 12.5F,
+          "Color": {
+            "R": 1F,
+            "G": 1F,
+            "B": 1F,
+            "A": 1F
+          },
+          "Intensity": 1.75F,
+          "ShadowStrength": 1F,
+          "ShadowBias": 0.001F,
+          "ShadowNormalBias": 0F,
+          "CastShadows": true,
+          "ShadowQuality": 1L,
+          "BakeMode": 0L,
+          "Cookie": {
+            "AssetID": "00000000-0000-0000-0000-000000000000"
+          },
+          "CookieSize": 10F,
+          "CookieIntensity": 1F,
+          "RenderingLayers": {
+            "mask": 255U
+          },
+          "_identifier": "85755889-66b6-4824-9f9a-04eb2abfbd38",
+          "_enabled": true,
+          "_enabledInHierarchy": true,
+          "HideFlags": 0L,
+          "AssetPath": "",
+          "AssetID": "00000000-0000-0000-0000-000000000000",
+          "Name": "NewPointLight"
+        }
+      ],
+      "Children": [
+
+      ]
+    },
+    {
+      "$id": 25,
+      "Name": "Spot",
+      "AssetPath": "",
+      "Identifier": "48ae1e3d-f01c-46bc-9a2f-524598a21798",
+      "Static": 0B,
+      "Enabled": 1B,
+      "EnabledInHierarchy": 1B,
+      "TagIndex": 0,
+      "LayerIndex": 0,
+      "HideFlags": 0,
+      "Transform": {
+        "$id": 26,
+        "$type": "XEngine.Vector.Transform, XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "_localPosition": {
+          "X": 0F,
+          "Y": 0F,
+          "Z": 0F
+        },
+        "_localScale": {
+          "X": 1F,
+          "Y": 1F,
+          "Z": 1F
+        },
+        "_localRotation": {
+          "X": 0F,
+          "Y": 0F,
+          "Z": 0F,
+          "W": 1F
+        }
+      },
+      "Components": [
+        {
+          "$id": 27,
+          "$type": "XEngine.Runtime.SpotLight, XEngine.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "ShadowResolution": 512L,
+          "Range": 8.25F,
+          "SpotAngle": 33F,
+          "InnerSpotAngle": 21F,
+          "Color": {
+            "R": 1F,
+            "G": 1F,
+            "B": 1F,
+            "A": 1F
+          },
+          "Intensity": 1F,
+          "ShadowStrength": 1F,
+          "ShadowBias": 0.001F,
+          "ShadowNormalBias": 0F,
+          "CastShadows": true,
+          "ShadowQuality": 1L,
+          "BakeMode": 0L,
+          "Cookie": {
+            "AssetID": "00000000-0000-0000-0000-000000000000"
+          },
+          "CookieSize": 10F,
+          "CookieIntensity": 1F,
+          "RenderingLayers": {
+            "mask": 255U
+          },
+          "_identifier": "2ed86102-47ec-4c9f-9425-eeef5488ddf6",
+          "_enabled": true,
+          "_enabledInHierarchy": true,
+          "HideFlags": 0L,
+          "AssetPath": "",
+          "AssetID": "00000000-0000-0000-0000-000000000000",
+          "Name": "NewSpotLight"
+        }
+      ],
+      "Children": [
+
+      ]
+    }
+  ]
+}

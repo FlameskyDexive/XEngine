@@ -1,0 +1,19 @@
+{
+  "name": "com.xengine.2d.animation",
+  "version": "0.1.0",
+  "displayName": "2D Animation",
+  "description": "SpriteSkin, Bone2D, SpriteLibrary, IK, and Sprite object-reference tracks. Official optional package: listed in Package Manager, not mounted until installed.",
+  "keywords": ["xengine"],
+  "installByDefault": false,
+  "xengine": "0.1.0",
+  "type": "package",
+  "category": "2D/Animation",
+  "documentationUrl": "Documentation~/index.md",
+  "changelogUrl": "CHANGELOG.md",
+  "licensesUrl": "LICENSE.md",
+  "license": "MIT",
+  "dependencies": {
+    "com.xengine.2d.common": "0.1.0",
+    "com.xengine.2d.sprite": "0.1.0"
+  }
+}

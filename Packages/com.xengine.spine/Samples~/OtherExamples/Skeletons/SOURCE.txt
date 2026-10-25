@@ -1,0 +1,7 @@
+Official Spine 4.3 example exports (spine-unity Samples~ / examples exports).
+
+Goblins      spine-unity Samples~/Spine Examples/Spine Skeletons/Goblins
+MixAndMatch  spine-unity Samples~/Spine Examples/Spine Skeletons/mix-and-match
+
+Source: D:\Engine\spine-runtimes-4.3 (spine-unity 4.3 samples)
+See ../LICENSE-SPINE-EXAMPLES.txt

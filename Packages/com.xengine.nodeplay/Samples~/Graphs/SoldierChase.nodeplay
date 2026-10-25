@@ -1,0 +1,412 @@
+{
+  "$id": 1,
+  "$type": "XEngine.NodePlay.BT.NPBehaviourTreeAsset, XEngine.Editor.Test",
+  "Repeat": true,
+  "UpdateInterval": 0F,
+  "GraphName": "Demo/Soldier Chase",
+  "Module": "bt",
+  "Nodes": {
+    "$id": 2,
+    "$values": [
+      {
+        "$id": 3,
+        "$type": "XEngine.NodePlay.BT.BTSelector, XEngine.Editor.Test",
+        "Dynamic": true,
+        "Random": false,
+        "Id": "e535269a6ba34d71832a1592766d4b43",
+        "Name": "Root",
+        "Position": {
+          "X": 360F,
+          "Y": 0F
+        },
+        "Comment": "",
+        "Disabled": false,
+        "Breakpoint": false
+      },
+      {
+        "$id": 4,
+        "$type": "XEngine.NodePlay.BT.BTSequencer, XEngine.Editor.Test",
+        "Dynamic": true,
+        "Random": false,
+        "Id": "b1f537cebc7b4b3dbe2dbf6e30f72c17",
+        "Name": "Chase",
+        "Position": {
+          "X": 100F,
+          "Y": 150F
+        },
+        "Comment": "",
+        "Disabled": false,
+        "Breakpoint": false
+      },
+      {
+        "$id": 5,
+        "$type": "XEngine.NodePlay.BT.BTConditionNode, XEngine.Editor.Test",
+        "Condition": {
+          "$id": 6,
+          "$type": "XEngine.NodePlay.Tasks.NPCompareCondition, XEngine.Editor.Test",
+          "Value": {
+            "$id": 7,
+            "VariableName": "mode",
+            "InlineValue": {
+              "$t": "s",
+              "$v": ""
+            }
+          },
+          "Operator": "==",
+          "Threshold": {
+            "$id": 8,
+            "VariableName": "",
+            "InlineValue": {
+              "$t": "s",
+              "$v": "chase"
+            }
+          },
+          "Invert": false,
+          "Label": ""
+        },
+        "Id": "fbf56f99183d47b4b8e6655cd75099be",
+        "Name": "mode==chase",
+        "Position": {
+          "X": 20F,
+          "Y": 300F
+        },
+        "Comment": "",
+        "Disabled": false,
+        "Breakpoint": false
+      },
+      {
+        "$id": 9,
+        "$type": "XEngine.NodePlay.BT.BTActionNode, XEngine.Editor.Test",
+        "Action": {
+          "$id": 10,
+          "$type": "XEngine.NodePlay.Tasks.NPLogAction, XEngine.Editor.Test",
+          "Message": "Chasing crate",
+          "AppendVariable": false,
+          "Payload": {
+            "$id": 11,
+            "VariableName": "",
+            "InlineValue": {
+              "$t": "s",
+              "$v": ""
+            }
+          },
+          "Label": ""
+        },
+        "Id": "1f3a0a00db6e4d9db5206055f15a2850",
+        "Name": "Log Chase",
+        "Position": {
+          "X": 105F,
+          "Y": 450F
+        },
+        "Comment": "",
+        "Disabled": false,
+        "Breakpoint": false
+      },
+      {
+        "$id": 12,
+        "$type": "XEngine.NodePlay.BT.BTActionNode, XEngine.Editor.Test",
+        "Action": {
+          "$id": 13,
+          "$type": "XEngine.NodePlay.Tasks.NPMoveTowardsAction, XEngine.Editor.Test",
+          "TargetPosition": {
+            "$id": 14,
+            "VariableName": "targetPos",
+            "InlineValue": {
+              "$t": "s",
+              "$v": ""
+            }
+          },
+          "Speed": {
+            "$id": 15,
+            "VariableName": "speed",
+            "InlineValue": {
+              "$t": "s",
+              "$v": ""
+            }
+          },
+          "ArriveRadius": 0.35F,
+          "Label": ""
+        },
+        "Id": "c1e512add0334fecb52921436a17e9c3",
+        "Name": "Move To Target",
+        "Position": {
+          "X": 200F,
+          "Y": 600F
+        },
+        "Comment": "",
+        "Disabled": false,
+        "Breakpoint": false
+      },
+      {
+        "$id": 16,
+        "$type": "XEngine.NodePlay.BT.BTIterator, XEngine.Editor.Test",
+        "List": {
+          "$id": 17,
+          "VariableName": "waypoints",
+          "InlineValue": {
+            "$t": "s",
+            "$v": ""
+          }
+        },
+        "ItemName": "targetPos",
+        "Loop": true,
+        "Id": "11e99d5603414bd38be3a010d5bfb241",
+        "Name": "Patrol",
+        "Position": {
+          "X": 640F,
+          "Y": 150F
+        },
+        "Comment": "",
+        "Disabled": false,
+        "Breakpoint": false
+      },
+      {
+        "$id": 18,
+        "$type": "XEngine.NodePlay.BT.BTActionNode, XEngine.Editor.Test",
+        "Action": {
+          "$id": 19,
+          "$type": "XEngine.NodePlay.Tasks.NPMoveTowardsAction, XEngine.Editor.Test",
+          "TargetPosition": {
+            "$id": 20,
+            "VariableName": "targetPos",
+            "InlineValue": {
+              "$t": "s",
+              "$v": ""
+            }
+          },
+          "Speed": {
+            "$id": 21,
+            "VariableName": "speed",
+            "InlineValue": {
+              "$t": "s",
+              "$v": ""
+            }
+          },
+          "ArriveRadius": 0.35F,
+          "Label": ""
+        },
+        "Id": "b9a5add3d0024243b4779daba5bc58c0",
+        "Name": "Walk",
+        "Position": {
+          "X": 640F,
+          "Y": 320F
+        },
+        "Comment": "",
+        "Disabled": false,
+        "Breakpoint": false
+      }
+    ]
+  },
+  "Connections": {
+    "$id": 22,
+    "$values": [
+      {
+        "$id": 23,
+        "Id": "aa5d04a8ec7a45e0a822da941ec14104",
+        "FromNodeId": "e535269a6ba34d71832a1592766d4b43",
+        "ToNodeId": "b1f537cebc7b4b3dbe2dbf6e30f72c17",
+        "Disabled": false,
+        "Points": {
+          "$id": 24,
+          "$values": [
+
+          ]
+        },
+        "Source": {
+          "$id": 3,
+          "$type": "XEngine.NodePlay.BT.BTSelector, XEngine.Editor.Test"
+        },
+        "Target": {
+          "$id": 4,
+          "$type": "XEngine.NodePlay.BT.BTSequencer, XEngine.Editor.Test"
+        },
+        "Status": 0L
+      },
+      {
+        "$id": 25,
+        "Id": "81a083be44e14b8abf182a0ec44c45f6",
+        "FromNodeId": "b1f537cebc7b4b3dbe2dbf6e30f72c17",
+        "ToNodeId": "fbf56f99183d47b4b8e6655cd75099be",
+        "Disabled": false,
+        "Points": {
+          "$id": 26,
+          "$values": [
+
+          ]
+        },
+        "Source": {
+          "$id": 4,
+          "$type": "XEngine.NodePlay.BT.BTSequencer, XEngine.Editor.Test"
+        },
+        "Target": {
+          "$id": 5,
+          "$type": "XEngine.NodePlay.BT.BTConditionNode, XEngine.Editor.Test"
+        },
+        "Status": 0L
+      },
+      {
+        "$id": 27,
+        "Id": "6c836e851c4f467c89b2a74a02417643",
+        "FromNodeId": "b1f537cebc7b4b3dbe2dbf6e30f72c17",
+        "ToNodeId": "1f3a0a00db6e4d9db5206055f15a2850",
+        "Disabled": false,
+        "Points": {
+          "$id": 28,
+          "$values": [
+
+          ]
+        },
+        "Source": {
+          "$id": 4,
+          "$type": "XEngine.NodePlay.BT.BTSequencer, XEngine.Editor.Test"
+        },
+        "Target": {
+          "$id": 9,
+          "$type": "XEngine.NodePlay.BT.BTActionNode, XEngine.Editor.Test"
+        },
+        "Status": 0L
+      },
+      {
+        "$id": 29,
+        "Id": "ef9c15c0b5b5439b8099b59857f87b18",
+        "FromNodeId": "b1f537cebc7b4b3dbe2dbf6e30f72c17",
+        "ToNodeId": "c1e512add0334fecb52921436a17e9c3",
+        "Disabled": false,
+        "Points": {
+          "$id": 30,
+          "$values": [
+
+          ]
+        },
+        "Source": {
+          "$id": 4,
+          "$type": "XEngine.NodePlay.BT.BTSequencer, XEngine.Editor.Test"
+        },
+        "Target": {
+          "$id": 12,
+          "$type": "XEngine.NodePlay.BT.BTActionNode, XEngine.Editor.Test"
+        },
+        "Status": 0L
+      },
+      {
+        "$id": 31,
+        "Id": "bae97caa9e2b4dfd81015f39dcd18196",
+        "FromNodeId": "e535269a6ba34d71832a1592766d4b43",
+        "ToNodeId": "11e99d5603414bd38be3a010d5bfb241",
+        "Disabled": false,
+        "Points": {
+          "$id": 32,
+          "$values": [
+
+          ]
+        },
+        "Source": {
+          "$id": 3,
+          "$type": "XEngine.NodePlay.BT.BTSelector, XEngine.Editor.Test"
+        },
+        "Target": {
+          "$id": 16,
+          "$type": "XEngine.NodePlay.BT.BTIterator, XEngine.Editor.Test"
+        },
+        "Status": 0L
+      },
+      {
+        "$id": 33,
+        "Id": "481c73f4ce6f471ea577c608fba8657f",
+        "FromNodeId": "11e99d5603414bd38be3a010d5bfb241",
+        "ToNodeId": "b9a5add3d0024243b4779daba5bc58c0",
+        "Disabled": false,
+        "Points": {
+          "$id": 34,
+          "$values": [
+
+          ]
+        },
+        "Source": {
+          "$id": 16,
+          "$type": "XEngine.NodePlay.BT.BTIterator, XEngine.Editor.Test"
+        },
+        "Target": {
+          "$id": 18,
+          "$type": "XEngine.NodePlay.BT.BTActionNode, XEngine.Editor.Test"
+        },
+        "Status": 0L
+      }
+    ]
+  },
+  "Groups": {
+    "$id": 35,
+    "$values": [
+
+    ]
+  },
+  "Stickies": {
+    "$id": 36,
+    "$values": [
+
+    ]
+  },
+  "PrimeNodeId": "e535269a6ba34d71832a1592766d4b43",
+  "LocalBlackboard": {
+    "$id": 37,
+    "Variables": {
+      "$id": 38,
+      "$values": [
+        {
+          "$id": 39,
+          "Name": "mode",
+          "ValueId": "91c99206b4494380830ecd27c1a9cec4",
+          "IsPublic": true,
+          "Value": {
+            "$t": "s",
+            "$v": "patrol"
+          },
+          "PropertyPath": ""
+        },
+        {
+          "$id": 40,
+          "Name": "targetPos",
+          "ValueId": "709760c4aa934ba78fc3dc3217c9d6f5",
+          "IsPublic": true,
+          "Value": {
+            "$t": "s",
+            "$v": "0,0,0"
+          },
+          "PropertyPath": ""
+        },
+        {
+          "$id": 41,
+          "Name": "speed",
+          "ValueId": "4ac8b986495444d1a7921a6034ce8914",
+          "IsPublic": true,
+          "Value": {
+            "$t": "f",
+            "$v": 2.5F
+          },
+          "PropertyPath": ""
+        },
+        {
+          "$id": 42,
+          "Name": "waypoints",
+          "ValueId": "cde21994d1f646c795fc507c730aabf0",
+          "IsPublic": true,
+          "Value": {
+            "$id": 43,
+            "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+            "$values": [
+              "0,0,0",
+              "6,0,0"
+            ]
+          },
+          "PropertyPath": ""
+        }
+      ]
+    }
+  },
+  "OwnerRunner": NULL,
+  "GraphBlackboard": NULL,
+  "ElapsedTime": 0F,
+  "AssetPath": "",
+  "AssetID": "00000000-0000-0000-0000-000000000000",
+  "Name": "NewNPBehaviourTreeAsset"
+}

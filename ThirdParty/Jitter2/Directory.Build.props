@@ -1,0 +1,37 @@
+<Project>
+
+  <!--
+    ThirdParty/Jitter2/ — vendored Jitter Physics 2 (MIT), consumed as source.
+    Upstream: https://github.com/notgiven688/jitterphysics2
+    Vendored commit and local modifications: see README.md / PATCHES.md.
+
+    This sits between ThirdParty/Directory.Build.props (which supplies
+    $(XEngineTargetFrameworks) and the engine-root settings) and the Jitter2
+    projects. Upstream NuGet publishing metadata is intentionally not carried
+    over: these projects are referenced by ProjectReference and never packed.
+  -->
+
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
+
+  <PropertyGroup>
+    <!-- Jitter2 is fully nullable-annotated upstream, so unlike DotRecast it keeps
+         the engine default of Nullable=enable. It does not use implicit usings. -->
+    <ImplicitUsings>disable</ImplicitUsings>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <IsPackable>false</IsPackable>
+
+    <!-- Upstream suppressions: the library does not document every public member. -->
+    <NoWarn>$(NoWarn);CS1591;CS1573</NoWarn>
+  </PropertyGroup>
+
+  <!--
+    Upstream's double-precision switch (dotnet build -p:DoublePrecision=true).
+    Retained so the vendored copy keeps upstream's capability. The upstream
+    assembly/package rename to Jitter2.Double is deliberately NOT carried over:
+    XEngine references this project by name and must not have it renamed.
+  -->
+  <PropertyGroup Condition="'$(DoublePrecision)' == 'true'">
+    <DefineConstants>$(DefineConstants);USE_DOUBLE_PRECISION</DefineConstants>
+  </PropertyGroup>
+
+</Project>

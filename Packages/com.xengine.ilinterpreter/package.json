@@ -1,0 +1,17 @@
+{
+  "name": "com.xengine.ilinterpreter",
+  "version": "0.1.0",
+  "displayName": "IL Interpreter",
+  "description": "Official optional IL interpreter for NativeAOT players: executes supported hot-update C# assemblies as data on HarmonyOS and desktop. Installs the interpreted-assembly classification, module loader, VM and host binding tools.",
+  "installByDefault": false,
+  "xengine": "0.1.0",
+  "type": "package",
+  "category": "Official",
+  "documentationUrl": "Documentation~/index.md",
+  "changelogUrl": "CHANGELOG.md",
+  "licensesUrl": "LICENSE.md",
+  "supportedPlatforms": ["Windows", "HarmonyOS"],
+  "license": "MIT",
+  "keywords": ["xengine", "il", "interpreter", "hotupdate", "aot"],
+  "dependencies": {}
+}

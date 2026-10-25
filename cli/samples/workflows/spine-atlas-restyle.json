@@ -1,0 +1,53 @@
+{
+  "name": "spine-atlas-restyle",
+  "description": "Prompt → texture restyle of one Spine atlas region. Bones and .atlas text stay. Mock tints the region; PixelLab/ComfyUI/openai pack-crop the unrotated crop (ComfyUI needs inputImageNode in extra). Fetch overwrites the page PNG GUID.",
+  "inputs": {
+    "type": "object",
+    "properties": {
+      "provider": { "type": "string", "description": "Generation provider: mock | pixellab | comfyui | openai" },
+      "prompt": { "type": "string", "description": "Restyle prompt (include the region name)" },
+      "atlasPath": { "type": "string", "description": "Project-relative .atlas / .atlas.txt" },
+      "region": { "type": "string", "description": "Atlas region name, or * for all (mock-tint)" },
+      "destination": { "type": "string", "description": "Assets folder for the new page PNG" },
+      "baseName": { "type": "string", "description": "Page file base name (no extension)" },
+      "idempotencyKey": { "type": "string", "description": "Stable key prefix for journaled writes" }
+    },
+    "required": ["provider", "prompt", "atlasPath", "region", "destination", "baseName", "idempotencyKey"],
+    "additionalProperties": false
+  },
+  "steps": [
+    {
+      "name": "submit",
+      "tool": "gen_submit",
+      "arguments": {
+        "provider": "${inputs.provider}",
+        "kind": "texture",
+        "prompt": "${inputs.prompt}",
+        "extra": "{\"atlasPath\":\"${inputs.atlasPath}\",\"region\":\"${inputs.region}\"}"
+      },
+      "dependsOn": [],
+      "failurePolicy": "Stop"
+    },
+    {
+      "name": "status",
+      "tool": "gen_status",
+      "arguments": { "taskId": "${steps.submit.taskId}" },
+      "dependsOn": ["submit"],
+      "failurePolicy": "Stop"
+    },
+    {
+      "name": "fetch",
+      "tool": "gen_fetch",
+      "arguments": {
+        "taskId": "${steps.submit.taskId}",
+        "destinationFolder": "${inputs.destination}",
+        "baseName": "${inputs.baseName}",
+        "overwrite": true,
+        "idempotencyKey": "${inputs.idempotencyKey}-fetch",
+        "intent": "spine atlas restyle ${inputs.region}: ${inputs.prompt}"
+      },
+      "dependsOn": ["status"],
+      "failurePolicy": "Stop"
+    }
+  ]
+}

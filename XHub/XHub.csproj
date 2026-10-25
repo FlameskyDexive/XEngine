@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <!-- XHub is independent of editor releases: its own version line (0.1.x). -->
+    <Version>0.1.1</Version>
+    <InformationalVersion>XHub 0.1.1</InformationalVersion>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets\xhub.ico</ApplicationIcon>
+    <!-- Hub protocol JSON is serialized with source-gen-compatible reflection only; no trim support yet. -->
+    <InvariantGlobalization>false</InvariantGlobalization>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="XHub.Test" />
+  </ItemGroup>
+
+  <!-- The test project lives under XHub/ for solution convenience; it must not leak into the app. -->
+  <ItemGroup>
+    <Compile Remove="XHub.Test\**" />
+    <Content Remove="XHub.Test\**" />
+    <EmbeddedResource Remove="XHub.Test\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.3.22" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.3.22" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.22" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Assets\xhub.ico" />
+    <Resource Include="Assets\xhub.ico" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ServerGarbageCollection>false</ServerGarbageCollection>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../XEngine.UiPrototype/XEngine.UiPrototype.csproj" />
+    <ProjectReference Include="../../XEngine.Editor.UI/XEngine.Editor.UI.csproj" />
+    <ProjectReference Include="../../ThirdParty/Origami/Origami/Origami.csproj" />
+    <ProjectReference Include="../../XEngine.Editor.UI.Rendering/XEngine.Editor.UI.Rendering.csproj" />
+    <ProjectReference Include="../../XEngine.Runtime/XEngine.Runtime.csproj" />
+    <Content Include="../../XEngine.Editor/Resources/Geist-Regular.ttf" Link="Geist-Regular.ttf" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="ImGui.shader" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="ImGui.NET" Version="1.91.6.1" />
+  </ItemGroup>
+</Project>

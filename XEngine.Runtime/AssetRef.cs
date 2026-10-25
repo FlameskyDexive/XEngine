@@ -1,0 +1,254 @@
+// This file is part of the XEngine Game Engine
+// Licensed under the MIT License. See the LICENSE file in the project root for details.
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+using XEngine.Echo;
+using XEngine.Runtime.Resources;
+
+namespace XEngine.Runtime;
+
+/// <summary>Serialization context that tracks AssetRef references encountered during (de)serialization,
+/// each with a role label (the AssetRef's generic type name). ★ A3. Public so importer helpers can
+/// expose it; the typed <see cref="Dependencies"/> set is the source of truth.</summary>
+public sealed class DependencySerializationContext : SerializationContext
+{
+    /// <summary>Dependencies collected during serialization, each with a role label (the AssetRef's
+    /// generic type name, e.g. "Texture2D"/"Material"). ★ Layer 0 (A3): previously this recorded only
+    /// bare Guids, so the dependency graph couldn't tell a texture ref from a material ref. AssetRef&lt;T&gt;
+    /// emits typeof(T).Name as the role at the collection point (the only role info available, since
+    /// the ISerializable contract doesn't expose field names).</summary>
+    public readonly record struct Dependency(Guid Guid, string Role);
+
+    public HashSet<Dependency> Dependencies = new HashSet<Dependency>();
+
+    /// <summary>A Guid-only view over <see cref="Dependencies"/>, rebuilt on each access. For legacy
+    /// callers that only need Guids (the CreateTrackingContext(out HashSet&lt;Guid&gt;) out-param).
+    /// ★ A3: the typed <see cref="Dependencies"/> is the source of truth.</summary>
+    public HashSet<Guid> GuidsOnly => new HashSet<Guid>(Dependencies.Select(d => d.Guid));
+}
+
+/// <summary>
+/// A serializable reference to an asset. Stores a GUID for persistent identification
+/// and caches the resolved instance. When the asset is needed, it's loaded via AssetDatabase.Get().
+/// This solves the "stale reference" problem all references to the same asset share the same
+/// resolved instance, and re-resolving always gets the latest version.
+/// </summary>
+public struct AssetRef<T> : IAssetRef, ISerializable where T : EngineObject
+{
+    private T? instance;
+    private Guid assetID;
+
+    /// <summary>
+    /// The resolved asset.
+    /// <para>
+    /// When async asset loading is enabled (<see cref="AssetLoadingConfig.AsyncEnabled"/>),
+    /// this is non-blocking: it returns the cached instance if available, otherwise it queues
+    /// a background load and returns <c>null</c> for now. Callers MUST handle a transient null
+    /// (the asset will stream in over subsequent frames). Use <see cref="EnsureLoaded"/> when an
+    /// immediate value is required. When async loading is disabled, this blocks and loads
+    /// synchronously (legacy behavior).
+    /// </para>
+    /// Also returns null if the asset is genuinely missing or this ref is explicitly null.
+    /// </summary>
+    public T? Res
+    {
+        get
+        {
+            if (instance.IsValid())
+            {
+                // Touched even on this already-cached fast path: an idle-timeout sweep only knows
+                // a GUID is in use if something says so, and the database's own resolve path
+                // (TryGetLoaded/SetLoaded) is bypassed entirely once instance is already cached.
+                AssetDatabase.Touch(AssetID);
+                return instance;
+            }
+
+            if (assetID == Guid.Empty)
+            {
+                instance = null;
+                return null;
+            }
+
+            if (AssetLoadingConfig.AsyncEnabled)
+            {
+                // Non-blocking: cached instance if present, otherwise kick off a background
+                // load and return null until it streams in.
+                instance = AssetDatabase.GetCached(assetID) as T;
+                if (instance == null)
+                    AssetLoader.Request(assetID);
+            }
+            else
+            {
+                // Synchronous (legacy) behavior: block on the calling thread until loaded.
+                instance = AssetDatabase.Get(assetID) as T;
+            }
+
+            return instance;
+        }
+        set
+        {
+            instance = value;
+            assetID = value?.AssetID ?? Guid.Empty;
+        }
+    }
+
+    /// <summary>Returns the cached instance without attempting to load. May be null.</summary>
+    public T? ResWeak => instance.IsValid() ? instance : null;
+
+    /// <summary>The asset GUID. Prefers the live instance's AssetID when available.</summary>
+    public Guid AssetID
+    {
+        get => (instance.IsValid() && instance.AssetID != Guid.Empty) ? instance.AssetID : assetID;
+        set
+        {
+            assetID = value;
+            if (instance != null && instance.AssetID != value)
+                instance = null;
+        }
+    }
+
+    public bool IsExplicitNull => instance == null && AssetID == Guid.Empty;
+    public bool IsRuntimeResource => instance != null && AssetID == Guid.Empty;
+    public string Name => instance != null ? (instance.IsNotValid() ? "DESTROYED" : instance.Name) : "None";
+    public Type InstanceType => typeof(T);
+
+    public AssetRef(T? res)
+    {
+        instance = res;
+        assetID = res?.AssetID ?? Guid.Empty;
+    }
+
+    public AssetRef(Guid id)
+    {
+        instance = null;
+        assetID = id;
+    }
+
+    public object? GetInstance() => Res;
+
+    public void SetInstance(object? obj)
+    {
+        if (obj is T res)
+            Res = res;
+        else
+            Res = null;
+    }
+
+    /// <summary>
+    /// Block until the asset is loaded, prioritizing it ahead of background streaming.
+    /// Use this when an immediate, non-null value is required (e.g. editor inspectors, or a
+    /// system that cannot tolerate a transient null from <see cref="Res"/>). When async loading
+    /// is disabled this is equivalent to a normal synchronous resolve.
+    /// </summary>
+    public void EnsureLoaded()
+    {
+        if (instance.IsValid())
+        {
+            AssetDatabase.Touch(AssetID);
+            return;
+        }
+
+        if (assetID == Guid.Empty)
+        {
+            instance = null;
+            return;
+        }
+
+        instance = AssetLoadingConfig.AsyncEnabled
+            ? AssetLoader.LoadBlocking(assetID) as T
+            : AssetDatabase.Get(assetID) as T;
+    }
+
+    /// <summary>Clear the cached instance. Next access will re-resolve from the database.</summary>
+    public void Detach() => instance = null;
+
+    /// <summary>
+    /// Record that this asset is still in use without resolving or blocking. Use this when you're
+    /// holding an AssetRef but aren't calling <see cref="Res"/> right now (e.g. a disabled object's
+    /// reference) and still want to protect it from the idle-timeout eviction sweep. A no-op for a
+    /// runtime resource with no AssetID.
+    /// </summary>
+    public void Touch() => AssetDatabase.Touch(AssetID);
+
+    /// <summary>Pin this asset resident for as long as <paramref name="scene"/> stays loaded -
+    /// released automatically when that scene disposes.</summary>
+    public void LockToScene(Scene scene) => AssetDatabase.LockToScene(AssetID, scene);
+
+    /// <summary>Pin this asset resident indefinitely, until an explicit <see cref="Unlock"/>.</summary>
+    public void LockPermanent() => AssetDatabase.LockPermanent(AssetID);
+
+    /// <summary>Release a permanent lock taken via <see cref="LockPermanent"/>.</summary>
+    public void Unlock() => AssetDatabase.Unlock(AssetID);
+
+    // ================================================================
+    //  Serialization stores AssetID + inline instance for runtime resources
+    // ================================================================
+
+    public void Serialize(ref EchoObject compound, SerializationContext ctx)
+    {
+        Guid id = AssetID; // Uses live instance ID when available
+
+        compound.Add("AssetID", new EchoObject(id.ToString()));
+
+        if (id != Guid.Empty && ctx is DependencySerializationContext tracker)
+            tracker.Dependencies.Add(new DependencySerializationContext.Dependency(id, typeof(T).Name));
+
+        // Only serialize the instance inline if it's a runtime resource (no asset ID)
+        if (id == Guid.Empty && instance != null)
+            compound.Add("Instance", Echo.Serializer.Serialize(typeof(T), instance, ctx));
+    }
+
+    public void Deserialize(EchoObject value, SerializationContext ctx)
+    {
+        if (value.TryGet("AssetID", out var idTag))
+            assetID = Guid.Parse(idTag.StringValue);
+        else
+            assetID = Guid.Empty;
+
+        if (assetID != Guid.Empty && ctx is DependencySerializationContext tracker)
+        {
+            tracker.Dependencies.Add(new DependencySerializationContext.Dependency(assetID, typeof(T).Name));
+        }
+
+        // If no asset ID, try to deserialize an inline instance
+        if (assetID == Guid.Empty && value.TryGet("Instance", out EchoObject instTag))
+            instance = Echo.Serializer.Deserialize<T?>(instTag, ctx);
+        else
+            instance = null; // Will be resolved lazily via Res property
+    }
+
+    // ================================================================
+    //  Operators
+    // ================================================================
+
+    public static implicit operator AssetRef<T>(T? res) => new(res);
+
+    public override bool Equals(object? obj) => obj is AssetRef<T> other && this == other;
+
+    public override int GetHashCode() => AssetID != Guid.Empty ? AssetID.GetHashCode() : (instance?.GetHashCode() ?? 0);
+
+    public static bool operator ==(AssetRef<T> a, AssetRef<T> b)
+    {
+        // Match GetHashCode's precedence: a real AssetID identifies the asset regardless of which
+        // instance (if any) either side currently has cached, so two refs to the same asset compare
+        // equal even if one was resolved before the other picked up a different cached instance (e.g.
+        // an unload-then-reload swapped which object is cached). Falls back to instance identity only
+        // for runtime-only resources that have no AssetID at all.
+        if (a.AssetID != Guid.Empty || b.AssetID != Guid.Empty)
+            return a.AssetID == b.AssetID;
+        if (a.instance != null && b.instance != null)
+            return a.instance == b.instance;
+        return a.IsExplicitNull && b.IsExplicitNull;
+    }
+
+    public static bool operator !=(AssetRef<T> a, AssetRef<T> b) => !(a == b);
+
+    public override string ToString()
+    {
+        char state = IsRuntimeResource ? 'R' : IsExplicitNull ? 'N' : instance.IsValid() ? 'L' : '_';
+        return $"[{state}] {typeof(T).Name}";
+    }
+}

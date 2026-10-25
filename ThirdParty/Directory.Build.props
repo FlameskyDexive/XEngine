@@ -1,0 +1,41 @@
+<Project>
+
+  <!--
+    ThirdParty/ — vendored Anthology libraries (formerly external XEngine.* NuGet packages).
+    Source: https://github.com/XEngine/Anthology @ v2.8.6, MIT licensed.
+
+    This props file sits between the engine repo root (parent) and each Anthology package
+    (child). It inherits the engine-root Directory.Build.props (RepoRoot, Nullable,
+    LangVersion, CoreCLR tuning, analyzers) via the explicit Import below, then re-declares
+    the Anthology-specific framework sets that the package csproj files reference via
+    $(XEngineTargetFrameworks) / $(XEngineTargetFrameworksCompat).
+
+    NuGet publishing metadata (Authors/Company/Version/RepositoryUrl/SourceLink/etc.) from
+    the upstream Anthology Directory.Build.props is intentionally NOT carried over: these
+    projects are now consumed as source via ProjectReference and are never packed. The
+    engine-wide rename to XEngine will sweep the remaining XEngine identifiers.
+  -->
+
+  <!-- Inherit the engine-repo-root settings (one level up). -->
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
+
+  <PropertyGroup>
+    <!--
+      Shared framework sets for the Anthology family, kept in one place.
+      Library projects opt into one of these via
+      <TargetFrameworks>$(XEngineTargetFrameworks)</TargetFrameworks>; tests and samples keep
+      their own single TargetFramework.
+        - Default: the modern set every library supports.
+        - Compat: adds netstandard2.1 for libraries that also support Unity / older runtimes.
+    -->
+    <XEngineTargetFrameworks>net8.0;net9.0;net10.0</XEngineTargetFrameworks>
+    <XEngineTargetFrameworksCompat>netstandard2.1;net8.0;net9.0;net10.0</XEngineTargetFrameworksCompat>
+  </PropertyGroup>
+
+  <!-- Polyfills the language-feature attributes (init / required / records, etc.) that
+       netstandard2.1 lacks. Build-only; generates nothing on net8+ where the types exist. -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
+    <PackageReference Include="PolySharp" Version="1.15.0" PrivateAssets="all" />
+  </ItemGroup>
+
+</Project>

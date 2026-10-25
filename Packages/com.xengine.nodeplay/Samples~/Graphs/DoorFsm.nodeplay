@@ -1,0 +1,205 @@
+{
+  "$id": 1,
+  "$type": "XEngine.NodePlay.FSM.NPFSMAsset, XEngine.Editor.Test",
+  "StartStateId": "970791f0e6654a1fb3f82e5817646ea4",
+  "GraphName": "Demo/Door FSM",
+  "Module": "fsm",
+  "Nodes": {
+    "$id": 2,
+    "$values": [
+      {
+        "$id": 3,
+        "$type": "XEngine.NodePlay.FSM.FSMState, XEngine.Editor.Test",
+        "OnEnterActions": {
+          "$id": 4,
+          "$values": [
+
+          ]
+        },
+        "OnUpdateActions": {
+          "$id": 5,
+          "$values": [
+
+          ]
+        },
+        "OnExitActions": {
+          "$id": 6,
+          "$values": [
+
+          ]
+        },
+        "TransitionEvaluation": 0L,
+        "RepeatStateActions": false,
+        "Id": "970791f0e6654a1fb3f82e5817646ea4",
+        "Name": "Idle",
+        "Position": {
+          "X": 380F,
+          "Y": 140F
+        },
+        "Comment": "",
+        "Disabled": false,
+        "Breakpoint": false
+      },
+      {
+        "$id": 7,
+        "$type": "XEngine.NodePlay.FSM.FSMState, XEngine.Editor.Test",
+        "OnEnterActions": {
+          "$id": 8,
+          "$values": [
+
+          ]
+        },
+        "OnUpdateActions": {
+          "$id": 9,
+          "$values": [
+            {
+              "$id": 10,
+              "$type": "XEngine.NodePlay.Tasks.NPWaitAction, XEngine.Editor.Test",
+              "Seconds": {
+                "$id": 11,
+                "VariableName": "",
+                "InlineValue": {
+                  "$t": "f",
+                  "$v": 1.5F
+                }
+              },
+              "Label": ""
+            }
+          ]
+        },
+        "OnExitActions": {
+          "$id": 12,
+          "$values": [
+
+          ]
+        },
+        "TransitionEvaluation": 0L,
+        "RepeatStateActions": false,
+        "Id": "c5ddffbadf0544e6b697af527ad37050",
+        "Name": "Open",
+        "Position": {
+          "X": 800F,
+          "Y": 140F
+        },
+        "Comment": "",
+        "Disabled": false,
+        "Breakpoint": false
+      }
+    ]
+  },
+  "Connections": {
+    "$id": 13,
+    "$values": [
+      {
+        "$id": 14,
+        "$type": "XEngine.NodePlay.FSM.FSMConnection, XEngine.Editor.Test",
+        "Condition": {
+          "$id": 15,
+          "$type": "XEngine.NodePlay.Tasks.NPCompareCondition, XEngine.Editor.Test",
+          "Value": {
+            "$id": 16,
+            "VariableName": "playerNear",
+            "InlineValue": {
+              "$t": "s",
+              "$v": ""
+            }
+          },
+          "Operator": "==",
+          "Threshold": {
+            "$id": 17,
+            "VariableName": "",
+            "InlineValue": {
+              "$t": "s",
+              "$v": "true"
+            }
+          },
+          "Invert": false,
+          "Label": ""
+        },
+        "CallMode": 0L,
+        "Id": "fbdf62a0f1184961a6195cd145c6dec9",
+        "FromNodeId": "970791f0e6654a1fb3f82e5817646ea4",
+        "ToNodeId": "c5ddffbadf0544e6b697af527ad37050",
+        "Disabled": false,
+        "Points": {
+          "$id": 18,
+          "$values": [
+
+          ]
+        },
+        "Source": {
+          "$id": 3,
+          "$type": "XEngine.NodePlay.FSM.FSMState, XEngine.Editor.Test"
+        },
+        "Target": {
+          "$id": 7,
+          "$type": "XEngine.NodePlay.FSM.FSMState, XEngine.Editor.Test"
+        },
+        "Status": 0L
+      },
+      {
+        "$id": 19,
+        "$type": "XEngine.NodePlay.FSM.FSMConnection, XEngine.Editor.Test",
+        "Condition": NULL,
+        "CallMode": 0L,
+        "Id": "4d9caa6b71f746eb8e5a40b93cf99096",
+        "FromNodeId": "c5ddffbadf0544e6b697af527ad37050",
+        "ToNodeId": "970791f0e6654a1fb3f82e5817646ea4",
+        "Disabled": false,
+        "Points": {
+          "$id": 20,
+          "$values": [
+
+          ]
+        },
+        "Source": {
+          "$id": 7,
+          "$type": "XEngine.NodePlay.FSM.FSMState, XEngine.Editor.Test"
+        },
+        "Target": {
+          "$id": 3,
+          "$type": "XEngine.NodePlay.FSM.FSMState, XEngine.Editor.Test"
+        },
+        "Status": 0L
+      }
+    ]
+  },
+  "Groups": {
+    "$id": 21,
+    "$values": [
+
+    ]
+  },
+  "Stickies": {
+    "$id": 22,
+    "$values": [
+
+    ]
+  },
+  "PrimeNodeId": "970791f0e6654a1fb3f82e5817646ea4",
+  "LocalBlackboard": {
+    "$id": 23,
+    "Variables": {
+      "$id": 24,
+      "$values": [
+        {
+          "$id": 25,
+          "Name": "playerNear",
+          "ValueId": "fcf81ae3b36548598b4d5e2f8dfa7e72",
+          "IsPublic": true,
+          "Value": {
+            "$t": "b",
+            "$v": false
+          },
+          "PropertyPath": ""
+        }
+      ]
+    }
+  },
+  "OwnerRunner": NULL,
+  "GraphBlackboard": NULL,
+  "ElapsedTime": 0F,
+  "AssetPath": "",
+  "AssetID": "00000000-0000-0000-0000-000000000000",
+  "Name": "NewNPFSMAsset"
+}

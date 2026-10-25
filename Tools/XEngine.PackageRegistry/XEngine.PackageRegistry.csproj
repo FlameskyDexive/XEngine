@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    XEngine.PackageRegistry — npm-protocol package registry client shared by the Editor package
+    system (XEngine.Editor) and xengine-cli (XEngine.Ai.Host). Implements the registry wire
+    protocol: packument fetch, search, tarball download with SRI integrity verification, and
+    pack + publish. Engine names stay com.xengine.*; only the wire format uses the @xengine scope.
+    No engine dependencies. See docs/superpowers/specs/2026-09-08-npm-registry-packages.md.
+  -->
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Description>XEngine npm-protocol package registry client (packument, tarball, publish).</Description>
+
+    <!-- Tooling/protocol code, not per-frame engine code: exempt from PR0001-PR0007. -->
+    <XEngineEnableAnalyzers>false</XEngineEnableAnalyzers>
+  </PropertyGroup>
+
+  <!-- Allow test assemblies to access internal members (e.g. the user-secrets path test seam). -->
+  <ItemGroup>
+    <InternalsVisibleTo Include="XEngine.PackageRegistry.Tests" />
+    <InternalsVisibleTo Include="XEngine.Editor.Test" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,27 @@
+{
+  "$id": 1,
+  "$type": "XEngine.VoxelWorld.FlatTerrainGenerator, XEngine.VoxelWorld.Runtime",
+  "MaxHeight": 255,
+  "MinHeight": -32,
+  "WaterLevel": 0,
+  "AddWater": false,
+  "Altitude": 50,
+  "SurfaceTypeIndex": 0,
+  "TerrainVoxel": {
+    "AssetID": "764590ab-8f7e-0478-5a8a-c184f4ff675a"
+  },
+  "TintA": {
+    "R": 0F,
+    "G": 0.6F,
+    "B": 0.2F,
+    "A": 1F
+  },
+  "TintB": {
+    "R": 0.6F,
+    "G": 0.1F,
+    "B": 0.1F,
+    "A": 1F
+  },
+  "Name": "FlatTerrainGenerator",
+  "AssetID": "00000000-0000-0000-0000-000000000000"
+}

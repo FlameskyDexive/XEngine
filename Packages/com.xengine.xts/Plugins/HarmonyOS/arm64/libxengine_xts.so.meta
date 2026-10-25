@@ -1,0 +1,12 @@
+{
+  "guid": "9a4d8e21-6c73-4f95-b2a0-8d1e5c3f7042",
+  "importer": "PluginImporter",
+  "importerVersion": 1,
+  "settings": {
+    "editorOnly": false,
+    "autoReferenced": true,
+    "anyPlatform": false,
+    "platHarmonyOS": true,
+    "cpu": "arm64"
+  }
+}

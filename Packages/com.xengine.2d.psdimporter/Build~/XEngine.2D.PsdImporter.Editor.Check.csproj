@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Compiles this package's Editor assembly (importer + vendored PSD parser). Package sources are
+    never built by XEngine.sln, so without this project the package would have zero compile coverage.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>XEngine.2D.PsdImporter.Editor</AssemblyName>
+    <RootNamespace>XEngine.Editor.TwoD.PsdImporter</RootNamespace>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <IsPackable>false</IsPackable>
+    <XEngineEnableAnalyzers>false</XEngineEnableAnalyzers>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Editor\**\*.cs" />
+    <ProjectReference Include="..\..\..\XEngine.Editor\XEngine.Editor.csproj" />
+    <ProjectReference Include="..\..\..\XEngine.Runtime\XEngine.Runtime.csproj" />
+  </ItemGroup>
+
+</Project>

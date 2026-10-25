@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>$(XEngineTargetFrameworksCompat)</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PackageId>XEngine.$(AssemblyName)</PackageId>
+    <Title>XEngine.Paper</Title>
+    <Description>A powerful immediate mode .net UI Library powering the XEngine Game Engine!</Description>
+    <RootNamespace>XEngine.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+    <PackageTags>UI framework;immediate mode GUI;C#;.NET;layout engine;responsive design;fluid layouts;component library;animations;easing functions;transitions;event handling;input management;styling system;theme support;widget toolkit;interactive elements;vector graphics;fluent API;text rendering;scrolling;dragging;flexible layouts;Windows;user interface;GUI library;desktop applications;game UI;dark mode;light mode;reactive design;rendering engine;transform effects;UI components;window management;tooltips;text field;buttons;sliders</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Quill\Quill\Quill.csproj" />
+  </ItemGroup>
+
+</Project>

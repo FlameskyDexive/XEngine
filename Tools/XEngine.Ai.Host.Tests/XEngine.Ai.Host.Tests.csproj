@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <!-- AI tooling is not per-frame hot path; relax the engine's LINQ/hot-path analyzers. -->
+    <XEngineEnableAnalyzers>false</XEngineEnableAnalyzers>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.0" />
+    <PackageReference Include="Xunit" Version="2.9.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\XEngine.Ai.Host\XEngine.Ai.Host.csproj" />
+    <!-- Harness installer tests + in-process server edition-filter tests. -->
+    <ProjectReference Include="..\XEngine.Ai.Harness\XEngine.Ai.Harness.csproj" />
+    <ProjectReference Include="..\XEngine.Ai.Server\XEngine.Ai.Server.csproj" />
+    <!-- A1b — three.js authoring host connection protocol tests. -->
+    <ProjectReference Include="..\XEngine.Ai.ThreeHost.Client\XEngine.Ai.ThreeHost.Client.csproj" />
+    <ProjectReference Include="..\..\ThirdParty\DotRecast\DotRecast.Recast\DotRecast.Recast.csproj" />
+    <ProjectReference Include="..\..\ThirdParty\DotRecast\DotRecast.Detour\DotRecast.Detour.csproj" />
+  </ItemGroup>
+
+  <!--
+    Link-compile the vendored spine-csharp runtime so SpineGen exporter round-trip tests can parse
+    generated skeleton JSON with the same reader code that ships in com.xengine.spine. Atlas.cs and
+    TextureRegion.cs are excluded — XEngine.Ai.Host already link-compiles them (atlas restyle), and
+    duplicate definitions would clash across the referenced assembly.
+  -->
+  <ItemGroup>
+    <Compile Include="..\..\Packages\com.xengine.spine\Runtime\spine-csharp\**\*.cs"
+             Exclude="..\..\Packages\com.xengine.spine\Runtime\spine-csharp\Atlas.cs;..\..\Packages\com.xengine.spine\Runtime\spine-csharp\TextureRegion.cs"
+             LinkBase="SpineRuntime\vendored-spine-csharp" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,19 @@
+Chain1bn: Blend_Normals converted to Blend_CenterGlow without lit normals
+Chain2bn: Blend_Normals converted to Blend_CenterGlow without lit normals
+Chain3bn: Blend_Normals converted to Blend_CenterGlow without lit normals
+Crack7bcg: texture guid 0000000000000000f000000000000000 unresolved for _Mask
+EGACrystal: shader guid 13a43378542625f489f7c1c85ba6a4c4 not portable — skipped
+Electricity1be: texture guid 28c7aad1372ff114b90d330f8a2dd938 unresolved for _MainTex
+Electricity1be: texture guid 59d64a7b8ef69994a902cc816532ca47 unresolved for _node_1096
+Electricity1be: texture guid 28c7aad1372ff114b90d330f8a2dd938 unresolved for _node_6645
+Electricity2be: texture guid 28c7aad1372ff114b90d330f8a2dd938 unresolved for _MainTex
+Electricity2be: texture guid 59d64a7b8ef69994a902cc816532ca47 unresolved for _node_1096
+Electricity2be: texture guid 28c7aad1372ff114b90d330f8a2dd938 unresolved for _node_6645
+Floor1: shader guid 0000000000000000f000000000000000 not portable — skipped
+Floor2: shader guid 933532a4fcc9baf4fa0491de14d08ed7 not portable — skipped
+Floor3: shader guid 0000000000000000f000000000000000 not portable — skipped
+Gradient17bd: BlendDistort converted to Blend_CenterGlow without grab distortion
+Gray: shader guid 0000000000000000f000000000000000 not portable — skipped
+Smoke20ss: texture guid 626933d0f6df1204aa7b5b971f4d2003 unresolved for _Noise
+SoftNoise69bd: BlendDistort converted to Blend_CenterGlow without grab distortion
+Wall: shader guid 0000000000000000f000000000000000 not portable — skipped

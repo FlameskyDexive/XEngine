@@ -1,0 +1,92 @@
+{
+  "$id": 1,
+  "$type": "XEngine.Runtime.Resources.Material, XEngine.Runtime",
+  "_shader": {
+    "AssetID": "e74b8fbd-074d-0de5-2cdd-b50c0752b0a4"
+  },
+  "_properties": {
+    "$id": 2,
+    "_colors": {
+      "_Color": {
+        "R": 0.5F,
+        "G": 0.5F,
+        "B": 0.5F,
+        "A": 1F
+      },
+      "_DistortionSpeedXYPowerZ": {
+        "R": -1F,
+        "G": 0.5F,
+        "B": 0.13F,
+        "A": 0F
+      },
+      "_NoisespeedUV": {
+        "R": -1F,
+        "G": 0F,
+        "B": 0F,
+        "A": 0F
+      },
+      "_SpeedMainTexUVNoiseZW": {
+        "R": 0F,
+        "G": 0F,
+        "B": 0F,
+        "A": 0F
+      },
+      "_TintColor": {
+        "R": 1F,
+        "G": 1F,
+        "B": 1F,
+        "A": 1F
+      }
+    },
+    "_vectors2": {},
+    "_vectors3": {},
+    "_vectors4": {},
+    "_floats": {
+      "_Blend2": 1F,
+      "_CullMode": 0F,
+      "_Depthpower": 1F,
+      "_Distortionpower": 1F,
+      "_Emission": 2F,
+      "_Usecenterglow": 0F,
+      "_Usedepth": 0F
+    },
+    "_ints": {},
+    "_matrices": {},
+    "_matrixArr": {},
+    "_textures": {
+      "_Flow": {
+        "AssetID": "954d3ce8-cfff-1e60-8995-1d47b4579255"
+      },
+      "_MainTex": {
+        "AssetID": "b86fe846-8659-5353-8050-6808735c1092"
+      },
+      "_Mask": {
+        "AssetID": "3b06db07-c2de-0847-4650-69bcd6a0e5ed"
+      }
+    },
+    "_textures3D": {},
+    "_texturesCube": {},
+    "_buffers": {},
+    "_bufferBindings": {}
+  },
+  "_overrides": [
+    "_Color",
+    "_DistortionSpeedXYPowerZ",
+    "_NoisespeedUV",
+    "_SpeedMainTexUVNoiseZW",
+    "_TintColor",
+    "_Blend2",
+    "_CullMode",
+    "_Depthpower",
+    "_Distortionpower",
+    "_Emission",
+    "_Usecenterglow",
+    "_Usedepth",
+    "_Flow",
+    "_MainTex",
+    "_Mask"
+  ],
+  "AssetPath": "",
+  "AssetID": "00000000-0000-0000-0000-000000000000",
+  "Name": "Mask30cg"
+}

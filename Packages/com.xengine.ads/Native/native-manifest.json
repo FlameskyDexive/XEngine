@@ -1,0 +1,28 @@
+﻿{
+  "schema": "xengine.ads.native.manifest.v1",
+  "abiVersion": 1,
+  // harmonyos-*: cross-compiled by Native/build-harmonyos.ps1 with the ohos
+  // ndk clang (x86_64 for the emulator, arm64-v8a for devices); GNU build ids
+  // emitted via -Wl,--build-id=sha1 match the HarmonyOS receipt format.
+  // The .so must be rebuilt (sha256 refreshed here) whenever
+  // Native/source/xengine_ads_napi.cpp changes; the build post-processor
+  // fails the HarmonyOS build on a manifest/plugin hash mismatch.
+  "platforms": {
+    "harmonyos-x86_64": {
+      "library": "Plugins/HarmonyOS/x86_64/libxengine_ads.so",
+      "abi": "x86_64",
+      "sha256": "2ca13a96f6453da7f1a98a245d33dcda526a982469c0d4f2f16dbfd6741da2d9",
+      "source": "Native/build-harmonyos.ps1 (ohos ndk clang, %LOCALAPPDATA%\XEngine\PlatformSDKs\harmonyos\ohos-sdk\native)",
+      "buildId": "3f2327ed592f018b"
+    },
+    "harmonyos-arm64": {
+      "library": "Plugins/HarmonyOS/arm64/libxengine_ads.so",
+      "abi": "arm64-v8a",
+      "sha256": "18f01cdd0886981d835129774fa3dc644732bae70518c1a057d8829f696f5ceb",
+      "source": "Native/build-harmonyos.ps1 (ohos ndk clang, %LOCALAPPDATA%\XEngine\PlatformSDKs\harmonyos\ohos-sdk\native)",
+      "buildId": "6ed9aab4d6f211c7"
+    },
+  }
+}
+
+

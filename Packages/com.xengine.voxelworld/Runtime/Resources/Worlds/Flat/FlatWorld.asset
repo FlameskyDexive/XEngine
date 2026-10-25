@@ -1,0 +1,40 @@
+{
+  "$id": 1,
+  "$type": "XEngine.VoxelWorld.WorldDefinition, XEngine.VoxelWorld.Runtime",
+  "Seed": 1,
+  "TerrainGenerator": {
+    "AssetID": "7e814b7c-31a3-b4ee-cab7-dd3f6bb9091f"
+  },
+  "Biomes": {
+    "$id": 2,
+    "$type": "System.Collections.Generic.List`1[[XEngine.Runtime.AssetRef`1[[XEngine.VoxelWorld.BiomeDefinition, XEngine.VoxelWorld.Runtime]], XEngine.Runtime]]",
+    "$values": [
+    ]
+  },
+  "ExtraVoxels": {
+    "$id": 3,
+    "$type": "System.Collections.Generic.List`1[[XEngine.Runtime.AssetRef`1[[XEngine.VoxelWorld.VoxelDefinition, XEngine.VoxelWorld.Runtime]], XEngine.Runtime]]",
+    "$values": [
+      {
+        "AssetID": "3c8e1a20-7b4d-4e91-9c2a-0f6d8b1e4b21"
+      },
+      {
+        "AssetID": "3c8e1a20-7b4d-4e91-9c2a-0f6d8b1e4b22"
+      },
+      {
+        "AssetID": "3c8e1a20-7b4d-4e91-9c2a-0f6d8b1e4b23"
+      },
+      {
+        "AssetID": "3c8e1a20-7b4d-4e91-9c2a-0f6d8b1e4b24"
+      }
+    ]
+  },
+  "Items": {
+    "$id": 4,
+    "$type": "System.Collections.Generic.List`1[[XEngine.Runtime.AssetRef`1[[XEngine.VoxelWorld.ItemDefinition, XEngine.VoxelWorld.Runtime]], XEngine.Runtime]]",
+    "$values": [
+    ]
+  },
+  "Name": "FlatWorld",
+  "AssetID": "00000000-0000-0000-0000-000000000000"
+}

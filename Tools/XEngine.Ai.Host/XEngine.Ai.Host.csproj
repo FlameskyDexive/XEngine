@@ -1,0 +1,117 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    XEngine.Ai.Host — the xengine-cli / MCP stdio Host (Layer 1).
+    Dual-mode single binary (XMcp pattern): `serve` runs the MCP stdio server for AI clients;
+    every other command is a CLI that prints structured JSON to stdout and exits.
+    See docs/superpowers/specs/2026-07-29-ai-friendly-engine-roadmap.md.
+  -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>xengine-cli</AssemblyName>
+    <RootNamespace>XEngine.Ai.Host</RootNamespace>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Version>0.1.0</Version>
+    <Description>XEngine AI CLI + MCP stdio Host.</Description>
+
+    <!--
+      AI tooling is developer/agent-facing, not per-frame engine code, so it is exempt from the
+      PR0001-PR0007 hot-path/LINQ analyzers (same category as Samples/BRDFGen/ThirdParty in
+      Directory.Build.props). Set per-project rather than weakening the global rule.
+    -->
+    <XEngineEnableAnalyzers>false</XEngineEnableAnalyzers>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- ★ P1-7 — Let the Host.Tests project reach the internal scene/asset writers + EchoFacade for
+         unit tests. The Host's internal surface is the testable core; the MCP tool layer is a thin
+         attribute-driven shell over it. -->
+    <InternalsVisibleTo Include="XEngine.Ai.Host.Tests" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Microsoft.AspNetCore.App provides Host.CreateApplicationBuilder + the console host
+         (the MCP SDK brings only the abstractions). Same setup as XMcp.Host. -->
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <!-- Roslyn + MSBuild workspace for the code tools (code_symbol/diagnostics). These are build-time
+         only / Host-only; they let an AI query the XEngine.sln symbol index without loading the engine.
+         MSBuild.Locator registers the SDK so MSBuildWorkspace can open the .sln. -->
+    <PackageReference Include="Microsoft.Build.Locator" Version="1.11.2" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.Build" Version="17.14.28" ExcludeAssets="runtime" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.Build.Framework" Version="17.14.28" ExcludeAssets="runtime" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.Build.Tasks.Core" Version="17.14.28" ExcludeAssets="runtime" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.14.28" ExcludeAssets="runtime" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.NET.StringTools" Version="17.14.28" ExcludeAssets="runtime" PrivateAssets="all" />
+    <!-- ★ Roslyn workspace DLLs must ship in publish output: PrivateAssets="all" here excluded
+         them from self-contained publish (bin had them, publish didn't) and code_symbols died on
+         first reflection. Host is a top-level exe — nothing consumes it downstream, so plain refs. -->
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="5.6.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.MSBuild" Version="5.6.0" />
+    <!-- Official C# MCP SDK: attribute-driven tool registration + stdio transport. -->
+    <PackageReference Include="ModelContextProtocol" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\XEngine.Ai.Protocol\XEngine.Ai.Protocol.csproj" />
+    <!-- P3 package registry — npm-protocol verbs (search/info/install/update/publish) and the
+         package_search/package_versions MCP tools share the registry client with the editor. -->
+    <ProjectReference Include="..\XEngine.PackageRegistry\XEngine.PackageRegistry.csproj" />
+    <!-- Echo is standalone (BCL + source generator). Used by the scene/asset read tools to parse
+         .scene/.prefab/.asset files directly from their on-disk tag trees WITHOUT depending on the
+         engine — keeping the CLI Host engine-agnostic. -->
+    <ProjectReference Include="..\..\ThirdParty\Echo\Echo\Echo.csproj" />
+    <!-- Provenance layer (engine-agnostic, depends only on Echo): the scene-write tools (B2) emit
+         provenance-bearing deltas to the same on-disk journal the editor writes. -->
+    <ProjectReference Include="..\XEngine.Data.Provenance\XEngine.Data.Provenance.csproj" />
+    <!-- NavMesh offline query/export (M6): Detour only. Do not add XEngine.Runtime — the Host
+         stays Echo-only and reads .navmesh TileData with DtMeshSetReader. -->
+    <ProjectReference Include="..\..\ThirdParty\DotRecast\DotRecast.Detour\DotRecast.Detour.csproj" />
+    <!-- ★ Gen-P0.5 — Clay (pure managed, Vector-only deps) lets asset_subassets replay the exact
+         model-import naming pipeline offline, so sub-asset GUIDs (SHA256(parentGuid+stableId)) can
+         be derived without a running editor. Still no XEngine.Runtime. -->
+    <ProjectReference Include="..\..\ThirdParty\Clay\Clay\Clay.csproj" />
+    <!-- ★ Gen-P1.1 — Generation gateway: recipes, provider adapters, secrets, durable task store.
+         Backs the gen_submit/gen_status/gen_fetch tool trio. -->
+    <ProjectReference Include="..\XEngine.Ai.Gateway\XEngine.Ai.Gateway.csproj" />
+    <!-- ★ AI harness — harness install/status/upgrade verbs seed the agent scaffolding into game
+         projects (same installer the editor uses at Project.Create). -->
+    <ProjectReference Include="..\XEngine.Ai.Harness\XEngine.Ai.Harness.csproj" />
+    <!-- ★ A1b — shared Windows three.js authoring host client: the three-authoring CLI verb
+         spawns the same STA WebView2 host process the editor panel drives. -->
+    <ProjectReference Include="..\XEngine.Ai.ThreeHost.Client\XEngine.Ai.ThreeHost.Client.csproj" />
+    <!-- ★ A2 — .threefx recipe parsing/validation/cache-identity/staged export. -->
+    <ProjectReference Include="..\XEngine.Ai.ThreeFx\XEngine.Ai.ThreeFx.csproj" />
+  </ItemGroup>
+
+  <!--
+    Shader Graph compile (M27) links the engine-agnostic emitter + POCOs + include-name constants.
+    VFX Graph compile (M5) links the engine-agnostic .vfx POCOs + source compiler. These files have
+    no Runtime/RHI dependencies. Do not add XEngine.Runtime — the Host stays Echo-only.
+  -->
+  <ItemGroup>
+    <Compile Include="..\..\XEngine.Runtime\Rendering\ShaderGraph\ShaderGraphTypes.cs" Link="ShaderGraph\ShaderGraphTypes.cs" />
+    <Compile Include="..\..\XEngine.Runtime\Rendering\ShaderGraph\ShaderGraphNodeLibrary.cs" Link="ShaderGraph\ShaderGraphNodeLibrary.cs" />
+    <Compile Include="..\..\XEngine.Runtime\Rendering\ShaderGraph\ShaderGraphSourceCompiler.cs" Link="ShaderGraph\ShaderGraphSourceCompiler.cs" />
+    <Compile Include="..\..\XEngine.Runtime\Rendering\Shaders\ShaderLibrary.cs" Link="ShaderGraph\ShaderLibrary.cs" />
+    <Compile Include="..\..\XEngine.Runtime\Animation\HumanoidBoneMap.cs" Link="Animation\HumanoidBoneMap.cs" />
+    <Compile Include="..\..\Packages\com.xengine.vfx\Runtime\VfxGraphTypes.cs" Link="VfxGraph\VfxGraphTypes.cs" />
+    <Compile Include="..\..\Packages\com.xengine.vfx\Runtime\VfxNodeLibrary.cs" Link="VfxGraph\VfxNodeLibrary.cs" />
+    <Compile Include="..\..\Packages\com.xengine.vfx\Runtime\VfxGraphSourceCompiler.cs" Link="VfxGraph\VfxGraphSourceCompiler.cs" />
+    <Compile Include="..\..\Packages\com.xengine.vfx\Runtime\VfxSubgraph.cs" Link="VfxGraph\VfxSubgraph.cs" />
+    <Compile Include="..\..\Packages\com.xengine.spine\Runtime\spine-csharp\TextureRegion.cs" Link="Spine\TextureRegion.cs" />
+    <Compile Include="..\..\Packages\com.xengine.spine\Runtime\spine-csharp\Atlas.cs" Link="Spine\Atlas.cs" />
+    <Compile Include="..\..\Packages\com.xengine.spine\Runtime\Assets\SpineNoopTextureLoader.cs" Link="Spine\SpineNoopTextureLoader.cs" />
+    <Compile Include="..\..\Packages\com.xengine.spine\Runtime\Assets\SpineAtlasLayout.cs" Link="Spine\SpineAtlasLayout.cs" />
+    <Compile Include="..\..\Packages\com.xengine.spine\Runtime\Assets\SpineAtlasRestyle.cs" Link="Spine\SpineAtlasRestyle.cs" />
+    <!-- XUI document language (M1). Packages/com.xengine.xui/Runtime/Core is deliberately pure BCL
+         (IR + parser + lint + .pxl), so the same sources back both the runtime assembler and the
+         offline xui_*/pxl_* tools. Adding an XEngine.Runtime reference under Core breaks this build. -->
+    <Compile Include="..\..\Packages\com.xengine.xui\Runtime\Core\**\*.cs" Link="Xui\%(RecursiveDir)%(Filename)%(Extension)" />
+    <!-- PSD parser (vendored MIT Paint.NET plugin, ported to pure BCL). Backs the offline
+         psd_* tools; the 2d.psdimporter package compiles the same sources editor-side. -->
+    <Compile Include="..\..\Packages\com.xengine.2d.psdimporter\Editor\PsdPlugin\**\*.cs" Link="PsdPlugin\%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+
+</Project>

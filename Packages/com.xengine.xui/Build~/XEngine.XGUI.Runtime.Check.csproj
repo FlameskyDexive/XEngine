@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Compiles the XGUI package Runtime so XUI has a real XEngine.XGUI.Runtime to reference.
+    XGUI is not this package's code; its warnings are not XUI's to fix, hence the NoWarn list.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>XEngine.XGUI.Runtime</AssemblyName>
+    <RootNamespace>XEngine.XGUI</RootNamespace>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <IsPackable>false</IsPackable>
+    <XEngineEnableAnalyzers>false</XEngineEnableAnalyzers>
+    <!-- CS0436 fires because several XGUI layout type names are also declared in XEngine.Runtime.
+         That collision is XGUI's to resolve, not XUI's; see the note in README.md. -->
+    <NoWarn>$(NoWarn);CS0436;CS0649;CS8600;CS8601;CS8602;CS8603;CS8604;CS8618;CS8625</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\com.xengine.xgui\Runtime\**\*.cs" />
+    <ProjectReference Include="..\..\..\XEngine.Runtime\XEngine.Runtime.csproj" />
+  </ItemGroup>
+
+</Project>

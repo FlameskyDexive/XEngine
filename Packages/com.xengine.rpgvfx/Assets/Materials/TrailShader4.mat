@@ -1,0 +1,111 @@
+{
+  "$id": 1,
+  "$type": "XEngine.Runtime.Resources.Material, XEngine.Runtime",
+  "_shader": {
+    "AssetID": "c736ac33-0263-2f1e-73c2-a4d189a851a4"
+  },
+  "_properties": {
+    "$id": 2,
+    "_colors": {
+      "_EndColor": {
+        "R": 1F,
+        "G": 1F,
+        "B": 1F,
+        "A": 1F
+      },
+      "_SpeedMainTexUVNoiseZW": {
+        "R": -2F,
+        "G": 0F,
+        "B": -1.5F,
+        "A": 0F
+      },
+      "_StartColor": {
+        "R": 1F,
+        "G": 1F,
+        "B": 1F,
+        "A": 1F
+      },
+      "_TintColor": {
+        "R": 0.5F,
+        "G": 0.5F,
+        "B": 0.5F,
+        "A": 0.5F
+      },
+      "_Vector0": {
+        "R": 0F,
+        "G": 0F,
+        "B": 0F,
+        "A": 0F
+      }
+    },
+    "_vectors2": {},
+    "_vectors3": {},
+    "_vectors4": {
+      "_MainTexture_ST": {
+        "X": 0.5F,
+        "Y": 1F,
+        "Z": 0F,
+        "W": 0F
+      },
+      "_Noise_ST": {
+        "X": 0.5F,
+        "Y": 1F,
+        "Z": 0F,
+        "W": 0F
+      }
+    },
+    "_floats": {
+      "_Colorpower": 2F,
+      "_Colorrange": 2F,
+      "_CullMode": 2F,
+      "_Depthpower": 1F,
+      "_Emission": 4F,
+      "_InvFade": 1F,
+      "_Mask": 1F,
+      "_Maskpower": 8F,
+      "_Usedark": 1F,
+      "_Usedepth": 0F,
+      "__dirty": 1F
+    },
+    "_ints": {},
+    "_matrices": {},
+    "_matrixArr": {},
+    "_textures": {
+      "_MainTexture": {
+        "AssetID": "219001a7-d2ce-af25-19a7-fea82b21081a"
+      },
+      "_Noise": {
+        "AssetID": "ea3a0084-a136-e46a-7906-7ebf304c5172"
+      }
+    },
+    "_textures3D": {},
+    "_texturesCube": {},
+    "_buffers": {},
+    "_bufferBindings": {}
+  },
+  "_overrides": [
+    "_EndColor",
+    "_SpeedMainTexUVNoiseZW",
+    "_StartColor",
+    "_TintColor",
+    "_Vector0",
+    "_Colorpower",
+    "_Colorrange",
+    "_CullMode",
+    "_Depthpower",
+    "_Emission",
+    "_InvFade",
+    "_Mask",
+    "_Maskpower",
+    "_Usedark",
+    "_Usedepth",
+    "__dirty",
+    "_MainTexture",
+    "_MainTexture_ST",
+    "_Noise",
+    "_Noise_ST"
+  ],
+  "AssetPath": "",
+  "AssetID": "00000000-0000-0000-0000-000000000000",
+  "Name": "TrailShader4"
+}

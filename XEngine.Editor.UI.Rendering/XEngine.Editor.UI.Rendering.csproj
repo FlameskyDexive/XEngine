@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../XEngine.Editor.UI/XEngine.Editor.UI.csproj" />
+    <ProjectReference Include="../XEngine.Runtime/XEngine.Runtime.csproj" />
+  </ItemGroup>
+</Project>

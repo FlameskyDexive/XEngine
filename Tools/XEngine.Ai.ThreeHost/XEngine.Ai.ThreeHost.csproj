@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
+    <AssemblyName>XEngine.Ai.ThreeHost</AssemblyName>
+    <!-- Authoring tool, not per-frame hot path. -->
+    <XEngineEnableAnalyzers>false</XEngineEnableAnalyzers>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.4191.47" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\XEngine.Ai.Protocol\XEngine.Ai.Protocol.csproj" />
+    <ProjectReference Include="..\XEngine.Ai.ThreeFx\XEngine.Ai.ThreeFx.csproj" />
+  </ItemGroup>
+
+  <!-- The authoring page ships with the host; WebView2 serves it via a virtual host mapping.
+       Link flattens Authoring/wwwroot -> <output>/wwwroot so the launcher's page-root guess and
+       the packaged publish layout agree. -->
+  <ItemGroup>
+    <None Include="Authoring\wwwroot\**\*"
+          Link="wwwroot\%(RecursiveDir)%(Filename)%(Extension)"
+          CopyToOutputDirectory="PreserveNewest"
+          CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,84 @@
+{
+  "name": "text-to-prop",
+  "description": "Prompt → generated 3D model → imported asset → GameObject with a wired MeshRenderer, in one DAG. Assumes a single-mesh, single-material prop (subAssets[0]=Mesh, [1]=Material — the common generated-prop shape; run asset_subassets and wire manually for anything richer). With an async provider (meshy) the fetch step fails until the task succeeds — poll gen_status, then re-run: every step is idempotent.",
+  "inputs": {
+    "type": "object",
+    "properties": {
+      "provider": { "type": "string", "description": "Generation provider: mock | meshy" },
+      "prompt": { "type": "string", "description": "What to generate (e.g. 'a rusty iron sword')" },
+      "scenePath": { "type": "string", "description": "Project-relative .scene to wire the prop into" },
+      "objectName": { "type": "string", "description": "Name for the new GameObject (also the asset base name)" },
+      "idempotencyKey": { "type": "string", "description": "Stable key prefix for journaled writes" }
+    },
+    "required": ["provider", "prompt", "scenePath", "objectName", "idempotencyKey"],
+    "additionalProperties": false
+  },
+  "steps": [
+    {
+      "name": "submit",
+      "tool": "gen_submit",
+      "arguments": {
+        "provider": "${inputs.provider}",
+        "kind": "model3d",
+        "prompt": "${inputs.prompt}"
+      },
+      "dependsOn": [],
+      "failurePolicy": "Stop"
+    },
+    {
+      "name": "status",
+      "tool": "gen_status",
+      "arguments": { "taskId": "${steps.submit.taskId}" },
+      "dependsOn": ["submit"],
+      "failurePolicy": "Stop"
+    },
+    {
+      "name": "fetch",
+      "tool": "gen_fetch",
+      "arguments": {
+        "taskId": "${steps.submit.taskId}",
+        "baseName": "${inputs.objectName}",
+        "idempotencyKey": "${inputs.idempotencyKey}-fetch",
+        "intent": "text-to-prop: ${inputs.prompt}"
+      },
+      "dependsOn": ["status"],
+      "failurePolicy": "Stop"
+    },
+    {
+      "name": "create-go",
+      "tool": "scene_object_create",
+      "arguments": {
+        "scenePath": "${inputs.scenePath}",
+        "name": "${inputs.objectName}",
+        "idempotencyKey": "${inputs.idempotencyKey}-go",
+        "intent": "text-to-prop: host object for ${inputs.prompt}"
+      },
+      "dependsOn": ["fetch"],
+      "failurePolicy": "Stop"
+    },
+    {
+      "name": "add-renderer",
+      "tool": "scene_component_add",
+      "arguments": {
+        "scenePath": "${inputs.scenePath}",
+        "objectIdentifier": "${steps.create-go.createdIdentifier}",
+        "componentType": "MeshRenderer",
+        "initialFields": [
+          { "path": "Mesh/AssetID", "value": "${steps.fetch.assets.0.subAssets.0.guid}" },
+          { "path": "Materials/$values/0/AssetID", "value": "${steps.fetch.assets.0.subAssets.1.guid}" }
+        ],
+        "idempotencyKey": "${inputs.idempotencyKey}-mr",
+        "intent": "text-to-prop: wire generated mesh + material"
+      },
+      "dependsOn": ["create-go"],
+      "failurePolicy": "Stop"
+    },
+    {
+      "name": "verify",
+      "tool": "scene_hierarchy",
+      "arguments": { "scenePath": "${inputs.scenePath}" },
+      "dependsOn": ["add-renderer"],
+      "failurePolicy": "Continue"
+    }
+  ]
+}

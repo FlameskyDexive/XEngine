@@ -1,0 +1,23 @@
+{
+  "name": "com.xengine.2d.psdimporter",
+  "version": "0.1.0",
+  "displayName": "2D PSD Importer",
+  "description": "Adobe Photoshop PSD/PSB importer: the layer tree with names, rects, groups, and pixels, a flattened composite texture, and one sprite per layer. Parser is the MIT Paint.NET PSD plugin, ported to pure C#. Official optional package: listed in Package Manager, not mounted until installed.",
+  "keywords": ["xengine"],
+  "installByDefault": false,
+  "xengine": "0.1.0",
+  "type": "package",
+  "category": "2D/Importer",
+  "documentationUrl": "Documentation~/index.md",
+  "changelogUrl": "CHANGELOG.md",
+  "licensesUrl": "LICENSE.md",
+  "license": "MIT",
+  "dependencies": {},
+  "samples": [
+    {
+      "displayName": "PSD → XUI",
+      "description": "A demo PSD, the .xui screen xui_from_psd generates from it, and the scaffolded controller with login logic — the whole pipeline in one folder.",
+      "path": "Samples~/PsdToXui"
+    }
+  ]
+}

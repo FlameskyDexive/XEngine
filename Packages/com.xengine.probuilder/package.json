@@ -1,0 +1,13 @@
+{
+  "name": "com.xengine.probuilder",
+  "version": "0.1.0",
+  "displayName": "ProBuilder",
+  "description": "Minimal Unity-ProBuilder-style procedural geometry for XEngine: parametric shapes (grid plane / cube / stairs / ramp) as engine meshes with automatic MeshRenderer + static MeshCollider wiring. zonezero M5 arena.",
+  "keywords": ["xengine"],
+  "installByDefault": false,
+  "xengine": "0.1.0",
+  "type": "package",
+  "category": "Official",
+  "supportedPlatforms": [ "Windows", "Linux", "macOS", "Android", "iOS", "Web", "HarmonyOS" ],
+  "dependencies": {}
+}

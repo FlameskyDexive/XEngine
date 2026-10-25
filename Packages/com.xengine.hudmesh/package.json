@@ -1,0 +1,24 @@
+{
+  "name": "com.xengine.hudmesh",
+  "version": "0.1.0",
+  "displayName": "Hudmesh",
+  "description": "World-space overhead HUD mesh system ported from UnityHUD: stacked nameplates (health bar, name, title, guild name, guild icon), floating damage numbers (SDF text or digit-atlas styles), and chat bubbles. All HUD quads are combined into one dynamic mesh per material and billboarded to the camera. Official optional package: listed in Package Manager, not mounted until installed.",
+  "installByDefault": false,
+  "xengine": "0.1.0",
+  "type": "package",
+  "category": "Official",
+  "documentationUrl": "Documentation~/index.md",
+  "changelogUrl": "CHANGELOG.md",
+  "licensesUrl": "LICENSE.md",
+  "supportedPlatforms": ["Windows", "Linux", "MacOS", "Android", "HarmonyOS"],
+  "license": "MIT",
+  "keywords": ["xengine", "hudmesh", "hud", "world-space", "billboard", "health-bar", "damage-numbers", "nameplate"],
+  "dependencies": {},
+  "samples": [
+    {
+      "displayName": "Hudmesh Demo",
+      "description": "Playable scene: five nameplates with bars, floating damage numbers and a chat bubble, driven entirely by the public Hud API.",
+      "path": "Samples~/HudmeshDemo"
+    }
+  ]
+}

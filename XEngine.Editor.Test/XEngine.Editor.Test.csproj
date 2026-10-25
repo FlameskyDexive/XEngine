@@ -1,0 +1,81 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.0" />
+    <PackageReference Include="NSubstitute" Version="5.1.0" />
+    <PackageReference Include="Xunit" Version="2.9.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\XEngine.Editor\XEngine.Editor.csproj" />
+    <Compile Include="..\XEngine.Runtime.Test\Video\FFmpegFactAttribute.cs" Link="TestSupport\FFmpegFactAttribute.cs" />
+    <ProjectReference Include="..\XEngine.Editor.UI\XEngine.Editor.UI.csproj" />
+    <ProjectReference Include="..\XEngine.Editor.UI.Rendering\XEngine.Editor.UI.Rendering.csproj" />
+    <PackageReference Include="ModelContextProtocol" Version="2.0.0" />
+    <Compile Include="..\Packages\com.xengine.ilinterpreter\Runtime\**\*.cs" Link="ILInterpreterPackage\Runtime\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\Packages\com.xengine.ilinterpreter\Editor\**\*.cs" Link="ILInterpreterPackage\Editor\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\Packages\com.xengine.vfx\Runtime\**\*.cs" Link="VfxPackage\Runtime\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\Packages\com.xengine.vfx\Editor\**\*.cs" Link="VfxPackage\Editor\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\Packages\com.xengine.timeline\Runtime\**\*.cs" Link="TimelinePackage\Runtime\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\Packages\com.xengine.timeline\Editor\**\*.cs" Link="TimelinePackage\Editor\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\Packages\com.xengine.nodeplay\Runtime\**\*.cs" Link="NodePlayPackage\Runtime\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\Packages\com.xengine.nodeplay\Editor\**\*.cs" Link="NodePlayPackage\Editor\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\Packages\com.xengine.terrain\Runtime\**\*.cs" Link="TerrainPackage\Runtime\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\Packages\com.xengine.terrain\Editor\**\*.cs" Link="TerrainPackage\Editor\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\Packages\com.xengine.voxelworld\Runtime\**\*.cs" Link="VoxelWorldPackage\Runtime\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\Packages\com.xengine.voxelworld\Editor\**\*.cs" Link="VoxelWorldPackage\Editor\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\Packages\com.xengine.ai.navigation\Runtime\**\*.cs" Link="NavigationPackage\Runtime\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\Packages\com.xengine.ai.navigation\Editor\**\*.cs" Link="NavigationPackage\Editor\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\Packages\com.xengine.spine\Runtime\**\*.cs" Link="SpinePackage\Runtime\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\Packages\com.xengine.genshin\Runtime\**\*.cs" Link="GenshinPackage\Runtime\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\Packages\com.xengine.genshin\Editor\**\*.cs" Link="GenshinPackage\Editor\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\Packages\com.xengine.unityimporter\Runtime\**\*.cs" Link="UnityImporterPackage\Runtime\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\Packages\com.xengine.unityimporter\Editor\**\*.cs" Link="UnityImporterPackage\Editor\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\Packages\com.xengine.rpgvfx\Editor\**\*.cs" Link="RpgVfxPackage\Editor\%(RecursiveDir)%(Filename)%(Extension)" />
+    <!-- HovlConvert and the Zonezero battle demo live in sibling repositories that are not
+         part of this engine repo; compile them (and their tests) only when those checkouts
+         exist next to the engine. -->
+    <Compile Include="..\Tools\HovlConvert\HovlPrefabConverter.cs" Link="RpgVfxPackage\HovlPrefabConverter.cs" Condition="Exists('..\Tools\HovlConvert\HovlPrefabConverter.cs')" />
+    <Compile Include="..\Tools\HovlConvert\HovlTextureMetaConverter.cs" Link="RpgVfxPackage\HovlTextureMetaConverter.cs" Condition="Exists('..\Tools\HovlConvert\HovlPrefabConverter.cs')" />
+    <Compile Include="..\Tools\HovlConvert\MeshReferenceResolver.cs" Link="RpgVfxPackage\MeshReferenceResolver.cs" Condition="Exists('..\Tools\HovlConvert\HovlPrefabConverter.cs')" />
+    <Compile Remove="HovlPrefabConverterTests.cs" Condition="!Exists('..\Tools\HovlConvert\HovlPrefabConverter.cs')" />
+    <Compile Remove="HovlTextureMetaConverterTests.cs" Condition="!Exists('..\Tools\HovlConvert\HovlPrefabConverter.cs')" />
+    <Compile Remove="HovlMeshReferenceResolverTests.cs" Condition="!Exists('..\Tools\HovlConvert\HovlPrefabConverter.cs')" />
+    <Compile Include="..\Packages\com.xengine.inputsystem\Runtime\**\*.cs" Link="InputSystemPackage\Runtime\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\Packages\com.xengine.probuilder\Runtime\**\*.cs" Link="ProBuilderPackage\Runtime\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\Packages\com.xengine.cinemachine\Runtime\**\*.cs" Link="CinemachinePackage\Runtime\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\ZonezeroTestProject\Packages\com.xengine.zonezero\Runtime\ZonezeroCameraDriver.cs" Link="ZonezeroPackage\Runtime\ZonezeroCameraDriver.cs" Condition="Exists('..\ZonezeroTestProject\Packages\com.xengine.zonezero\Runtime\ZonezeroCameraDriver.cs')" />
+    <Compile Remove="ZonezeroCinemachineTests.cs" Condition="!Exists('..\ZonezeroTestProject\Packages\com.xengine.zonezero\Runtime\ZonezeroCameraDriver.cs')" />
+    <Compile Include="..\Packages\com.xengine.magicacloth2\Runtime\**\*.cs" Link="MagicaCloth2Package\Runtime\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\Packages\com.xengine.inputsystem\Editor\**\*.cs" Link="InputSystemPackage\Editor\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\Packages\com.xengine.postprocessing\Runtime\**\*.cs" Link="PostProcessingPackage\Runtime\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\Packages\com.xengine.postprocessing\Editor\**\*.cs" Link="PostProcessingPackage\Editor\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\Packages\com.xengine.xgui\Runtime\Core\Graphic.cs" Link="XguiPackage\Graphic.cs" />
+    <Compile Include="..\Packages\com.xengine.xgui\Runtime\Core\MaskableGraphic.cs" Link="XguiPackage\MaskableGraphic.cs" />
+    <Compile Include="..\Packages\com.xengine.xgui\Runtime\Core\VertexHelper.cs" Link="XguiPackage\VertexHelper.cs" />
+    <Compile Include="..\Packages\com.xengine.xgui\Runtime\Core\UIInterfaces.cs" Link="XguiPackage\UIInterfaces.cs" />
+    <Compile Include="..\Packages\com.xengine.xgui\Runtime\Core\GraphicRegistry.cs" Link="XguiPackage\GraphicRegistry.cs" />
+    <Compile Include="..\Packages\com.xengine.xgui\Runtime\Core\CanvasUpdateRegistry.cs" Link="XguiPackage\CanvasUpdateRegistry.cs" />
+    <!-- CanvasUpdateRegistry resolves ILayoutElement against the package declaration, not the
+         Runtime compatibility contract, so the declaring file has to compile alongside it. -->
+    <Compile Include="..\Packages\com.xengine.xgui\Runtime\Layout\LayoutElement.cs" Link="XguiPackage\LayoutElement.cs" />
+    <Compile Include="..\Packages\com.xengine.spine\Editor\**\*.cs" Link="SpinePackage\Editor\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\Packages\com.xengine.xts\Runtime\**\*.cs" Link="XtsPackage\Runtime\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\Packages\com.xengine.xts\Editor\**\*.cs" Link="XtsPackage\Editor\%(RecursiveDir)%(Filename)%(Extension)" />
+    <!-- The XTS native library is P/Invoked by the runtime smoke test. -->
+    <None Include="..\Packages\com.xengine.xts\Plugins\Windows\x64\xengine_xts.dll" CopyToOutputDirectory="PreserveNewest" Link="xengine_xts.dll" />
+  </ItemGroup>
+
+</Project>

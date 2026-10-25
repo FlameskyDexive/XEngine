@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<XUI version="1">
+
+  <!-- Tokens, so a re-skin is one block rather than a search-and-replace over every element. -->
+  <Theme name="dark">
+    <Color name="scrim"       value="#000000AA"/>
+    <Color name="panel"       value="#1E2433"/>
+    <Color name="field"       value="#12141B"/>
+    <Color name="accent"      value="#4C8DFF"/>
+    <Color name="accent-quiet" value="#2A3346"/>
+  </Theme>
+
+  <!-- A row of the same shape twice, so the ids are parameterised rather than duplicated. -->
+  <Template name="Field">
+    <Param name="rootId"/>
+    <Param name="hint"/>
+    <Param name="secret" default="false"/>
+    <InputField id="{rootId}" size="_x44" color="field" placeholder="{hint}" password="{secret}"/>
+  </Template>
+
+  <Screen name="Login" reference="1920x1080" layer="Normal">
+    <!-- Full-bleed scrim: stretched, so no size is needed. -->
+    <Image id="XImgScrim" anchor="stretch" color="scrim"/>
+
+    <VStack id="XVsPanel" anchor="center" size="480x_" color="panel" spacing="12" padding="28">
+      <Text id="XTxtTitle" size="_x48" font-size="32" align="center">Sign in</Text>
+
+      <Field rootId="XInputAccount" hint="Account"/>
+      <Field rootId="XInputPassword" hint="Password" secret="true"/>
+
+      <HStack id="XHsActions" size="_x44" spacing="12" expand="true">
+        <Btn id="XBtnCancel" size="_x44" color="accent-quiet">Cancel</Btn>
+        <Btn id="XBtnLogin"  size="_x44" color="accent">Start</Btn>
+      </HStack>
+
+      <Text id="XTxtStatus" size="_x20" font-size="14" align="center" color="#8892A6"/>
+    </VStack>
+  </Screen>
+
+</XUI>

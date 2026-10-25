@@ -1,0 +1,18 @@
+{
+  "name": "com.xengine.2d.tooling",
+  "version": "0.1.0",
+  "displayName": "2D Tooling",
+  "description": "Shared 2D editor windows, inspectors, and palette tooling. Official optional package: listed in Package Manager, not mounted until installed.",
+  "keywords": ["xengine"],
+  "installByDefault": false,
+  "xengine": "0.1.0",
+  "type": "package",
+  "category": "2D/Editor",
+  "documentationUrl": "Documentation~/index.md",
+  "changelogUrl": "CHANGELOG.md",
+  "licensesUrl": "LICENSE.md",
+  "license": "MIT",
+  "dependencies": {
+    "com.xengine.2d.common": "0.1.0"
+  }
+}

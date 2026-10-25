@@ -1,0 +1,133 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <!--
+    XHub control skin on top of FluentTheme: flat sidebar nav rows, page chrome, cards and the
+    blue primary button. Brushes come from Hub.axaml (merged at Application level).
+  -->
+
+  <!-- Sidebar navigation list -->
+  <Style Selector="ListBox.navList">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="Margin" Value="0" />
+    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+  </Style>
+
+  <!-- Selected nav rows brighten text and accent the glyph (descendant selectors are not
+       allowed inside a ControlTheme, so these live on the .navItem class instead). -->
+  <Style Selector="ListBoxItem.navItem:selected TextBlock.navLabel">
+    <Setter Property="Foreground" Value="{DynamicResource HubTextPrimaryBrush}" />
+  </Style>
+  <Style Selector="ListBoxItem.navItem:selected PathIcon">
+    <Setter Property="Foreground" Value="{DynamicResource HubAccentBrush}" />
+  </Style>
+
+  <!-- Page chrome -->
+  <Style Selector="TextBlock.pageTitle">
+    <Setter Property="FontSize" Value="22" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="Foreground" Value="{DynamicResource HubTextPrimaryBrush}" />
+  </Style>
+
+  <Style Selector="TextBlock.emptyTitle">
+    <Setter Property="FontSize" Value="18" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="Foreground" Value="{DynamicResource HubTextPrimaryBrush}" />
+    <Setter Property="HorizontalAlignment" Value="Center" />
+  </Style>
+
+  <Style Selector="TextBlock.emptyHint">
+    <Setter Property="FontSize" Value="13" />
+    <Setter Property="Foreground" Value="{DynamicResource HubTextSecondaryBrush}" />
+    <Setter Property="TextWrapping" Value="Wrap" />
+    <Setter Property="TextAlignment" Value="Center" />
+    <Setter Property="MaxWidth" Value="420" />
+    <Setter Property="HorizontalAlignment" Value="Center" />
+  </Style>
+
+  <Style Selector="TextBlock.sectionHeader">
+    <Setter Property="FontSize" Value="14" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="Foreground" Value="{DynamicResource HubTextPrimaryBrush}" />
+    <Setter Property="Margin" Value="0,0,0,8" />
+  </Style>
+
+  <Style Selector="TextBlock.settingHint">
+    <Setter Property="FontSize" Value="12" />
+    <Setter Property="Foreground" Value="{DynamicResource HubTextSecondaryBrush}" />
+  </Style>
+
+  <!-- Primary (accent) button -->
+  <Style Selector="Button.accent">
+    <Setter Property="Background" Value="{DynamicResource HubAccentBrush}" />
+    <Setter Property="Foreground" Value="White" />
+    <Setter Property="Padding" Value="14,7" />
+    <Setter Property="FontWeight" Value="Medium" />
+  </Style>
+  <Style Selector="Button.accent:pointerover /template/ ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource HubAccentHoverBrush}" />
+    <Setter Property="Foreground" Value="White" />
+  </Style>
+  <Style Selector="Button.accent:pressed /template/ ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource HubAccentPressedBrush}" />
+    <Setter Property="Foreground" Value="White" />
+  </Style>
+
+  <!-- Cards and sections -->
+  <Style Selector="Border.hubCard">
+    <Setter Property="Background" Value="{DynamicResource HubCardBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource HubBorderBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="8" />
+    <Setter Property="Padding" Value="16" />
+  </Style>
+
+  <!-- Project row status chip (class order matters: available is the fallback tint) -->
+  <Style Selector="Border.chip">
+    <Setter Property="BorderThickness" Value="0" />
+  </Style>
+  <Style Selector="Border.chipAvailable">
+    <Setter Property="Background" Value="#1D3A26" />
+  </Style>
+  <Style Selector="Border.chipAvailable TextBlock">
+    <Setter Property="Foreground" Value="#7BD88F" />
+  </Style>
+  <Style Selector="Border.chipMissing">
+    <Setter Property="Background" Value="#4A1F1F" />
+  </Style>
+  <Style Selector="Border.chipMissing TextBlock">
+    <Setter Property="Foreground" Value="#FF8A80" />
+  </Style>
+  <Style Selector="Border.chipIncomplete">
+    <Setter Property="Background" Value="#4A3517" />
+  </Style>
+  <Style Selector="Border.chipIncomplete TextBlock">
+    <Setter Property="Foreground" Value="#FFCC7F" />
+  </Style>
+
+  <!-- Release channel chips -->
+  <Style Selector="Border.chipChannelPreview">
+    <Setter Property="Background" Value="#3A2A4A" />
+  </Style>
+  <Style Selector="Border.chipChannelPreview TextBlock">
+    <Setter Property="Foreground" Value="#CDA9FF" />
+  </Style>
+  <Style Selector="Border.chipChannelStable">
+    <Setter Property="Background" Value="#173A5E" />
+  </Style>
+  <Style Selector="Border.chipChannelStable TextBlock">
+    <Setter Property="Foreground" Value="#7FC4FF" />
+  </Style>
+
+  <!-- Favorite star: dim when off, accent when pinned -->
+  <Style Selector="Button.starButton PathIcon">
+    <Setter Property="Foreground" Value="{DynamicResource HubTextSecondaryBrush}" />
+    <Setter Property="Opacity" Value="0.4" />
+  </Style>
+  <Style Selector="Button.starButton.favorited PathIcon">
+    <Setter Property="Foreground" Value="{DynamicResource HubAccentBrush}" />
+    <Setter Property="Opacity" Value="1" />
+  </Style>
+</Styles>

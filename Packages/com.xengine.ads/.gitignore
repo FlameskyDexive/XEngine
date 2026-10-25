@@ -1,0 +1,3 @@
+# Build artifacts of the hidden evidence generator (its sources are tracked, its obj/bin are not).
+Build~/**/obj/
+Build~/**/bin/

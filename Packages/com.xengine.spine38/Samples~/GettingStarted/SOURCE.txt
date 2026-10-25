@@ -1,0 +1,5 @@
+Official Spine 3.8 example export (ESS JSON + PMA atlas + PNG).
+
+Spineboy  examples/spineboy/export/spineboy-ess.json + spineboy-pma.atlas/.png
+Source: D:\Engine\spine-runtimes (branch 3.8, export version 3.8.55)
+See ../LICENSE-SPINE-EXAMPLES.txt

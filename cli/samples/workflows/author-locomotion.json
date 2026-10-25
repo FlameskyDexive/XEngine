@@ -1,0 +1,77 @@
+{
+  "name": "author-locomotion",
+  "description": "From idle/walk clip GUIDs, add a Speed parameter, Idle+Walk states, an Idle→Walk transition, then validate the controller.",
+  "inputs": {
+    "type": "object",
+    "properties": {
+      "controllerPath": { "type": "string", "description": "Project-relative .controller path" },
+      "idleClipGuid": { "type": "string", "description": "Idle AnimationClip GUID" },
+      "walkClipGuid": { "type": "string", "description": "Walk AnimationClip GUID" },
+      "idempotencyKey": { "type": "string", "description": "Stable key prefix for journaled writes" }
+    },
+    "required": ["controllerPath", "idleClipGuid", "walkClipGuid", "idempotencyKey"],
+    "additionalProperties": false
+  },
+  "steps": [
+    {
+      "name": "add-speed",
+      "tool": "animator_parameter_add",
+      "arguments": {
+        "controllerPath": "${inputs.controllerPath}",
+        "name": "Speed",
+        "type": "Float",
+        "idempotencyKey": "${inputs.idempotencyKey}-speed",
+        "intent": "locomotion Speed parameter"
+      },
+      "dependsOn": [],
+      "failurePolicy": "Stop"
+    },
+    {
+      "name": "create-idle",
+      "tool": "animator_state_create",
+      "arguments": {
+        "controllerPath": "${inputs.controllerPath}",
+        "name": "Idle",
+        "clipGuid": "${inputs.idleClipGuid}",
+        "idempotencyKey": "${inputs.idempotencyKey}-idle",
+        "intent": "idle state"
+      },
+      "dependsOn": ["add-speed"],
+      "failurePolicy": "Stop"
+    },
+    {
+      "name": "create-walk",
+      "tool": "animator_state_create",
+      "arguments": {
+        "controllerPath": "${inputs.controllerPath}",
+        "name": "Walk",
+        "clipGuid": "${inputs.walkClipGuid}",
+        "idempotencyKey": "${inputs.idempotencyKey}-walk",
+        "intent": "walk state"
+      },
+      "dependsOn": ["create-idle"],
+      "failurePolicy": "Stop"
+    },
+    {
+      "name": "idle-to-walk",
+      "tool": "animator_transition_create",
+      "arguments": {
+        "controllerPath": "${inputs.controllerPath}",
+        "fromState": "Idle",
+        "toState": "Walk",
+        "name": "IdleToWalk",
+        "idempotencyKey": "${inputs.idempotencyKey}-trans",
+        "intent": "Idle to Walk"
+      },
+      "dependsOn": ["create-walk"],
+      "failurePolicy": "Stop"
+    },
+    {
+      "name": "validate",
+      "tool": "animator_validate",
+      "arguments": { "controllerPath": "${inputs.controllerPath}" },
+      "dependsOn": ["idle-to-walk"],
+      "failurePolicy": "Continue"
+    }
+  ]
+}

@@ -1,0 +1,128 @@
+/*
+ * Jitter2 Physics Library
+ * (c) Thorben Linneweber and contributors
+ * SPDX-License-Identifier: MIT
+ */
+
+using System;
+using Jitter2.LinearMath;
+
+namespace Jitter2.Collision.Shapes;
+
+/// <summary>
+/// Represents a cylinder shape defined by a height and radius.
+/// </summary>
+public class CylinderShape : RigidBodyShape
+{
+    private Real radius;
+    private Real height;
+
+    /// <summary>
+    /// Gets or sets the radius of the cylinder.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Thrown when <paramref name="value"/> is less than or equal to zero.
+    /// </exception>
+    public Real Radius
+    {
+        get => radius;
+        set
+        {
+            radius = ArgumentCheck.Positive(value, nameof(Radius));
+            UpdateWorldBoundingBox();
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets the height of the cylinder.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Thrown when <paramref name="value"/> is less than or equal to zero.
+    /// </exception>
+    public Real Height
+    {
+        get => height;
+        set
+        {
+            height = ArgumentCheck.Positive(value, nameof(Height));
+            UpdateWorldBoundingBox();
+        }
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CylinderShape"/> class, creating a cylinder shape with the specified
+    /// height and radius. The symmetry axis of the cylinder is aligned along the y-axis.
+    /// </summary>
+    /// <param name="height">The height of the cylinder.</param>
+    /// <param name="radius">The radius of the cylinder at its base.</param>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Thrown when <paramref name="height"/> or <paramref name="radius"/> is less than or equal to zero.
+    /// </exception>
+    public CylinderShape(Real height, Real radius)
+    {
+        this.radius = ArgumentCheck.Positive(radius, nameof(radius));
+        this.height = ArgumentCheck.Positive(height, nameof(height));
+        UpdateWorldBoundingBox();
+    }
+
+    /// <inheritdoc/>
+    public override void GetCenter(out JVector point)
+    {
+        point = JVector.Zero;
+    }
+
+    /// <inheritdoc/>
+    public override void SupportMap(in JVector direction, out JVector result)
+    {
+        Real sigma = (Real)Math.Sqrt(direction.X * direction.X + direction.Z * direction.Z);
+
+        if (sigma > (Real)0.0)
+        {
+            result.X = direction.X / sigma * radius;
+            result.Y = Math.Sign(direction.Y) * height * (Real)0.5;
+            result.Z = direction.Z / sigma * radius;
+        }
+        else
+        {
+            result.X = (Real)0.0;
+            result.Y = Math.Sign(direction.Y) * height * (Real)0.5;
+            result.Z = (Real)0.0;
+        }
+    }
+
+    /// <inheritdoc/>
+    public override void CalculateBoundingBox(in JQuaternion orientation, in JVector position, out JBoundingBox box)
+    {
+        JVector upa = orientation.GetBasisY();
+
+        Real xx = upa.X * upa.X;
+        Real yy = upa.Y * upa.Y;
+        Real zz = upa.Z * upa.Z;
+
+        Real xExt = MathR.Sqrt(yy + zz) * radius;
+        Real yExt = MathR.Sqrt(xx + zz) * radius;
+        Real zExt = MathR.Sqrt(xx + yy) * radius;
+
+        JVector p1 = -(Real)0.5 * height * upa;
+        JVector p2 = +(Real)0.5 * height * upa;
+
+        JVector delta = JVector.Max(p1, p2) + new JVector(xExt, yExt, zExt);
+
+        box.Min = position - delta;
+        box.Max = position + delta;
+    }
+
+    /// <inheritdoc/>
+    public override void CalculateMassInertia(out JMatrix inertia, out JVector com, out Real mass)
+    {
+        mass = MathR.PI * radius * radius * height;
+
+        inertia = JMatrix.Identity;
+
+        inertia.M11 = (Real)(1.0 / 4.0) * mass * radius * radius + (Real)(1.0 / 12.0) * mass * height * height;
+        inertia.M22 = (Real)(1.0 / 2.0) * mass * radius * radius;
+        inertia.M33 = (Real)(1.0 / 4.0) * mass * radius * radius + (Real)(1.0 / 12.0) * mass * height * height;
+
+        com = JVector.Zero;
+    }
+}

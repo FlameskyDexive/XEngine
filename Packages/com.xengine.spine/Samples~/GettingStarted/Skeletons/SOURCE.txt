@@ -1,0 +1,9 @@
+Official Spine 4.3 example exports (ESS/pro JSON + PMA atlas + PNG).
+
+Spineboy  examples/spineboy/export/spineboy-ess.json + spineboy-pma.atlas/.png
+Raptor    examples/raptor/export/raptor-pro.json + raptor-pma.atlas/.png
+Hero      examples/hero/export/hero-ess.json + hero-pma.atlas/.png
+Doi       spine-unity/Assets/Spine/Samples~/Spine Examples/Spine Skeletons/Spineunitygirl/
+
+Source: D:\Engine\spine-runtimes-4.3 (4.3 branch, 4.3.74-beta exports)
+See ../LICENSE-SPINE-EXAMPLES.txt

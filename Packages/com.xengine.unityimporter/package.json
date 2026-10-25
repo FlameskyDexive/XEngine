@@ -1,0 +1,18 @@
+{
+  "name": "com.xengine.unityimporter",
+  "version": "0.1.0",
+  "displayName": "Unity Asset Importer",
+  "description": "Shared Unity-asset direct import layer: Unity YAML parser, content sniffer, deterministic GUID sidecar resolution, and .mesh/.prefab/.mat importers that claim Unity-serialized files and delegate engine-native files. Extracted from com.xengine.genshin so any demo package (genshin, zonezero, ...) can build on it.",
+  "installByDefault": false,
+  "xengine": "0.1.0",
+  "type": "package",
+  "category": "Official",
+  "documentationUrl": "Documentation~/index.md",
+  "changelogUrl": "CHANGELOG.md",
+  "licensesUrl": "LICENSE.md",
+  "supportedPlatforms": ["Windows", "Linux", "MacOS", "Android", "HarmonyOS"],
+  "license": "MIT",
+  "keywords": ["xengine", "unity", "importer", "yaml", "converter", "migration"],
+  "dependencies": {},
+  "samples": []
+}

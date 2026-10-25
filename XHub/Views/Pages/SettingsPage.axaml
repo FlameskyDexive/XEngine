@@ -1,0 +1,93 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:XHub.Resources;assembly=XHub"
+             xmlns:vm="clr-namespace:XHub.ViewModels"
+             x:Class="XHub.Views.SettingsPage"
+             x:DataType="vm:SettingsViewModel">
+  <Grid RowDefinitions="Auto,*">
+    <TextBlock Classes="pageTitle" Text="{ReflectionBinding [settings.title], Source={x:Static loc:Loc.Instance}}" />
+
+    <ScrollViewer Grid.Row="1" Margin="0,16,0,0">
+      <StackPanel MaxWidth="680" HorizontalAlignment="Left" Spacing="16">
+
+        <!-- General -->
+        <TextBlock Classes="sectionHeader"
+                   Text="{ReflectionBinding [settings.general], Source={x:Static loc:Loc.Instance}}" />
+        <Border Classes="hubCard">
+          <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
+            <TextBlock Text="{ReflectionBinding [settings.language], Source={x:Static loc:Loc.Instance}}"
+                       FontWeight="Medium" />
+            <TextBlock Grid.Row="1" Classes="settingHint"
+                       Text="{ReflectionBinding [settings.language.hint], Source={x:Static loc:Loc.Instance}}" />
+            <ComboBox Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Center" MinWidth="160"
+                      ItemsSource="{Binding Languages}"
+                      SelectedIndex="{Binding SelectedLanguageIndex}">
+              <ComboBox.ItemTemplate>
+                <DataTemplate x:DataType="vm:LanguageOption">
+                  <TextBlock Text="{Binding DisplayName}" />
+                </DataTemplate>
+              </ComboBox.ItemTemplate>
+            </ComboBox>
+          </Grid>
+        </Border>
+
+        <!-- Install locations -->
+        <TextBlock Classes="sectionHeader" Margin="0,8,0,0"
+                   Text="{ReflectionBinding [settings.locations], Source={x:Static loc:Loc.Instance}}" />
+        <Border Classes="hubCard">
+          <StackPanel Spacing="10">
+            <Grid ColumnDefinitions="Auto,*,Auto,Auto">
+              <TextBlock Text="{ReflectionBinding [settings.locations.editors], Source={x:Static loc:Loc.Instance}}"
+                         FontWeight="Medium" VerticalAlignment="Center" Margin="0,0,10,0" />
+              <TextBox Grid.Column="1" Watermark="%LOCALAPPDATA%\XEngine\XHub\editors"
+                       Text="{Binding EditorsRoot}" />
+              <Button Grid.Column="2" Margin="8,0,0,0" Content="{ReflectionBinding [settings.locations.browse], Source={x:Static loc:Loc.Instance}}"
+                      Command="{Binding BrowseEditorsRootCommand}" />
+              <Button Grid.Column="3" Margin="8,0,0,0" Content="{ReflectionBinding [settings.locations.reset], Source={x:Static loc:Loc.Instance}}"
+                      Command="{Binding ResetEditorsRootCommand}" />
+            </Grid>
+            <Grid ColumnDefinitions="Auto,*,Auto,Auto">
+              <TextBlock Text="{ReflectionBinding [settings.locations.downloads], Source={x:Static loc:Loc.Instance}}"
+                         FontWeight="Medium" VerticalAlignment="Center" Margin="0,0,10,0" />
+              <TextBox Grid.Column="1" Watermark="%LOCALAPPDATA%\XEngine\XHub\downloads"
+                       Text="{Binding DownloadsRoot}" />
+              <Button Grid.Column="2" Margin="8,0,0,0" Content="{ReflectionBinding [settings.locations.browse], Source={x:Static loc:Loc.Instance}}"
+                      Command="{Binding BrowseDownloadsRootCommand}" />
+              <Button Grid.Column="3" Margin="8,0,0,0" Content="{ReflectionBinding [settings.locations.reset], Source={x:Static loc:Loc.Instance}}"
+                      Command="{Binding ResetDownloadsRootCommand}" />
+            </Grid>
+            <StackPanel Orientation="Horizontal" Spacing="10">
+              <Button Classes="accent" Content="{ReflectionBinding [settings.locations.save], Source={x:Static loc:Loc.Instance}}"
+                      Command="{Binding SaveLocationsCommand}" />
+              <TextBlock Classes="settingHint" VerticalAlignment="Center"
+                         Text="{ReflectionBinding [settings.locations.hint], Source={x:Static loc:Loc.Instance}}" />
+              <TextBlock Classes="settingHint" VerticalAlignment="Center" FontWeight="Medium"
+                         IsVisible="{Binding RestartPending}"
+                         Text="{ReflectionBinding [settings.locations.restart], Source={x:Static loc:Loc.Instance}}" />
+            </StackPanel>
+            <TextBlock Classes="settingHint"
+                       Text="{ReflectionBinding [settings.locations.current], Source={x:Static loc:Loc.Instance}}" />
+            <TextBlock Classes="settingHint" Text="{Binding EffectiveEditorsRoot}" />
+            <TextBlock Classes="settingHint" Text="{Binding EffectiveDownloadsRoot}" />
+          </StackPanel>
+        </Border>
+
+        <!-- About -->
+        <TextBlock Classes="sectionHeader" Margin="0,8,0,0"
+                   Text="{ReflectionBinding [settings.about], Source={x:Static loc:Loc.Instance}}" />
+        <Border Classes="hubCard">
+          <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
+            <TextBlock Text="{Binding HubVersion}" FontWeight="Medium" VerticalAlignment="Center" />
+            <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="10" Margin="0,6,0,0">
+              <TextBlock Classes="settingHint" Text="{Binding LogsDirectory}" VerticalAlignment="Center" />
+            </StackPanel>
+            <Button Grid.Column="1" Grid.RowSpan="2" Classes="accent" VerticalAlignment="Center"
+                    Command="{Binding OpenLogsDirectoryCommand}"
+                    Content="{ReflectionBinding [settings.logs], Source={x:Static loc:Loc.Instance}}" />
+          </Grid>
+        </Border>
+
+      </StackPanel>
+    </ScrollViewer>
+  </Grid>
+</UserControl>

@@ -1,0 +1,79 @@
+# AGENTS.md — {{PROJECT_NAME}} (XEngine game project)
+
+This file is the AI-agent guide for THIS game project. It was seeded by the XEngine harness
+(harness version {{HARNESS_VERSION}}); re-run `xengine-cli harness upgrade` after upgrading the
+engine to refresh it.
+
+## What this project is
+
+An XEngine game project: text-based assets under `Assets/` (Echo format — human-readable and
+git-diffable), project settings under `ProjectSettings/`, engine packages under `Packages/`,
+and the AI operation journal under `.xengine/journal/` (every agent edit is recorded there with
+author, intent and a replayable delta).
+
+## Connecting an AI agent
+
+`.mcp.json` next to this file wires two MCP servers:
+
+- `xengine` — the offline CLI host (`xengine-cli serve`): scene/asset/prefab/animation/code tools
+  operating on files, journaled, no editor required. Engine install: `{{ENGINE_ROOT}}`
+- `xengine-live` (when the editor binary was found) — the LIVE editor (`XEngine.Editor --serve`):
+  `runtime_*` tools (screenshot, logs, playmode, live scene, eval) driving a running editor.
+  Start the editor with the same `--project` path first.
+
+Run `xengine_capabilities` on either connection for the live tool list (group + risk + dryRun flags).
+This project resolves to the **user** edition: game-development tools only.
+
+## Working skills
+
+Per-task guides live in `.xengine/harness/skills/` (one folder per skill, `SKILL.md`). Read the
+relevant skill before operating: inspect-scene, edit-scene, edit-prefab, edit-animation-clip,
+edit-animator, edit-material, edit-shader-graph, edit-vfx-graph, generate-asset, generate-spine,
+build-project, run-scene-live, observe-runtime, run-workflow, navigate, trace-history, write-code …
+
+## Workflow principles
+
+- **Read before write.** Inspect scene/asset state first, then patch.
+- **Dry-run edits with the `dryRun` flag** before applying; scene/asset writes accept
+  `expectedBeforeHash` for optimistic concurrency.
+- **Every write takes an `idempotencyKey` + `intent`** — they land in the operation journal, so
+  history is queryable via `journal_query` and `trace-history`.
+- **Verify live when behavior matters**: run the scene in the editor (`runtime_playmode`) and
+  observe (`runtime_screenshot`, `runtime_stats`).
+
+## Loading assets at runtime (non-Resources)
+
+Rule: **when game code loads an asset dynamically and the asset is NOT under a `Resources/`
+folder, the AssetBundle collector must be configured to cover it, and the load is verified in
+the editor's simulated mode.**
+
+- **Configure the collector** — `ProjectSettings/AssetBundles.yaml` (`AssetBundleCollectorSetting`;
+  edited via Project Settings → AssetBundles / the AssetBundles window). Hierarchy: Packages →
+  Groups → Collectors. Add (or extend) a collector whose `CollectPath` (relative to `Assets/`)
+  covers the asset's folder, and pick its rules: `PackRule` (`PackTogether` whole folder → one
+  bundle / `PackSeparately` per top-level asset / `PackByDirectory` per subfolder) and
+  `AddressRule` (`ByPath` / `ByFileName` / `ByGuid` / `NoAddress`). `EnableAddressable: true`
+  gives assets friendly string addresses.
+- **Load through the runtime APIs, never loose file paths** — an `AssetRef<T>` field (serialized
+  GUID reference) or `Runtime.AssetDatabase.Get(guid)`; in addressable packages the same asset
+  also loads by its collector address. This is the one load path that works unchanged in the
+  editor and in a bundle-built player.
+- **Verify via editor simulation** — entering Play mode in the editor serves dynamic loads
+  straight from the project's asset database (editor-simulate mode: no bundles are built), so
+  run the scene (`runtime_playmode`) and exercise the load before touching a build.
+- **Why the collector step is not optional**: an uncollected asset loads fine in the editor but
+  is simply **absent from an AssetBundle-packaged player** — the player backend resolves only
+  assets present in the package manifests. Assets under a `Resources/` folder are the exception
+  (`Resources.Load` works in editor and player without collector coverage).
+
+
+## Quick start (中文速览)
+
+1. AI 客户端加载本目录的 `.mcp.json`（离线 CLI 服务器 + 可选的运行中编辑器服务器）。
+2. 先调 `xengine_capabilities` 看当前可用工具；再读 `.xengine/harness/skills/` 里对应任务的 SKILL.md。
+3. 改场景/资产前先 inspect，写入用 dryRun 验证；所有写操作带 `idempotencyKey` 与 `intent`，
+   自动记入 `.xengine/journal/`（可追溯、可回放）。
+4. 动态加载 Resources/ 目录之外的资产时：先在 `ProjectSettings/AssetBundles.yaml` 配置收集器
+   （CollectPath 覆盖该资产目录），代码经 `AssetRef<T>` / `AssetDatabase.Get(guid)` 加载，并在
+   编辑器 Play（模拟加载，无需出包）里验证——未配置收集器的资产编辑器里能加载，打进
+   AssetBundle 包体后不存在。

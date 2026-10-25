@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>$(XEngineTargetFrameworks)</TargetFrameworks>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DotRecast.Detour\DotRecast.Detour.csproj" />
+    <ProjectReference Include="..\DotRecast.Recast\DotRecast.Recast.csproj" />
+  </ItemGroup>
+</Project>

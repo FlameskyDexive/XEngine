@@ -1,0 +1,8 @@
+{
+  "root": {
+    "id": "receiver",
+    "name": "Raycast Receiver",
+    "rect": { "size": [100, 100] },
+    "components": [ { "type": "RaycastReceiver" } ]
+  }
+}

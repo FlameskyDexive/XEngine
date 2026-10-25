@@ -1,0 +1,13 @@
+{
+  "name": "com.xengine.magicacloth2",
+  "version": "0.1.0",
+  "displayName": "Magica Cloth 2 (P0 bone cloth)",
+  "description": "Minimal MagicaCloth2 bone-cloth port for XEngine (zonezero M11 P0): per-bone verlet chains with tether/distance constraints, sin-noise wind, sphere colliders, world-rotation write-back after the Animator.",
+  "keywords": ["xengine"],
+  "installByDefault": false,
+  "xengine": "0.1.0",
+  "type": "package",
+  "category": "Official",
+  "supportedPlatforms": [ "Windows", "Linux", "macOS", "Android", "iOS", "Web", "HarmonyOS" ],
+  "dependencies": {}
+}

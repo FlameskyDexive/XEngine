@@ -1,0 +1,8 @@
+{
+  "root": {
+    "id": "image",
+    "name": "Image",
+    "rect": { "size": [100, 100] },
+    "components": [ { "type": "Image" } ]
+  }
+}

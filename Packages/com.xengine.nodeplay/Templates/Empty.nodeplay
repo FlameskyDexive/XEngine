@@ -1,0 +1,22 @@
+{
+  "$type": "XEngine.NodePlay.BT.NPBehaviourTreeAsset, XEngine.NodePlay.Runtime",
+  "GraphName": "New Behaviour Tree",
+  "Module": "bt",
+  "Nodes": [
+    {
+      "$type": "XEngine.NodePlay.NPRelayNode, XEngine.NodePlay.Runtime",
+      "Id": "template-root-node-0000000000000000",
+      "Name": "Root",
+      "Position": { "X": 120.0, "Y": 60.0 },
+      "Comment": "",
+      "Disabled": false,
+      "Breakpoint": false
+    }
+  ],
+  "Connections": [],
+  "Groups": [],
+  "Stickies": [],
+  "PrimeNodeId": "template-root-node-0000000000000000",
+  "Repeat": true,
+  "UpdateInterval": 0.0
+}

@@ -1,0 +1,16 @@
+{
+  "name": "XEngine.2D.Aseprite.Editor",
+  "references": [
+    "XEngine.Editor",
+    "XEngine.2D.Sprite.Runtime",
+    "XEngine.2D.Tilemap.Runtime"
+  ],
+  "includePlatforms": ["Editor"],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "autoReferenced": true,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "defineConstraints": [],
+  "noEngineReferences": false
+}

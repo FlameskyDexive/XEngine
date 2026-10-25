@@ -1,0 +1,12 @@
+{
+  "name": "XEngine.Genshin.Editor",
+  "references": ["XEngine.Genshin.Runtime", "XEngine.Editor", "XEngine.UnityImporter.Editor"],
+  "includePlatforms": ["Editor"],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "autoReferenced": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "defineConstraints": [],
+  "noEngineReferences": false
+}

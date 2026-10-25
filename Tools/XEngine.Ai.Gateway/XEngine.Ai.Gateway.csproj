@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    XEngine.Ai.Gateway — the generation gateway (Gen-P1.1): typed recipes, provider adapters
+    (Meshy/PixelLab/Blockade/ElevenLabs/local), secret resolution and the on-disk task store that
+    lets the stateless CLI resume submit→poll→fetch across processes. Engine-agnostic: BCL only
+    (HttpClient + System.Text.Json), no engine or Echo dependencies.
+    See docs/superpowers/specs/2026-08-15-ai-asset-generation-pipeline.md.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Description>XEngine AI generation gateway (providers, recipes, secrets, task store).</Description>
+
+    <!-- Developer/agent-facing tooling, not per-frame engine code: exempt from PR0001-PR0007. -->
+    <XEngineEnableAnalyzers>false</XEngineEnableAnalyzers>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="XEngine.Ai.Host.Tests" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,27 @@
+{
+  "$id": 1,
+  "$type": "XEngine.VoxelWorld.VoxelDefinition, XEngine.VoxelWorld.Runtime",
+  "Title": "Dirt",
+  "RenderType": 0,
+  "TextureTop": {
+    "AssetID": "3c8e1a20-7b4d-4e91-9c2a-0f6d8b1e4a12"
+  },
+  "TextureSide": {
+    "AssetID": "3c8e1a20-7b4d-4e91-9c2a-0f6d8b1e4a12"
+  },
+  "TextureBottom": {
+    "AssetID": "3c8e1a20-7b4d-4e91-9c2a-0f6d8b1e4a12"
+  },
+  "TintColor": {
+    "R": 0.5529412,
+    "G": 0.43137255,
+    "B": 0.3882353,
+    "A": 1
+  },
+  "Alpha": 1,
+  "LightIntensity": 0,
+  "Hidden": false,
+  "CanBeCollected": true,
+  "Name": "DirtVoxel",
+  "AssetID": "00000000-0000-0000-0000-000000000000"
+}

@@ -1,0 +1,95 @@
+{
+  "$id": 1,
+  "$type": "XEngine.Runtime.Resources.Material, XEngine.Runtime",
+  "_shader": {
+    "AssetID": "c736ac33-0263-2f1e-73c2-a4d189a851a4"
+  },
+  "_properties": {
+    "$id": 2,
+    "_colors": {
+      "_EndColor": {
+        "R": 0.612092F,
+        "G": 0F,
+        "B": 1F,
+        "A": 1F
+      },
+      "_SpeedMainTexUVNoiseZW": {
+        "R": -2F,
+        "G": 0F,
+        "B": -2F,
+        "A": 0F
+      },
+      "_StartColor": {
+        "R": 0F,
+        "G": 0.739479F,
+        "B": 1F,
+        "A": 1F
+      }
+    },
+    "_vectors2": {},
+    "_vectors3": {},
+    "_vectors4": {
+      "_MainTexture_ST": {
+        "X": 0.8F,
+        "Y": 1F,
+        "Z": 0F,
+        "W": 0F
+      },
+      "_Noise_ST": {
+        "X": 2F,
+        "Y": 1F,
+        "Z": 0F,
+        "W": 0F
+      }
+    },
+    "_floats": {
+      "_Colorpower": 0.8F,
+      "_Colorrange": 2F,
+      "_CullMode": 2F,
+      "_Depthpower": 1F,
+      "_Emission": 15F,
+      "_Mask": 0F,
+      "_Maskpower": 10F,
+      "_Usedark": 1F,
+      "_Usedepth": 0F,
+      "__dirty": 1F
+    },
+    "_ints": {},
+    "_matrices": {},
+    "_matrixArr": {},
+    "_textures": {
+      "_MainTexture": {
+        "AssetID": "954d3ce8-cfff-1e60-8995-1d47b4579255"
+      },
+      "_Noise": {
+        "AssetID": "f0873dc8-18ef-9426-f7ff-f8bd30eb41c9"
+      }
+    },
+    "_textures3D": {},
+    "_texturesCube": {},
+    "_buffers": {},
+    "_bufferBindings": {}
+  },
+  "_overrides": [
+    "_EndColor",
+    "_SpeedMainTexUVNoiseZW",
+    "_StartColor",
+    "_Colorpower",
+    "_Colorrange",
+    "_CullMode",
+    "_Depthpower",
+    "_Emission",
+    "_Mask",
+    "_Maskpower",
+    "_Usedark",
+    "_Usedepth",
+    "__dirty",
+    "_MainTexture",
+    "_MainTexture_ST",
+    "_Noise",
+    "_Noise_ST"
+  ],
+  "AssetPath": "",
+  "AssetID": "00000000-0000-0000-0000-000000000000",
+  "Name": "TrailShader2"
+}

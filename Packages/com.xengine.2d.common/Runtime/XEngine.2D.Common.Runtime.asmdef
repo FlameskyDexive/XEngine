@@ -1,0 +1,14 @@
+{
+  "name": "XEngine.2D.Common.Runtime",
+  "references": [
+    "XEngine.Runtime"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "autoReferenced": true,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "defineConstraints": [],
+  "noEngineReferences": false
+}

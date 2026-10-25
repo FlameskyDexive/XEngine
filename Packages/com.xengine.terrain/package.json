@@ -1,0 +1,23 @@
+{
+  "name": "com.xengine.terrain",
+  "version": "0.1.0",
+  "displayName": "Terrain",
+  "description": "3D heightmap terrain with splat layers, grass, trees, and sculpting tools. Official optional package: listed in Package Manager, not mounted until installed.",
+  "installByDefault": false,
+  "xengine": "0.1.0",
+  "type": "package",
+  "category": "Official",
+  "documentationUrl": "Documentation~/index.md",
+  "changelogUrl": "CHANGELOG.md",
+  "licensesUrl": "LICENSE.md",
+  "supportedPlatforms": ["Windows", "Linux", "MacOS", "Android", "HarmonyOS"],
+  "license": "MIT",
+  "keywords": ["xengine", "terrain", "heightmap", "splatmap", "grass", "vegetation", "trees"],
+  "samples": [
+    {
+      "displayName": "Starter Terrain",
+      "description": "Sculpted 64 m hill with a shared grass TerrainLayer, detail grass, trees, and a Wind Zone.",
+      "path": "Samples~/Starter"
+    }
+  ]
+}

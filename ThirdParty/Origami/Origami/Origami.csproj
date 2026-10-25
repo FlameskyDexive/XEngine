@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>$(XEngineTargetFrameworks)</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PackageId>XEngine.Origami</PackageId>
+    <Title>XEngine.Origami</Title>
+    <Description>A production-ready UI widget library built on XEngine.Paper. Provides buttons, sliders, dropdowns, property grids, docking, modals, toasts, tooltips, tree views, color pickers, curve editors, and more with a consistent fluent builder API and full theming support.</Description>
+    <RootNamespace>XEngine.OrigamiUI</RootNamespace>
+    <PackageTags>UI widgets;component library;fluent API;theme system;docking;property grid;buttons;sliders;dropdowns;modals;toasts;tooltips;tree view;color picker;curve editor;date picker;breadcrumbs;chat bubbles;immediate mode;XEngine;game engine;editor UI</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Echo\Echo\Echo.csproj" />
+    <ProjectReference Include="..\..\Paper\Paper\Paper.csproj" />
+  </ItemGroup>
+
+</Project>

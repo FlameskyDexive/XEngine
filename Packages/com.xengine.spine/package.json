@@ -1,0 +1,31 @@
+{
+  "name": "com.xengine.spine",
+  "version": "0.2.0",
+  "displayName": "Spine",
+  "description": "Esoteric Spine skeletal 2D animation runtime. Official optional package: listed in Package Manager, not mounted until installed. Users of this package must hold their own Spine Editor license.",
+  "installByDefault": false,
+  "xengine": "0.1.0",
+  "type": "package",
+  "category": "Official",
+  "documentationUrl": "Documentation~/index.md",
+  "changelogUrl": "CHANGELOG.md",
+  "licensesUrl": "LICENSE.md",
+  "supportedPlatforms": ["Windows", "Linux", "MacOS", "Android", "HarmonyOS"],
+  "license": "MIT",
+  "keywords": ["xengine", "spine", "2d", "skeletal", "animation"],
+  "dependencies": {
+    "com.xengine.xgui": "0.1.0"
+  },
+  "samples": [
+    {
+      "displayName": "Getting Started",
+      "description": "Official spine-unity Getting Started scenes (Spineboy, Raptor, Hero, Doi) ported to XEngine.",
+      "path": "Samples~/GettingStarted"
+    },
+    {
+      "displayName": "Other Examples",
+      "description": "Goblins skin swap, Mix-and-Match skins, runtime load from exports, and atlas restyle (4.2 data).",
+      "path": "Samples~/OtherExamples"
+    }
+  ]
+}

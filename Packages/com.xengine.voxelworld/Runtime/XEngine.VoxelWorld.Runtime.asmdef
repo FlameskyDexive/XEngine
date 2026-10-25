@@ -1,0 +1,13 @@
+{
+  "name": "XEngine.VoxelWorld.Runtime",
+  "rootNamespace": "XEngine.VoxelWorld",
+  "references": ["XEngine.Runtime"],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": true,
+  "autoReferenced": true,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "defineConstraints": [],
+  "noEngineReferences": false
+}

@@ -1,0 +1,8 @@
+{
+  "root": {
+    "id": "rawImage",
+    "name": "Raw Image",
+    "rect": { "size": [100, 100] },
+    "components": [ { "type": "RawImage" } ]
+  }
+}

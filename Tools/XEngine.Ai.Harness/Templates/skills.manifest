@@ -1,0 +1,45 @@
+# XEngine user-edition agent skills — one directory name per line.
+# Lines starting with # are comments; blank lines ignored.
+# Engine-repo-only skills (run-tests: engine test suite; search-code: engine sln code index)
+# are deliberately NOT shipped to user projects.
+authoring-xui-pxl
+authoring-xui-xml
+build-project
+diagnose
+edit-animation-clip
+edit-animator
+edit-material
+edit-pipeline
+edit-prefab
+edit-scene
+edit-scene-settings
+edit-shader-graph
+edit-timeline
+edit-vfx-graph
+edit-volume
+generate-asset
+generate-spine
+inspect-animator
+inspect-assets
+inspect-frame-debug
+inspect-pipeline
+inspect-render-debug
+inspect-scene
+inspect-shader-graph
+inspect-vfx-graph
+inspect-volume
+install-platform-toolchain
+manage-assets
+manage-packages
+navigate
+nodeplay-graph
+observe-runtime
+play-spine-animation
+publish-npm-package
+restyle-spine-atlas
+run-scene-live
+run-workflow
+run-xui-live
+scripting-xui-csharp
+trace-history
+write-code

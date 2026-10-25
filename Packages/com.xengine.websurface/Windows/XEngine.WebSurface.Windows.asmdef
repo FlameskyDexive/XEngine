@@ -1,0 +1,12 @@
+{
+  "name": "XEngine.WebSurface.Windows",
+  "references": ["XEngine.Runtime", "XEngine.XGUI.Runtime", "XEngine.WebSurface.Runtime"],
+  "includePlatforms": ["Editor", "Windows"],
+  "excludePlatforms": [],
+  "allowUnsafeCode": true,
+  "autoReferenced": true,
+  "overrideReferences": true,
+  "precompiledReferences": ["Microsoft.Web.WebView2.Core.dll"],
+  "defineConstraints": [],
+  "noEngineReferences": false
+}

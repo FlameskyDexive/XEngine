@@ -1,0 +1,158 @@
+{
+  "$id": 1,
+  "$type": "XEngine.Runtime.Resources.Material, XEngine.Runtime",
+  "_shader": {
+    "AssetID": "d3309e05-fcbe-cd7b-d406-4b2ef7dca520"
+  },
+  "_properties": {
+    "$id": 2,
+    "_colors": {
+      "_Color": {
+        "R": 1F,
+        "G": 1F,
+        "B": 1F,
+        "A": 1F
+      },
+      "_EmissionColor": {
+        "R": 0F,
+        "G": 0F,
+        "B": 0F,
+        "A": 1F
+      },
+      "_MainColor": {
+        "R": 0.485294F,
+        "G": 0.510142F,
+        "B": 1F,
+        "A": 1F
+      },
+      "_RemapXYFresnelZ": {
+        "R": -6F,
+        "G": 6F,
+        "B": 0.4F,
+        "A": 0F
+      },
+      "_RemapXYFresnelZW": {
+        "R": -10F,
+        "G": 10F,
+        "B": 1F,
+        "A": 3F
+      },
+      "_Speed": {
+        "R": 0.189F,
+        "G": 0.225F,
+        "B": 0.2F,
+        "A": -0.05F
+      },
+      "_node_5068": {
+        "R": 0.5F,
+        "G": 0.5F,
+        "B": 0.5F,
+        "A": 1F
+      }
+    },
+    "_vectors2": {},
+    "_vectors3": {},
+    "_vectors4": {},
+    "_floats": {
+      "_2Uspeed": -0.2F,
+      "_2Vspeed": -0.05F,
+      "_BumpScale": 1F,
+      "_CullMode": 2F,
+      "_Cutoff": 0.5F,
+      "_Cutted": 0F,
+      "_Cutvalue": 0.8F,
+      "_Depth": 0.15F,
+      "_Depthpower": 1F,
+      "_DetailNormalMapScale": 1F,
+      "_Dissolveamount": 0.407F,
+      "_DstBlend": 0F,
+      "_Emission": 3F,
+      "_Fresnel": 0.3F,
+      "_Fresnelpower": 2F,
+      "_GlossMapScale": 1F,
+      "_Glossiness": 0.5F,
+      "_GlossyReflections": 1F,
+      "_Lightninigstrench": 1F,
+      "_Metallic": 0F,
+      "_Mode": 0F,
+      "_OcclusionStrength": 1F,
+      "_Opacity": 1F,
+      "_Parallax": 0.02F,
+      "_Posterize": 0F,
+      "_SmoothnessTextureChannel": 0F,
+      "_SpecularHighlights": 1F,
+      "_SrcBlend": 1F,
+      "_Steps": 3F,
+      "_UVSec": 0F,
+      "_Usedepth": 1F,
+      "_Uspeed": 0.189F,
+      "_Vspeed": 0.225F,
+      "_fgsg": 1F,
+      "_node_7089": 0.6F
+    },
+    "_ints": {},
+    "_matrices": {},
+    "_matrixArr": {},
+    "_textures": {
+      "_MainTexture": {
+        "AssetID": "140ca478-5c7c-f2e8-6372-cdc1fb76e076"
+      },
+      "_Mask": {
+        "AssetID": "681ab029-88ad-a82f-5d11-2af8aebfed64"
+      }
+    },
+    "_textures3D": {},
+    "_texturesCube": {},
+    "_buffers": {},
+    "_bufferBindings": {}
+  },
+  "_overrides": [
+    "_Color",
+    "_EmissionColor",
+    "_MainColor",
+    "_RemapXYFresnelZ",
+    "_RemapXYFresnelZW",
+    "_Speed",
+    "_node_5068",
+    "_2Uspeed",
+    "_2Vspeed",
+    "_BumpScale",
+    "_CullMode",
+    "_Cutoff",
+    "_Cutted",
+    "_Cutvalue",
+    "_Depth",
+    "_Depthpower",
+    "_DetailNormalMapScale",
+    "_Dissolveamount",
+    "_DstBlend",
+    "_Emission",
+    "_Fresnel",
+    "_Fresnelpower",
+    "_GlossMapScale",
+    "_Glossiness",
+    "_GlossyReflections",
+    "_Lightninigstrench",
+    "_Metallic",
+    "_Mode",
+    "_OcclusionStrength",
+    "_Opacity",
+    "_Parallax",
+    "_Posterize",
+    "_SmoothnessTextureChannel",
+    "_SpecularHighlights",
+    "_SrcBlend",
+    "_Steps",
+    "_UVSec",
+    "_Usedepth",
+    "_Uspeed",
+    "_Vspeed",
+    "_fgsg",
+    "_node_7089",
+    "_MainTexture",
+    "_Mask"
+  ],
+  "AssetPath": "",
+  "AssetID": "00000000-0000-0000-0000-000000000000",
+  "Name": "Electricity1be"
+}

@@ -1,0 +1,78 @@
+{
+  "schema": "xengine.xts.native.source.v1",
+  "name": "quickjs",
+  "role": "JavaScript engine embedded behind the XTS C ABI (xengine_xts_abi)",
+  "upstream": "Fabrice Bellard QuickJS",
+  "version": "2025-04-26",
+  "url": "https://bellard.org/quickjs/quickjs-2025-04-26.tar.xz",
+  "sha256": "2f20074c25166ef6f781f381c50d57b502cb85d470d639abccebbef7954c83bf",
+  "license": "MIT",
+  "licenseFile": "Native/quickjs/LICENSE",
+  "upstreamReference": "https://bellard.org/quickjs/quickjs.html",
+  "vendoredFiles": [
+    "quickjs/quickjs.c",
+    "quickjs/quickjs.h",
+    "quickjs/quickjs-atom.h",
+    "quickjs/quickjs-opcode.h",
+    "quickjs/cutils.c",
+    "quickjs/cutils.h",
+    "quickjs/libregexp.c",
+    "quickjs/libregexp.h",
+    "quickjs/libregexp-opcode.h",
+    "quickjs/libunicode.c",
+    "quickjs/libunicode.h",
+    "quickjs/libunicode-table.h",
+    "quickjs/list.h",
+    "quickjs/dtoa.c",
+    "quickjs/dtoa.h",
+    "quickjs/LICENSE",
+    "quickjs/VERSION",
+    "quickjs/Changelog"
+  ],
+  "vendoredPatches": [
+    {
+      "file": "quickjs/cutils.h",
+      "reason": "MSVC portability: likely/unlikely/force_inline/no_inline/__maybe_unused macro branches; __attribute__/__attribute null macros; #pragma pack for packed_u64/u32/u16; xts_printf_format macro for dbuf_printf",
+      "upstreamCompatibility": "GCC/clang paths unchanged"
+    },
+    {
+      "file": "quickjs/cutils.h",
+      "reason": "MSVC clz32/clz64/ctz32/ctz64 via _BitScanReverse/_BitScanForward intrinsics (intrin.h)",
+      "upstreamCompatibility": "GCC/clang paths unchanged"
+    },
+    {
+      "file": "quickjs/quickjs.c",
+      "reason": "CONFIG_ATOMICS gated by !defined(XTS_NO_ATOMICS) so XTS builds disable Atomics/SharedArrayBuffer on every platform for a uniform JS surface (single-threaded script domains)",
+      "upstreamCompatibility": "default behavior unchanged when XTS_NO_ATOMICS is not defined"
+    },
+    {
+      "file": "quickjs/quickjs.c",
+      "reason": "DIRECT_DISPATCH forced to 0 under _MSC_VER (no computed-goto in cl.exe); switch dispatch on MSVC, computed dispatch elsewhere",
+      "upstreamCompatibility": "performance-only difference, semantics identical"
+    },
+    {
+      "file": "quickjs/quickjs.c",
+      "reason": "js_get_stack_pointer uses _AddressOfReturnAddress() under _MSC_VER (no __builtin_frame_address)",
+      "upstreamCompatibility": "GCC/clang paths unchanged"
+    },
+    {
+      "file": "quickjs/quickjs.c",
+      "reason": "Constant 1.0/0.0 replaced by (double)INFINITY (cl.exe rejects constant division by zero)",
+      "upstreamCompatibility": "identical value"
+    },
+    {
+      "file": "quickjs/quickjs.c + quickjs/quickjs.h",
+      "reason": "Removed struct-to-itself value casts that the MSVC C frontend rejects ((JSValue)v, (JSValueConst)x); assignments are identical",
+      "upstreamCompatibility": "identical semantics"
+    },
+    {
+      "file": "quickjs/msvc-compat/sys/time.h",
+      "reason": "quickjs.c includes <sys/time.h> and calls gettimeofday(); cl.exe has neither. Shim provided via include path on MSVC builds only",
+      "upstreamCompatibility": "not upstream code"
+    }
+  ],
+  "buildDefines": ["XTS_BUILDING", "XTS_NO_ATOMICS", "CONFIG_VERSION=\"2025-04-26\""],
+  "windowsBuild": "Native/build-windows.ps1 (cl.exe via vcvars64, /utf-8 /std:c11 /O2)",
+  "harmonyosBuild": "Native/CMakeLists.txt (ohos ndk cmake toolchain, later node)",
+  "abiContract": "Native/xengine_xts_abi/xengine_xts_abi.h (XTS_ABI_VERSION 1)"
+}

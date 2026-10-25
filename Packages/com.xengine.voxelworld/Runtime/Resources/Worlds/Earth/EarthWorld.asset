@@ -1,0 +1,36 @@
+{
+  "$id": 1,
+  "$type": "XEngine.VoxelWorld.WorldDefinition, XEngine.VoxelWorld.Runtime",
+  "Seed": 1,
+  "TerrainGenerator": { "AssetID": "4d9e2b30-8c5e-4f02-ad3b-1a7c9d0e5f51" },
+  "Biomes": {
+    "$id": 2,
+    "$type": "System.Collections.Generic.List`1[[XEngine.Runtime.AssetRef`1[[XEngine.VoxelWorld.BiomeDefinition, XEngine.VoxelWorld.Runtime]], XEngine.Runtime]]",
+    "$values": [
+      { "AssetID": "4d9e2b30-8c5e-4f02-ad3b-1a7c9d0e5f41" },
+      { "AssetID": "4d9e2b30-8c5e-4f02-ad3b-1a7c9d0e5f42" },
+      { "AssetID": "4d9e2b30-8c5e-4f02-ad3b-1a7c9d0e5f43" }
+    ]
+  },
+  "ExtraVoxels": {
+    "$id": 3,
+    "$type": "System.Collections.Generic.List`1[[XEngine.Runtime.AssetRef`1[[XEngine.VoxelWorld.VoxelDefinition, XEngine.VoxelWorld.Runtime]], XEngine.Runtime]]",
+    "$values": [
+      { "AssetID": "3c8e1a20-7b4d-4e91-9c2a-0f6d8b1e4b21" },
+      { "AssetID": "3c8e1a20-7b4d-4e91-9c2a-0f6d8b1e4b22" },
+      { "AssetID": "3c8e1a20-7b4d-4e91-9c2a-0f6d8b1e4b23" },
+      { "AssetID": "4d9e2b30-8c5e-4f02-ad3b-1a7c9d0e5f31" },
+      { "AssetID": "4d9e2b30-8c5e-4f02-ad3b-1a7c9d0e5f32" },
+      { "AssetID": "4d9e2b30-8c5e-4f02-ad3b-1a7c9d0e5f33" },
+      { "AssetID": "4d9e2b30-8c5e-4f02-ad3b-1a7c9d0e5f34" },
+      { "AssetID": "4d9e2b30-8c5e-4f02-ad3b-1a7c9d0e5f35" }
+    ]
+  },
+  "Items": {
+    "$id": 4,
+    "$type": "System.Collections.Generic.List`1[[XEngine.Runtime.AssetRef`1[[XEngine.VoxelWorld.ItemDefinition, XEngine.VoxelWorld.Runtime]], XEngine.Runtime]]",
+    "$values": []
+  },
+  "Name": "EarthWorld",
+  "AssetID": "00000000-0000-0000-0000-000000000000"
+}

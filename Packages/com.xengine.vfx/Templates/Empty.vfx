@@ -1,0 +1,24 @@
+{
+  "$type": "XEngine.VFX.VfxGraphAsset, XEngine.VFX.Runtime",
+  "GraphName": "VFX/Empty",
+  "Template": 0,
+  "Capacity": 1024,
+  "Properties": { "$values": [] },
+  "Contexts": {
+    "$values": [
+      { "Id": "ctx_spawn", "Type": "Spawn", "PosX": 240, "PosY": 0 },
+      { "Id": "ctx_init", "Type": "Initialize", "PosX": 240, "PosY": 160 },
+      { "Id": "ctx_update", "Type": "Update", "PosX": 240, "PosY": 320 },
+      { "Id": "ctx_output", "Type": "OutputParticleQuad", "PosX": 240, "PosY": 480 }
+    ]
+  },
+  "Blocks": { "$values": [] },
+  "Operators": { "$values": [] },
+  "Edges": {
+    "$values": [
+      { "Id": "e_flow0", "FromNode": "ctx_spawn", "FromPort": "Flow", "ToNode": "ctx_init", "ToPort": "Flow" },
+      { "Id": "e_flow1", "FromNode": "ctx_init", "FromPort": "Flow", "ToNode": "ctx_update", "ToPort": "Flow" },
+      { "Id": "e_flow2", "FromNode": "ctx_update", "FromPort": "Flow", "ToNode": "ctx_output", "ToPort": "Flow" }
+    ]
+  }
+}

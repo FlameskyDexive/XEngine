@@ -1,0 +1,16 @@
+{
+  "name": "com.xengine.platform.android",
+  "version": "0.1.0",
+  "displayName": "Android Build Support",
+  "description": "Platform module for Android builds: toolchain manifest driving one-click download/install of JDK 17 (Temurin), Android cmdline-tools, SDK packages (platform-tools, build-tools, platform, NDK) and bundletool from vendor sources, wired into the existing Android toolchain resolve/lock chain. Metadata only — no binaries are redistributed.",
+  "installByDefault": false,
+  "xengine": "0.1.0",
+  "type": "package",
+  "category": "Platforms",
+  "documentationUrl": "Documentation~/index.md",
+  "changelogUrl": "CHANGELOG.md",
+  "supportedPlatforms": ["Windows"],
+  "license": "MIT",
+  "keywords": ["xengine", "android", "build", "toolchain"],
+  "dependencies": {}
+}

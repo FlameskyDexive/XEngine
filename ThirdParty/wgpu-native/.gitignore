@@ -1,0 +1,5 @@
+# Scratch download / extract trees. The committed tree is include/ + runtimes/.
+win-x64-extract/
+*.zip
+*.lib
+*.pdb

@@ -1,0 +1,52 @@
+{
+  "$id": 1,
+  "$type": "XEngine.Runtime.Resources.Material, XEngine.Runtime",
+  "_shader": {
+    "AssetID": "cf3bc58a-1bc7-70ed-583b-98b143700037"
+  },
+  "_properties": {
+    "$id": 2,
+    "_colors": {
+      "_Color": {
+        "R": 1F,
+        "G": 1F,
+        "B": 1F,
+        "A": 1F
+      }
+    },
+    "_vectors2": {},
+    "_vectors3": {},
+    "_vectors4": {},
+    "_floats": {
+      "_Depthpower": 0.15F,
+      "_Emission": 2F,
+      "_Useblack": 0F,
+      "_Usedepth": 1F,
+      "__dirty": 1F
+    },
+    "_ints": {},
+    "_matrices": {},
+    "_matrixArr": {},
+    "_textures": {
+      "_MainTex": {
+        "AssetID": "afd68c44-fa2b-91bb-24c4-5d25f127d29d"
+      }
+    },
+    "_textures3D": {},
+    "_texturesCube": {},
+    "_buffers": {},
+    "_bufferBindings": {}
+  },
+  "_overrides": [
+    "_Color",
+    "_Depthpower",
+    "_Emission",
+    "_Useblack",
+    "_Usedepth",
+    "__dirty",
+    "_MainTex"
+  ],
+  "AssetPath": "",
+  "AssetID": "00000000-0000-0000-0000-000000000000",
+  "Name": "Smoke20ss"
+}

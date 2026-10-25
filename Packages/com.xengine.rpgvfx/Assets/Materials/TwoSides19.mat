@@ -1,0 +1,135 @@
+{
+  "$id": 1,
+  "$type": "XEngine.Runtime.Resources.Material, XEngine.Runtime",
+  "_shader": {
+    "AssetID": "ebc8ee3e-de4d-c1d9-df48-580f8d866f83"
+  },
+  "_properties": {
+    "$id": 2,
+    "_colors": {
+      "_BackFacesColor": {
+        "R": 1F,
+        "G": 1F,
+        "B": 1F,
+        "A": 1F
+      },
+      "_Color": {
+        "R": 1F,
+        "G": 1F,
+        "B": 1F,
+        "A": 1F
+      },
+      "_EmissionColor": {
+        "R": 0F,
+        "G": 0F,
+        "B": 0F,
+        "A": 1F
+      },
+      "_FresnelColor": {
+        "R": 1F,
+        "G": 1F,
+        "B": 1F,
+        "A": 1F
+      },
+      "_FrontFacesColor": {
+        "R": 1F,
+        "G": 1F,
+        "B": 1F,
+        "A": 1F
+      },
+      "_SpeedMainTexUVNoiseZW": {
+        "R": 0F,
+        "G": 0F,
+        "B": 0F,
+        "A": 0F
+      }
+    },
+    "_vectors2": {},
+    "_vectors3": {},
+    "_vectors4": {
+      "_Noise_ST": {
+        "X": 1F,
+        "Y": 0.35F,
+        "Z": 0F,
+        "W": 0F
+      }
+    },
+    "_floats": {
+      "_BumpScale": 1F,
+      "_Cutoff": 0.5F,
+      "_DetailNormalMapScale": 1F,
+      "_DstBlend": 0F,
+      "_Emission": 3F,
+      "_Fresnel": 2F,
+      "_FresnelEmission": 1F,
+      "_GlossMapScale": 1F,
+      "_Glossiness": 0.5F,
+      "_GlossyReflections": 1F,
+      "_Metallic": 0F,
+      "_Mode": 0F,
+      "_OcclusionStrength": 1F,
+      "_Parallax": 0.02F,
+      "_SeparateEmission": 2F,
+      "_SeparateFresnel": 0F,
+      "_SmoothnessTextureChannel": 0F,
+      "_SpecularHighlights": 1F,
+      "_SrcBlend": 1F,
+      "_UVSec": 0F,
+      "_UseCustomData": 1F,
+      "_UseFresnel": 0F,
+      "__dirty": 1F
+    },
+    "_ints": {},
+    "_matrices": {},
+    "_matrixArr": {},
+    "_textures": {
+      "_Mask": {
+        "AssetID": "d47a454e-716a-9875-8679-1bfd75cd6e53"
+      },
+      "_Noise": {
+        "AssetID": "0b1497b8-42e9-700e-f13a-704a71ef668d"
+      }
+    },
+    "_textures3D": {},
+    "_texturesCube": {},
+    "_buffers": {},
+    "_bufferBindings": {}
+  },
+  "_overrides": [
+    "_BackFacesColor",
+    "_Color",
+    "_EmissionColor",
+    "_FresnelColor",
+    "_FrontFacesColor",
+    "_SpeedMainTexUVNoiseZW",
+    "_BumpScale",
+    "_Cutoff",
+    "_DetailNormalMapScale",
+    "_DstBlend",
+    "_Emission",
+    "_Fresnel",
+    "_FresnelEmission",
+    "_GlossMapScale",
+    "_Glossiness",
+    "_GlossyReflections",
+    "_Metallic",
+    "_Mode",
+    "_OcclusionStrength",
+    "_Parallax",
+    "_SeparateEmission",
+    "_SeparateFresnel",
+    "_SmoothnessTextureChannel",
+    "_SpecularHighlights",
+    "_SrcBlend",
+    "_UVSec",
+    "_UseCustomData",
+    "_UseFresnel",
+    "__dirty",
+    "_Mask",
+    "_Noise",
+    "_Noise_ST"
+  ],
+  "AssetPath": "",
+  "AssetID": "00000000-0000-0000-0000-000000000000",
+  "Name": "TwoSides19"
+}

@@ -1,0 +1,70 @@
+diff --git a/src/miniaudioex.c b/src/miniaudioex.c
+index ed57739..4a9a379 100644
+--- a/src/miniaudioex.c
++++ b/src/miniaudioex.c
+@@ -55,6 +55,15 @@
+ #include <string.h>
+ #include <assert.h>
+ 
++#if defined(__OHOS__)
++/* OpenHarmony output (src/miniaudioex_ohos.c): an OH_AudioRenderer drives the
++ * app data callback because miniaudio has no OHOS device backend. */
++void ma_ex_ohos_attach(ma_ex_context* context, ma_device_data_proc dataProc, ma_uint32 channels);
++void ma_ex_ohos_null_data_cb(ma_device* pDevice, void* pOutput, const void* pInput, ma_uint32 frameCount);
++ma_result ma_ex_ohos_renderer_start(ma_ex_context* context);
++void ma_ex_ohos_renderer_stop(void);
++#endif
++
+ #ifndef MA_ASSERT
+ #define MA_ASSERT(condition) assert(condition)
+ #endif
+@@ -298,6 +307,13 @@ MA_API ma_ex_context *ma_ex_context_init(const ma_ex_context_config *config) {
+     deviceConfig.dataCallback = config->deviceDataProc == NULL ? &ma_ex_on_data_proc : config->deviceDataProc;
+     deviceConfig.periodSizeInFrames = config->periodSizeInFrames;
+ 
++#if defined(__OHOS__)
++    /* Capture the app callback for the OHAudio renderer and keep the ma_device
++     * inert: it is never started on OHOS, so a no-op callback is fine. */
++    ma_ex_ohos_attach(context, deviceConfig.dataCallback, (ma_uint32)context->channels);
++    deviceConfig.dataCallback = ma_ex_ohos_null_data_cb;
++#endif
++
+     ma_device_info* pPlaybackInfos;
+     ma_uint32 playbackCount;
+     ma_device_info* pCaptureInfos;
+@@ -362,6 +378,17 @@ MA_API ma_ex_context *ma_ex_context_init(const ma_ex_context_config *config) {
+ 
+     context->device.pUserData = &context->engine;
+ 
++#if defined(__OHOS__)
++    if (ma_ex_ohos_renderer_start(context) != MA_SUCCESS) {
++        fprintf(stderr, "Failed to start OHAudio renderer\n");
++        ma_ex_ohos_renderer_stop();
++        ma_engine_uninit(&context->engine);
++        ma_device_uninit(&context->device);
++        ma_context_uninit(&context->context);
++        MA_FREE(context);
++        return NULL;
++    }
++#else
+     if (ma_device_start(&context->device) != MA_SUCCESS) {
+         fprintf(stderr, "Failed to start ma_device\n");
+         ma_engine_uninit(&context->engine);
+@@ -370,6 +397,7 @@ MA_API ma_ex_context *ma_ex_context_init(const ma_ex_context_config *config) {
+         MA_FREE(context);
+         return NULL;
+     }
++#endif
+ 
+     for(size_t i = 0; i < MA_ENGINE_MAX_LISTENERS; i++) {
+         context->listeners[i] = -1;
+@@ -380,6 +408,9 @@ MA_API ma_ex_context *ma_ex_context_init(const ma_ex_context_config *config) {
+ 
+ MA_API void ma_ex_context_uninit(ma_ex_context *context) {
+     if(context != NULL) {
++#if defined(__OHOS__)
++        ma_ex_ohos_renderer_stop();
++#endif
+         ma_engine_uninit(&context->engine);
+         ma_resource_manager_uninit(&context->resourceManager);
+         ma_device_uninit(&context->device);

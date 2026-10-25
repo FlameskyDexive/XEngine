@@ -1,0 +1,50 @@
+{
+  "name": "com.xengine.xui",
+  "version": "0.1.0",
+  "displayName": "XUI",
+  "description": "AI-first UI application layer on top of XGUI. Compact .xui XML screens assembled into XGUI hierarchies at runtime, logic/render separation, and offline validation through the XEngine AI Host. Official optional package: listed in Package Manager, not mounted until installed.",
+  "installByDefault": false,
+  "xengine": "0.1.0",
+  "type": "package",
+  "category": "Official",
+  "documentationUrl": "Documentation~/index.md",
+  "changelogUrl": "CHANGELOG.md",
+  "licensesUrl": "LICENSE.md",
+  "supportedPlatforms": [
+    "Windows",
+    "Linux",
+    "MacOS",
+    "Android",
+    "HarmonyOS"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "xengine",
+    "ui",
+    "xui",
+    "xgui",
+    "ai",
+    "xml",
+    "pixel-art"
+  ],
+  "dependencies": {
+    "com.xengine.xgui": "0.1.0"
+  },
+  "samples": [
+    {
+      "displayName": "Login Screen",
+      "description": "One screen covering theme tokens, a stretched backdrop, a content-sized VStack, a template used twice with parameterised ids, and an action row.",
+      "path": "Samples~/LoginScreen"
+    },
+    {
+      "displayName": "Settings Flow",
+      "description": "The whole package on one screen: tabs with bound panels, entry and exit transitions, a controller that never touches a GameObject, a modal, a loading overlay, a toast, and translation — including the one label that must not be translated.",
+      "path": "Samples~/SettingsFlow"
+    },
+    {
+      "displayName": "Pixel Button",
+      "description": "A two-state 9-slice button skin authored as a .pxl text grid. Render it with pxl_render to see what the characters draw.",
+      "path": "Samples~/PixelButton"
+    }
+  ]
+}

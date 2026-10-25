@@ -1,0 +1,164 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:XHub.Resources;assembly=XHub"
+             xmlns:vm="clr-namespace:XHub.ViewModels"
+             x:Class="XHub.Views.InstallationsPage"
+             x:DataType="vm:InstallationsViewModel">
+  <Grid RowDefinitions="Auto,Auto,Auto,*,Auto,Auto">
+
+    <!-- Toolbar -->
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10" Margin="0,0,0,12">
+      <Button Command="{Binding RefreshInstallableCommand}"
+              Content="{ReflectionBinding [installations.refreshFeed], Source={x:Static loc:Loc.Instance}}" />
+      <Button Command="{Binding RescanCommand}"
+              Content="{ReflectionBinding [installations.scan], Source={x:Static loc:Loc.Instance}}" />
+      <Button Classes="accent" Command="{Binding LocateCommand}"
+              Content="{ReflectionBinding [installations.locate], Source={x:Static loc:Loc.Instance}}" />
+    </StackPanel>
+
+    <!-- ── 可安装 (feed) ────────────────────────────────────────── -->
+    <TextBlock Grid.Row="1" Classes="sectionHeader"
+               Text="{ReflectionBinding [installations.installable], Source={x:Static loc:Loc.Instance}}" />
+    <ScrollViewer Grid.Row="2" MaxHeight="180" HorizontalScrollBarVisibility="Disabled"
+                  IsVisible="{Binding HasInstallable}">
+      <ItemsControl ItemsSource="{Binding Installable}" Margin="0,0,0,8">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate x:DataType="vm:ReleaseEntryViewModel">
+            <Border Classes="hubCard" Margin="12,3" Padding="12,8">
+              <Grid ColumnDefinitions="170,*,110,110" VerticalAlignment="Center">
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                  <TextBlock Text="{Binding VersionText}" FontWeight="Medium"
+                             Foreground="{DynamicResource HubTextPrimaryBrush}" />
+                  <Border Classes="chip chipChannelPreview" IsVisible="{Binding IsPreview}" CornerRadius="4" Padding="6,2">
+                    <TextBlock Text="{ReflectionBinding [installations.channel.preview], Source={x:Static loc:Loc.Instance}}" FontSize="10" />
+                  </Border>
+                  <Border Classes="chip chipChannelStable" IsVisible="{Binding IsStable}" CornerRadius="4" Padding="6,2">
+                    <TextBlock Text="{ReflectionBinding [installations.channel.stable], Source={x:Static loc:Loc.Instance}}" FontSize="10" />
+                  </Border>
+                </StackPanel>
+                <TextBlock Grid.Column="1" Classes="settingHint" VerticalAlignment="Center"
+                           Text="{Binding Entry.NotesUrl}" TextTrimming="CharacterEllipsis" />
+                <TextBlock Grid.Column="2" Classes="settingHint" VerticalAlignment="Center" Text="{Binding SizeText}" />
+                <Button Grid.Column="3" Classes="accent" Padding="10,4" HorizontalAlignment="Right"
+                        Command="{Binding $parent[UserControl].DataContext.InstallCommand}"
+                        CommandParameter="{Binding}"
+                        Content="{ReflectionBinding [installations.install], Source={x:Static loc:Loc.Instance}}" />
+              </Grid>
+            </Border>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </ScrollViewer>
+
+    <!-- ── 已安装 ───────────────────────────────────────────────── -->
+    <TextBlock Grid.Row="3" Classes="sectionHeader" Margin="0,8,0,6"
+               Text="{ReflectionBinding [installations.installed], Source={x:Static loc:Loc.Instance}}" />
+    <Grid Grid.Row="4" ColumnDefinitions="170,3*,90,110,130,36" Margin="12,0,12,6">
+      <TextBlock Classes="settingHint"
+                 Text="{ReflectionBinding [installations.col.version], Source={x:Static loc:Loc.Instance}}" />
+      <TextBlock Grid.Column="1" Classes="settingHint"
+                 Text="{ReflectionBinding [installations.col.path], Source={x:Static loc:Loc.Instance}}" />
+      <TextBlock Grid.Column="2" Classes="settingHint"
+                 Text="{ReflectionBinding [installations.col.arch], Source={x:Static loc:Loc.Instance}}" />
+      <TextBlock Grid.Column="3" Classes="settingHint"
+                 Text="{ReflectionBinding [installations.col.source], Source={x:Static loc:Loc.Instance}}" />
+      <TextBlock Grid.Column="4" Classes="settingHint"
+                 Text="{ReflectionBinding [installations.col.status], Source={x:Static loc:Loc.Instance}}" />
+    </Grid>
+
+    <!-- Installed list (virtualized) -->
+    <ListBox Grid.Row="5" Background="Transparent" BorderThickness="0"
+             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+             ItemsSource="{Binding VisibleItems}">
+      <ListBox.ItemContainerTheme>
+        <ControlTheme TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+          <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+          <Setter Property="Padding" Value="0" />
+          <Setter Property="MinHeight" Value="52" />
+          <Setter Property="Background" Value="Transparent" />
+        </ControlTheme>
+      </ListBox.ItemContainerTheme>
+      <ListBox.ItemTemplate>
+        <DataTemplate x:DataType="vm:InstallationItemViewModel">
+          <Border Classes="hubCard" Margin="12,3" Padding="12,8">
+            <Grid ColumnDefinitions="170,3*,90,110,130,36" VerticalAlignment="Center">
+              <!-- Version + channel + default badge -->
+              <StackPanel Spacing="2" VerticalAlignment="Center" Margin="0,0,12,0">
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                  <TextBlock Text="{Binding VersionText}" FontWeight="Medium"
+                             Foreground="{DynamicResource HubTextPrimaryBrush}" />
+                  <Border Classes="chip chipChannelPreview" IsVisible="{Binding IsPreview}"
+                          CornerRadius="4" Padding="6,2">
+                    <TextBlock Text="{Binding ChannelText}" FontSize="10" />
+                  </Border>
+                  <Border Classes="chip chipChannelStable" IsVisible="{Binding IsStable}"
+                          CornerRadius="4" Padding="6,2">
+                    <TextBlock Text="{Binding ChannelText}" FontSize="10" />
+                  </Border>
+                </StackPanel>
+                <TextBlock Text="{ReflectionBinding [installations.defaultBadge], Source={x:Static loc:Loc.Instance}}"
+                           FontSize="10" IsVisible="{Binding IsDefault}"
+                           Foreground="{DynamicResource HubAccentBrush}" />
+              </StackPanel>
+
+              <!-- Path -->
+              <TextBlock Grid.Column="1" Text="{Binding Path}" FontSize="11" VerticalAlignment="Center"
+                         TextTrimming="CharacterEllipsis"
+                         Foreground="{DynamicResource HubTextSecondaryBrush}" Margin="0,0,12,0" />
+
+              <!-- Architecture / source / status -->
+              <TextBlock Grid.Column="2" Text="{Binding ArchitectureText}" FontSize="12" VerticalAlignment="Center"
+                         Foreground="{DynamicResource HubTextSecondaryBrush}" />
+              <TextBlock Grid.Column="3" Text="{Binding SourceText}" FontSize="12" VerticalAlignment="Center"
+                         Foreground="{DynamicResource HubTextSecondaryBrush}" />
+              <Border Grid.Column="4" Classes="chip" CornerRadius="4" Padding="8,3"
+                      HorizontalAlignment="Left" VerticalAlignment="Center"
+                      Classes.chipAvailable="{Binding !IsBroken}"
+                      Classes.chipMissing="{Binding IsBroken}">
+                <TextBlock Text="{Binding StatusText}" FontSize="11" />
+              </Border>
+
+              <!-- More actions -->
+              <Button Grid.Column="5" Content="⋯" FontSize="14" Padding="6,2"
+                      VerticalAlignment="Center" HorizontalAlignment="Right"
+                      Background="Transparent" BorderThickness="0">
+                <Button.Flyout>
+                  <MenuFlyout Placement="BottomEdgeAlignedRight">
+                    <MenuItem Header="{ReflectionBinding [installations.setDefault], Source={x:Static loc:Loc.Instance}}"
+                              Command="{Binding $parent[UserControl].DataContext.SetDefaultCommand}"
+                              CommandParameter="{Binding}" />
+                    <MenuItem Header="{ReflectionBinding [installations.openFolder], Source={x:Static loc:Loc.Instance}}"
+                              Command="{Binding $parent[UserControl].DataContext.OpenFolderCommand}"
+                              CommandParameter="{Binding}" />
+                    <MenuItem Header="{ReflectionBinding [installations.modules], Source={x:Static loc:Loc.Instance}}"
+                              Command="{Binding $parent[UserControl].DataContext.ManageModulesCommand}"
+                              CommandParameter="{Binding}" />
+                    <MenuItem Header="{ReflectionBinding [installations.uninstall], Source={x:Static loc:Loc.Instance}}"
+                              Command="{Binding $parent[UserControl].DataContext.UninstallCommand}"
+                              CommandParameter="{Binding}" />
+                    <Separator />
+                    <MenuItem Header="{ReflectionBinding [installations.remove], Source={x:Static loc:Loc.Instance}}"
+                              Command="{Binding $parent[UserControl].DataContext.RemoveCommand}"
+                              CommandParameter="{Binding}" />
+                  </MenuFlyout>
+                </Button.Flyout>
+              </Button>
+            </Grid>
+          </Border>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+
+    <!-- Empty state -->
+    <Panel Grid.Row="5" IsVisible="{Binding HasNoInstallations}">
+      <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="10">
+        <PathIcon Width="44" Height="44" Foreground="{DynamicResource HubTextSecondaryBrush}"
+                  Data="M12,2 L21,7 L21,17 L12,22 L3,17 L3,7 Z" />
+        <TextBlock Classes="emptyTitle" Margin="0,6,0,0"
+                   Text="{ReflectionBinding [installations.empty.title], Source={x:Static loc:Loc.Instance}}" />
+        <TextBlock Classes="emptyHint"
+                   Text="{ReflectionBinding [installations.empty.hint], Source={x:Static loc:Loc.Instance}}" />
+      </StackPanel>
+    </Panel>
+  </Grid>
+</UserControl>

@@ -1,0 +1,33 @@
+Test run for D:\Engine\XEngine\Build\Spine38Tests\Debug\net10.0\XEngine.Spine38.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.8.2+699d445a1a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.05]   Discovering: XEngine.Spine38.Tests
+[xUnit.net 00:00:00.10]   Discovered:  XEngine.Spine38.Tests
+[xUnit.net 00:00:00.10]   Starting:    XEngine.Spine38.Tests
+[xUnit.net 00:00:00.16]     XEngine.Spine38.Tests.Spine38EmptySetupTests.EmptySetupPose_CanRevealAndHideAttachmentWithoutRecreatingSkeleton [FAIL]
+[xUnit.net 00:00:00.16]       System.Exception : Invalid JSON.
+[xUnit.net 00:00:00.16]       Stack Trace:
+[xUnit.net 00:00:00.17]         D:\Engine\XEngine\Packages\com.xengine.spine38\Runtime\spine-csharp\SkeletonJson.cs(95,0): at Spine.SkeletonJson.ReadSkeletonData(TextReader reader)
+[xUnit.net 00:00:00.17]         D:\Engine\XEngine\Packages\com.xengine.spine38\Runtime\Assets\SkeletonDataAsset.cs(47,0): at XEngine.Spine38.SkeletonDataAsset.GetSkeletonData()
+[xUnit.net 00:00:00.17]         D:\Engine\XEngine\Packages\com.xengine.spine38\Runtime\Rendering\SkeletonRenderer.cs(111,0): at XEngine.Spine38.SkeletonRenderer.EnsureSkeleton()
+[xUnit.net 00:00:00.17]         D:\Engine\XEngine\Packages\com.xengine.spine38\Runtime\Rendering\SkeletonRenderer.cs(35,0): at XEngine.Spine38.SkeletonRenderer.get_Skeleton()
+[xUnit.net 00:00:00.17]         D:\Engine\XEngine\Packages\com.xengine.spine38\Tests~\Spine38EmptySetupTests.cs(29,0): at XEngine.Spine38.Tests.Spine38EmptySetupTests.EmptySetupPose_CanRevealAndHideAttachmentWithoutRecreatingSkeleton()
+[xUnit.net 00:00:00.17]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+[xUnit.net 00:00:00.17]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+[xUnit.net 00:00:00.17]   Finished:    XEngine.Spine38.Tests
+  Failed XEngine.Spine38.Tests.Spine38EmptySetupTests.EmptySetupPose_CanRevealAndHideAttachmentWithoutRecreatingSkeleton [27 ms]
+  Error Message:
+   System.Exception : Invalid JSON.
+  Stack Trace:
+     at Spine.SkeletonJson.ReadSkeletonData(TextReader reader) in D:\Engine\XEngine\Packages\com.xengine.spine38\Runtime\spine-csharp\SkeletonJson.cs:line 95
+   at XEngine.Spine38.SkeletonDataAsset.GetSkeletonData() in D:\Engine\XEngine\Packages\com.xengine.spine38\Runtime\Assets\SkeletonDataAsset.cs:line 47
+   at XEngine.Spine38.SkeletonRenderer.EnsureSkeleton() in D:\Engine\XEngine\Packages\com.xengine.spine38\Runtime\Rendering\SkeletonRenderer.cs:line 111
+   at XEngine.Spine38.SkeletonRenderer.get_Skeleton() in D:\Engine\XEngine\Packages\com.xengine.spine38\Runtime\Rendering\SkeletonRenderer.cs:line 35
+   at XEngine.Spine38.Tests.Spine38EmptySetupTests.EmptySetupPose_CanRevealAndHideAttachmentWithoutRecreatingSkeleton() in D:\Engine\XEngine\Packages\com.xengine.spine38\Tests~\Spine38EmptySetupTests.cs:line 29
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+
+Test Run Failed.
+Total tests: 1
+     Failed: 1
+ Total time: 0.6076 Seconds

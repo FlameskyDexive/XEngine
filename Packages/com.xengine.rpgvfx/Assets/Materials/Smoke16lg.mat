@@ -1,0 +1,118 @@
+{
+  "$id": 1,
+  "$type": "XEngine.Runtime.Resources.Material, XEngine.Runtime",
+  "_shader": {
+    "AssetID": "63987d25-3a55-8d98-17d1-fee3d09a7aeb"
+  },
+  "_properties": {
+    "$id": 2,
+    "_colors": {
+      "_Color": {
+        "R": 1F,
+        "G": 1F,
+        "B": 1F,
+        "A": 1F
+      },
+      "_EmissionColor": {
+        "R": 0F,
+        "G": 0F,
+        "B": 0F,
+        "A": 1F
+      },
+      "_SpeedMainTexUVNoiseUV": {
+        "R": 0F,
+        "G": 0F,
+        "B": 0F,
+        "A": 0F
+      },
+      "_SpeedMainTexUVNoiseZW": {
+        "R": 0F,
+        "G": 0F,
+        "B": 0F,
+        "A": 0F
+      },
+      "_TintColor": {
+        "R": 1F,
+        "G": 1F,
+        "B": 1F,
+        "A": 1F
+      }
+    },
+    "_vectors2": {},
+    "_vectors3": {},
+    "_vectors4": {},
+    "_floats": {
+      "_BumpScale": 1F,
+      "_Cutoff": 0.5F,
+      "_Depthpower": 1F,
+      "_DetailNormalMapScale": 1F,
+      "_DstBlend": 0F,
+      "_Emission": 2F,
+      "_GlossMapScale": 1F,
+      "_Glossiness": 0.5F,
+      "_GlossyReflections": 1F,
+      "_LightEmission": 0.2F,
+      "_LightFalloff": 1F,
+      "_LightRange": 3F,
+      "_Metallic": 0F,
+      "_Mode": 0F,
+      "_OcclusionStrength": 1F,
+      "_Opacity": 1F,
+      "_Parallax": 0.02F,
+      "_SmoothnessTextureChannel": 0F,
+      "_SpecularHighlights": 1F,
+      "_SrcBlend": 1F,
+      "_UVSec": 0F,
+      "_Usecenterglow": 0F,
+      "_Usedepth": 1F,
+      "__dirty": 1F
+    },
+    "_ints": {},
+    "_matrices": {},
+    "_matrixArr": {},
+    "_textures": {
+      "_MainTex": {
+        "AssetID": "3bb27e46-ff88-b27e-3476-179834f5a1dc"
+      }
+    },
+    "_textures3D": {},
+    "_texturesCube": {},
+    "_buffers": {},
+    "_bufferBindings": {}
+  },
+  "_overrides": [
+    "_Color",
+    "_EmissionColor",
+    "_SpeedMainTexUVNoiseUV",
+    "_SpeedMainTexUVNoiseZW",
+    "_TintColor",
+    "_BumpScale",
+    "_Cutoff",
+    "_Depthpower",
+    "_DetailNormalMapScale",
+    "_DstBlend",
+    "_Emission",
+    "_GlossMapScale",
+    "_Glossiness",
+    "_GlossyReflections",
+    "_LightEmission",
+    "_LightFalloff",
+    "_LightRange",
+    "_Metallic",
+    "_Mode",
+    "_OcclusionStrength",
+    "_Opacity",
+    "_Parallax",
+    "_SmoothnessTextureChannel",
+    "_SpecularHighlights",
+    "_SrcBlend",
+    "_UVSec",
+    "_Usecenterglow",
+    "_Usedepth",
+    "__dirty",
+    "_MainTex"
+  ],
+  "AssetPath": "",
+  "AssetID": "00000000-0000-0000-0000-000000000000",
+  "Name": "Smoke16lg"
+}

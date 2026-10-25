@@ -1,0 +1,10 @@
+{
+    "name": "XEngine.ProBuilder.Runtime",
+    "rootNamespace": "XEngine.ProBuilder",
+    "references": [ "XEngine.Runtime" ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "noEngineReferences": false
+}

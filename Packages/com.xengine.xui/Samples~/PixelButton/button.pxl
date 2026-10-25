@@ -1,0 +1,32 @@
+# 12x8 button skin, two states sharing one palette.
+ppu: 16
+chars:
+  K: #1b1b26
+  H: #6f7ea8
+  M: #3b4a72
+  S: #2a3557
+  D: #202a45
+
+[normal]
+border: 3,3,3,3
+grid:
+  .KKKKKKKKKK.
+  KHHHHHHHHHHK
+  KHMMMMMMMMSK
+  KHMMMMMMMMSK
+  KHMMMMMMMMSK
+  KHMMMMMMMMSK
+  KSSSSSSSSSSK
+  .KKKKKKKKKK.
+
+[pressed]
+border: 3,3,3,3
+grid:
+  .KKKKKKKKKK.
+  KSSSSSSSSSSK
+  KSDDDDDDDDHK
+  KSDDDDDDDDHK
+  KSDDDDDDDDHK
+  KSDDDDDDDDHK
+  KHHHHHHHHHHK
+  .KKKKKKKKKK.

@@ -1,0 +1,10 @@
+{
+    "name": "XEngine.Cinemachine.Runtime",
+    "rootNamespace": "XEngine.Cinemachine",
+    "references": [ "XEngine.Runtime" ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "noEngineReferences": false
+}

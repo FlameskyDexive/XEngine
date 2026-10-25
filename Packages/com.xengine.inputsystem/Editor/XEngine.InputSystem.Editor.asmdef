@@ -1,0 +1,16 @@
+{
+    "name": "XEngine.InputSystem.Editor",
+    "rootNamespace": "XEngine.InputSystem.Editor",
+    "references": [
+        "XEngine.InputSystem.Runtime",
+        "XEngine.Runtime",
+        "XEngine.Editor"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "noEngineReferences": false
+}

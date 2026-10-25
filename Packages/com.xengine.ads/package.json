@@ -1,0 +1,24 @@
+{
+  "name": "com.xengine.ads",
+  "version": "0.1.0",
+  "displayName": "Ads",
+  "description": "Advertising monetization: rewarded video and interstitial ads with a provider abstraction (HarmonyOS Ads Kit, Pangle) and a mock provider for editor development. Official optional package: listed in Package Manager, not mounted until installed.",
+  "installByDefault": false,
+  "xengine": "0.1.0",
+  "type": "package",
+  "category": "Official",
+  "documentationUrl": "Documentation~/index.md",
+  "changelogUrl": "CHANGELOG.md",
+  "licensesUrl": "LICENSE.md",
+  "supportedPlatforms": ["Windows", "Linux", "MacOS", "HarmonyOS"],
+  "license": "MIT",
+  "keywords": ["xengine", "ads", "monetization", "rewarded-video", "interstitial", "harmonyos", "adskit", "pangle"],
+  "samples": [
+    {
+      "displayName": "Ads Demo",
+      "description": "Rewarded-video flow: payload bootstrap, mock fallback, preload, show, reward grant.",
+      "path": "Samples~/AdsDemo"
+    }
+  ],
+  "dependencies": {}
+}
